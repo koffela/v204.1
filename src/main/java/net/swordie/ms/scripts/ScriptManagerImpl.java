@@ -1322,7 +1322,7 @@ public class ScriptManagerImpl implements ScriptManager {
 	public void killMobs() {
 		List<Mob> mobs = new ArrayList<>(chr.getField().getMobs());
 		for (Mob mob : mobs) {
-			mob.die();
+			mob.die(false);
 		}
 	}
 
@@ -2234,11 +2234,15 @@ public class ScriptManagerImpl implements ScriptManager {
 		return "";// or null ?
 	}
 
-	public void createQuestWithQRValue(int questId, String qrValue) {
-		createQuestWithQRValue(chr, questId, qrValue);
+	public void createQuestWithQRValue(int questId, String qrValue, boolean ex) {
+		createQuestWithQRValue(chr, questId, qrValue, ex);
 	}
 
-	public void createQuestWithQRValue(Char character, int questId, String qrValue) {
+	public void createQuestWithQRValue(int questId, String qrValue) {
+		createQuestWithQRValue(chr, questId, qrValue, true);
+	}
+
+	public void createQuestWithQRValue(Char character, int questId, String qrValue, boolean ex) {
 		QuestManager qm = character.getQuestManager();
 		Quest quest = qm.getQuests().get(questId);
 		if (quest == null) {
@@ -2247,7 +2251,7 @@ public class ScriptManagerImpl implements ScriptManager {
 			qm.addCustomQuest(quest);
 		}
 		quest.setQrValue(qrValue);
-		updateQRValue(questId);
+		updateQRValue(questId, ex);
 	}
 
 	public void deleteQuest(int questId) {
@@ -2270,44 +2274,53 @@ public class ScriptManagerImpl implements ScriptManager {
 	public String getQRValue(Char character, int questId) {
 		Quest quest = chr.getQuestManager().getQuests().get(questId);
 		if (quest == null) {
-			return "";
+			return "Quest is Null";
 		}
 		return quest.getQRValue();
 	}
 
-	public void setQRValue(int questId, String qrValue) {
-		setQRValue(chr, questId, qrValue);
+	public void setQRValue(int questId, String qrValue) { setQRValue(questId, qrValue, true);}
+
+	public void setQRValue(int questId, String qrValue, boolean ex) {
+		setQRValue(chr, questId, qrValue, ex);
 	}
 
-	public void setQRValue(Char character, int questId, String qrValue) {
+	public void setQRValue(Char character, int questId, String qrValue, boolean ex) {
 		Quest quest = chr.getQuestManager().getQuests().get(questId);
 		quest.setQrValue(qrValue);
-		updateQRValue(questId);
+		updateQRValue(questId, ex);
 	}
 
 	public void addQRValue(int questId, String qrValue) {
+		addQRValue(questId, qrValue, true);
+	}
+
+	public void addQRValue(int questId, String qrValue, boolean ex) {
 		String qrVal = getQRValue(questId);
 		if (qrVal.equals("") || qrVal.equals("Quest is Null")) {
 			createQuestWithQRValue(questId, qrValue);
 			return;
 		}
 		setQRValue(questId, qrValue + ";" + qrVal);
-		updateQRValue(questId);
+		updateQRValue(questId, ex);
 	}
 
 	public boolean isComplete(int questID) {
 		return chr.getQuestManager().isComplete(questID);
 	}
 
-	public void updateQRValue(int questId) {
+	public void updateQRValue(int questId, boolean ex) {
 		Quest quest = chr.getQuestManager().getQuests().get(questId);
 		if (quest == null) {
 			log.error(String.format("The user does not have the quest %d.", questId));
 			return;
 		}
-		chr.write(WvsContext.questRecordMessage(quest));
+		if (ex) {
+			chr.write(WvsContext.questRecordExMessage(quest));
+		} else {
+			chr.write(WvsContext.questRecordMessage(quest));
+		}
 	}
-
 
 
 	// Party Quest-related methods -------------------------------------------------------------------------------------

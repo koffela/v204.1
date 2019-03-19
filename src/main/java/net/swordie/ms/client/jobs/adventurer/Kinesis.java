@@ -10,6 +10,7 @@ import net.swordie.ms.client.character.skills.info.ForceAtomInfo;
 import net.swordie.ms.client.character.skills.info.MobAttackInfo;
 import net.swordie.ms.client.character.skills.info.SkillInfo;
 import net.swordie.ms.client.character.skills.temp.TemporaryStatManager;
+import net.swordie.ms.connection.packet.FieldPacket;
 import net.swordie.ms.world.field.Field;
 import net.swordie.ms.client.jobs.Job;
 import net.swordie.ms.life.mob.Mob;
@@ -19,7 +20,6 @@ import net.swordie.ms.constants.JobConstants;
 import net.swordie.ms.enums.ForceAtomEnum;
 import net.swordie.ms.life.mob.MobStat;
 import net.swordie.ms.loaders.SkillData;
-import net.swordie.ms.connection.packet.FieldPacket;
 import net.swordie.ms.util.Position;
 import net.swordie.ms.util.Util;
 

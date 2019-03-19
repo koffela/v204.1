@@ -1,6 +1,7 @@
 package net.swordie.ms.connection.packet;
 
 import net.swordie.ms.client.Account;
+import net.swordie.ms.client.User;
 import net.swordie.ms.client.character.Char;
 import net.swordie.ms.connection.OutPacket;
 import net.swordie.ms.constants.JobConstants;
@@ -71,42 +72,42 @@ public class Login {
         return outPacket;
     }
 
-    public static OutPacket checkPasswordResult(boolean success, LoginType msg, Account account) {
+    public static OutPacket checkPasswordResult(boolean success, LoginType msg, User user) {
         OutPacket outPacket = new OutPacket(OutHeader.CHECK_PASSWORD_RESULT.getValue());
 
-        if(success) {
+        if (success) {
             outPacket.encodeByte(LoginType.Success.getValue());
             outPacket.encodeByte(0);
             outPacket.encodeInt(0);
-            outPacket.encodeString(account.getName());
-            outPacket.encodeInt(account.getId());
+            outPacket.encodeString(user.getName());
+            outPacket.encodeInt(user.getId());
             //outPacket.encodeByte(account.getGender());
-            outPacket.encodeByte(account.getMsg2());// nGradeCode
-            outPacket.encodeInt(account.getPrivateStatusIDFlag().getFlag());
-            outPacket.encodeInt(account.getAge());// nVIPGrade
-            outPacket.encodeByte(!account.hasCensoredNxLoginID());
-            if(account.hasCensoredNxLoginID()) {
-                outPacket.encodeString(account.getCensoredNxLoginID());
+            outPacket.encodeByte(user.getMsg2());// nGradeCode
+            outPacket.encodeInt(user.getPrivateStatusIDFlag().getFlag());
+            outPacket.encodeInt(user.getAge());// nVIPGrade
+            outPacket.encodeByte(!user.hasCensoredNxLoginID());
+            if(user.hasCensoredNxLoginID()) {
+                outPacket.encodeString(user.getCensoredNxLoginID());
             }
-            outPacket.encodeString(account.getName());
-            outPacket.encodeByte(account.getpBlockReason());
+            outPacket.encodeString(user.getName());
+            outPacket.encodeByte(user.getpBlockReason());
             outPacket.encodeByte(0); // idk
-            outPacket.encodeLong(account.getChatUnblockDate());
-            outPacket.encodeLong(account.getChatUnblockDate());
-            outPacket.encodeInt(account.getCharacterSlots() + 3);
-            JobConstants.encode(outPacket, account.isManagerAccount());
-            outPacket.encodeByte(account.getGradeCode());
+            outPacket.encodeLong(user.getChatUnblockDate());
+            outPacket.encodeLong(user.getChatUnblockDate());
+            outPacket.encodeInt(user.getCharacterSlots() + 3);
+            JobConstants.encode(outPacket, user.isManagerAccount());
+            outPacket.encodeByte(user.getGradeCode());
             outPacket.encodeInt(-1);
             outPacket.encodeByte(0); // idk
             outPacket.encodeByte(0); // ^
-            outPacket.encodeFT(account.getCreationDate());
+            outPacket.encodeFT(user.getCreationDate());
         } else if (msg == LoginType.Blocked) {
             outPacket.encodeByte(msg.getValue());
             outPacket.encodeByte(0);
             outPacket.encodeInt(0);
             outPacket.encodeByte(0); // nReason
-            outPacket.encodeFT(account.getBanExpireDate());
-        } else{
+            outPacket.encodeFT(user.getBanExpireDate());
+        } else {
             outPacket.encodeByte(msg.getValue());
             outPacket.encodeByte(0); // these two aren't in ida, wtf
             outPacket.encodeInt(0);
@@ -115,30 +116,29 @@ public class Login {
         return outPacket;
     }
 
-    public static OutPacket checkPasswordResultForBan(Account account) {
+    public static OutPacket checkPasswordResultForBan(User user) {
         OutPacket outPacket = new OutPacket(OutHeader.CHECK_PASSWORD_RESULT);
 
         outPacket.encodeByte(LoginType.BlockedNexonID.getValue());
         outPacket.encodeByte(0);
         outPacket.encodeInt(0);
         outPacket.encodeByte(0);
-        outPacket.encodeFT(account.getBanExpireDate());
+        outPacket.encodeFT(user.getBanExpireDate());
 
         return outPacket;
     }
 
-    public static OutPacket sendWorldInformation(Set<Tuple<Position, String>> stringInfos) {
+    public static OutPacket sendWorldInformation(World world, Set<Tuple<Position, String>> stringInfos) {
         // CLogin::OnWorldInformation
         OutPacket outPacket = new OutPacket(OutHeader.WORLD_INFORMATION.getValue());
 
-        World world = Server.getInstance().getWorlds().get(0);
         outPacket.encodeByte(world.getWorldId());
         outPacket.encodeString(world.getName());
         outPacket.encodeByte(world.getWorldState());
         outPacket.encodeString(world.getWorldEventDescription());
         outPacket.encodeByte(world.isCharCreateBlock());
         outPacket.encodeByte(world.getChannels().size());
-        for(Channel c : world.getChannels()) {
+        for (Channel c : world.getChannels()) {
             outPacket.encodeString(c.getName());
             outPacket.encodeInt(c.getGaugePx());
             outPacket.encodeByte(c.getWorldId());
@@ -170,25 +170,25 @@ public class Login {
         return outPacket;
     }
 
-    public static OutPacket sendAccountInfo(Account account) {
+    public static OutPacket sendAccountInfo(User user) {
         OutPacket outPacket = new OutPacket(OutHeader.ACCOUNT_INFO_RESULT);
 
         outPacket.encodeByte(0); // succeed
-        outPacket.encodeInt(account.getId());
-        outPacket.encodeByte(account.getGradeCode());
-        outPacket.encodeInt(account.getPrivateStatusIDFlag().getFlag());
-        outPacket.encodeInt(account.getVipGrade());
-        outPacket.encodeByte(account.getGender());
-        outPacket.encodeString(account.getName());
-        outPacket.encodeByte(account.getPurchaseExp());
-        outPacket.encodeByte(account.getnBlockReason());
-        outPacket.encodeLong(account.getChatUnblockDate());
-        outPacket.encodeString(account.getCensoredNxLoginID());
+        outPacket.encodeInt(user.getId());
+        outPacket.encodeByte(user.getGradeCode());
+        outPacket.encodeInt(user.getPrivateStatusIDFlag().getFlag());
+        outPacket.encodeInt(user.getVipGrade());
+        outPacket.encodeByte(user.getGender());
+        outPacket.encodeString(user.getName());
+        outPacket.encodeByte(user.getPurchaseExp());
+        outPacket.encodeByte(user.getnBlockReason());
+        outPacket.encodeLong(user.getChatUnblockDate());
+        outPacket.encodeString(user.getCensoredNxLoginID());
         outPacket.encodeLong(0);
         outPacket.encodeInt(28);
         outPacket.encodeLong(0);
         outPacket.encodeString(""); //v25 = CInPacket::DecodeStr(iPacket_1, &nAge);
-        JobConstants.encode(outPacket, account.isManagerAccount());
+        JobConstants.encode(outPacket, user.isManagerAccount());
         outPacket.encodeByte(0);
         outPacket.encodeInt(-1);
 
@@ -198,12 +198,12 @@ public class Login {
     public static OutPacket sendServerStatus(byte worldId) {
         OutPacket outPacket = new OutPacket(OutHeader.SERVER_STATUS.getValue());
         World world = null;
-        for(World w : Server.getInstance().getWorlds()) {
-            if(w.getWorldId() == worldId) {
+        for (World w : Server.getInstance().getWorlds()) {
+            if (w.getWorldId() == worldId) {
                 world = w;
             }
         }
-        if(world != null && !world.isFull()) {
+        if (world != null && !world.isFull()) {
             outPacket.encodeByte(world.getStatus().getValue());
         } else {
             outPacket.encodeByte(ServerStatus.BUSY.getValue());
@@ -220,8 +220,8 @@ public class Login {
         outPacket.encodeInt(worldId);
         return outPacket;
     }
-    public static OutPacket selectWorldResult(Account account, byte code, String specialServer,
-                                  boolean burningEventBlock) {
+
+    public static OutPacket selectWorldResult(User user, Account account, byte code, String specialServer, boolean burningEventBlock) {
         OutPacket outPacket = new OutPacket(OutHeader.SELECT_WORLD_RESULT);
 
         outPacket.encodeByte(code);
@@ -233,7 +233,7 @@ public class Login {
         int reserved = 0;
         outPacket.encodeInt(reserved); // Reserved size
         outPacket.encodeFT(FileTime.fromType(FileTime.Type.ZERO_TIME)); //Reserved timestamp
-        for(int i = 0; i < reserved; i++) {
+        for (int i = 0; i < reserved; i++) {
             // not really interested in this
             FileTime ft = FileTime.fromType(FileTime.Type.ZERO_TIME);
             outPacket.encodeInt(ft.getLowDateTime());
@@ -251,7 +251,7 @@ public class Login {
         }
 
         outPacket.encodeByte(chars.size());
-        for(Char chr : chars) {
+        for (Char chr : chars) {
             chr.getAvatarData().encode(outPacket);
             outPacket.encodeByte(false); // family stuff, deprecated (v61 = &v2->m_abOnFamily.a[v59];)
             /*boolean hasRanking = chr.getRanking() != null && !JobConstants.isGmJob(chr.getJob());
@@ -260,9 +260,9 @@ public class Login {
                 chr.getRanking().encode(outPacket);
             }*/
         }
-        outPacket.encodeByte(account.getPicStatus().getVal()); // bLoginOpt
+        outPacket.encodeByte(user.getPicStatus().getVal()); // bLoginOpt
         outPacket.encodeByte(false); // bQuerySSNOnCreateNewCharacter
-        outPacket.encodeInt(account.getCharacterSlots());
+        outPacket.encodeInt(user.getCharacterSlots());
         outPacket.encodeInt(0); // buying char slots
         outPacket.encodeInt(-1); // nEventNewCharJob
         outPacket.encodeFT(FileTime.fromType(FileTime.Type.ZERO_TIME));
@@ -289,7 +289,7 @@ public class Login {
         OutPacket outPacket = new OutPacket(OutHeader.CREATE_NEW_CHARACTER_RESULT);
 
         outPacket.encodeByte(type.getValue());
-        if(type == LoginType.Success) {
+        if (type == LoginType.Success) {
             c.getAvatarData().encode(outPacket);
         }
         outPacket.encodeByte(0);
@@ -310,7 +310,7 @@ public class Login {
         outPacket.encodeByte(loginType.getValue());
         outPacket.encodeByte(errorCode);
 
-        if(loginType == LoginType.Success) {
+        if (loginType == LoginType.Success) {
             byte[] server = new byte[]{8, 31, 99, ((byte) 141)};
             outPacket.encodeArr(server);
             outPacket.encodeShort(port);

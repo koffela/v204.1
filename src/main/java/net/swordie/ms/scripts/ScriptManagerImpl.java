@@ -1216,7 +1216,6 @@ public class ScriptManagerImpl implements ScriptManager {
 
 	@Override
 	public void teleportInField(Position position) {
-
 		chr.write(FieldPacket.teleport(position, chr));
 	}
 
@@ -2617,7 +2616,6 @@ public class ScriptManagerImpl implements ScriptManager {
 			}
 		}
 	}
-
 	public void reservedEffectRepeat(String effectPath, boolean start) {
 		OutPacket outPacket = UserPacket.effect(Effect.reservedEffectRepeat(effectPath, start));
 		if (isLockUI()) {

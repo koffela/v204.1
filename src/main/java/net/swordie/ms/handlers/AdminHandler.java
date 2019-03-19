@@ -16,11 +16,12 @@ import static net.swordie.ms.enums.ChatType.Mob;
  * Created by MechAviv on 2/23/2019.
  */
 public class AdminHandler {
+
     public static void handleAdminCommand(Char chr, InPacket inPacket) {
         if (chr == null || chr.getField() == null) {
             return;
         }
-        if (chr.getAccount().isManagerAccount()) {
+        if (chr.getUser().isManagerAccount()) {
             int commandType = inPacket.decodeInt();
 
             AdminCommandType type = AdminCommandType.getByVal(commandType);

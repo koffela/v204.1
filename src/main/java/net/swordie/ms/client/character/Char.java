@@ -13,6 +13,7 @@ import net.swordie.ms.Server;
 import net.swordie.ms.client.Account;
 import net.swordie.ms.client.Client;
 import net.swordie.ms.client.LinkSkill;
+import net.swordie.ms.client.User;
 import net.swordie.ms.client.alliance.Alliance;
 import net.swordie.ms.client.alliance.AllianceResult;
 import net.swordie.ms.client.anticheat.OffenseManager;
@@ -352,6 +353,8 @@ public class Char {
 	@Transient
 	private NpcShopDlg shop;
 	@Transient // yes
+	private User user;
+	@Transient // yes
 	private Account account;
 	@Transient
 	private Client chatClient;
@@ -515,6 +518,23 @@ public class Char {
 		Transaction transaction = session.beginTransaction();
 		Query query = session.createQuery("FROM Char chr WHERE chr.avatarData.characterStat.name = :name");
 		query.setParameter("name", name);
+		List l = ((org.hibernate.query.Query) query).list();
+		Char chr = null;
+		if (l != null && l.size() > 0) {
+			chr = (Char) l.get(0);
+		}
+		transaction.commit();
+		session.close();
+		return chr;
+	}
+
+	public static Char getFromDBByNameAndWorld(String name, int worldId) {
+		Session session = DatabaseManager.getSession();
+		Transaction transaction = session.beginTransaction();
+		Query query = session.createQuery("FROM Char chr " +
+				"WHERE chr.avatarData.characterStat.name = :name AND chr.avatarData.characterStat.worldIdForLog = :world");
+		query.setParameter("name", name);
+		query.setParameter("world", worldId);
 		List l = ((org.hibernate.query.Query) query).list();
 		Char chr = null;
 		if (l != null && l.size() > 0) {
@@ -3559,10 +3579,10 @@ public class Char {
 		setOnline(false);
 		getJobHandler().handleCancelTimer(this);
 		getField().removeChar(this);
-		getAccount().setCurrentChr(null);
+		getUser().setCurrentChr(null);
 		if (!isChangingChannel()) {
 			getClient().getChannelInstance().removeChar(this);
-			Server.getInstance().removeAccount(getAccount()); // don't unstuck, as that would save the account (twice)
+			Server.getInstance().removeUser(getUser()); // don't unstuck, as that would save the account (twice)
 		} else {
 			getClient().setChr(null);
 		}
@@ -3751,6 +3771,14 @@ public class Char {
 
 	public Friend getFriendByCharID(int charID) {
 		return getFriends().stream().filter(f -> f.getFriendID() == charID).findAny().orElse(null);
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public Account getAccount() {
@@ -4613,7 +4641,7 @@ public class Char {
 	}
 
     public OffenseManager getOffenseManager() {
-        return getAccount().getOffenseManager();
+        return getUser().getOffenseManager();
     }
 
 	/**
@@ -4766,9 +4794,9 @@ public class Char {
 
 
 	public void addMaplePoints(int maplePoint) {
-		getAccount().addMaplePoints(maplePoint);
+		getUser().addMaplePoints(maplePoint);
 		chatScriptMessage("You have gained " + maplePoint + " MaplePoints.");
-		getClient().write(WvsContext.setMaplePoint(getAccount().getMaplePoints()));
+		getClient().write(WvsContext.setMaplePoint(getUser().getMaplePoints()));
 	}
 
 	public void initBlessingSkillNames() {

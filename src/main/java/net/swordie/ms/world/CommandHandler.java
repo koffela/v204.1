@@ -11,7 +11,7 @@ import net.swordie.ms.enums.AdminCommandType;
  */
 public class CommandHandler {
     public static void handleAdminCommand(Char chr, InPacket inPacket) {
-        if (chr.getAccount().isManagerAccount()) {
+        if (chr.getUser().isManagerAccount()) {
             int commandType = inPacket.decodeInt();
             AdminCommandType cmd = AdminCommandType.getByVal(commandType);
             switch (cmd) {

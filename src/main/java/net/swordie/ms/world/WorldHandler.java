@@ -3,6 +3,7 @@ package net.swordie.ms.world;
 import net.swordie.ms.Server;
 import net.swordie.ms.client.Account;
 import net.swordie.ms.client.Client;
+import net.swordie.ms.client.User;
 import net.swordie.ms.client.alliance.Alliance;
 import net.swordie.ms.client.alliance.AllianceResult;
 import net.swordie.ms.client.anticheat.Offense;
@@ -156,6 +157,8 @@ public class WorldHandler {
         }
         c.setMachineID(machineID);
         c.setOldChannel(oldClient.getOldChannel());
+        User user = oldClient.getUser();
+        c.setUser(user);
         Account acc = oldClient.getAccount();
         c.setAccount(acc);
         Server.getInstance().getWorldById(worldId).getChannelById(channel).removeClientFromTransfer(charId);
@@ -166,16 +169,20 @@ public class WorldHandler {
         if (chr == null || chr.getId() != charId) {
             chr = acc.getCharById(charId);
         }
+        user.setCurrentChr(chr);
+        user.setCurrentAcc(acc);
+        chr.setUser(user);
         chr.setClient(c);
         chr.setAccount(acc);
+        acc.setCurrentChr(chr);
+        acc.setUser(user);
         chr.initEquips();
         chr.rebuildQuestExValues(false);
         c.setChr(chr);
         c.getChannelInstance().addChar(chr);
         chr.setJobHandler(JobManager.getJobById(chr.getJob(), chr));
         chr.setFieldInstanceType(FieldInstanceType.CHANNEL);
-        Server.getInstance().addAccount(acc);
-        acc.setCurrentChr(chr);
+        Server.getInstance().addUser(user);
         Field field = chr.getOrCreateFieldByCurrentInstanceType(chr.getFieldID() <= 0 ? 100000000 : chr.getFieldID());
         if (chr.getHP() <= 0) { // automatically revive when relogging
             chr.heal(chr.getMaxHP() / 2);
@@ -243,7 +250,7 @@ public class WorldHandler {
         chr.setOnline(true); // v195+: respect 'invisible login' setting
         chr.getOffenseManager().setChr(chr);
         MatrixInventory.reloadSkills(chr);
-        c.write(WvsContext.setMaplePoint(acc.getMaplePoints()));
+        c.write(WvsContext.setMaplePoint(user.getMaplePoints()));
     }
 
     public static void handleUserCombo(Client c, InPacket inPacket) {
@@ -315,16 +322,14 @@ public class WorldHandler {
             } else if (msg.equalsIgnoreCase("@save")) {
                 DatabaseManager.saveToDB(chr);
             }
-        } else if (msg.charAt(0) == AdminCommand.getPrefix()
-                && chr.getAccount().getPrivateStatusIDFlag().ordinal() > PrivateStatusIDFlag.NONE.ordinal()) {
+        } else if (msg.charAt(0) == AdminCommand.getPrefix() && chr.getUser().getPrivateStatusIDFlag().ordinal() > PrivateStatusIDFlag.NONE.ordinal()) {
             boolean executed = false;
             String command = msg.split(" ")[0].replace("!", "");
             for (Class clazz : AdminCommands.class.getClasses()) {
                 Command cmd = (Command) clazz.getAnnotation(Command.class);
                 boolean matchingCommand = false;
                 for (String name : cmd.names()) {
-                    if (name.equalsIgnoreCase(command)
-                            && chr.getAccount().getPrivateStatusIDFlag().hasFlag(cmd.requiredType())) {
+                    if (name.equalsIgnoreCase(command) && chr.getUser().getPrivateStatusIDFlag().hasFlag(cmd.requiredType())) {
                         matchingCommand = true;
                         break;
                     }
@@ -1362,7 +1367,7 @@ public class WorldHandler {
             Mob mob = (Mob) c.getChr().getField().getLifeByObjectID(mobID);
             if (mob != null) {
 //            mob.damage((long) 133337);
-//            c.write(CField.damaged(mobID, (long) 133337, mob.getTemplateId(), (byte) 1, (int) mob.getHp(), (int) mob.getMaxHp()));
+//            c.write(FieldPacket.damaged(mobID, (long) 133337, mob.getTemplateId(), (byte) 1, (int) mob.getHp(), (int) mob.getMaxHp()));
             }
         }
     }
@@ -4520,7 +4525,7 @@ public class WorldHandler {
         ItemInfo ii = ItemData.getItemInfoByID(cardID);
         Mob mob = MobData.getMobById(ii.getMobID());
         if (mob != null) {
-            if (chr.getAccount().isManagerAccount()) {
+            if (chr.getUser().isManagerAccount()) {
                 chr.write(WvsContext.sendMonsterBookCardData(cardID, mob.getDrops()));
             } else {
                 chr.sendNoticeMsg("Disabled for security reason.");
@@ -4901,7 +4906,7 @@ public class WorldHandler {
             RuneStone runeStone = c.getChr().getField().getRuneStone();
 
             c.getChr().getField().useRuneStone(c, runeStone);
-            //c.write(CField.runeStoneSkillAck(runeStone.getRuneType()));
+            //c.write(FieldPacket.runeStoneSkillAck(runeStone.getRuneType()));
             runeStone.activateRuneStoneEffect(c.getChr());
             c.getChr().setRuneCooldown(System.currentTimeMillis());
         }
@@ -5752,7 +5757,7 @@ public class WorldHandler {
 
         switch (requestType) {
             case DamageSkinSaveReq_Active:
-                DamageSkinSaveData damageSkin = acc.getDamageSkinBySkinID(damageSkinId);
+                DamageSkinSaveData damageSkin = acc.getDamageSkinByItemID(damageSkinId);
                 if (damageSkin == null) {
                     chr.dispose();
                     return;
@@ -5766,8 +5771,7 @@ public class WorldHandler {
                 }
                 q.setQrValue(String.valueOf(damageSkinId));
                 chr.write(WvsContext.questRecordMessage(q));
-                chr.write(UserLocal.damageSkinSaveResult(DamageSkinType.DamageSkinSaveReq_Reg,
-                        DamageSkinType.DamageSkinSave_Success, chr));
+                chr.write(UserLocal.damageSkinSaveResult(DamageSkinType.DamageSkinSaveReq_Reg, DamageSkinType.DamageSkinSave_Success, chr));
                 chr.getField().broadcastPacket(UserPacket.setDamageSkin(chr));
                 break;
         }

@@ -168,7 +168,7 @@ public class Item implements Serializable, Encodable {
         outPacket.encodeByte(getType().getVal());
         // GW_ItemSlotBase
         outPacket.encodeInt(getItemId());
-        boolean hasSN = this instanceof PetItem;
+        boolean hasSN = getInvType() == InvType.CASH;
         outPacket.encodeByte(hasSN);
         if (hasSN) {
             outPacket.encodeLong(getId());

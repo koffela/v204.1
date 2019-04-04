@@ -1179,7 +1179,7 @@ public class Equip extends Item {
         outPacket.encodeFT(FileTime.fromType(FileTime.Type.MAX_TIME));
         outPacket.encodeInt(-1);//nPrevBonusExpRate
         // GW_CashItemOption
-        outPacket.encodeLong(getCashItemSerialNumber());
+        outPacket.encodeLong(getId());
         outPacket.encodeFT(getDateExpire());
         outPacket.encodeInt(0);// grade
         for (int i = 0; i < 3; i++) {

@@ -3,6 +3,7 @@ package net.swordie.ms.client.character;
 import net.swordie.ms.client.character.damage.DamageSkinType;
 import net.swordie.ms.client.character.quest.QuestEx;
 import net.swordie.ms.client.character.skills.temp.TemporaryStatBase;
+import net.swordie.ms.client.jobs.legend.Evan;
 import net.swordie.ms.client.jobs.legend.Luminous;
 import net.swordie.ms.constants.*;
 import net.swordie.ms.life.*;
@@ -415,8 +416,6 @@ public class Char {
 	@Convert(converter = InlinedIntArrayConverter.class)
 	private List<Integer> quickslotKeys;
 	@Transient
-	private Dragon dragon = null;
-    @Transient
     private Partner partner = null;
 	@Transient
 	private int psychicAreaCount = 1;
@@ -1841,7 +1840,6 @@ public class Char {
 		skills.forEach(skill -> addSkill(skill, true));
 		getClient().write(WvsContext.changeSkillRecordResult(skills, true, false, false, false));
 		notifyChanges();
-		renewDragon();
 	}
 
 	public short getJob() {
@@ -2642,7 +2640,7 @@ public class Char {
 		getAvatarData().getCharacterStat().setPortal(portal.getId());
 		setPosition(new Position(portal.getX(), portal.getY()));
 		getClient().write(Stage.setField(this, toField, getClient().getChannel(), false, 0, characterData, hasBuffProtector(),
-				(byte) (portal != null ? portal.getId() : 0), false, 100, null, true, -1));
+				(byte) portal.getId(), false, 100, null, true, -1));
 		if (characterData) {
 			initSoulMP();
 			Party party = getParty();
@@ -2717,6 +2715,11 @@ public class Char {
 		}
 		if (getActiveFamiliar() != null) {
 			getField().broadcastPacket(CFamiliar.familiarEnterField(getId(), true, getActiveFamiliar(), true, false));
+		}
+
+		Dragon dragon = getDragon();
+		if (dragon != null) {
+			toField.spawnLife(dragon, null);
 		}
 		for (Mob mob : toField.getMobs()) {
 			mob.addObserver(getScriptManager());
@@ -4874,40 +4877,15 @@ public class Char {
 	}
 
 	public Dragon getDragon() {
-		updateDragon();
-		return dragon;
-	}
-
-	public void initDragon() {
-		updateDragon();
-		if (dragon != null) {
-			getField().broadcastPacket(FieldPacket.createDragon(dragon));
+		if (JobConstants.isEvan(getJob())) {
+			return ((Evan) getJobHandler()).getDragon();
 		}
-	}
-
-	public void updateDragon() {
-		if (JobConstants.isEvan(getJob()) && getJob() != 2001) {
-			//if (getQuestManager().hasQuestCompleted(QuestConstants.EVAN_PROMOTED)) {
-			if (dragon == null) {
-				dragon = new Dragon(this);
-			}
-			//}
-		} else {
-			dragon = null;
-		}
-	}
-
-	public void renewDragon() {
-		if (dragon != null) {
-			getField().broadcastPacket(FieldPacket.removeDragon(dragon));
-			dragon = null;
-		}
-		initDragon();
+		return null;
 	}
 
 	public DelayEffect getDelayEffect() {
 		DelayEffect delayEffect = DelayEffect.DEFAULT;
-		updateDragon();
+		final Dragon dragon = getDragon();
 		if (dragon != null) {
 			delayEffect = DelayEffect.DRAGON_FURY;
 		}
@@ -5031,7 +5009,7 @@ public class Char {
         return skill != null && skill.getCurrentLevel() >= slv;
     }
 
-    public World getWorld() {
+	public World getWorld() {
         return getClient().getWorld();
     }
 

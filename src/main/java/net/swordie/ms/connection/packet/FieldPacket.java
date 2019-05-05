@@ -494,36 +494,6 @@ public class FieldPacket {
         return outPacket;
     }
 
-    public static OutPacket createDragon(Dragon dragon) {
-        OutPacket outPacket = new OutPacket(OutHeader.DRAGON_CREATED);
-
-        outPacket.encodeInt(dragon.getCharID());
-        outPacket.encodeInt(dragon.getPosition().getX());
-        outPacket.encodeInt(dragon.getPosition().getY());
-        outPacket.encodeByte(dragon.getMoveAction()); //Move Action
-        outPacket.encodeShort(dragon.getFh());
-        outPacket.encodeShort(dragon.getJobCode());
-
-        return outPacket;
-    }
-
-    public static OutPacket removeDragon(Dragon dragon) {
-        OutPacket outPacket = new OutPacket(OutHeader.DRAGON_REMOVE);
-
-        outPacket.encodeInt(dragon.getCharID());
-
-        return outPacket;
-    }
-
-    public static OutPacket moveDragon(Dragon dragon, MovementInfo movementInfo) {
-        OutPacket outPacket = new OutPacket(OutHeader.DRAGON_MOVE);
-
-        outPacket.encodeInt(dragon.getCharID());
-        outPacket.encode(movementInfo);
-
-        return outPacket;
-    }
-
     public static OutPacket questClear(int qrKey) {
         OutPacket outPacket = new OutPacket(OutHeader.QUEST_CLEAR);
 
@@ -541,14 +511,6 @@ public class FieldPacket {
             outPacket.encodeFT(times.getMiddle());
             outPacket.encodeFT(times.getRight());
         }
-
-        return outPacket;
-    }
-
-    public static OutPacket removeDragon(Char chr) {
-        OutPacket outPacket = new OutPacket(OutHeader.DRAGON_REMOVE);
-
-        outPacket.encodeInt(chr.getId());
 
         return outPacket;
     }

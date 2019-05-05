@@ -13,6 +13,7 @@ import net.swordie.ms.client.character.skills.temp.TemporaryStatBase;
 import net.swordie.ms.client.character.skills.temp.TemporaryStatManager;
 import net.swordie.ms.connection.packet.FieldPacket;
 import net.swordie.ms.life.AffectedArea;
+import net.swordie.ms.life.Dragon;
 import net.swordie.ms.life.Summon;
 import net.swordie.ms.life.mob.MobStat;
 import net.swordie.ms.world.field.Field;
@@ -85,6 +86,7 @@ public class Evan extends Job {
     public static final int ADV_DRAGON_SPARK = 22110021;
 
     private int prevSkill = 0;
+    private Dragon dragon;
     public HashMap<Integer, Position> debrisPos = new HashMap<>();
     private int debrisCount = 0;
     private Field oldField;
@@ -406,7 +408,12 @@ public class Evan extends Job {
         return skill;
     }
 
-
+    public Dragon getDragon() {
+        if (dragon == null && chr.getJob() != JobConstants.JobEnum.EVAN_NOOB.getJobId()) {
+            dragon = new Dragon(0, chr);
+        }
+        return dragon;
+    }
 
     // Skill related methods -------------------------------------------------------------------------------------------
 

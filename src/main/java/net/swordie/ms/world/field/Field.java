@@ -8,6 +8,7 @@ import net.swordie.ms.client.character.skills.TownPortal;
 import net.swordie.ms.client.character.skills.info.SkillInfo;
 import net.swordie.ms.client.character.skills.temp.TemporaryStatManager;
 import net.swordie.ms.client.jobs.adventurer.Archer;
+import net.swordie.ms.client.jobs.legend.Evan;
 import net.swordie.ms.client.jobs.resistance.OpenGate;
 import net.swordie.ms.client.party.Party;
 import net.swordie.ms.client.party.PartyMember;
@@ -453,7 +454,6 @@ public class Field {
     }
 
     public void spawnLife(Life life, Char onlyChar) {
-
         addLife(life);
         if (getChars().size() > 0) {
 
@@ -483,9 +483,6 @@ public class Field {
 
             life.broadcastSpawnPacket(onlyChar);
         }
-
-
-
     }
 
     private void setRandomController(Life life) {
@@ -544,6 +541,11 @@ public class Field {
     }
 
     public void removeChar(Char chr) {
+        // remove char's dragon
+        Dragon dragon = chr.getDragon();
+        if (dragon != null) {
+            removeLife(dragon);
+        }
         getChars().remove(chr);
         broadcastPacket(UserPool.userLeaveField(chr), chr);
         // change controllers for which the chr was the controller of
@@ -590,9 +592,6 @@ public class Field {
     }
 
     public void spawnLifesForChar(Char chr) {
-        for (Life life : getLifes().values()) {
-            spawnLife(life, chr);
-        }
         if (getRuneStone() != null && getMobs().size() > 0 && getBossMobID() == 0 && isChannelField() && !isTown()) {
             chr.write(FieldPacket.runeStoneAppear(getRuneStone()));
         }
@@ -612,11 +611,10 @@ public class Field {
         for (Char c : getChars()) {
             if (!c.equals(chr)) {
                 chr.write(UserPool.userEnterField(c));
-                Dragon dragon = c.getDragon();
-                if (dragon != null) {
-                    chr.write(FieldPacket.createDragon(dragon));
-                }
             }
+        }
+        for (Life life : getLifes().values()) {
+            spawnLife(life, chr);
         }
     }
 

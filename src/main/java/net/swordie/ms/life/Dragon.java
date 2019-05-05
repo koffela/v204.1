@@ -1,73 +1,44 @@
 package net.swordie.ms.life;
 
 import net.swordie.ms.client.character.Char;
-import net.swordie.ms.util.Position;
+import net.swordie.ms.connection.packet.DragonPool;
 
 /**
  * Created by MechAviv on 12/22/2018.
  */
-public class Dragon {
-    private int jobCode;
-    private int charID;
-    private int moveAction;
-    private int fh;
-    private Position position;
-    private Position vposition;
+public class Dragon extends Life {
 
-    public Dragon(Char chr) {
-        this.charID = chr.getAvatarData().getCharacterStat().getCharacterId();
-        this.jobCode = chr.getJob();
-        this.moveAction = chr.getMoveAction();
-        this.fh = chr.getFoothold();
-        this.position = chr.getPosition();
-        this.vposition = chr.getPosition();
+    private Char owner;
+
+    public Dragon(int templateId, Char owner) {
+        super(templateId);
+        this.owner = owner;
+    }
+
+    public Char getOwner() {
+        return owner;
     }
 
     public int getJobCode() {
-        return jobCode;
-    }
-
-    public void setJobCode(int jobCode) {
-        this.jobCode = jobCode;
+        return this.owner.getJob();
     }
 
     public int getCharID() {
-        return charID;
+        return this.getOwner().getId();
     }
 
-    public void setCharID(int charID) {
-        this.charID = charID;
+    @Override
+    public void broadcastSpawnPacket(Char onlyChar) {
+        getField().broadcastPacket(DragonPool.createDragon(this));
     }
 
-    public int getMoveAction() {
-        return moveAction;
+    @Override
+    public void broadcastLeavePacket() {
+        getField().broadcastPacket(DragonPool.removeDragon(this));
     }
 
-    public void setMoveAction(int moveAction) {
-        this.moveAction = moveAction;
-    }
-
-    public int getFh() {
-        return fh;
-    }
-
-    public void setFh(int fh) {
-        this.fh = fh;
-    }
-
-    public Position getPosition() {
-        return position;
-    }
-
-    public void setPosition(Position position) {
-        this.position = position;
-    }
-
-    public Position getvPosition() {
-        return vposition;
-    }
-
-    public void setvPosition(Position vposition) {
-        this.vposition = vposition;
+    public void resetToPlayer() {
+        setPosition(owner.getPosition().deepCopy());
+        setMoveAction((byte) 4); // default
     }
 }

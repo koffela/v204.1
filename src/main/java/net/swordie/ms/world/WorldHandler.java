@@ -230,7 +230,6 @@ public class WorldHandler {
         chr.initBlessingSkillNames();
         chr.warp(field, true);
         chr.initBlessingSkills();
-        chr.renewDragon();
         if (chr.getGuild() != null) {
             chr.setGuild(chr.getClient().getWorld().getGuildByID(chr.getGuild().getId()));
         }
@@ -1421,7 +1420,7 @@ public class WorldHandler {
         boolean isLeft = inPacket.decodeByte() != 0;
 
         Life life = field.getLifeByObjectID(summonObjId);
-        if (life == null || !(life instanceof Summon)) {
+        if (!(life instanceof Summon)) {
             return;
         }
 
@@ -6775,15 +6774,15 @@ public class WorldHandler {
 
     public static void handleDragonMove(Char chr, InPacket inPacket) {
         Field field = chr.getField();
-        if (field == null || chr == null) {
+        if (field == null) {
             chr.dispose();
             return;
         }
         Dragon dragon = chr.getDragon();
-        if (dragon != null) {
+        if (dragon != null && dragon.getOwner() == chr) {
             MovementInfo movementInfo = new MovementInfo(inPacket);
             movementInfo.applyTo(dragon);
-            chr.getField().broadcastPacket(FieldPacket.moveDragon(dragon, movementInfo), chr);
+            chr.getField().broadcastPacket(DragonPool.moveDragon(dragon, movementInfo), chr);
         }
     }
 
@@ -6991,6 +6990,7 @@ public class WorldHandler {
             return;
         }
         MovementInfo mi = new MovementInfo(inPacket);
+        mi.applyTo(android);
         chr.getField().broadcastPacket(AndroidPacket.move(android, mi), chr);
     }
 

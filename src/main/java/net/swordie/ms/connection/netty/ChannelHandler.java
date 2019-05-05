@@ -2,18 +2,14 @@ package net.swordie.ms.connection.netty;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import net.swordie.ms.client.Account;
 import net.swordie.ms.client.Client;
 import net.swordie.ms.client.User;
 import net.swordie.ms.client.character.Char;
 import net.swordie.ms.connection.InPacket;
-import net.swordie.ms.connection.packet.Login;
-import net.swordie.ms.enums.ChatType;
 import net.swordie.ms.handlers.AdminHandler;
 import net.swordie.ms.handlers.ChatHandler;
 import net.swordie.ms.handlers.LoginHandler;
 import net.swordie.ms.handlers.header.InHeader;
-import net.swordie.ms.world.World;
 import net.swordie.ms.world.WorldHandler;
 import net.swordie.ms.world.shop.cashshop.CashShopHandler;
 import org.apache.log4j.LogManager;
@@ -376,6 +372,9 @@ public class ChannelHandler extends SimpleChannelInboundHandler<InPacket> {
             case SUMMONED_HIT:
                 WorldHandler.handleSummonedHit(c, inPacket);
                 break;
+            case DRAGON_MOVE:
+                WorldHandler.handleDragonMove(chr, inPacket);
+                break;
             case USER_REQUEST_INSTANCE_TABLE:
                 WorldHandler.handleUserRequestInstanceTable(chr, inPacket);
                 break;
@@ -712,8 +711,6 @@ public class ChannelHandler extends SimpleChannelInboundHandler<InPacket> {
                 break;
             case USER_TRANSFER_FREE_MARKET_REQUEST:
                 WorldHandler.handleTransferFreeMarketRequest(chr, inPacket);
-            case DRAGON_MOVE:
-                WorldHandler.handleDragonMove(chr, inPacket);
                 break;
             case SPECTRA_ENERGY_UPDATE:
                 WorldHandler.handleSpectraUpdate(chr, inPacket);

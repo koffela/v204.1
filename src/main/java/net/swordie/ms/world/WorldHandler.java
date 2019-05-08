@@ -178,6 +178,7 @@ public class WorldHandler {
         acc.setUser(user);
         chr.initEquips();
         chr.rebuildQuestExValues(false);
+        chr.initAndroid(false);
         c.setChr(chr);
         c.getChannelInstance().addChar(chr);
         chr.setJobHandler(JobManager.getJobById(chr.getJob(), chr));
@@ -445,6 +446,12 @@ public class WorldHandler {
 //        log.debug("Equipped after: " + chr.getEquippedInventory());
 //        log.debug("Equip after: " + chr.getEquipInventory());
         chr.setBulletIDForAttack(chr.calculateBulletIDForAttack());
+        if (newPos < 0
+                && -newPos >= BodyPart.APBase.getVal() && -newPos < BodyPart.APEnd.getVal()
+                && chr.getAndroid() != null) {
+            // update android look
+            chr.getField().broadcastPacket(AndroidPacket.modified(chr.getAndroid()));
+        }
     }
 
     private static void handleAttack(Client c, AttackInfo attackInfo) {

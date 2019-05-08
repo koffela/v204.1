@@ -127,6 +127,8 @@ public class Equip extends Item {
     private short fBoss;
     private short fDamage;
     private byte fLevel;
+    private int android;
+    private int androidGrade;
 
     public Equip() {
         super();
@@ -237,6 +239,8 @@ public class Equip extends Item {
         ret.dropStreak = dropStreak;
         ret.itemSkills = itemSkills;
         ret.effectItemID = effectItemID;
+        ret.android = android;
+        ret.androidGrade = androidGrade;
         return ret;
     }
 
@@ -1991,5 +1995,21 @@ public class Equip extends Item {
             getSockets().add((short) 0);
         }
         getSockets().set(num, (short) value);
+    }
+
+    public void setAndroid(int android) {
+        this.android = android;
+    }
+
+    public int getAndroid() {
+        return android;
+    }
+
+    public void setAndroidGrade(int androidGrade) {
+        this.androidGrade = androidGrade;
+    }
+
+    public int getAndroidGrade() {
+        return androidGrade;
     }
 }

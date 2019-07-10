@@ -1057,10 +1057,10 @@ public enum InHeader {
     IRBOX_EVENT(1052),
 
 
-    B_E_G_I_N__I_T_E_M_U_P_G_R_A_D_E(1375),
-    GOLD_HAMMER_REQUEST(1376), // was 1054
-    GOLD_HAMMER_COMPLETE(1377), // was 1055
-    E_N_D__I_T_E_M_U_P_G_R_A_D_E(1378),
+    B_E_G_I_N__I_T_E_M_U_P_G_R_A_D_E(1381),
+    GOLD_HAMMER_REQUEST(1382), // was 1054
+    GOLD_HAMMER_COMPLETE(1383), // was 1055
+    E_N_D__I_T_E_M_U_P_G_R_A_D_E(1384),
 
     // v203.2
     B_E_G_I_N__B_A_T_T_L_E_R_E_C_O_R_D(1386),

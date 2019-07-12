@@ -1572,6 +1572,12 @@ public class SkillConstants {
         return beginJob * 10000 + 73;
     }
 
+    public static int getSoaringByJob(short job) {
+        short beginJob = JobConstants.JobEnum.getJobById(job).getBeginnerJobId();
+        // xxxx1026, where xxxx is the "0th" job
+        return beginJob * 10000 + 1026;
+    }
+
     public static boolean isLightMageSkill(int skillID) {
         int skillRoot = getSkillRootFromSkill(skillID);
         return skillRoot / 100 == 27 || skillRoot == 2004;

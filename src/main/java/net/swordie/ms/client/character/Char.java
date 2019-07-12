@@ -2666,7 +2666,14 @@ public class Char {
 				}
 			}
 		}
-
+		for (int skill : Job.REMOVE_ON_WARP) {
+			if (tsm.hasStatBySkillId(skill)) {
+				tsm.removeStatsBySkill(skill);
+			}
+		}
+		if (tsm.hasStat(Flying) && !toField.isFly()) {
+			tsm.removeStat(Flying, false);
+		}
 		notifyChanges();
 		toField.execUserEnterScript(this);
 		initPets();

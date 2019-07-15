@@ -23,6 +23,7 @@ import net.swordie.ms.ServerConstants;
 import net.swordie.ms.enums.CashItemType;
 import net.swordie.ms.enums.CharNameResult;
 import net.swordie.ms.enums.LoginType;
+import net.swordie.ms.handlers.header.InHeader;
 import net.swordie.ms.handlers.header.OutHeader;
 import net.swordie.ms.loaders.ItemData;
 import net.swordie.ms.connection.db.DatabaseManager;
@@ -44,6 +45,7 @@ public class LoginHandler {
     private static final org.apache.log4j.Logger log = LogManager.getRootLogger();
     private static int id;
 
+    @Handler(op = InHeader.PERMISSION_REQUEST)
     public static void handlePermissionRequest(Client client, InPacket inPacket) {
         byte locale = inPacket.decodeByte();
         short version = inPacket.decodeShort();
@@ -54,19 +56,23 @@ public class LoginHandler {
         }
     }
 
+    @Handler(op = InHeader.USE_AUTH_SERVER)
     public static void handleAuthServer(Client client, InPacket inPacket) {
         client.write(Login.sendAuthServer(false));
     }
 
+    @Handler(op = InHeader.CLIENT_START)
     public static void handleClientStart(Client client, InPacket inPacket) {
         client.write(Login.sendStart());
         client.write(Login.sendLoginTime());
     }
 
+    @Handler(op = InHeader.PONG)
     public static void handlePong(Client c, InPacket inPacket) {
 
     }
 
+    @Handler(op = InHeader.CHECK_LOGIN_AUTH_INFO)
     public static void handleCheckLoginAuthInfo(Client c, InPacket inPacket) {
         byte sid = inPacket.decodeByte();
         String password = inPacket.decodeString();
@@ -124,6 +130,7 @@ public class LoginHandler {
         c.write(Login.checkPasswordResult(success, result, user));
     }
 
+    @Handler(op = InHeader.WORLD_LIST_REQUEST)
     public static void handleWorldListRequest(Client c, InPacket packet) {
         c.write(MapLoadable.setMapTaggedObjectVisible());
         for (World world : Server.getInstance().getWorlds()) {
@@ -132,15 +139,18 @@ public class LoginHandler {
         c.write(Login.sendWorldInformationEnd());
     }
 
+    @Handler(op = InHeader.SERVERSTATUS_REQUEST)
     public static void handleServerStatusRequest(Client c, InPacket inPacket) {
         handleWorldListRequest(c, inPacket);
     }
 
+    @Handler(op = InHeader.WORLD_STATUS_REQUEST)
     public static void handleWorldStatusRequest(Client c, InPacket inPacket) {
         byte worldId = inPacket.decodeByte();
         c.write(Login.sendServerStatus(worldId));
     }
 
+    @Handler(op = InHeader.SELECT_WORLD)
     public static void handleSelectWorld(Client c, InPacket inPacket) {
         inPacket.decodeByte();
         String token = inPacket.decodeString();
@@ -188,12 +198,14 @@ public class LoginHandler {
         }
     }
 
+    @Handler(op = InHeader.SELECT_WORLD_BUTTON)
     public static void handleSelectWorldButton(Client c, InPacket inPacket) {
         byte unk = inPacket.decodeByte();
         int worldId = inPacket.decodeInt();
         c.write(Login.sendSelectWorld(worldId, unk));
     }
 
+    @Handler(op = InHeader.CHECK_DUPLICATE_ID)
     public static void handleCheckDuplicatedID(Client c, InPacket inPacket) {
         String name = inPacket.decodeString();
         CharNameResult code;
@@ -205,6 +217,7 @@ public class LoginHandler {
         c.write(Login.checkDuplicatedIDResult(name, code.getVal()));
     }
 
+    @Handler(op = InHeader.CREATE_NEW_CHARACTER)
     public static void handleCreateNewCharacter(Client c, InPacket inPacket) {
         Account acc = c.getAccount();
         String name = inPacket.decodeString();
@@ -280,6 +293,7 @@ public class LoginHandler {
         c.write(Login.createNewCharacterResult(LoginType.Success, chr));
     }
 
+    @Handler(op = InHeader.DELETE_CHARACTER)
     public static void handleDeleteCharacter(Client c, InPacket inPacket) {
         if (c.getAccount() != null && handleCheckSpwRequest(c, inPacket, true)) {
             int charId = inPacket.decodeInt();
@@ -296,6 +310,7 @@ public class LoginHandler {
         }
     }
 
+    @Handler(op = InHeader.CLIENT_ERROR)
     public static void handleClientError(Client c, InPacket inPacket) {
         c.close();
         if (inPacket.getData().length < 8) {
@@ -340,10 +355,12 @@ public class LoginHandler {
         return id;
     }
 
+    @Handler(op = InHeader.PRIVATE_SERVER_PACKET)
     public static void handlePrivateServerPacket(Client c, InPacket inPacket) {
         c.write(Login.sendAuthResponse(((int) OutHeader.PRIVATE_SERVER_PACKET.getValue()) ^ inPacket.decodeInt()));
     }
 
+    @Handler(op = InHeader.CHAR_SELECT_NO_PIC)
     public static void handleCharSelectNoPic(Client c, InPacket inPacket) {
         inPacket.decodeArr(2);
         int characterId = inPacket.decodeInt();
@@ -363,7 +380,8 @@ public class LoginHandler {
         c.write(Login.selectCharacterResult(LoginType.Success, (byte) 0, channel.getPort(), characterId));
     }
 
-  public static void handleCharSelect(Client c, InPacket inPacket) {
+    @Handler(op = InHeader.CHAR_SELECT)
+    public static void handleCharSelect(Client c, InPacket inPacket) {
         int characterId = inPacket.decodeInt();
         String name = inPacket.decodeString();
         byte worldId = c.getWorldId();
@@ -375,7 +393,12 @@ public class LoginHandler {
         }
     }
 
-    public static boolean handleCheckSpwRequest(Client c, InPacket inPacket, boolean delete) {
+    @Handler(op = InHeader.CHECK_SPW_REQUEST)
+    public static boolean handleCheckSpwRequest(Client c, InPacket inPacket) {
+        return LoginHandler.handleCheckSpwRequest(c, inPacket, false);
+    }
+
+    public static boolean handleCheckSpwRequest(Client c, InPacket inPacket, final boolean delete) {
         boolean success = false;
         if (!delete) {
             inPacket.decodeInt();
@@ -393,6 +416,7 @@ public class LoginHandler {
         return success;
     }
 
+    @Handler(op = InHeader.EXCEPTION_LOG)
     public static void handleExceptionLog(Client c, InPacket inPacket) {
         String str = inPacket.decodeString();
         log.error("Exception log: " + str);

@@ -1590,4 +1590,9 @@ public class SkillConstants {
     public static boolean isLarknessLightSkill(int skillID) {
         return skillID != 20041226 && isLightMageSkill(skillID) && skillID / 100 % 10 == 1;
     }
+
+    public static boolean isBeginnerSpAddableSkill(int skillID) {
+        return skillID == 1000 || skillID == 1001 || skillID == 1002 || skillID == 140000291 || skillID == 30001000
+                || skillID == 30001001 || skillID == 30001002;
+    }
 }

@@ -153,8 +153,7 @@ public class WvsContext {
         return outPacket;
     }
 
-    public static OutPacket inventoryOperation(boolean exclRequestSent, boolean notRemoveAddInfo, InventoryOperation type, short oldPos, short newPos,
-                                               int bagPos, Item item) {
+    public static OutPacket inventoryOperation(boolean exclRequestSent, boolean notRemoveAddInfo, InventoryOperation type, short oldPos, short newPos, int bagPos, Item item) {
         // logic like this in packets :(
         InvType invType = item.getInvType();
         if ((oldPos > 0 && newPos < 0 && invType == EQUIPPED) || (invType == EQUIPPED && oldPos < 0)) {
@@ -172,41 +171,40 @@ public class WvsContext {
         outPacket.encodeByte(invType.getVal());
         outPacket.encodeShort(oldPos);
         switch (type) {
-            case ADD:
+            case Add:
                 item.encode(outPacket);
                 break;
-            case UPDATE_QUANTITY:
+            case UpdateQuantity:
                 outPacket.encodeShort(item.getQuantity());
                 break;
-            case MOVE:
+            case Move:
                 outPacket.encodeShort(newPos);
                 if (invType == InvType.EQUIP && (oldPos < 0 || newPos < 0)) {
                     addMovementInfo = true;
                 }
                 break;
-            case REMOVE:
+            case Remove:
                 if (invType == InvType.EQUIP && (oldPos < 0 || newPos < 0)) {
                     addMovementInfo = true;
                 }
                 break;
-            case ITEM_EXP:
+            case ItemExp:
                 outPacket.encodeLong(((Equip) item).getExp());
                 break;
-            case UPDATE_BAG_POS:
+            case UpdateBagPos:
                 outPacket.encodeInt(bagPos);
                 break;
-            case UPDATE_BAG_QUANTITY:
+            case UpdateBagQuantity:
                 outPacket.encodeShort(newPos);
                 break;
-            case UNK_1:
+            case BagRemove:
                 break;
-            case UNK_2:
-                outPacket.encodeShort(bagPos); // ?
+            case BagToBag:
                 break;
-            case UPDATE_ITEM_INFO:
+            case BagNewItem:
                 item.encode(outPacket);
                 break;
-            case UNK_3:
+            case BagRemoveSlot:
                 break;
         }
         outPacket.encodeByte(0);// new

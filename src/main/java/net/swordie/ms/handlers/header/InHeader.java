@@ -1,7 +1,9 @@
 package net.swordie.ms.handlers.header;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public enum InHeader {
     // Redirector Headers
@@ -272,7 +274,7 @@ public enum InHeader {
     USER_FOLLOW_CHARACTER_WITHDRAW(377),
     USER_SELECT_PQ_REWARD(378),
     USER_REQUEST_PQ_REWARD(379),
-    SET_PASSENSER_RESULT(380),
+    SET_PASSENGER_RESULT(380),
     USER_REQUEST_INSTANCE_TABLE(381),
     USER_REQUEST_CREATE_ITEM_POT(-1),
     USER_REQUEST_REMOVE_ITEM_POT(350),
@@ -546,7 +548,7 @@ public enum InHeader {
     USER_UPDATE_MAPLE_TV_SHOW_TIME(690),
     REDUCE_DOT_DAMGE_BASE_BUFF_REQUEST(691),
     MIRROR_STUDY_COMPLETE(692),
-    REQUEST_ARROW_PLATER_OBJ(693),// was 605
+    REQUEST_ARROW_PLATTER_OBJ(693),// was 605
     USER_TIME_EVENT_UI_OPEN_REQUEST(694),
     USER_TIME_EVENT_RESULT_REQUEST(695),
     USER_TIME_EVENT_COMPLETE_REQUEST(696),// was 608
@@ -725,7 +727,7 @@ public enum InHeader {
     MOB_HIT_BY_OBSTACLE_ATOM(1008),
     MOB_HIT_BY_MOB(1009),
     MOB_SELF_DESTRUCT(1010),
-    MOB_SELF_DESTRUCT_COLLISIGROUP(1011),
+    MOB_SELF_DESTRUCT_COLLISION_GROUP(1011),
     MOB_UNK_1012(1012),
     MOB_ATTACK_MOB(1013),
     MOB_SKILL_DELAY_END(1014),// v203.3
@@ -1162,6 +1164,13 @@ public enum InHeader {
     );
 
     private short value;
+    private final static Map<Short, InHeader> opToHeaderMap = new HashMap<>();
+
+    static {
+        for (InHeader ih : values()) {
+            opToHeaderMap.put(ih.getValue(), ih);
+        }
+    }
 
     InHeader(int op) {
         this.value = (short) op;
@@ -1172,12 +1181,7 @@ public enum InHeader {
     }
 
     public static InHeader getInHeaderByOp(int op) {
-        for (InHeader inHeader : InHeader.values()) {
-            if (inHeader.getValue() == op) {
-                return inHeader;
-            }
-        }
-        return null;
+        return opToHeaderMap.getOrDefault((short) op, null);
     }
 
     public static boolean isSpamHeader(InHeader inHeaderByOp) {

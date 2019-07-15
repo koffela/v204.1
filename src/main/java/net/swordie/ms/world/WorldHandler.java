@@ -3415,6 +3415,7 @@ public class WorldHandler {
                 }
                 if (nsi.getMaxPerSlot() == 0 ? quantity != 1 : quantity > nsi.getMaxPerSlot()) {
                     chr.getOffenseManager().addOffense(Offense.Type.Editing, String.format("Possible hack: max slot for shop itemID %d is %d, got %d", nsi.getItemID(), nsi.getMaxPerSlot(), quantity));
+                    chr.dispose();
                     return;
                 }
                 int itemQuantity = nsi.getQuantity() > 0 ? nsi.getQuantity() : 1;
@@ -3474,6 +3475,7 @@ public class WorldHandler {
                 }
                 if (!chr.hasItemCount(itemID, quantity)) {
                     chr.getOffenseManager().addOffense(Offense.Type.Editing, String.format("Possible hack: User tried to sell %d amount of item %d while owning less", quantity, itemID));
+                    chr.dispose();
                     return;
                 }
                 if (ItemConstants.isEquip(itemID)) {

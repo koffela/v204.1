@@ -59,12 +59,12 @@ public class JobSkillHandler {
     @Handler(op = InHeader.CREATE_KINESIS_PSYCHIC_AREA)
     public static void handleCreateKinesisPsychicArea(Char chr, InPacket inPacket) {
         PsychicArea pa = new PsychicArea();
-        pa.action = inPacket.decodeInt();
-        pa.actionSpeed = inPacket.decodeInt();
-        pa.localPsychicAreaKey = inPacket.decodeInt();
-        pa.psychicAreaKey = inPacket.decodeInt();
         pa.skillID = inPacket.decodeInt();
         pa.slv = inPacket.decodeShort();
+        pa.action = inPacket.decodeInt();
+        pa.actionSpeed = inPacket.decodeInt();
+        pa.localPsychicAreaKey = inPacket.decodeInt() + 1;
+        pa.psychicAreaKey = inPacket.decodeInt();
         pa.duration = inPacket.decodeInt();
         pa.isLeft = inPacket.decodeByte() != 0;
         pa.skeletonFilePathIdx = inPacket.decodeShort();
@@ -75,6 +75,7 @@ public class JobSkillHandler {
         if (!chr.hasSkillWithSlv(pa.skillID, pa.slv)) {
             return;
         }
+
         if (JobConstants.isKinesis(chr.getJob())) {
             if (((Kinesis) chr.getJobHandler()).consumePsychicPoints(pa.skillID)) {
                 pa = chr.addPsychicArea(pa);
@@ -119,7 +120,7 @@ public class JobSkillHandler {
         while (inPacket.decodeByte() != 0) {
             PsychicLockBall plb = new PsychicLockBall();
             plb.localKey = inPacket.decodeInt();
-            plb.psychicLockKey = inPacket.decodeInt();
+            plb.psychicLockKey = inPacket.decodeInt() + 1;
             //plb.psychicLockKey = i;
             int mobID = inPacket.decodeInt();
             Life life = f.getLifeByObjectID(mobID);
@@ -140,6 +141,7 @@ public class JobSkillHandler {
         }
         chr.getField().broadcastPacket(UserLocal.enterFieldPsychicInfo(chr.getId(), pl, null), chr);
         chr.write(UserPacket.createPsychicLock(chr.getId(), pl));
+        chr.addPsychicLock(pl);
     }
 
     @Handler(op = InHeader.RELEASE_PSYCHIC_LOCK)
@@ -152,12 +154,13 @@ public class JobSkillHandler {
         short count = inPacket.decodeShort();
         int id = inPacket.decodeInt();
         int mobID = inPacket.decodeInt();
-        if (mobID != 0) {
+        if (mobID >= 0) {
             List<Integer> l = new ArrayList<>();
             l.add(mobID);
             chr.write(FieldPacket.releasePsychicLockMob(l));
         } else {
             chr.write(FieldPacket.releasePsychicLock(id));
+            chr.removePsychicLock(id);
         }
     }
 

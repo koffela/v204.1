@@ -197,10 +197,10 @@ public class FieldPacket {
         outPacket.encodeByte(pa.success);
         outPacket.encodeInt(pa.action);
         outPacket.encodeInt(pa.actionSpeed);
-        outPacket.encodeInt(-pa.localPsychicAreaKey);
+        outPacket.encodeInt(pa.psychicAreaKey);
         outPacket.encodeInt(pa.skillID);
         outPacket.encodeShort(pa.slv);
-        outPacket.encodeInt(pa.psychicAreaKey);
+        outPacket.encodeInt(pa.localPsychicAreaKey);
         outPacket.encodeInt(pa.duration);
         outPacket.encodeByte(pa.isLeft);
         outPacket.encodeShort(pa.skeletonFilePathIdx);

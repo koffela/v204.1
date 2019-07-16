@@ -60,6 +60,8 @@ public class Kinesis extends Job {
     public static final int MENTAL_TEMPEST = 142121030;
     public static final int MENTAL_SHOCK = 142121031;
     public static final int MENTAL_OVERDRIVE = 142121032;
+    public static final int PSYCHIC_GRAB = 142111002;
+
 
 
     public static final int MAX_PP = 30;

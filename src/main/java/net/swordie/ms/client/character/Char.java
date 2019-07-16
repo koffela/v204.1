@@ -61,6 +61,8 @@ import net.swordie.ms.connection.packet.*;
 import net.swordie.ms.enums.*;
 import net.swordie.ms.handlers.ClientSocket;
 import net.swordie.ms.handlers.EventManager;
+import net.swordie.ms.handlers.PsychicLock;
+import net.swordie.ms.life.*;
 import net.swordie.ms.life.drop.Drop;
 import net.swordie.ms.life.mob.Mob;
 import net.swordie.ms.life.pet.Pet;
@@ -422,8 +424,12 @@ public class Char {
     private Partner partner = null;
 	@Transient
 	private int psychicAreaCount = 1;
-    @Transient
-    private Map<Integer, PsychicArea> psychicArea = new HashMap<>();
+	@Transient
+	private Map<Integer, PsychicArea> psychicAreas;
+	@Transient
+	private Map<Integer, PsychicLock> psychicLocks;
+	@Transient
+	private Map<Integer, PsychicLockBall> psychicLockBalls;
     @Transient
     private Android android;
 
@@ -506,6 +512,9 @@ public class Char {
 //        monsterBattleMobInfos = new ArrayList<>();
 //        monsterBattleLadder = new MonsterBattleLadder();
 //        monsterBattleRankInfo = new MonsterBattleRankInfo();
+		psychicAreas = new HashMap<>();
+		psychicLocks = new HashMap<>();
+		psychicLockBalls = new HashMap<>();
 
 	}
 
@@ -5049,20 +5058,6 @@ public class Char {
 		return questRecordEx;
 	}
 
-    public PsychicArea getPsychicArea(int psychicAreaKey) {
-        return psychicArea.getOrDefault(psychicAreaKey, null);
-    }
-
-    public PsychicArea addPsychicArea(PsychicArea pa) {
-		pa.psychicAreaKey = psychicAreaCount;
-		pa.localPsychicAreaKey = psychicArea.size() + 1;
-		psychicAreaCount++;
-		psychicArea.put(pa.psychicAreaKey, pa);
-		return pa;
-    }
-
-    public void removePsychicArea(int psychicAreaKey) { this.psychicArea.remove(psychicAreaKey); }
-
     /**
      * Checks if this Char has a skill with at least a given level.
      * @param skillID the skill to get
@@ -5220,5 +5215,29 @@ public class Char {
 			}
 		}
 		return sp;
+	}
+
+	public PsychicArea addPsychicArea(PsychicArea pa) {
+		pa.psychicAreaKey = psychicAreaCount;
+		pa.localPsychicAreaKey = psychicAreas.size() + 1;
+		psychicAreaCount++;
+		psychicAreas.put(pa.psychicAreaKey, pa);
+		return pa;
+	}
+
+	public void removePsychicArea(int psychicAreaKey) {
+		this.psychicAreas.remove(psychicAreaKey);
+	}
+
+	public PsychicArea getPsychicArea(int psychicAreaKey) {
+		return psychicAreas.getOrDefault(psychicAreaKey, null);
+	}
+
+	public void addPsychicLock(PsychicLock pl) {
+		psychicLocks.put(pl.key, pl);
+	}
+
+	public void removePsychicLock(int key) {
+		this.psychicLocks.remove(key);
 	}
 }

@@ -4,6 +4,7 @@ import net.swordie.ms.client.Client;
 import net.swordie.ms.client.character.Char;
 import net.swordie.ms.client.character.items.Item;
 import net.swordie.ms.client.character.quest.Quest;
+import net.swordie.ms.client.jobs.adventurer.Kinesis;
 import net.swordie.ms.client.jobs.cygnus.DawnWarrior;
 import net.swordie.ms.client.jobs.nova.AngelicBuster;
 import net.swordie.ms.client.jobs.resistance.Xenon;
@@ -19,6 +20,7 @@ import net.swordie.ms.enums.QuestStatus;
 import net.swordie.ms.handlers.Handler;
 import net.swordie.ms.handlers.header.InHeader;
 import net.swordie.ms.handlers.header.OutHeader;
+import net.swordie.ms.handlers.user.JobSkillHandler;
 import net.swordie.ms.life.DeathType;
 import net.swordie.ms.life.Life;
 import net.swordie.ms.life.mob.EscortDest;
@@ -231,26 +233,30 @@ public class MobHandler {
 
     @Handler(op = InHeader.MOB_EXPLOSION_START)
     public static void handleMobExplosionStart(Client c, InPacket inPacket) {
-        int mobID = inPacket.decodeInt();
-        int charID = inPacket.decodeInt();
-        int skillID = inPacket.decodeInt(); //tick
-        Char chr = c.getChr();
-        if (JobConstants.isXenon(chr.getJob()) && chr.hasSkill(Xenon.TRIANGULATION)) {
-            skillID = Xenon.TRIANGULATION;
-        } else if (JobConstants.isDawnWarrior(chr.getJob()) && chr.hasSkill(DawnWarrior.IMPALING_RAYS)) {
-            skillID = DawnWarrior.IMPALING_RAYS_EXPLOSION;
-        } else if (JobConstants.isAngelicBuster(chr.getId()) && chr.hasSkill(AngelicBuster.LOVELY_STING)) {
-            skillID = AngelicBuster.LOVELY_STING_EXPLOSION;
+        int mobId = inPacket.decodeInt();
+        final Char chr = c.getChr();
+        final short job = chr.getJob();
+
+        final int skillId;
+        if (JobConstants.isXenon(job) && chr.hasSkill(Xenon.TRIANGULATION)) {
+            skillId = Xenon.TRIANGULATION;
+        } else if (JobConstants.isDawnWarrior(job) && chr.hasSkill(DawnWarrior.IMPALING_RAYS)) {
+            skillId = DawnWarrior.IMPALING_RAYS_EXPLOSION;
+        } else if (JobConstants.isAngelicBuster(job) && chr.hasSkill(AngelicBuster.LOVELY_STING)) {
+            skillId = AngelicBuster.LOVELY_STING_EXPLOSION;
+        } else if (JobConstants.isKinesis(job) && chr.hasSkill(Kinesis.PSYCHIC_GRAB)) {
+            skillId = Kinesis.PSYCHIC_GRAB;
         } else {
             chr.chatMessage("Unhandled mob explosion for your job.");
             return;
         }
-        Mob mob = (Mob) c.getChr().getField().getLifeByObjectID(mobID);
+
+        Mob mob = (Mob) c.getChr().getField().getLifeByObjectID(mobId);
         if (mob != null) {
             MobTemporaryStat mts = mob.getTemporaryStat();
             if ((mts.hasCurrentMobStat(MobStat.Explosion) && mts.getCurrentOptionsByMobStat(MobStat.Explosion).wOption == chr.getId()) ||
                     (mts.hasCurrentMobStat(MobStat.SoulExplosion) && mts.getCurrentOptionsByMobStat(MobStat.SoulExplosion).wOption == chr.getId())) {
-                c.write(UserLocal.explosionAttack(skillID, mob.getPosition(), mobID, 1));
+                c.write(UserLocal.explosionAttack(skillId, mob.getPosition(), mobId, 1));
                 mts.removeMobStat(MobStat.Explosion, true);
                 mts.removeMobStat(MobStat.SoulExplosion, true);
             }

@@ -240,24 +240,4 @@ public class UserStatHandler {
         chr.write(WvsContext.resultInstanceTable(requestStr, type, subType, true, value));
     }
 
-    @Handler(op = InHeader.USER_SKILL_CANCEL_REQUEST)
-    public static void handleTemporaryStatResetRequest(Client c, InPacket inPacket) {
-        Char chr = c.getChr();
-        TemporaryStatManager tsm = chr.getTemporaryStatManager();
-        int skillId = inPacket.decodeInt();
-        tsm.removeStatsBySkill(skillId);
-
-        if (SkillConstants.isKeyDownSkill(skillId)) {
-            chr.getField().broadcastPacket(UserRemote.skillCancel(chr.getId(), skillId), chr);
-        }
-
-        if (skillId == net.swordie.ms.client.jobs.resistance.Mechanic.HUMANOID_MECH || skillId == net.swordie.ms.client.jobs.resistance.Mechanic.TANK_MECH) {
-            tsm.removeStatsBySkill(skillId + 100); // because of special use
-            tsm.sendResetStatPacket(true);
-        } else {
-            tsm.sendResetStatPacket();
-        }
-
-        chr.getJobHandler().handleSkillRemove(c, skillId);
-    }
 }

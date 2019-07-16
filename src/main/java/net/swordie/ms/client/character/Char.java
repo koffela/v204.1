@@ -7,6 +7,7 @@ import net.swordie.ms.client.jobs.legend.Evan;
 import net.swordie.ms.client.jobs.legend.Luminous;
 import net.swordie.ms.client.jobs.resistance.Demon;
 import net.swordie.ms.constants.*;
+import net.swordie.ms.handlers.social.ChatHandler;
 import net.swordie.ms.life.*;
 import net.swordie.ms.life.npc.Npc;
 import net.swordie.ms.loaders.containerclasses.ItemInfo;
@@ -58,7 +59,6 @@ import net.swordie.ms.connection.db.DatabaseManager;
 import net.swordie.ms.connection.db.InlinedIntArrayConverter;
 import net.swordie.ms.connection.packet.*;
 import net.swordie.ms.enums.*;
-import net.swordie.ms.handlers.ChatHandler;
 import net.swordie.ms.handlers.ClientSocket;
 import net.swordie.ms.handlers.EventManager;
 import net.swordie.ms.life.drop.Drop;
@@ -3645,7 +3645,7 @@ public class Char {
 			other.chatMessage("Your trade partner disconnected.");
 		}
 		rebuildQuestExValues(true);
-		ChatHandler.removeClient(getAccId());
+		getWorld().getConnectedChatClients().remove(getAccId());
 		setOnline(false);
 		getJobHandler().handleCancelTimer(this);
 		getField().removeChar(this);
@@ -4350,7 +4350,6 @@ public class Char {
 	public void setSkillCDBypass(boolean skillCDBypass) {
 		this.skillCDBypass = skillCDBypass;
 	}
-
 
 	public Set<StolenSkill> getStolenSkills() {
 		return stolenSkills;

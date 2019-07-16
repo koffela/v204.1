@@ -130,7 +130,7 @@ public class LoginHandler {
         c.write(Login.checkPasswordResult(success, result, user));
     }
 
-    @Handler(op = InHeader.WORLD_LIST_REQUEST)
+    @Handler(ops = {InHeader.WORLD_LIST_REQUEST, InHeader.LOGOUT_WORLD, InHeader.WORLD_LIST_REQUEST, InHeader.WORLD_INFO_REQUEST})
     public static void handleWorldListRequest(Client c, InPacket packet) {
         c.write(MapLoadable.setMapTaggedObjectVisible());
         for (World world : Server.getInstance().getWorlds()) {
@@ -420,5 +420,13 @@ public class LoginHandler {
     public static void handleExceptionLog(Client c, InPacket inPacket) {
         String str = inPacket.decodeString();
         log.error("Exception log: " + str);
+    }
+
+    @Handler(op = InHeader.WVS_CRASH_CALLBACK)
+    public static void handleWvsCrashCallback(Client c, InPacket inPacket){
+        if (c != null && c.getChr() != null) {
+            c.getChr().setChangingChannel(false);
+            c.getChr().logout();
+        }
     }
 }

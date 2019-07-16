@@ -499,21 +499,4 @@ public class UserHandler {
         chr.setQuickslotKeys(quickslotKeys);
     }
 
-    @Handler(op = InHeader.USER_SKILL_PREPARE_REQUEST)
-    public static void handleUserSkillPrepareRequest(Char chr, InPacket inPacket) {
-        Field field = chr.getField();
-        if ((field.getFieldLimit() & FieldOption.SkillLimit.getVal()) > 0 ||
-                (field.getFieldLimit() & FieldOption.MoveSkillOnly.getVal()) > 0) {
-            chr.dispose();
-            return;
-        }
-        int skillId = inPacket.decodeInt();
-        int startTime = inPacket.decodeInt();
-        int unknownInt = inPacket.decodeInt();
-        if (!chr.hasSkill(skillId)) {
-            return;
-        }
-        chr.getJobHandler().handleSkillPrepare(chr, skillId);
-    }
-
 }

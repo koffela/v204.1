@@ -8,6 +8,7 @@ import net.swordie.ms.connection.InPacket;
 import net.swordie.ms.connection.packet.WvsContext;
 import net.swordie.ms.enums.AdminCommandType;
 import net.swordie.ms.enums.InvType;
+import net.swordie.ms.handlers.header.InHeader;
 import net.swordie.ms.loaders.ItemData;
 
 import static net.swordie.ms.enums.ChatType.Mob;
@@ -17,6 +18,7 @@ import static net.swordie.ms.enums.ChatType.Mob;
  */
 public class AdminHandler {
 
+    @Handler(op = InHeader.ADMIN)
     public static void handleAdminCommand(Char chr, InPacket inPacket) {
         if (chr == null || chr.getField() == null) {
             return;
@@ -116,6 +118,8 @@ public class AdminHandler {
             }
         }
     }
+
+    @Handler(op = InHeader.LOG)
     public static void handleAdminLog(Char chr, InPacket inPacket) {
         System.out.println(String.format("[%s:%09d] %s", chr.getName(), chr.getFieldID(), inPacket.decodeString()));
     }

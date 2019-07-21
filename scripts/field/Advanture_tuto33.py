@@ -6,5 +6,5 @@ sm.chatScript("Eliminate Mano.")
 if not sm.hasMobsInField():
     sm.spawnMob(9300815, -152, 150, False) # Spawn Mano
 else:
-    sm.killmobs()
+    sm.killMobs()
     sm.spawnMob(9300815, -152, 150, False) # Spawn Mano

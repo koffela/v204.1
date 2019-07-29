@@ -56,3 +56,5 @@ elif sm.hasQuest(23202) and not sm.hasQuestCompleted(23202):
     sm.setTemporarySkillSet(0)
     sm.setInGameDirectionMode(False, True, False, False)
     sm.warp(927000081, 0)
+else:
+    sm.systemMessage("It's too far away to see clearly. I must get closer.")

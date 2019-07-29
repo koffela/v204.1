@@ -74,10 +74,7 @@ import net.swordie.ms.scripts.ScriptType;
 import net.swordie.ms.util.*;
 import net.swordie.ms.world.Channel;
 import net.swordie.ms.world.World;
-import net.swordie.ms.world.field.Clock;
-import net.swordie.ms.world.field.Field;
-import net.swordie.ms.world.field.FieldInstanceType;
-import net.swordie.ms.world.field.Portal;
+import net.swordie.ms.world.field.*;
 import net.swordie.ms.world.field.fieldeffect.FieldEffect;
 import net.swordie.ms.world.gach.GachaponManager;
 import net.swordie.ms.world.shop.NpcShopDlg;
@@ -437,6 +434,8 @@ public class Char {
 	private Map<Integer, PsychicLockBall> psychicLockBalls;
     @Transient
     private Android android;
+	@Transient
+	private Instance instance;
 
 	public Char() {
 		this(0, "", 0, 0, 0, (short) 0, (byte) -1, (byte) -1, 0, 0, new int[]{});
@@ -2608,26 +2607,12 @@ public class Char {
 	 * @return The Field corresponding to the current FieldInstanceType.
 	 */
 	public Field getOrCreateFieldByCurrentInstanceType(int fieldID) {
-		Field res = null;
-		switch (getFieldInstanceType()) {
-			case SOLO:
-				if (getFields().containsKey(fieldID)) {
-					res = getPersonalById(fieldID);
-				} else {
-					Field field = FieldData.getFieldCopyById(fieldID);
-					addField(field);
-					res = field;
-				}
-				res.setRuneStone(null);
-				break;
-			case PARTY:
-				res = getParty() != null ? getParty().getOrCreateFieldById(fieldID) : null;
-				res.setRuneStone(null);
-				break;
-			// TODO expedition
-			default:
-				res = getClient().getChannelInstance().getField(fieldID);
-				break;
+		Field res;
+		if (getInstance() == null) {
+			res = getClient().getChannelInstance().getField(fieldID);
+		} else {
+			res = getInstance().getField(fieldID);
+			res.setRuneStone(null);
 		}
 		return res;
 	}
@@ -3707,6 +3692,28 @@ public class Char {
 	}
 	public void addNpc(Npc npc) {
 		getNpcs().put(npc.getObjectId(), npc);
+	}
+
+	public void setInstance(Instance instance) {
+		if (this.instance != null && instance == null) {
+			this.instance.stopEvents();
+		}
+		this.instance = instance;
+	}
+
+	public Instance getInstance() {
+		if (party != null && party.getInstance() != null) {
+			return party.getInstance();
+		}
+		return instance;
+	}
+
+	private void showProperUI(int fromField, int toField) {
+		if (GameConstants.getMaplerunnerField(toField) > 0 && GameConstants.getMaplerunnerField(fromField) <= 0) {
+			write(FieldPacket.openUI(UIType.UI_PLATFORM_STAGE_LEAVE));
+		} else if (GameConstants.getMaplerunnerField(fromField) > 0 && GameConstants.getMaplerunnerField(toField) <= 0) {
+			write(FieldPacket.closeUI(UIType.UI_PLATFORM_STAGE_LEAVE));
+		}
 	}
 
 	public Npc getPersonalNpcByObjectId(int id) {
@@ -5253,4 +5260,5 @@ public class Char {
 	public void addItemBoughtAmount(long itemId, int amount) {
 		getItemBoughtAmounts().put(itemId, amount);
 	}
+
 }

@@ -24,7 +24,7 @@ sm.sendSay("How do I recover my abilities?")
 
 sm.setSpeakerID(1201000)
 if sm.sendAskAccept("There is only one way to do that. Train! Train! Train! Train! If you continue to train, your body will instinctively remember its abilities. To help you through the process, I'll introduce you to an instructor."):
-    sm.giveItem(1442077)
+    #sm.giveItem(1442077)
     sm.startQuest(21700)
     sm.completeQuest(21700)
     sm.setSpeakerID(1201000)

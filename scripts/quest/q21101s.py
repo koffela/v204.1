@@ -3,6 +3,12 @@
 # The Polearm-Wielding Hero
 
 sm.setSpeakerID(1201001)
+# 140000000
+# LILIN = 1201000
+GIANT_POLEARM = 1201001
+
+# sm.setSpeakerID(LILIN)
+sm.setSpeakerID(GIANT_POLEARM)
 if sm.sendAskYesNo("#b(Are you certain that you were the hero that wielded the #p1201001#? Yes, you're sure. You better grab the #p1201001# really tightly. Surely it will react to you.)#k"):
     sm.giveItem(1142129)
     sm.startQuest(21101)
@@ -10,6 +16,7 @@ if sm.sendAskYesNo("#b(Are you certain that you were the hero that wielded the #
     sm.removeSkill(20000297)
     #sm.giveSkill(20000297)
     sm.setJob(2100)
+    sm.resetAP(False)
     sm.addSP(5, True)
     sm.resetStats()
     # Unhandled Stat Changed [MHP] Packet: 00 00 00 08 00 00 00 00 00 00 BC 01 00 00 FF 00 00 00 00

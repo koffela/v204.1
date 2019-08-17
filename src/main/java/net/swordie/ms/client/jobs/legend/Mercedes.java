@@ -4,6 +4,7 @@ import net.swordie.ms.client.Client;
 import net.swordie.ms.client.character.Char;
 import net.swordie.ms.client.character.CharacterStat;
 import net.swordie.ms.client.character.info.HitInfo;
+import net.swordie.ms.client.character.items.BodyPart;
 import net.swordie.ms.client.character.items.Item;
 import net.swordie.ms.client.character.skills.Option;
 import net.swordie.ms.client.character.skills.Skill;
@@ -120,8 +121,11 @@ public class Mercedes extends Job {
     public void setCharCreationStats(Char chr) {
         super.setCharCreationStats(chr);
         chr.getAvatarData().getAvatarLook().setDrawElfEar(true);
-        /*Item item = ItemData.getItemDeepCopy(1352000); // Secondary
-        chr.addItemToInventory(item);*/
+
+        Item item = ItemData.getItemDeepCopy(1352000); // Secondary
+        item.setBagIndex(BodyPart.Shield.getVal());
+        chr.getEquippedInventory().addItem(item);
+        chr.getAvatarData().getCharacterStat().setPosMap(910150000);
 
         CharacterStat cs = chr.getAvatarData().getCharacterStat();
         cs.setPosMap(910150000);

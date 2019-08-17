@@ -125,6 +125,15 @@ public class Mercedes extends Job {
 
         CharacterStat cs = chr.getAvatarData().getCharacterStat();
         cs.setPosMap(910150000);
+        cs.setLevel(10);
+        cs.setStr(4);
+        cs.setDex(58);
+        cs.setMaxHp(300);
+        cs.setMaxMp(200);
+        Map<Stat, Object> stats = new HashMap<>();
+        stats.put(Stat.mhp, chr.getStat(Stat.mhp));
+        stats.put(Stat.mmp, chr.getStat(Stat.mmp));
+        chr.write(WvsContext.statChanged(stats));
     }
 
 
@@ -392,7 +401,7 @@ public class Mercedes extends Job {
 
     private void incrementIgnisRoarStackCount(TemporaryStatManager tsm, AttackInfo attackInfo) {
         if (Arrays.asList(summonAttacks).contains(attackInfo.skillId)
-                || attackInfo.skillId == getFinalAtkSkill().getSkillId()
+                || getFinalAtkSkill() != null && attackInfo.skillId == getFinalAtkSkill().getSkillId()
                 || attackInfo.skillId == lastAttackSkill) {
             return;
         }

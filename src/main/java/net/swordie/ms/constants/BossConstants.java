@@ -84,8 +84,6 @@ public class BossConstants {
 //  Cygnus -------------------------------------------------------------------------------------------------------------
     public static final int ARKARIUM_TIME = 30 * 60; // 30 min timer
 
-
-
 //  Demian -------------------------------------------------------------------------------------------------------------
     public static final int BRAND_OF_SACRIFICE = 80001974; // Skill ID
     public static final long DEMIAN_HP = 840000000000L;
@@ -101,7 +99,9 @@ public class BossConstants {
     public static final int DEMIAN_STIGMA_INCINERATE_OBJECT_RESPAWN_TIME = 20 * 1000; // Stigma Pillar spawns every 20seconds
     public static final int DEMIAN_STIGMA_INCINERATE_OBJECT_DURATION_TIME = 10 * 1000; // Stigma Pillar lasts 10 seconds
 
-
+    //  Gollux ---------------------------------------------------------------------------------------------------------
+    public static final int[][] GOLLUX_HP_MULTIPLIERS = {{1,60,300,500},{1,10,150,3000},{1,10,300,30000}};
+    public static final int GOLLUX_FIRST_MAP = 863010100;
 
     // TODO More bosses to be noted down...
 }

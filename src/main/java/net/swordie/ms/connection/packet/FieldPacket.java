@@ -12,9 +12,9 @@ import net.swordie.ms.client.character.skills.PsychicArea;
 import net.swordie.ms.client.character.skills.TownPortal;
 import net.swordie.ms.client.character.skills.info.ForceAtomInfo;
 import net.swordie.ms.client.jobs.resistance.OpenGate;
-import net.swordie.ms.world.Timer;
 import net.swordie.ms.client.trunk.TrunkDlg;
 import net.swordie.ms.connection.OutPacket;
+import net.swordie.ms.constants.BossConstants;
 import net.swordie.ms.constants.ItemConstants;
 import net.swordie.ms.constants.SkillConstants;
 import net.swordie.ms.enums.*;
@@ -22,7 +22,6 @@ import net.swordie.ms.handlers.PsychicLock;
 import net.swordie.ms.handlers.header.OutHeader;
 import net.swordie.ms.life.AffectedArea;
 import net.swordie.ms.life.mob.Mob;
-import net.swordie.ms.life.movement.MovementInfo;
 import net.swordie.ms.life.pet.Pet;
 import net.swordie.ms.loaders.containerclasses.MakingSkillRecipe;
 import net.swordie.ms.util.FileTime;
@@ -34,12 +33,8 @@ import net.swordie.ms.world.field.fieldeffect.FieldEffect;
 import net.swordie.ms.world.field.obtacleatom.ObtacleAtomInfo;
 import net.swordie.ms.world.field.obtacleatom.ObtacleInRowInfo;
 import net.swordie.ms.world.field.obtacleatom.ObtacleRadianInfo;
-import org.python.antlr.ast.For;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class FieldPacket {
@@ -980,6 +975,16 @@ public class FieldPacket {
         return outPacket;
     }
 
+    public static OutPacket golluxOpenPortal(Char chr, String action, int show) {
+        // OutHeader.GOLLUX_PORTAL_OPEN
+        OutPacket outPacket = new OutPacket();
+
+        outPacket.encodeString(action);
+        outPacket.encodeInt(show);
+
+        return outPacket;
+    }
+
     public static OutPacket playSound(String dir) {
         OutPacket outPacket = new OutPacket(OutHeader.PLAY_SOUND);
 
@@ -1010,6 +1015,20 @@ public class FieldPacket {
         return outPacket;
     }
 
+    public static OutPacket golluxUpdateMiniMap(Char chr){
+        OutPacket outPacket = new OutPacket();
+        // todo
+        //OutPacket outPacket = new OutPacket(OutHeader.GOLLUX_MINIMAP);
+
+        Map<String, Object> golluxMaps = chr.getOrCreateFieldByCurrentInstanceType(BossConstants.GOLLUX_FIRST_MAP).getProperties();
+        outPacket.encodeInt(golluxMaps.size());
+        for(Map.Entry<String, Object> entry:golluxMaps.entrySet()) {
+            outPacket.encodeString(entry.getKey());
+            outPacket.encodeString(String.valueOf(entry.getValue()));
+        }
+        return outPacket;
+    }
+
     public static OutPacket giveSpecialSkillBar(int skillID) {
         // todo
         // OutPacket outPacket = new OutPacket(OutHeader.GIVE_SPECIAL_SKILL_BAR);
@@ -1030,6 +1049,23 @@ public class FieldPacket {
             outPacket.encodeInt(1); // slv (?)
 
             outPacket.encodeArr(new byte[22]); // unknown, from sniff
+        }
+        return outPacket;
+    }
+
+    public static OutPacket footholdAppear(String footHoldName, boolean show) {
+        // todo
+        //OutPacket outPacket = new OutPacket(OutHeader.FOOT_HOLD_APPEAR);
+        OutPacket outPacket = new OutPacket(OutHeader.DYNAMIC_OBJ_URSUS_SYNC);
+
+        int loopSize = 1;
+
+        outPacket.encodeInt(loopSize);
+        for (int i = 0; i < loopSize; i++) {
+            outPacket.encodeString(footHoldName);
+            outPacket.encodeByte(0);
+            outPacket.encodeInt(show ? 1 : 0);
+            outPacket.encodePositionInt(new Position());
         }
 
         return outPacket;

@@ -1024,6 +1024,9 @@ public enum InHeader {
 
     E_N_D__F_I_E_L_D(1246),
 
+    // todo
+    GOLLUX_OUT_REQUEST(9999),
+
     CHECK_S_P_W_CREATE_NEW_CHARACTER(1039),
     SET_S_P_W(1040),
 

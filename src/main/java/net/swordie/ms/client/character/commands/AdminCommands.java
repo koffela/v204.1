@@ -61,6 +61,8 @@ import static net.swordie.ms.client.character.skills.SkillStat.prop;
 import static net.swordie.ms.client.character.skills.temp.CharacterTemporaryStat.*;
 import static net.swordie.ms.client.character.skills.temp.CharacterTemporaryStat.Stance;
 import static net.swordie.ms.enums.PrivateStatusIDFlag.*;
+
+import static net.swordie.ms.client.character.skills.temp.CharacterTemporaryStat.RideVehicle;
 import static net.swordie.ms.enums.ChatType.*;
 import static net.swordie.ms.enums.InventoryOperation.Add;
 
@@ -89,18 +91,20 @@ public class AdminCommands {
     public static class TestPacket extends AdminCommand {
 
         public static void execute(Char chr, String[] args) {
-            if (args.length < 3) {
-                chr.chatMessage("Usage: !packet <op> <data>");
+            Option o = new Option();
+            o.nOption = 1;
+            o.rOption = 800;
+            o.tOption = 5; // so it fades away
+
+            CharacterTemporaryStat cts = CharacterTemporaryStat.getByBitPos(Integer.parseInt(args[1]));
+            if (cts == null) {
+                chr.chatMessage("Could not find cts with bitpos " + args[1]);
                 return;
             }
-            OutPacket outPacket = new OutPacket(Short.parseShort(args[1]));
-            StringBuilder data = new StringBuilder();
-            for (int i = 2; i < args.length; i++) {
-                data.append(" ").append(args[i]);
-            }
-            outPacket.encodeArr(data.toString());
-            chr.write(outPacket);
-
+            TemporaryStatManager tsm = chr.getTemporaryStatManager();
+            tsm.putCharacterStatValue(cts, o);
+            tsm.sendSetStatPacket();
+            System.out.println(String.format("CTS %s = %s", args[1], cts));
         }
     }
 

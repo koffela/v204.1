@@ -64,6 +64,7 @@ import org.apache.log4j.Logger;
 import javax.script.*;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.nio.charset.Charset;
@@ -3376,7 +3377,6 @@ public class ScriptManagerImpl implements ScriptManager {
 		Mob gollux = MobData.getMobDeepCopyById(mobId);
 		int hpMultiplier = BossConstants.GOLLUX_HP_MULTIPLIERS[phase][3 - getGolluxDifficulty().getVal()];
 		Mob mob = spawnMob(mobId, 0, 0, false, gollux.getHp() * Long.valueOf(hpMultiplier));
-		//--blocking skills
 		blockGolluxAttacks();
 	}
 
@@ -3394,18 +3394,10 @@ public class ScriptManagerImpl implements ScriptManager {
 		Map<String, Object> golluxMaps = chr.getOrCreateFieldByCurrentInstanceType(BossConstants.GOLLUX_FIRST_MAP).getProperties();
 		ArrayList<Integer> blockedSkills = new ArrayList<>();
 		if((int)golluxMaps.getOrDefault(String.valueOf(BossConstants.GOLLUX_RIGHT_SHOULDER), 0) == 2){
-			blockedSkills.add(3);
-			blockedSkills.add(5);
-			blockedSkills.add(6);
-			blockedSkills.add(8);
-			blockedSkills.add(10); //gollux right arm attacks
+			blockedSkills.addAll(Arrays.stream(BossConstants.GOLLUX_RIGHT_HAND_SKILLS).boxed().collect(Collectors.toList()));
 		}
 		if((int)golluxMaps.getOrDefault(String.valueOf(BossConstants.GOLLUX_LEFT_SHOULDER), 0) == 2){
-			blockedSkills.add(2);
-			blockedSkills.add(4);
-			blockedSkills.add(7);
-			blockedSkills.add(9);
-			blockedSkills.add(11); //gollux left arm attacks
+			blockedSkills.addAll(Arrays.stream(BossConstants.GOLLUX_LEFT_HAND_SKILLS).boxed().collect(Collectors.toList()));
 		}
 		mob.getField().broadcastPacket(MobPool.mobAttackBlock(mob,blockedSkills));
 	}

@@ -1,13 +1,9 @@
-# 23049 - BaM 4th job advancement
-from net.swordie.ms.enums import Stat
+# 23033 - BaM 3rd job advancement
 
-sm.setSpeakerID(2159110)
-if chr.getJob() == 3211 and chr.getLevel() >= 100:
-    sm.setJob(3212)
-    sm.addSP(5)
-    sm.completeQuest(23049)
-    sm.chat("[Briston] You... have outclassed me.")
-    sm.warp(310000000)
+sm.setSpeakerID(2151001)
+if sm.sendAskYesNo("Are you ready to advance to the next level?"):
+    sm.jobAdvance(3211)
+    sm.completeQuest(parentID)
+    sm.sendSayOkay("Good job on defeating the conductor device. You have advanced a job level, and I have given you some SP.")
 else:
-    sm.sendSayOkay("You do not meet the requirements to advance.")
-sm.dispose()
+    sm.sendSayOkay("Come back when you're ready.")

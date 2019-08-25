@@ -34,6 +34,7 @@ import net.swordie.ms.world.field.obtacleatom.ObtacleAtomInfo;
 import net.swordie.ms.world.field.obtacleatom.ObtacleInRowInfo;
 import net.swordie.ms.world.field.obtacleatom.ObtacleRadianInfo;
 
+import java.lang.reflect.Array;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -1069,5 +1070,36 @@ public class FieldPacket {
         }
 
         return outPacket;
+    }
+
+    public static OutPacket createFallingCatcher(String name, int index, int count, List <Position> positions) {
+        OutPacket outPacket = new OutPacket(OutHeader.CREATE_FALLING_CATCHER);
+
+        outPacket.encodeString(name);
+        outPacket.encodeInt(index);
+
+        outPacket.encodeInt(count);
+
+        for (int i = 0; i < count; i++) {
+            outPacket.encodePositionInt(positions.get(i));
+        }
+
+        return outPacket;
+    }
+
+    public static OutPacket createFallingCatcherGollux(int mobId, Position position) {
+        ArrayList <Position> pos = new ArrayList<Position>();
+        pos.add(position);
+        switch (mobId) {
+            case 9390610:
+                return createFallingCatcher("palmAttackGiantBossL", 50, 1, pos);
+            case 9390611:
+                return createFallingCatcher("palmAttackGiantBossR", 50, 1, pos);
+            default:
+                Random ran = new Random();
+                int x = ran.nextInt(3) + 1;
+                return createFallingCatcher("DropStoneGiantBoss" + String.valueOf(x), 25, 1, pos);
+        }
+
     }
 }

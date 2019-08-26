@@ -377,12 +377,13 @@ public class MobPool {
         outPacket.encodeByte(stopEscort);
         return outPacket;
     }
-    public static OutPacket mobAttackBlock(Mob mob, ArrayList<Integer> skillsIDS){
+
+    public static OutPacket mobAttackBlock(Mob mob, ArrayList<Integer> skillsIDS) {
         OutPacket outPacket = new OutPacket(OutHeader.MOB_ATTACK_BLOCK);
 
         outPacket.encodeInt(mob.getObjectId());
         outPacket.encodeInt(skillsIDS.size());
-        for (int skillID : skillsIDS){
+        for (int skillID : skillsIDS) {
             outPacket.encodeInt(skillID);
         }
 

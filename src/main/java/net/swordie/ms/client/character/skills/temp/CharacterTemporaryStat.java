@@ -3,7 +3,6 @@ package net.swordie.ms.client.character.skills.temp;
 import org.apache.log4j.LogManager;
 import org.python.antlr.ast.Return;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -855,8 +854,8 @@ public enum CharacterTemporaryStat implements Comparator<CharacterTemporaryStat>
     public static CharacterTemporaryStat getByBitPos(int parseInt) {
         return
                 Arrays.asList(values()).stream()
-                .filter(characterTemporaryStat -> characterTemporaryStat.getBitPos() == parseInt)
-                .collect(Collectors.toList()).get(0);
+                        .filter(characterTemporaryStat -> characterTemporaryStat.getBitPos() == parseInt)
+                        .collect(Collectors.toList()).get(0);
     }
 
     public boolean isEncodeInt() {

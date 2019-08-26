@@ -34,7 +34,6 @@ import net.swordie.ms.world.field.obtacleatom.ObtacleAtomInfo;
 import net.swordie.ms.world.field.obtacleatom.ObtacleInRowInfo;
 import net.swordie.ms.world.field.obtacleatom.ObtacleRadianInfo;
 
-import java.lang.reflect.Array;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -1016,20 +1015,6 @@ public class FieldPacket {
         return outPacket;
     }
 
-    public static OutPacket golluxUpdateMiniMap(Char chr){
-        OutPacket outPacket = new OutPacket();
-        // todo
-        //OutPacket outPacket = new OutPacket(OutHeader.GOLLUX_MINIMAP);
-
-        Map<String, Object> golluxMaps = chr.getOrCreateFieldByCurrentInstanceType(BossConstants.GOLLUX_FIRST_MAP).getProperties();
-        outPacket.encodeInt(golluxMaps.size());
-        for(Map.Entry<String, Object> entry:golluxMaps.entrySet()) {
-            outPacket.encodeString(entry.getKey());
-            outPacket.encodeString(String.valueOf(entry.getValue()));
-        }
-        return outPacket;
-    }
-
     public static OutPacket giveSpecialSkillBar(int skillID) {
         // todo
         // OutPacket outPacket = new OutPacket(OutHeader.GIVE_SPECIAL_SKILL_BAR);
@@ -1054,6 +1039,20 @@ public class FieldPacket {
         return outPacket;
     }
 
+    public static OutPacket golluxUpdateMiniMap(Char chr){
+        OutPacket outPacket = new OutPacket();
+        // todo
+        //OutPacket outPacket = new OutPacket(OutHeader.GOLLUX_MINIMAP);
+
+        Map<String, Object> golluxMaps = chr.getOrCreateFieldByCurrentInstanceType(BossConstants.GOLLUX_FIRST_MAP).getProperties();
+        outPacket.encodeInt(golluxMaps.size());
+        for(Map.Entry<String, Object> entry:golluxMaps.entrySet()) {
+            outPacket.encodeString(entry.getKey());
+            outPacket.encodeString(String.valueOf(entry.getValue()));
+        }
+        return outPacket;
+    }
+
     public static OutPacket footholdAppear(String footHoldName, boolean show) {
         // todo
         //OutPacket outPacket = new OutPacket(OutHeader.FOOT_HOLD_APPEAR);
@@ -1072,7 +1071,7 @@ public class FieldPacket {
         return outPacket;
     }
 
-    public static OutPacket createFallingCatcher(String name, int index, int count, List <Position> positions) {
+    public static OutPacket createFallingCatcher(String name, int index, int count, List<Position> positions) {
         OutPacket outPacket = new OutPacket(OutHeader.CREATE_FALLING_CATCHER);
 
         outPacket.encodeString(name);
@@ -1088,7 +1087,7 @@ public class FieldPacket {
     }
 
     public static OutPacket createFallingCatcherGollux(int mobId, Position position) {
-        ArrayList <Position> pos = new ArrayList<Position>();
+        ArrayList<Position> pos = new ArrayList<Position>();
         pos.add(position);
         switch (mobId) {
             case 9390610:

@@ -85,7 +85,7 @@ public class ReactorHandler {
         Mob mob = (Mob)chr.getField().getLifeByObjectID(lifeID);
         mob.die();
         Field field = chr.getField();
-        for (Char character : field.getChars()){
+        for (Char character : field.getChars()) {
             character.increaseGolluxStack();
         }
     }

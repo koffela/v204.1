@@ -33,6 +33,8 @@ import net.swordie.ms.client.guild.bbs.BBSReply;
 import net.swordie.ms.client.trunk.Trunk;
 import net.swordie.ms.handlers.EventManager;
 import net.swordie.ms.life.Familiar;
+import net.swordie.ms.life.Merchant.EmployeeTrunk;
+import net.swordie.ms.life.Merchant.MerchantItem;
 import net.swordie.ms.life.drop.DropInfo;
 import net.swordie.ms.loaders.containerclasses.EquipDrop;
 import net.swordie.ms.loaders.containerclasses.MonsterCollectionGroupRewardInfo;
@@ -131,6 +133,8 @@ public class DatabaseManager {
                 OffenseManager.class,
                 NpcShopItem.class,
                 EquipDrop.class,
+                EmployeeTrunk.class,
+                MerchantItem.class,
         };
         for(Class clazz : dbClasses) {
             configuration.addAnnotatedClass(clazz);

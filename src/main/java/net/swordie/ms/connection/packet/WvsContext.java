@@ -25,7 +25,6 @@ import net.swordie.ms.client.party.PartyMember;
 import net.swordie.ms.client.party.PartyResult;
 import net.swordie.ms.connection.OutPacket;
 import net.swordie.ms.enums.*;
-import net.swordie.ms.enums.MessageType;
 import net.swordie.ms.handlers.header.OutHeader;
 import net.swordie.ms.life.drop.DropInfo;
 import net.swordie.ms.util.AntiMacro;
@@ -1240,9 +1239,15 @@ public class WvsContext {
 
         outPacket.encodeInt(cardID);
         outPacket.encodeShort(drops.size());
-        for(DropInfo drop : drops) {
+        for (DropInfo drop : drops) {
             outPacket.encodeInt(drop.getItemID());
         }
+        return outPacket;
+    }
+
+    public static OutPacket merchantResult() {
+        OutPacket outPacket = new OutPacket(OutHeader.ENTRUSTED_SHOP_CHECK_RESULT);
+        outPacket.encodeInt(7);
         return outPacket;
     }
 }

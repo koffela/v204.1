@@ -1606,4 +1606,6 @@ public interface ScriptManager extends Observer {
 	void spawnMobRespawnable(int id, int x, int y, boolean respawnable, long hp, int respawnTime);
 
 	void blockGolluxAttacks();
+
+	void getItemsFromTrunkEmployee();
 }

@@ -535,7 +535,19 @@ public class ItemHandler {
                 inPacket.decodeInt(); //tick
                 int eqpPos = inPacket.decodeShort();
                 boolean extraChanceFromMiniGame = inPacket.decodeByte() != 0;
-                equip = (Equip) chr.getEquipInventory().getItemBySlot((short) eqpPos);
+                equip = (Equip) chr.getEquipInventory().getItemBySlot(eqpPos);
+
+                if (extraChanceFromMiniGame) {
+                    inPacket.decodeInt();
+                }
+                inPacket.decodeInt();
+                inPacket.decodeInt();
+                boolean safeGuard;
+                if (equip.canSafeguardHyperUpgrade()) {
+                    safeGuard = inPacket.decodeByte() != 0;
+                } else {
+                    safeGuard = false;
+                }
                 boolean equippedInv = eqpPos < 0;
                 inv = equippedInv ? chr.getEquippedInventory() : chr.getEquipInventory();
                 equip = (Equip) inv.getItemBySlot((short) Math.abs(eqpPos));
@@ -646,7 +658,13 @@ public class ItemHandler {
                 ePos = inPacket.decodeInt();
                 inv = ePos < 0 ? chr.getEquippedInventory() : chr.getEquipInventory();
                 ePos = Math.abs(ePos);
-                equip = (Equip) inv.getItemBySlot((short) ePos);
+                equip = (Equip) inv.getItemBySlot(ePos);
+                if (equip.canSafeguardHyperUpgrade()) {
+                    safeGuard = inPacket.decodeByte() != 0;
+                } else {
+                    safeGuard = false;
+                }
+
                 if (equip == null || equip.hasSpecialAttribute(EquipSpecialAttribute.Vestige) || !ItemConstants.isUpgradable(equip.getItemId())) {
                     chr.getOffenseManager().addOffense(String.format("Character %d tried to enchant a non-enchantable equip (pos %d, itemid %d).",
                             chr.getId(), ePos, equip == null ? 0 : equip.getItemId()));

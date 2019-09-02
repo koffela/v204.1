@@ -143,11 +143,14 @@ public class UserRemote {
             }
             if(ai.skillId == 2321001 || ai.skillId == 2221052 || ai.skillId == 11121052 || ai.skillId == 12121054) {
                 outPacket.encodeInt(ai.keyDown);
+
             } else if(SkillConstants.isSuperNovaSkill(ai.skillId) || SkillConstants.isScreenCenterAttackSkill(ai.skillId) ||
                       ai.skillId == 101000202 || ai.skillId == 101000102 ||
                       SkillConstants.isSupportAttackSkill(ai.skillId) ||
                       ai.skillId == 400041019 ||ai.skillId == 400031016 ||ai.skillId == 400041024 ||
-                      SkillConstants.isWingedJavelin(ai.skillId) || ai.skillId == 400021075 || ai.skillId == 80002452) {
+                      SkillConstants.isWingedJavelin(ai.skillId) || ai.skillId == 400021075 || ai.skillId == 80002452 ||
+                      ai.skillId == 80001762) {
+
                 outPacket.encodePositionInt(ai.ptAttackRefPoint);
             }
             if(SkillConstants.isKeydownSkillRectMoveXY(ai.skillId)) {

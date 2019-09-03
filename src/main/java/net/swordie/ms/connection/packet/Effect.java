@@ -291,6 +291,8 @@ public class Effect {
             outPacket.encodeByte(getArg5());// 0 = sucessfuly catch 1 = failed too high hp 2 = cannot be captured
         } else if (SkillConstants.isUnregisteredSkill(skillID)) {
             outPacket.encodeByte(getArg5()); // bLeft
+        } else if (skillID == 37001001) {
+            outPacket.encodeInt(getArg5());
         }
     }
 

@@ -1612,4 +1612,6 @@ public interface ScriptManager extends Observer {
 	void spawnLotus (byte phase, byte difficulty);
 
 	void addStorageSlots(byte amount);
+
+	void addInventorySlotsByInvType(byte amount, byte type);
 }

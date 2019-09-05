@@ -15,6 +15,7 @@ import net.swordie.ms.connection.OutPacket;
 import net.swordie.ms.connection.packet.*;
 import net.swordie.ms.constants.BossConstants;
 import net.swordie.ms.constants.GameConstants;
+import net.swordie.ms.constants.ItemConstants;
 import net.swordie.ms.enums.BaseStat;
 import net.swordie.ms.enums.EliteState;
 import net.swordie.ms.enums.WeatherEffNoticeType;
@@ -1332,6 +1333,12 @@ public class Mob extends Life {
                 : 0); // Meso Drop Rate
         int totalMesoRate = mesoRateMob + mostDamageCharMesoRate;
         int totalDropRate = dropRateMob + mostDamageCharDropRate;
+        for (Item item : getMostDamageChar().getCashInventory().getItems()) {
+            if (ItemConstants.is2XDropCoupon(item.getItemId())) {
+                totalDropRate *= 2;
+                break;
+            }
+        }
         getField().drop(getDrops(), getField().getFootholdById(fhID), getPosition(), ownerID, totalMesoRate, totalDropRate, getEliteType() > 0);
     }
 
@@ -1384,6 +1391,13 @@ public class Mob extends Life {
                 long mobStatBonusExp = ((appliedExpPre * expIncrease) / 100);
                 eei.setBaseAddExp((int) mobStatBonusExp);
                 appliedExpPost += mobStatBonusExp;
+            }
+
+            for (int id : ItemConstants.EXP_2X_COUPON) {
+                if (chr.hasItem(id)) {
+                    appliedExpPre *= 2;
+                    break; //so coupons won't stack
+                }
             }
 
             eei.setLastHit(true);

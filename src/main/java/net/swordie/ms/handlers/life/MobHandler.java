@@ -128,9 +128,19 @@ public class MobHandler {
                             mobSkill.getSkillID(), MobSkillID.getMobSkillIDByVal(mobSkill.getSkillID()), mobSkill.getLevel()));
                     mob.putSkillCooldown(skillID, slv, nextUseableTime);
                     if (mobSkill.getSkillAfter() > 0) {
+                        List<Rect> rects = new ArrayList<Rect>();
+                        MobSkillID msID = MobSkillID.getMobSkillIDByVal(skillID);
+                        switch (msID) {
+                            case Toos:
+                                Rect rectangle = new Rect(-49, -1016, 211, -16);
+                                rects.add(rectangle);
+                                rects.add(rectangle.moveRight().moveRight());
+                                rects.add(rectangle.moveLeft().moveLeft());
+                                break;
+                        }
                         mob.getSkillDelays().add(mobSkill);
                         mob.setSkillDelay(mobSkill.getSkillAfter());
-                        c.write(MobPool.setSkillDelay(mob.getObjectId(), mobSkill.getSkillAfter(), skillID, slv, 0, null));
+                        c.write(MobPool.setSkillDelay(mob, 990, msi, 0, rects));
                     } else {
                         mobSkill.applyEffect(mob);
                     }

@@ -14,6 +14,7 @@ import net.swordie.ms.client.jobs.legend.Evan;
 import net.swordie.ms.client.jobs.legend.Phantom;
 import net.swordie.ms.client.jobs.nova.AngelicBuster;
 import net.swordie.ms.client.jobs.resistance.Demon;
+import net.swordie.ms.client.jobs.resistance.Mechanic;
 import net.swordie.ms.loaders.SkillData;
 import org.apache.log4j.Logger;
 
@@ -392,7 +393,7 @@ public class SkillConstants {
         return skillID == 33111013 || skillID == 33121016 || skillID == 33121012 || skillID == 131001207 ||
                 skillID == 131001107 || skillID == 4121015 || skillID == 51120057 || skillID == 400001017 ||
                 skillID == 400021039 || skillID == 400041041 || skillID == 152121041|| skillID == 400020046 ||
-                skillID == 400020051 || skillID == 35121052 ;
+                skillID == 400020051 || skillID == 35121052;
     }
 
     public static boolean isShootSkillNotConsumingBullets(int skillID) {

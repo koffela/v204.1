@@ -1366,6 +1366,9 @@ public class SkillConstants {
             case ThunderBreaker.GALE:
             case ThunderBreaker.TYPHOON:
             case Demon.DEMON_CRY:
+            case Mechanic.DISTORTION_BOMB:
+            case BALLISTIC_HURRICAANE:
+            case BALLISTIC_HURRICAANE_1:
                 return true;
         }
         return false;

@@ -74,6 +74,7 @@ import net.swordie.ms.loaders.SkillData;
 import net.swordie.ms.loaders.StringData;
 import net.swordie.ms.loaders.containerclasses.AndroidInfo;
 import net.swordie.ms.loaders.containerclasses.ItemInfo;
+import net.swordie.ms.scripts.ScriptInfo;
 import net.swordie.ms.scripts.ScriptManagerImpl;
 import net.swordie.ms.scripts.ScriptType;
 import net.swordie.ms.util.*;
@@ -3653,7 +3654,7 @@ public class Char {
 			other.chatMessage("Your trade partner disconnected.");
 		}
 		rebuildQuestExValues(true);
-		getScriptManager().getScripts().values().forEach(script -> script.addResponse(null));
+		getScriptManager().getScripts().values().forEach(ScriptInfo::reset);
 		getWorld().getConnectedChatClients().remove(getAccId());
 		setOnline(false);
 		getJobHandler().handleCancelTimer(this);

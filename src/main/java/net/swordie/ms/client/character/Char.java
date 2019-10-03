@@ -3653,6 +3653,7 @@ public class Char {
 			other.chatMessage("Your trade partner disconnected.");
 		}
 		rebuildQuestExValues(true);
+		getScriptManager().getScripts().values().forEach(script -> script.addResponse(null));
 		getWorld().getConnectedChatClients().remove(getAccId());
 		setOnline(false);
 		getJobHandler().handleCancelTimer(this);

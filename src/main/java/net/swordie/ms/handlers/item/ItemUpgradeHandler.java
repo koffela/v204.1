@@ -16,7 +16,6 @@ import net.swordie.ms.constants.QuestConstants;
 import net.swordie.ms.enums.*;
 import net.swordie.ms.handlers.Handler;
 import net.swordie.ms.handlers.header.InHeader;
-import net.swordie.ms.handlers.header.OutHeader;
 import net.swordie.ms.loaders.ItemData;
 import net.swordie.ms.loaders.QuestData;
 import net.swordie.ms.loaders.containerclasses.ItemInfo;
@@ -248,10 +247,20 @@ public class ItemUpgradeHandler {
         if (ItemConstants.isLongOrBigSword(equip.getItemId())) {
             zeroWeapon = (Equip) chr.getEquippedInventory().getItemBySlot(11);
         }
-        if (scroll == null || equip.hasSpecialAttribute(EquipSpecialAttribute.Vestige)) {
+        ItemInfo ii = ItemData.getItemInfoByID(scroll.getItemId());
+        if (equip.hasSpecialAttribute(EquipSpecialAttribute.Vestige)) {
             chr.chatMessage(SystemNotice, "Could not find scroll or equip.");
             chr.dispose();
             return;
+        }
+        if(!ii.getReqItemIds().isEmpty())
+        {
+            if(!ii.getReqItemIds().contains(equip.getItemId()))
+            {
+                chr.chatMessage(SystemNotice, "You may not scroll the selected equip with this scroll.");
+                chr.dispose();
+                return;
+            }
         }
         int scrollID = scroll.getItemId();
         boolean success = true;

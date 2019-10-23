@@ -1075,4 +1075,9 @@ public class JobConstants {
         return isAdventurerPirate(jobID) || isThunderBreaker(jobID) || isShade(jobID) || isAngelicBuster(jobID) ||
                 isXenon(jobID) || isMechanic(jobID) || isJett(jobID);
     }
+
+    public static boolean isUsingXbow(short jobId) {
+        return isWildHunter(jobId) || (isAdventurerArcher(jobId) && (jobId / 10) % 10 == 2);
+    }
+
 }

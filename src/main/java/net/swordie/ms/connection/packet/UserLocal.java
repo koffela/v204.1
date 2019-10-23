@@ -641,7 +641,7 @@ public class UserLocal {
         return outPacket;
     }
 
-    public static OutPacket setPartner(boolean add, int npcID, int skillID, boolean hasScript){
+    public static OutPacket setPartner(boolean add, int npcID, int skillID, boolean hasScript) {
         OutPacket outPacket = new OutPacket(OutHeader.SET_PARTNER);
 
         outPacket.encodeByte(add);
@@ -649,6 +649,13 @@ public class UserLocal {
         outPacket.encodeInt(skillID);
         outPacket.encodeByte(hasScript);
 
+        return outPacket;
+    }
+
+    public static OutPacket gatherRequestResult(int lifeId, boolean success) {
+        OutPacket outPacket = new OutPacket(OutHeader.GATHER_REQUEST_RESULT);
+        outPacket.encodeInt(lifeId);
+        outPacket.encodeInt(success ? 11 : 0);
         return outPacket;
     }
 }

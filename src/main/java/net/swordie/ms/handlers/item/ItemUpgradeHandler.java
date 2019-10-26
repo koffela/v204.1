@@ -247,10 +247,20 @@ public class ItemUpgradeHandler {
         if (ItemConstants.isLongOrBigSword(equip.getItemId())) {
             zeroWeapon = (Equip) chr.getEquippedInventory().getItemBySlot(11);
         }
+        ItemInfo ii = ItemData.getItemInfoByID(scroll.getItemId());
         if (equip.hasSpecialAttribute(EquipSpecialAttribute.Vestige)) {
             chr.chatMessage(SystemNotice, "Could not find scroll or equip.");
             chr.dispose();
             return;
+        }
+        if(!ii.getReqItemIds().isEmpty())
+        {
+            if(!ii.getReqItemIds().contains(equip.getItemId()))
+            {
+                chr.chatMessage(SystemNotice, "You may not scroll the selected equip with this scroll.");
+                chr.dispose();
+                return;
+            }
         }
         int scrollID = scroll.getItemId();
         boolean success = true;

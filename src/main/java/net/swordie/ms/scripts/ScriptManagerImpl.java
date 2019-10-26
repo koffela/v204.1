@@ -3622,4 +3622,12 @@ public class ScriptManagerImpl implements ScriptManager {
 	public void warpNoReturn(int id, int pid) {
 		chr.warp(id, pid, false);
 	}
+
+	public boolean zakumAlreadySpawned(int map) {
+		try {
+			return chr.getOrCreateFieldByCurrentInstanceType(map).getProperties().get("zakum").equals("1");
+		} catch (Exception e) {
+			return false;
+		}
+	}
 }

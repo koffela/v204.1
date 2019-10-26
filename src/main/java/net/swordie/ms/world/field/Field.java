@@ -492,6 +492,15 @@ public class Field {
             putLifeController(life,controller);
 
             life.broadcastSpawnPacket(onlyChar);
+
+            if (life instanceof Mob) {
+                Mob mob = ((Mob)life);
+
+                if (mob.getRemoveAfter() > 0) {
+                    // removeafter == 1 means its supposed to die immediately
+                    mob.die(false);
+                }
+            }
         }
     }
 

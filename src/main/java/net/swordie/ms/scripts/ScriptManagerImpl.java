@@ -1980,9 +1980,7 @@ public class ScriptManagerImpl implements ScriptManager {
 
 	public void setPartyQRValue(int qId, String value) {
 		for (Char c : chr.getParty().getOnlineChars()) {
-			Quest quest = chr.getQuestManager().getQuests().get(qId);
-			quest.setQrValue(value);
-			updateQRValue(qId, true);
+			createQuestWithQRValue(c, qId, value, true);
 		}
 	}
 

@@ -41,6 +41,7 @@ import net.swordie.ms.util.Util;
 import net.swordie.ms.util.container.Tuple;
 import net.swordie.ms.util.tools.StringUtil;
 import net.swordie.ms.world.World;
+import net.swordie.ms.world.event.InGameEventManager;
 import net.swordie.ms.world.field.Field;
 import net.swordie.ms.world.field.Portal;
 import net.swordie.ms.world.field.fieldeffect.FieldEffect;
@@ -82,6 +83,13 @@ public class AdminCommands {
             chr.getField().broadcastPacket(
                     UserRemote.effect(chr.getId(), effect));
             chr.write(UserPacket.effect(effect));
+        }
+    }
+
+    @Command(names = {"forceevent"}, requiredType = GAME_MASTER)
+    public static class ForceEvent extends AdminCommand {
+        public static void execute(Char chr, String[] args) {
+            InGameEventManager.getInstance().forceNextEvent();
         }
     }
 

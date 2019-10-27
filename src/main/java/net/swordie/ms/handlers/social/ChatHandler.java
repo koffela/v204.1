@@ -1,11 +1,10 @@
 package net.swordie.ms.handlers.social;
 
 import net.swordie.ms.Server;
+import net.swordie.ms.ServerConfig;
 import net.swordie.ms.client.Client;
 import net.swordie.ms.client.character.Char;
-import net.swordie.ms.client.character.commands.AdminCommand;
-import net.swordie.ms.client.character.commands.AdminCommands;
-import net.swordie.ms.client.character.commands.Command;
+import net.swordie.ms.client.character.commands.*;
 import net.swordie.ms.connection.InPacket;
 import net.swordie.ms.connection.db.DatabaseManager;
 import net.swordie.ms.connection.packet.ChatSocket;
@@ -40,66 +39,64 @@ public class ChatHandler {
     @Handler(op = InHeader.USER_CHAT)
     public static void handleUserChat(Client c, InPacket inPacket) {
         Char chr = c.getChr();
-        if (chr == null) {
+        inPacket.decodeInt(); // timestamp
+        String msg = inPacket.decodeString();
+
+        if (msg.length() <= 0)
+            return;
+
+        String command = msg.split(" ")[0].replace(String.valueOf(msg.charAt(0)), "");
+        Class[] commandClasses = null;
+
+        if (msg.startsWith(String.valueOf(ServerConfig.PLAYER_COMMAND)))
+            commandClasses = PlayerCommands.class.getClasses();
+
+        if (msg.startsWith(String.valueOf(ServerConfig.ADMIN_COMMAND)))
+            commandClasses = AdminCommands.class.getClasses();
+
+        // doesn't start with command prefix
+        if (commandClasses == null) {
+            chr.getField().broadcastPacket(UserPacket.chat(chr.getId(), chr.getName(), ChatUserType.User, msg,
+                    false, 0, c.getWorldId()));
             return;
         }
-        inPacket.decodeInt();
-        String msg = inPacket.decodeString();
-        boolean append = inPacket.decodeByte() == 1;
 
-        if (msg.length() > 0 && msg.charAt(0) == '@') {
-            if (msg.equalsIgnoreCase("@check")) {
-                chr.dispose();
-                Map<BaseStat, Integer> basicStats = chr.getTotalBasicStats();
-                StringBuilder sb = new StringBuilder();
-                List<BaseStat> sortedList = Arrays.stream(BaseStat.values()).sorted(Comparator.comparing(Enum::toString)).collect(Collectors.toList());
-                for (BaseStat bs : sortedList) {
-                    sb.append(String.format("%s = %d, ", bs, basicStats.getOrDefault(bs, 0)));
-                }
-                chr.chatMessage(Mob, String.format("X=%d, Y=%d %n Stats: %s", chr.getPosition().getX(), chr.getPosition().getY(), sb));
-                ScriptManagerImpl smi = chr.getScriptManager();
-                // all but field
-                smi.stop(ScriptType.Portal);
-                smi.stop(ScriptType.Npc);
-                smi.stop(ScriptType.Reactor);
-                smi.stop(ScriptType.Quest);
-                smi.stop(ScriptType.Item);
+        for (Class commandClass : commandClasses) {
+            Command cmd = (Command) commandClass.getAnnotation(Command.class);
+            for (String name : cmd.names()) {
 
-            } else if (msg.equalsIgnoreCase("@save")) {
-                DatabaseManager.saveToDB(chr);
-            }
-        } else if (msg.charAt(0) == AdminCommand.getPrefix() && chr.getUser().getPrivateStatusIDFlag().ordinal() > PrivateStatusIDFlag.NONE.ordinal()) {
-            boolean executed = false;
-            String command = msg.split(" ")[0].replace("!", "");
-            for (Class clazz : AdminCommands.class.getClasses()) {
-                Command cmd = (Command) clazz.getAnnotation(Command.class);
-                boolean matchingCommand = false;
-                for (String name : cmd.names()) {
-                    if (name.equalsIgnoreCase(command) && chr.getUser().getPrivateStatusIDFlag().hasFlag(cmd.requiredType())) {
-                        matchingCommand = true;
-                        break;
+                if (!name.equalsIgnoreCase(command))
+                    continue;
+
+                if (chr.getUser().getPrivateStatusIDFlag().ordinal() < cmd.requiredType().ordinal())
+                    break;
+
+                try {
+                    ICommand iCommand = null;
+
+                    // TODO replace this switch statement with something prettier
+                    switch (msg.charAt(0)) {
+                        case ServerConfig.PLAYER_COMMAND:
+                            iCommand = (PlayerCommand) commandClass.getConstructor().newInstance();
+                            break;
+                        case ServerConfig.ADMIN_COMMAND:
+                            iCommand = (AdminCommand) commandClass.getConstructor().newInstance();
+                            break;
                     }
+
+                    commandClass.getDeclaredMethod("execute", Char.class, String[].class)
+                            .invoke(iCommand, chr, msg.split(" "));
+
+                } catch (Exception e) {
+                    chr.chatMessage("Exception: " + e.getCause().toString());
+                    e.printStackTrace();
                 }
-                if (matchingCommand) {
-                    executed = true;
-                    String[] split = null;
-                    try {
-                        AdminCommand adminCommand = (AdminCommand) clazz.getConstructor().newInstance();
-                        Method method = clazz.getDeclaredMethod("execute", Char.class, String[].class);
-                        split = msg.split(" ");
-                        method.invoke(adminCommand, c.getChr(), split);
-                    } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException
-                            | InstantiationException e) {
-                        e.printStackTrace();
-                    }
-                }
+                return;
             }
-            if (!executed) {
-                chr.chatMessage(Expedition, "Unknown command \"" + command + "\"");
-            }
-        } else {
-            chr.getField().broadcastPacket(UserPacket.chat(chr.getId(), chr.getName(), ChatUserType.User, msg, append, 0, c.getWorldId()));
         }
+
+        // only reaches this point if no matching command was found
+        chr.chatMessage(Expedition, "Unknown command \"" + command + "\"");
     }
 
     @Handler(op = InHeader.WHISPER)

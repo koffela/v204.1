@@ -46,6 +46,13 @@ public class DropHandler {
             chr.dispose();
             return;
         }
+
+        if (field.getDropsDisabled()) {
+            chr.chatMessage("Drops are currently disabled in this map.");
+            chr.dispose();
+            return;
+        }
+
         inPacket.decodeInt(); // tick
         int amount = inPacket.decodeInt();
         if (chr.getMoney() > amount) {

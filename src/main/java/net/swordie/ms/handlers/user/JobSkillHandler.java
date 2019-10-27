@@ -553,7 +553,7 @@ public class JobSkillHandler {
             BeastTamer.beastTamerRegroup(chr);
         } else {
             log.error(String.format("Unhandled Beast Tamer Request %d", skillId));
-            chr.chatMessage(String.format("Unhandled Beast Tamer Request %d", skillId));
+            chr.dbgChatMsg(String.format("Unhandled Beast Tamer Request %d", skillId));
         }
     }
 

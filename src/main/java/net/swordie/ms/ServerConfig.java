@@ -12,4 +12,8 @@ public class ServerConfig {
     public static final String EVENT_MSG = String.format("#rPoki v%d.%s", ServerConstants.VERSION, ServerConstants.MINOR_VERSION);
     public static final String LOGIN_NOTICE_POPUP = "UI/UIWindow6.img/loginNoticePopup/sundayMaple_190127";
     public static final int MAX_CHARACTERS = 30;
+
+    public static final boolean DEBUG_MODE = true;
+    public static final char ADMIN_COMMAND = '!';
+    public static final char PLAYER_COMMAND = '@';
 }

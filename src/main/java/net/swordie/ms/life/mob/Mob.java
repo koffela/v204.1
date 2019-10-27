@@ -1347,7 +1347,10 @@ public class Mob extends Life {
                 break;
             }
         }
-        getField().drop(getDrops(), getField().getFootholdById(fhID), getPosition(), ownerID, totalMesoRate, totalDropRate, getEliteType() > 0);
+        if (!getField().getDropsDisabled()) {
+            getField().drop(getDrops(), getField().getFootholdById(fhID), getPosition(), ownerID, totalMesoRate, totalDropRate, getEliteType() > 0);
+        }
+
     }
 
     public Map<Char, Long> getDamageDone() {

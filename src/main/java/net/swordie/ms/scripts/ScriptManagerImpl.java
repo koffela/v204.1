@@ -80,6 +80,7 @@ import java.util.stream.Collectors;
 
 import static net.swordie.ms.client.character.skills.temp.CharacterTemporaryStat.RideVehicle;
 import static net.swordie.ms.enums.ChatType.*;
+import static net.swordie.ms.life.mob.skill.MobSkillStat.delay;
 import static net.swordie.ms.life.mob.skill.MobSkillStat.fixDamR;
 import static net.swordie.ms.life.npc.NpcMessageType.*;
 
@@ -2679,11 +2680,11 @@ public class ScriptManagerImpl implements ScriptManager {
 	}
 
 	public void createClockForMultiple(int seconds, int... fieldIDs) {
-		for(int fieldID : fieldIDs) {
+		for (int fieldID : fieldIDs) {
 			Field field = chr.getOrCreateFieldByCurrentInstanceType(fieldID);
 			new Clock(ClockType.SecondsClock, field, seconds);
 		}
-	}
+    }
 
 	public void removeClock() {
 		chr.write(FieldPacket.clock(ClockPacket.removeClock()));
@@ -2952,7 +2953,7 @@ public class ScriptManagerImpl implements ScriptManager {
 											 int executes, String methodName, Object...args) {
 		ScheduledFuture scheduledFuture;
 		if (executes == 0) {
-			scheduledFuture =  EventManager.addFixedRateEvent(() -> invoke(this, methodName, args), initialDelay,
+			scheduledFuture = EventManager.addFixedRateEvent(() -> invoke(this, methodName, args), initialDelay,
 					delayBetweenExecutions);
 		} else {
 			scheduledFuture = EventManager.addFixedRateEvent(() -> invoke(this, methodName, args), initialDelay,
@@ -3502,7 +3503,7 @@ public class ScriptManagerImpl implements ScriptManager {
 		return GameConstants.MAX_INVENTORY_SLOTS - chr.getInventoryByType(InvType.getInvTypeByVal(type)).getSlots();
 	}
 
-	public void dropItemsAlongLine(int[] items, int range, int startPosX, int startPosY, long msDelay) throws InterruptedException {
+	public void dropItemsAlongLine(int[] items, int range, int startPosX, int startPosY, long msDelay) {
 		if (items.length <= 0) {
 			return; // avoid divide by zero error
 		}
@@ -3525,12 +3526,8 @@ public class ScriptManagerImpl implements ScriptManager {
 				dropMeso(items[i], startPosX, startPosY, endPosX, startPosY);
 			}
 
-			Thread.sleep(Math.max(msDelay, 0)); // to give the cascading effect
+			//Thread.sleep(Math.max(msDelay, 0)); // todo figure out this gay delay packet
 		}
-	}
-
-	public void dropItem(int itemId, Mob deadMob) {
-		dropItem(itemId, 1, deadMob);
 	}
 
 	// only for items with quantity
@@ -3564,24 +3561,24 @@ public class ScriptManagerImpl implements ScriptManager {
 	public void spawnZakum(int map) {
 		short pX = BossConstants.ZAKUM_SPAWN_X;
 		short pY = BossConstants.ZAKUM_SPAWN_Y;
-
+		int zakBody = BossConstants.ZAKUM_EASY_BODY;
+		int zakArm = BossConstants.ZAKUM_EASY_ARM;
 		switch (map) {
-			case BossConstants.ZAKUM_EASY_ALTAR:
-				spawnMob(BossConstants.ZAKUM_EASY_BODY, pX, pY, false);
-				for (int i = 1; i <= 8; i++)
-					spawnMob(BossConstants.ZAKUM_EASY_ARM + i, pX, pY, false);
-				break;
 			case BossConstants.ZAKUM_HARD_ALTAR:
-				spawnMob(BossConstants.ZAKUM_HARD_BODY, pX, pY, false);
-				for (int i = 1; i <= 8; i++)
-					spawnMob(BossConstants.ZAKUM_HARD_ARM + i, pX, pY, false);
+				zakBody = BossConstants.ZAKUM_HARD_BODY;
+				zakArm = BossConstants.ZAKUM_HARD_ARM;
 				break;
 			case BossConstants.ZAKUM_CHAOS_ALTAR:
-				spawnMob(BossConstants.ZAKUM_CHAOS_BODY, pX, pY, false);
-				for (int i = 1; i <= 8; i++)
-					spawnMob(BossConstants.ZAKUM_CHAOS_ARM + i, pX, pY, false);
+				zakBody = BossConstants.ZAKUM_CHAOS_BODY;
+				zakArm = BossConstants.ZAKUM_CHAOS_ARM;
 				break;
 		}
+
+		spawnMob(zakArm, pX, pY, false);
+		for (int i = 1; i <= 8; i++) {
+			spawnMob(zakBody + i, pX, pY, false);
+		}
+
 		chr.getOrCreateFieldByCurrentInstanceType(map).setProperty("zakum", 1);
 	}
 
@@ -3601,9 +3598,9 @@ public class ScriptManagerImpl implements ScriptManager {
 	public void resetBossMap(int fieldId) {
 		Field map = chr.getOrCreateFieldByCurrentInstanceType(fieldId);
 
-		if (map.getClock() != null)
+		if (map.getClock() != null) {
 			map.getClock().removeClock();
-
+		}
 		for (Mob m : map.getMobs()) {
 			map.removeLife(m);
 		}

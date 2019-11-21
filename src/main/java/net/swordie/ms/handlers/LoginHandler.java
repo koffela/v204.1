@@ -260,7 +260,7 @@ public class LoginHandler {
         Char chr = new Char(acc.getId(), name, keySettingType, eventNewCharSaleJob, job.getJobId(), curSelectedSubJob, gender, skin, face, hair, items);
         JobManager.getJobById(job.getJobId(), chr).setCharCreationStats(chr);
         chr.setMatrixInventory(MatrixInventory.getDefault());
-        chr.setFuncKeyMap(FuncKeyMap.getDefaultMapping(keySettingType));
+        chr.initFuncKeyMaps(keySettingType, JobConstants.isBeastTamer(chr.getJob()));
         c.getAccount().addCharacter(chr);
         DatabaseManager.saveToDB(c.getAccount());
 

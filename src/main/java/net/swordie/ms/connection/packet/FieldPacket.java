@@ -42,14 +42,24 @@ public class FieldPacket {
     public static OutPacket funcKeyMappedManInit(FuncKeyMap funcKeyMap) {
         OutPacket outPacket = new OutPacket(OutHeader.FUNC_KEY_MAPPED_MAN_INIT);
 
-        funcKeyMap.encode(outPacket);
+        if (funcKeyMap.getKeymap() == null || funcKeyMap.getKeymap().size() == 0) {
+            outPacket.encodeByte(true);
+        } else {
+            outPacket.encodeByte(false);
+            funcKeyMap.encode(outPacket);
+        }
 
         return outPacket;
     }
-    public static  OutPacket beastTamerFuncKeyMappedManInit(){
-        OutPacket outPacket = new OutPacket();
-        outPacket.encodeShort(0);
-        return  outPacket;
+
+    public static OutPacket beastTamerFuncKeyMappedManInit(List<FuncKeyMap> funcKeyMaps) {
+        OutPacket outPacket = new OutPacket(OutHeader.FUNC_KEY_MAPPED_MAN_INIT);
+        outPacket.encodeByte(false);
+        for (FuncKeyMap funcKeyMap : funcKeyMaps) {
+            funcKeyMap.encode(outPacket);
+        }
+
+        return outPacket;
     }
 
     public static OutPacket affectedAreaCreated(AffectedArea aa) {

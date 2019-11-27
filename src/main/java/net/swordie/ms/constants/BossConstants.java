@@ -1,5 +1,7 @@
 package net.swordie.ms.constants;
 
+import net.swordie.ms.util.Rect;
+
 /**
  * Created on 2-8-2018.
  */
@@ -103,7 +105,7 @@ public class BossConstants {
 
     //  Gollux ---------------------------------------------------------------------------------------------------------
 
-    public static final int[][] GOLLUX_HP_MULTIPLIERS = {{1, 60, 300, 500}, {1, 10, 150, 3000}, {1, 10, 300, 30000}};
+    public static final int[][] GOLLUX_HP_MULTIPLIERS = {{1, 60, 300, 500}, {1, 10, 150, 3000}, {1, 10, 300, 6000}};
 
     public static final int GOLLUX_FIRST_MAP = 863010100;
     public static final int GOLLUX_RIGHT_SHOULDER = 863010330;
@@ -142,6 +144,7 @@ public class BossConstants {
 
     public static final int ZAKUM_SPAWN_X = -54;
     public static final int ZAKUM_SPAWN_Y = 86;
+    public static Rect ZAKUM_RECT = new Rect(-183, -30, 201, 88);
 
     public static final int ZAKUM_EASY_SPAWN_ITEM = 4001796; // Eye of fire chunk
     public static final int ZAKUM_EASY_ENTRANCE = 211042402;

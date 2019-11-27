@@ -585,7 +585,6 @@ public interface ScriptManager extends Observer {
 	 */
 	void dropItem(int itemId, int x, int y);
 
-
 	/**
 	 * Teleport the player to a Position in the current field.
 	 *
@@ -1596,6 +1595,10 @@ public interface ScriptManager extends Observer {
 	GolluxDifficultyType getGolluxDifficulty();
 
 	void spawnGollux(byte phase);
+
+	void sendGolluxRewardMap(byte difficulty);
+
+	int getInstancedMapMobCount(int fieldId);
 
 	void changeFootHold(String footHoldName, boolean show);
 

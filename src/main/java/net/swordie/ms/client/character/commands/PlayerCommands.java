@@ -1,29 +1,23 @@
 package net.swordie.ms.client.character.commands;
 
 import net.swordie.ms.client.character.Char;
-import net.swordie.ms.client.character.items.Equip;
-import net.swordie.ms.client.character.items.Inventory;
-import net.swordie.ms.client.character.items.Item;
 import net.swordie.ms.connection.packet.Effect;
 import net.swordie.ms.connection.packet.UserPacket;
-import net.swordie.ms.constants.ItemConstants;
-import net.swordie.ms.enums.AccountType;
 import net.swordie.ms.enums.BaseStat;
-import net.swordie.ms.loaders.ItemData;
-import net.swordie.ms.loaders.containerclasses.ItemInfo;
 import net.swordie.ms.scripts.ScriptManagerImpl;
 import net.swordie.ms.scripts.ScriptType;
 import net.swordie.ms.util.Util;
 import net.swordie.ms.world.event.InGameEventManager;
 import org.apache.log4j.LogManager;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static net.swordie.ms.enums.ChatType.Mob;
-import static net.swordie.ms.enums.ChatType.Notice2;
 import static net.swordie.ms.enums.PrivateStatusIDFlag.NONE;
-
 
 public class PlayerCommands {
     static final org.apache.log4j.Logger log = LogManager.getRootLogger();
@@ -74,7 +68,7 @@ public class PlayerCommands {
     }
 
     @Command(names = {"sell"}, requiredType = NONE)
-    public static class SellEquipmentTab extends PlayerCommand {
+    public static class SellItem extends PlayerCommand {
         public static void execute(Char chr, String[] args) {
             ScriptManagerImpl smi = chr.getScriptManager();
             smi.startScript(0, "inv-seller", ScriptType.Npc);

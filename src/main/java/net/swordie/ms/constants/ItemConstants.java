@@ -666,7 +666,7 @@ public class ItemConstants {
         return getItemPrefix(item.getItemId()) == 247;
     }
 
-    /*
+    /**
      * Gets potential tier for a line.
      * Accounts prime lines too.
      * @param line Potential line.

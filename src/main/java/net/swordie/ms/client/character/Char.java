@@ -7,7 +7,6 @@ import net.swordie.ms.client.jobs.legend.Evan;
 import net.swordie.ms.client.jobs.legend.Luminous;
 import net.swordie.ms.client.jobs.resistance.Demon;
 import net.swordie.ms.constants.*;
-import net.swordie.ms.handlers.social.ChatHandler;
 import net.swordie.ms.life.*;
 import net.swordie.ms.life.npc.Npc;
 import net.swordie.ms.loaders.containerclasses.ItemInfo;
@@ -62,7 +61,6 @@ import net.swordie.ms.enums.*;
 import net.swordie.ms.handlers.ClientSocket;
 import net.swordie.ms.handlers.EventManager;
 import net.swordie.ms.handlers.PsychicLock;
-import net.swordie.ms.life.*;
 import net.swordie.ms.life.Merchant.EmployeeTrunk;
 import net.swordie.ms.life.Merchant.Merchant;
 import net.swordie.ms.life.Merchant.MerchantItem;
@@ -74,7 +72,6 @@ import net.swordie.ms.loaders.ItemData;
 import net.swordie.ms.loaders.SkillData;
 import net.swordie.ms.loaders.StringData;
 import net.swordie.ms.loaders.containerclasses.AndroidInfo;
-import net.swordie.ms.loaders.containerclasses.ItemInfo;
 import net.swordie.ms.scripts.ScriptInfo;
 import net.swordie.ms.scripts.ScriptManagerImpl;
 import net.swordie.ms.scripts.ScriptType;
@@ -5003,7 +5000,7 @@ public class Char {
 	public void addMaplePoints(int maplePoint) {
 		getUser().addMaplePoints(maplePoint);
 		chatScriptMessage("You have gained " + maplePoint + " MaplePoints.");
-		getClient().write(WvsContext.setMaplePoint(getUser().getMaplePoints()));
+		getClient().write(WvsContext.setMaplePoints(getUser().getMaplePoints()));
 	}
 
 	public void initBlessingSkillNames() {

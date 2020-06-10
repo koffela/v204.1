@@ -152,7 +152,7 @@ public class MigrationHandler {
         chr.setOnline(true); // v195+: respect 'invisible login' setting
         chr.getOffenseManager().setChr(chr);
         MatrixInventory.reloadSkills(chr);
-        c.write(WvsContext.setMaplePoints(user.getMaplePoints()));
+        c.write(WvsContext.setMaplePoints(acc.getNxCredit()));
     }
 
 

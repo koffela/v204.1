@@ -61,8 +61,7 @@ public class PartyDamageInfo {
             }
             if (Util.succeedProp(GameConstants.NX_DROP_CHANCE)) {
                 int nx = (int) (perc * mob.getNxDropAmount());
-//                chr.addNx(nx);
-                chr.addMaplePoints(nx);
+                chr.addNx(nx);
             }
         }
     }

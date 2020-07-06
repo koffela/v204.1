@@ -928,7 +928,7 @@ public class JobConstants {
 
 
     public static boolean isExtendSpJob(short jobId) {
-        return !isBeastTamer(jobId) && !isPinkBean(jobId) && !isGmJob(jobId);
+        return !isBeastTamer(jobId) && !isPinkBean(jobId) && !isGmJob(jobId) && !isManagerJob(jobId);
     }
 
     public static boolean isDemon(short jobId) {

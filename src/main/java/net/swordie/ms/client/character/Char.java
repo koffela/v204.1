@@ -2491,6 +2491,12 @@ public class Char {
 			equip.setEquippedDate(FileTime.currentTime());
 			equip.addAttribute(EquipAttribute.Untradable);
 		}
+		if (equip.getCharmEXP() > 0) {
+			addStatAndSendPacket(Stat.charmEXP, equip.getCharmEXP());
+			equip.setCharmEXP(0);
+			equip.setiCraft((short) 0);
+			equip.addAttribute(EquipAttribute.NoNonCombatStatGain);
+		}
 		AvatarLook al = getAvatarData().getAvatarLook();
 
 		int itemID = item.getItemId();

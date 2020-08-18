@@ -3229,14 +3229,12 @@ public class Char {
 		return getTotalStat(BaseStat.mmp);
 	}
 
-	public void heal(int amount) {
-		heal(amount, false); }
 	/**
 	 * Heals character's MP and HP completely.
 	 */
 	public void healHPMP() {
-		heal(getMaxHP());
-		healMP(getMaxMP());
+		heal(getMaxHP(), true, false);
+		healMP(getMaxMP(), true);
 	}
 
 	/**
@@ -3244,13 +3242,22 @@ public class Char {
 	 *
 	 * @param amount The amount to heal.
 	 */
-	public void heal(int amount, boolean mp) {
+
+	public void heal(int amount, boolean mp, boolean whilstDeath) {
 		int curHP = getHP();
 		int maxHP = getMaxHP();
 		int newHP = curHP + amount > maxHP ? maxHP : curHP + amount;
 		Map<Stat, Object> stats = new HashMap<>();
-		setStat(Stat.hp, newHP);
-		stats.put(Stat.hp, newHP);
+
+		if (whilstDeath) {
+			setStat(Stat.hp, newHP);
+			stats.put(Stat.hp, newHP);
+		}
+
+		if (!whilstDeath && getHP() > 0) {
+			setStat(Stat.hp, newHP);
+			stats.put(Stat.hp, newHP);
+		}
 
 		if (mp) {
 			int curMP = getMP();
@@ -3259,11 +3266,15 @@ public class Char {
 			setStat(Stat.mp, newMP);
 			stats.put(Stat.mp, newMP);
 		}
-
 		write(WvsContext.statChanged(stats));
+
 		if (getParty() != null) {
 			getParty().broadcast(UserRemote.receiveHP(this), this);
 		}
+	}
+
+	public void heal(int amount) {
+		heal(amount, false, false);
 	}
 
 	/**
@@ -3271,7 +3282,7 @@ public class Char {
 	 *
 	 * @param amount The amount to heal.
 	 */
-	public void healMP(int amount) {
+	public void healMP(int amount, boolean whilstDeath) {
 		int curMP = getMP();
 		int maxMP = getMaxMP();
 		int newMP = curMP + amount > maxMP ? maxMP : curMP + amount;
@@ -3279,6 +3290,10 @@ public class Char {
 		setStat(Stat.mp, newMP);
 		stats.put(Stat.mp, newMP);
 		write(WvsContext.statChanged(stats));
+	}
+
+	public void healMP(int amount) {
+		heal(amount, true, false);
 	}
 
 	/**
@@ -4999,7 +5014,7 @@ public class Char {
 	public void addNx(int nx) {
 		getAccount().addNXCredit(nx);
 		chatScriptMessage("You have gained " + nx + " NX.");
-		write(WvsContext.setMaplePoint(getAccount().getNxCredit()));
+		write(WvsContext.setMaplePoints(getAccount().getNxCredit()));
 	}
 
 

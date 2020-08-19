@@ -117,6 +117,21 @@ public class Pirate extends Beginner {
     public static final int HEROS_WILL_CANNON = 5321006;
     public static final int MEGA_MONKEY_MAGIC = 5320008;
 
+    //Jett
+    public static final int GALACTIC_MIGHT = 5081023; //Buff
+
+    public static final int BOUNTY_CHASER = 5701013; //Buff
+    public static final int STARLINE_TWO = 5701010; //Special Attack (Stun Debuff)
+
+    public static final int TURRET_DEPLOYMENT = 5711001; //Summon
+    public static final int SLIPSTREAM_SUIT = 5711024; //Buff
+
+    public static final int HIGH_GRAVITY = 5721066; //Buff
+    public static final int MAPLE_WARRIOR_JETT = 5721000; //Buff
+    public static final int FALLING_STARS = 5711021;
+    public static final int BACKUP_BEATDOWN = 5721061;
+    public static final int HEROS_WILL_JETT = 5721002;
+
 
     //Hyper
     public static final int EPIC_ADVENTURER_BUCC = 5121053;

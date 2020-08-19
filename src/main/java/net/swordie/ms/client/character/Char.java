@@ -3251,9 +3251,7 @@ public class Char {
 		if (whilstDeath) {
 			setStat(Stat.hp, newHP);
 			stats.put(Stat.hp, newHP);
-		}
-
-		if (!whilstDeath && getHP() > 0) {
+		} else if(getHP() > 0) {
 			setStat(Stat.hp, newHP);
 			stats.put(Stat.hp, newHP);
 		}

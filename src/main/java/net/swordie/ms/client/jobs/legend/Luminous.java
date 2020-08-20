@@ -51,7 +51,13 @@ public class Luminous extends Job {
 
     public static final int MAGIC_BOOSTER = 27101004; //Buff
     public static final int BLACK_BLESSING = 27100003;
+
     public static final int PRESSURE_VOID = 27101202;
+
+    public static final int FLASH_SHOWER = 27001100;
+    public static final int ABYSSALL_DROP = 27001201;
+    public static final int LIGHT_AFFINITY = 27000106;
+    public static final int DARK_AFFINITY = 27000207;
 
     public static final int SHADOW_SHELL = 27111004; //Buff
     public static final int RAY_OF_REDEMPTION = 27111101; // Attack + heals party members
@@ -78,7 +84,11 @@ public class Luminous extends Job {
     private int[] addedSkills = new int[] {
             EQUILIBRIUM,
             //EQUILIBRIUM2,
-            CHANGE_LIGHT_DARK
+            CHANGE_LIGHT_DARK,
+            SUNFIRE,
+            ECLIPSE,
+            INNER_LIGHT,
+            FLASH_BLINK
     };
 
     private final int[] buffs = new int[]{

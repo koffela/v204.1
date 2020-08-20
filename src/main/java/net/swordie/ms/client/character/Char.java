@@ -3248,10 +3248,7 @@ public class Char {
 		int newHP = curHP + amount > maxHP ? maxHP : curHP + amount;
 		Map<Stat, Object> stats = new HashMap<>();
 
-		if (whilstDeath) {
-			setStat(Stat.hp, newHP);
-			stats.put(Stat.hp, newHP);
-		} else if(getHP() > 0) {
+		if(whilstDeath || getHP() > 0) {
 			setStat(Stat.hp, newHP);
 			stats.put(Stat.hp, newHP);
 		}

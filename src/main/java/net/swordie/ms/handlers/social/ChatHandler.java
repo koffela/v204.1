@@ -17,6 +17,9 @@ import net.swordie.ms.loaders.StringData;
 import net.swordie.ms.world.World;
 import org.apache.log4j.Logger;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import static net.swordie.ms.enums.ChatType.Expedition;
 import static net.swordie.ms.enums.ChatType.Whisper;
 
@@ -129,8 +132,11 @@ public class ChatHandler {
     @Handler(op = InHeader.GROUP_MESSAGE)
     public static void handleGroupMessage(Char chr, InPacket inPacket) {
         byte type = inPacket.decodeByte(); // party = 1, alliance = 3
-        byte idk2 = inPacket.decodeByte();
-        int idk3 = inPacket.decodeInt(); // party id?
+        byte loopSize = inPacket.decodeByte();
+        Set<Integer> charIds = new HashSet<>();
+        for (int i = 0; i < loopSize; i++) {
+            charIds.add(inPacket.decodeInt());
+        }
         String msg = inPacket.decodeString();
         if (type == 1 && chr.getParty() != null) {
             chr.getParty().broadcast(FieldPacket.groupMessage(GroupMessageType.Party, chr, msg), chr);

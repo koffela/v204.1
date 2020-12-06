@@ -78,7 +78,7 @@ public enum InHeader {
     AUTH_HEARTBEAT(147),
     PONG(152),// v202
     CLIENT_ERROR(154),
-    CLIENT_START(157),// v202
+    SET_HOT_FIX(157),// v202
     CLIENT_EXCEPTION_INFO(158),// v202
     SERVERSTATUS_REQUEST(-1), // disconnects upon sending message (no error given)
     WVS_SET_UP_STEP(159),// v202

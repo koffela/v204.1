@@ -179,7 +179,6 @@ public class WorldHandler {
         chr.setFieldInstanceType(FieldInstanceType.CHANNEL);
         Server.getInstance().addAccount(acc);
         acc.setCurrentChr(chr);
-        DatabaseManager.saveToDB(acc);
         Field field = chr.getOrCreateFieldByCurrentInstanceType(chr.getFieldID() <= 0 ? 100000000 : chr.getFieldID());
         if (chr.getHP() <= 0) { // automatically revive when relogging
             chr.heal(chr.getMaxHP() / 2);

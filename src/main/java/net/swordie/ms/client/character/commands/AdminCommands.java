@@ -593,6 +593,108 @@ public class AdminCommands {
         }
     }
 
+    @Command(names = {"map"}, requiredType = NONE)
+    public static class MapInfo extends AdminCommand {
+        public static void execute(Char chr, String[] args) {
+
+            String str = "";
+
+            for(Char c : chr.getField().getChars()) {
+                str += c.getName();
+                if(chr.getField().getChars().indexOf(c) != chr.getField().getChars().size()) {
+                    str += ", ";
+                }
+            }
+
+            chr.chatMessage(SystemNotice,str);
+
+        }
+    }
+
+    @Command(names = {"forcechase"}, requiredType = GAME_MASTER)
+    public static class ForceChase extends AdminCommand {
+        public static void execute(Char chr, String[] args) {
+
+            for(Mob m : chr.getField().getMobs()) {
+                log.debug(m.isUserControll());
+            }
+
+            for(Mob m : chr.getField().getMobs()) {
+                //c.write(MobPool.damaged(mob.getObjectId(), dmg, mob.getTemplateId(), (byte) 1, (int) mob.getHp(), (int) mob.getMaxHp()));
+                //chr.getField().broadcastPacket(MobPool.damaged(m.getObjectId(),(long)2000,m.getTemplateId(),(byte)1,(int)m.getHp(),(int)m.getMaxHp()));
+                chr.getField().broadcastPacket(MobPool.forceChase(m.getObjectId(),false));
+            }
+
+        }
+    }
+
+    @Command(names = {"setcontroller"}, requiredType = GAME_MASTER)
+    public static class SetController extends AdminCommand {
+        public static void execute(Char chr, String[] args) {
+
+            String chrName = args[1];
+
+            Char newController = chr.getField().getCharByName(chrName);
+            if(newController == null) {
+                chr.chatMessage("Character not found");
+                return;
+            }
+
+            for(Mob m : chr.getField().getMobs()) {
+                m.notifyControllerChange(newController);
+                chr.getField().putLifeController(m, newController);
+            }
+
+        }
+    }
+
+    @Command(names = {"mobcontroller"}, requiredType = GAME_MASTER)
+    public static class MobController extends AdminCommand {
+        public static void execute(Char chr, String[] args) {
+
+            String chrName = args[1];
+
+            for(Mob m : chr.getField().getMobs()) {
+               Char controller = m.getField().getLifeToControllers().get(m);
+               chr.chatMessage(m.getObjectId() + " : " + controller.getName());
+            }
+
+        }
+    }
+
+    @Command(names = {"testdrop"}, requiredType = TESTER)
+    public static class TestDrop extends AdminCommand {
+        public static void execute(Char chr, String[] args) {
+            int id = Integer.parseInt(args[1]);
+            int count = 1;
+            if (args.length > 2) {
+                count = Integer.parseInt(args[2]);
+            }
+            for (int i = 0; i < count; i++) {
+                Mob mob = MobData.getMobDeepCopyById(id);
+                if (mob == null) {
+                    chr.chatMessage("Could not find a mob with that ID.");
+                    return;
+                }
+                Field field = chr.getField();
+                Position pos = chr.getPosition();
+                mob.setPosition(pos.deepCopy());
+                mob.setPrevPos(pos.deepCopy());
+                mob.setPosition(pos.deepCopy());
+                mob.getForcedMobStat().setMaxMP(3);
+                mob.setMaxHp(3);
+                mob.setHp(3);
+                mob.setNotRespawnable(true);
+                if (mob.getField() == null) {
+                    mob.setField(field);
+                }
+                field.spawnLife(mob, null);
+
+                log.debug("Mob has id " + mob.getObjectId());
+            }
+        }
+    }
+
     @Command(names = {"proitem"}, requiredType = GAME_MASTER)
     public static class ProItem extends AdminCommand {
         public static void execute(Char chr, String[] args) {

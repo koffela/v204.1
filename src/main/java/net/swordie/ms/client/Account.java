@@ -453,7 +453,7 @@ public class Account {
     public void addNXPrepaid(int prepaid) {
         int newPrepaid = getNxPrepaid() + prepaid;
         if (newPrepaid >= 0) {
-            addNXPrepaid(newPrepaid);
+            setNxPrepaid(newPrepaid);
         }
     }
 

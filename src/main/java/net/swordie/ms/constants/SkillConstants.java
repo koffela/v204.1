@@ -48,6 +48,19 @@ public class SkillConstants {
     public static final int MAKING_SKILL_MASTER_LEVEL = 11;
     public static final int MAKING_SKILL_MEISTER_LEVEL = 12;
 
+    //custom skill cd's
+    public static int getSkillCooldown(int skillId) {
+
+        switch(skillId) {
+            case 32120052: //Sweeping Staff - BM Hyper
+            case 32120055: //Sweeping Staff - BM Hyper
+            case 32121052: //Sweeping Staff - BM Hyper
+                return 0;
+
+        }
+
+        return -1;
+    }
 
     public static boolean isSkillNeedMasterLevel(int skillId) {
         if (isIgnoreMasterLevel(skillId)

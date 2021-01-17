@@ -1,5 +1,6 @@
 package net.swordie.ms.world.field;
 
+import net.swordie.ms.connection.packet.MobPool;
 import net.swordie.ms.constants.CustomConstants;
 import net.swordie.ms.constants.GameConstants;
 import net.swordie.ms.life.Life;
@@ -45,6 +46,11 @@ public class MobGen extends Life {
             mob.setMad(mob.getMad() + 250);
         }
         field.spawnLife(mob, null);
+
+        if(CustomConstants.AUTO_AGGRO) {
+            field.broadcastPacket(MobPool.forceChase(mob.getObjectId(),false));
+        }
+
         setNextPossibleSpawnTime(System.currentTimeMillis() + (getMob().getMobTime() * 1000));
         setHasSpawned(true);
     }

@@ -41,7 +41,6 @@ import net.swordie.ms.util.container.Tuple;
 import net.swordie.ms.world.field.Field;
 import net.swordie.ms.world.field.Foothold;
 import net.swordie.ms.world.field.fieldeffect.FieldEffect;
-import org.python.modules.math;
 
 
 import java.util.*;
@@ -1878,7 +1877,7 @@ public class Mob extends Life {
         if (getExp() == 0) {
             return 0;
         }
-        double amount = ((math.sqrt(getMaxHp() / 100D)) * ((double) getMaxHp() / (getExp() * getLevel())));
+        double amount = ((Math.sqrt(getMaxHp() / 100D)) * ((double) getMaxHp() / (getExp() * getLevel())));
         return (int) (amount + 1);
 
 

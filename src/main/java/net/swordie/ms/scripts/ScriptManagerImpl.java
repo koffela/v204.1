@@ -1948,6 +1948,11 @@ public class ScriptManagerImpl implements ScriptManager {
 	}
 
 	@Override
+	public boolean canHold(final int itemID, final int quantity) {
+		return chr.canHold(itemID, quantity);
+	}
+
+	@Override
 	public int getEmptyInventorySlots(InvType invType) {
 		return chr.getInventoryByType(invType).getEmptySlots();
 	}

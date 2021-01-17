@@ -119,7 +119,7 @@ public class Server extends Properties {
 	private static List<String> backgrounds = new ArrayList<>();
 
 	private void loadBackgrounds() {
-		Node node = XMLApi.getNodeByPath("login.img", "WorldSelect"); // MapLoadable.java control background
+		Node node = XMLApi.getNodeByPath("UI.wz/login.img", "WorldSelect"); // MapLoadable.java control background
 		for (Node bg : XMLApi.getAllChildren(node)) {
 			if (!XMLApi.getAttributes(bg).get("name").equals("default")) {
 				backgrounds.add(XMLApi.getAttributes(bg).get("name"));

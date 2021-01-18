@@ -3,7 +3,6 @@ package net.swordie.ms.client.jobs.nova;
 import net.swordie.ms.client.Client;
 import net.swordie.ms.client.character.Char;
 import net.swordie.ms.client.character.info.HitInfo;
-import net.swordie.ms.client.character.items.Item;
 import net.swordie.ms.client.character.skills.Option;
 import net.swordie.ms.client.character.skills.Skill;
 import net.swordie.ms.client.character.skills.info.AttackInfo;
@@ -13,20 +12,18 @@ import net.swordie.ms.client.character.skills.info.SkillInfo;
 import net.swordie.ms.client.character.skills.temp.TemporaryStatManager;
 import net.swordie.ms.client.jobs.Job;
 import net.swordie.ms.connection.InPacket;
-import net.swordie.ms.connection.packet.CField;
+import net.swordie.ms.connection.packet.FieldPacket;
 import net.swordie.ms.connection.packet.Effect;
-import net.swordie.ms.connection.packet.User;
+import net.swordie.ms.connection.packet.UserPacket;
 import net.swordie.ms.connection.packet.UserLocal;
 import net.swordie.ms.constants.JobConstants;
 import net.swordie.ms.constants.SkillConstants;
 import net.swordie.ms.enums.ChatType;
 import net.swordie.ms.enums.ForceAtomEnum;
-import net.swordie.ms.enums.Stat;
 import net.swordie.ms.life.Life;
 import net.swordie.ms.life.mob.Mob;
 import net.swordie.ms.life.mob.MobStat;
 import net.swordie.ms.life.mob.MobTemporaryStat;
-import net.swordie.ms.loaders.ItemData;
 import net.swordie.ms.loaders.SkillData;
 import net.swordie.ms.util.Position;
 import net.swordie.ms.util.Rect;
@@ -398,7 +395,7 @@ public class AngelicBuster extends Job {
                     ForceAtomInfo forceAtomInfo = new ForceAtomInfo(1, inc, 20, 40,
                             anglenum, 0, (int) System.currentTimeMillis(), 1, 0,
                             new Position(5, 0)); //Slightly behind the player
-                    chr.getField().broadcastPacket(CField.createForceAtom(false, 0, chr.getId(), type,
+                    chr.getField().broadcastPacket(FieldPacket.createForceAtom(false, 0, chr.getId(), type,
                             true, mobID, SOUL_SEEKER_ATOM, forceAtomInfo, new Rect(), 0, 300,
                             mob.getPosition(), SOUL_SEEKER_ATOM, mob.getPosition()));
                 }
@@ -429,7 +426,7 @@ public class AngelicBuster extends Job {
         ForceAtomInfo forceAtomInfo = new ForceAtomInfo(1, inc, 20, 40,
                 anglenum, 250, (int) System.currentTimeMillis(), 1, 0,
                 new Position(0, -100));
-        chr.getField().broadcastPacket(CField.createForceAtom(false, 0, chr.getId(), type,
+        chr.getField().broadcastPacket(FieldPacket.createForceAtom(false, 0, chr.getId(), type,
                 true, mobID, SOUL_SEEKER_ATOM, forceAtomInfo, new Rect(), 0, 300,
                 life.getPosition(), SOUL_SEEKER_ATOM, life.getPosition()));
     }
@@ -453,7 +450,7 @@ public class AngelicBuster extends Job {
                 ForceAtomInfo forceAtomInfo = new ForceAtomInfo(1, inc, firstimpact, 2,
                         anglenum, 0, (int) System.currentTimeMillis(), 1, 0,
                         new Position());
-                chr.getField().broadcastPacket(CField.createForceAtom(true, chr.getId(), mobID, type,
+                chr.getField().broadcastPacket(FieldPacket.createForceAtom(true, chr.getId(), mobID, type,
                         true, mobID, SOUL_SEEKER_ATOM, forceAtomInfo, new Rect(), 0, 300,
                         mob.getPosition(), SOUL_SEEKER_ATOM, mob.getPosition()));
             }
@@ -545,7 +542,7 @@ public class AngelicBuster extends Job {
 
     private void rechargeABSkills() {
         Effect effect = Effect.createABRechargeEffect();
-        chr.write(User.effect(effect));
+        chr.write(UserPacket.effect(effect));
         chr.write(UserLocal.resetStateForOffSkill());
     }
 

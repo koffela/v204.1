@@ -698,7 +698,7 @@ public class WvsContext {
         if (used) {
 
         //Blink - Clear + Teleport
-            chr.write(CField.teleport(newPosition, chr));
+            chr.write(FieldPacket.teleport(newPosition, chr));
 
         } else {
 

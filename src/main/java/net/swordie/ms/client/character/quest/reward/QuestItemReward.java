@@ -3,8 +3,7 @@ package net.swordie.ms.client.character.quest.reward;
 import net.swordie.ms.client.character.Char;
 import net.swordie.ms.client.character.items.Item;
 import net.swordie.ms.connection.packet.Effect;
-import net.swordie.ms.connection.packet.User;
-import net.swordie.ms.constants.ItemConstants;
+import net.swordie.ms.connection.packet.UserPacket;
 import net.swordie.ms.loaders.DatSerializable;
 import net.swordie.ms.loaders.ItemData;
 
@@ -48,7 +47,7 @@ public class QuestItemReward implements QuestReward{
         } else {
             chr.addItemToInventory(item);
         }
-        chr.write(User.effect(Effect.gainQuestItem(item.getItemId(), getQuantity())));
+        chr.write(UserPacket.effect(Effect.gainQuestItem(item.getItemId(), getQuantity())));
     }
 
     public void setPotentialGrade(String potentialGrade) {

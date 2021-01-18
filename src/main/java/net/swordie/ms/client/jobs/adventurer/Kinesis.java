@@ -4,15 +4,12 @@ import net.swordie.ms.client.Client;
 import net.swordie.ms.client.character.Char;
 import net.swordie.ms.client.character.CharacterStat;
 import net.swordie.ms.client.character.info.HitInfo;
-import net.swordie.ms.client.character.items.BodyPart;
-import net.swordie.ms.client.character.items.Item;
 import net.swordie.ms.client.character.skills.*;
 import net.swordie.ms.client.character.skills.info.AttackInfo;
 import net.swordie.ms.client.character.skills.info.ForceAtomInfo;
 import net.swordie.ms.client.character.skills.info.MobAttackInfo;
 import net.swordie.ms.client.character.skills.info.SkillInfo;
 import net.swordie.ms.client.character.skills.temp.TemporaryStatManager;
-import net.swordie.ms.loaders.ItemData;
 import net.swordie.ms.world.field.Field;
 import net.swordie.ms.client.jobs.Job;
 import net.swordie.ms.life.mob.Mob;
@@ -22,7 +19,7 @@ import net.swordie.ms.constants.JobConstants;
 import net.swordie.ms.enums.ForceAtomEnum;
 import net.swordie.ms.life.mob.MobStat;
 import net.swordie.ms.loaders.SkillData;
-import net.swordie.ms.connection.packet.CField;
+import net.swordie.ms.connection.packet.FieldPacket;
 import net.swordie.ms.util.Position;
 import net.swordie.ms.util.Util;
 
@@ -351,7 +348,7 @@ public class Kinesis extends Job {
                 int curTime = Util.getCurrentTime();
                 ForceAtomInfo fai = new ForceAtomInfo(1, fae.getInc(), 15, 15,
                         0, 0, curTime, 0, skillID, new Position(0, 0));
-                c.getChr().getField().broadcastPacket(CField.createForceAtom(false, 0, chr.getId(), fae.getForceAtomType(), true,
+                c.getChr().getField().broadcastPacket(FieldPacket.createForceAtom(false, 0, chr.getId(), fae.getForceAtomType(), true,
                         mobID, KINETIC_COMBO, fai, null, 0, 0, null, 0, null));
             }
         }

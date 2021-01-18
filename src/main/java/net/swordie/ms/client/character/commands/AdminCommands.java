@@ -4,12 +4,9 @@ import net.swordie.ms.Server;
 import net.swordie.ms.client.Account;
 import net.swordie.ms.client.character.BroadcastMsg;
 import net.swordie.ms.client.character.Char;
-import net.swordie.ms.client.character.CharacterStat;
-import net.swordie.ms.client.character.avatar.AvatarData;
 import net.swordie.ms.client.character.avatar.AvatarLook;
 import net.swordie.ms.client.character.items.Equip;
 import net.swordie.ms.client.character.items.Item;
-import net.swordie.ms.client.character.items.PetItem;
 import net.swordie.ms.client.character.quest.Quest;
 import net.swordie.ms.client.character.skills.*;
 import net.swordie.ms.client.character.skills.info.ForceAtomInfo;
@@ -24,7 +21,6 @@ import net.swordie.ms.client.jobs.nova.Kaiser;
 import net.swordie.ms.connection.OutPacket;
 import net.swordie.ms.connection.db.DatabaseManager;
 import net.swordie.ms.connection.packet.*;
-import net.swordie.ms.constants.GameConstants;
 import net.swordie.ms.constants.ItemConstants;
 import net.swordie.ms.constants.JobConstants.JobEnum;
 import net.swordie.ms.enums.*;
@@ -35,32 +31,25 @@ import net.swordie.ms.life.mob.MobStat;
 import net.swordie.ms.life.mob.MobTemporaryStat;
 import net.swordie.ms.life.npc.Npc;
 import net.swordie.ms.loaders.*;
-import net.swordie.ms.loaders.containerclasses.ItemInfo;
 import net.swordie.ms.loaders.containerclasses.SkillStringInfo;
 import net.swordie.ms.util.FileTime;
 import net.swordie.ms.util.Position;
 import net.swordie.ms.util.Rect;
 import net.swordie.ms.util.Util;
-import net.swordie.ms.connection.InPacket;
 import net.swordie.ms.util.container.Tuple;
 import net.swordie.ms.util.tools.StringUtil;
-import net.swordie.ms.world.Channel;
 import net.swordie.ms.world.World;
-import net.swordie.ms.world.field.ClockPacket;
 import net.swordie.ms.world.field.Field;
 import net.swordie.ms.world.field.Portal;
 import net.swordie.ms.world.field.fieldeffect.FieldEffect;
-import net.swordie.ms.world.field.fieldeffect.GreyFieldType;
 import org.apache.log4j.LogManager;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
-import java.awt.*;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 import java.util.*;
 import java.util.List;
 
@@ -68,10 +57,6 @@ import static net.swordie.ms.client.character.skills.SkillStat.*;
 import static net.swordie.ms.client.character.skills.SkillStat.prop;
 import static net.swordie.ms.client.character.skills.temp.CharacterTemporaryStat.*;
 import static net.swordie.ms.client.character.skills.temp.CharacterTemporaryStat.Stance;
-import static net.swordie.ms.enums.AccountType.GameMaster;
-import static net.swordie.ms.enums.AccountType.Tester;
-import static net.swordie.ms.enums.InvType.CASH;
-import static net.swordie.ms.enums.InvType.EQUIP;
 import static net.swordie.ms.enums.PrivateStatusIDFlag.*;
 import static net.swordie.ms.enums.ChatType.*;
 import static net.swordie.ms.enums.InventoryOperation.ADD;
@@ -1217,7 +1202,7 @@ public class AdminCommands {
                 return;
             }
             Position position = new Position(portal.getX(), portal.getY());
-            chr.write(CField.teleport(position, chr));
+            chr.write(FieldPacket.teleport(position, chr));
         }
     }
 
@@ -1237,7 +1222,7 @@ public class AdminCommands {
             List<Integer> mobs = new ArrayList<>();
             int mobID = mob.getObjectId();
             mobs.add(mobID);
-            chr.getField().broadcastPacket(CField.createForceAtom(false, -1, chr.getId(), ForceAtomEnum.KINESIS_ORB_REAL.getForceAtomType(), true, mobs, 142110011, fais, null, 0, 0, null, 142110011, mob.getPosition()));
+            chr.getField().broadcastPacket(FieldPacket.createForceAtom(false, -1, chr.getId(), ForceAtomEnum.KINESIS_ORB_REAL.getForceAtomType(), true, mobs, 142110011, fais, null, 0, 0, null, 142110011, mob.getPosition()));
 
         }
     }
@@ -1866,7 +1851,7 @@ public class AdminCommands {
         public static void execute(Char chr, String[] args) {
             StringBuilder sb = new StringBuilder();
             sb.append(StringUtil.joinStringFrom(args, 1));
-            chr.write(CField.fieldEffect(FieldEffect.changeBGM(sb.toString(), 0, 0)));
+            chr.write(FieldPacket.fieldEffect(FieldEffect.changeBGM(sb.toString(), 0, 0)));
           //  chr.write(CField.fieldEffect(FieldEffect.playSound("Party1/Clear", 100)));
           //  chr.write(CField.fieldEffect(FieldEffect.setFieldGrey(GreyFieldType.Background, true)));
           // chr.write(CField.fieldEffect(FieldEffect.getFieldEffectFromWz("quest/party/clear", 0)));

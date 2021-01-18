@@ -77,7 +77,6 @@ import net.swordie.ms.world.shop.NpcShopDlg;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.annotations.Fetch;
 
 import javax.persistence.*;
 import java.awt.*;
@@ -2327,7 +2326,7 @@ public class Char {
 	 * @param msg The message to display.
 	 */
 	public void chatScriptMessage(String msg) {
-		write(User.scriptProgressMessage(msg));
+		write(UserPacket.scriptProgressMessage(msg));
 	}
 
 	/**
@@ -2694,7 +2693,7 @@ public class Char {
 			((Luminous) getJobHandler()).sendIncLarknessResult();
 		}
 		if (field.getEliteState() == EliteState.EliteBoss) {
-			write(CField.eliteState(EliteState.EliteBoss, true, GameConstants.ELITE_BOSS_BGM, null, null));
+			write(FieldPacket.eliteState(EliteState.EliteBoss, true, GameConstants.ELITE_BOSS_BGM, null, null));
 		}
 		if (getActiveFamiliar() != null) {
 			getField().broadcastPacket(CFamiliar.familiarEnterField(getId(), true, getActiveFamiliar(), true, false));
@@ -2703,7 +2702,7 @@ public class Char {
 			mob.addObserver(getScriptManager());
 		}
 		if (getFieldInstanceType() == CHANNEL) {
-			write(CField.setQuickMoveInfo(GameConstants.getQuickMoveInfos()));
+			write(FieldPacket.setQuickMoveInfo(GameConstants.getQuickMoveInfos()));
 		}
 		if (JobConstants.isAngelicBuster(getJob())) {
 			write(UserLocal.setDressChanged(false, true));
@@ -2945,7 +2944,7 @@ public class Char {
 					itemID == GameConstants.RED_EXP_ORB_ID) {
 				long expGain = (long) (drop.getMobExp() * GameConstants.getExpOrbExpModifierById(itemID));
 
-				write(User.effect(Effect.fieldItemConsumed((int) (expGain > Integer.MAX_VALUE ? Integer.MAX_VALUE : expGain))));
+				write(UserPacket.effect(Effect.fieldItemConsumed((int) (expGain > Integer.MAX_VALUE ? Integer.MAX_VALUE : expGain))));
 				addExpNoMsg(expGain);
 
 				// Exp Orb Buff On Pickup
@@ -4755,7 +4754,7 @@ public class Char {
 					break;
 			}
 			addTraitExp(trait, (int) Math.pow(2, (level + 1) + 2));
-			write(CField.fieldEffect(FieldEffect.playSound("profession/levelup", 100)));
+			write(FieldPacket.fieldEffect(FieldEffect.playSound("profession/levelup", 100)));
 		}
 	}
 
@@ -4854,7 +4853,7 @@ public class Char {
 	public void initDragon() {
 		updateDragon();
 		if (dragon != null) {
-			getField().broadcastPacket(CField.createDragon(dragon));
+			getField().broadcastPacket(FieldPacket.createDragon(dragon));
 		}
 	}
 
@@ -4872,7 +4871,7 @@ public class Char {
 
 	public void renewDragon() {
 		if (dragon != null) {
-			getField().broadcastPacket(CField.removeDragon(dragon));
+			getField().broadcastPacket(FieldPacket.removeDragon(dragon));
 			dragon = null;
 		}
 		initDragon();
@@ -5082,6 +5081,6 @@ public class Char {
 
 	public void sendNoticeMsg(String message) {
 		write(UserLocal.noticeMsg(message, true));
-		write(CField.transferChannelReqIgnored(0));
+		write(FieldPacket.transferChannelReqIgnored(0));
 	}
 }

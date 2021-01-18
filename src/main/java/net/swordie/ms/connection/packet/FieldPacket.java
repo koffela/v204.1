@@ -43,7 +43,7 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
-public class CField {
+public class FieldPacket {
 
     public static OutPacket funcKeyMappedManInit(FuncKeyMap funcKeyMap) {
         OutPacket outPacket = new OutPacket(OutHeader.FUNC_KEY_MAPPED_MAN_INIT);

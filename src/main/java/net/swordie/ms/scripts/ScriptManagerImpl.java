@@ -911,7 +911,7 @@ public class ScriptManagerImpl implements ScriptManager {
 
 	public void curNodeEventEnd(boolean enable) {
 		setCurNodeEventEnd(enable);
-		chr.write(CField.curNodeEventEnd(enable));
+		chr.write(FieldPacket.curNodeEventEnd(enable));
 	}
 
 	public void setCurNodeEventEnd(boolean curNodeEventEnd) {
@@ -952,7 +952,7 @@ public class ScriptManagerImpl implements ScriptManager {
 	}
 
 	public void progressMessageFont(int fontNameType, int fontSize, int fontColorType, int fadeOutDelay, String message) {
-		chr.write(User.progressMessageFont(fontNameType, fontSize, fontColorType, fadeOutDelay, message));
+		chr.write(UserPacket.progressMessageFont(fontNameType, fontSize, fontColorType, fadeOutDelay, message));
 	}
 
 	public void localEmotion(int emotion, int duration, boolean byItemOption) {
@@ -1150,7 +1150,7 @@ public class ScriptManagerImpl implements ScriptManager {
 
 	public void showEffectToField(String dir, int delay) {
 		Field field = chr.getField();
-		field.broadcastPacket(User.effect(Effect.effectFromWZ(dir, false, delay, 4, 0)));
+		field.broadcastPacket(UserPacket.effect(Effect.effectFromWZ(dir, false, delay, 4, 0)));
 	}
 
 	public void showFieldEffect(String dir) {
@@ -1160,7 +1160,7 @@ public class ScriptManagerImpl implements ScriptManager {
 
 	@Override
 	public void showFieldEffect(String dir, int delay) {
-		chr.write(CField.fieldEffect(FieldEffect.getFieldEffectFromWz(dir, delay)));
+		chr.write(FieldPacket.fieldEffect(FieldEffect.getFieldEffectFromWz(dir, delay)));
 	}
 
 	public void showFieldEffectToField(String dir) {
@@ -1169,7 +1169,7 @@ public class ScriptManagerImpl implements ScriptManager {
 
 	public void showFieldEffectToField(String dir, int delay) {
 		Field field = chr.getField();
-		field.broadcastPacket(CField.fieldEffect(FieldEffect.getFieldEffectFromWz(dir, delay)));
+		field.broadcastPacket(FieldPacket.fieldEffect(FieldEffect.getFieldEffectFromWz(dir, delay)));
 	}
 
 	public void showFieldBackgroundEffect(String dir) {
@@ -1178,30 +1178,30 @@ public class ScriptManagerImpl implements ScriptManager {
 
 	public void showFieldBackgroundEffect(String dir, int delay) {
 		Field field = chr.getField();
-		chr.write(CField.fieldEffect(FieldEffect.getFieldBackgroundEffectFromWz(dir, delay)));
+		chr.write(FieldPacket.fieldEffect(FieldEffect.getFieldBackgroundEffectFromWz(dir, delay)));
 	}
 
 	public void showFadeTransition(int duration, int fadeInTime, int fadeOutTime) {
-		chr.write(CField.fieldEffect(FieldEffect.takeSnapShotOfClient2(fadeInTime, duration, fadeOutTime, true)));
+		chr.write(FieldPacket.fieldEffect(FieldEffect.takeSnapShotOfClient2(fadeInTime, duration, fadeOutTime, true)));
 	}
 
 	public void showFade(int duration) {
-		chr.write(CField.fieldEffect(FieldEffect.takeSnapShotOfClient(duration)));
+		chr.write(FieldPacket.fieldEffect(FieldEffect.takeSnapShotOfClient(duration)));
 	}
 
 	public void removeOverlapScreen(int fadeOutTime) {
-		chr.write(CField.fieldEffect(FieldEffect.removeOverlapScreen(fadeOutTime)));
+		chr.write(FieldPacket.fieldEffect(FieldEffect.removeOverlapScreen(fadeOutTime)));
 	}
 	public void setFieldColour(GreyFieldType colorFieldType, short red, short green, short blue, int time) {
-		chr.write(CField.fieldEffect(FieldEffect.setFieldColor(colorFieldType, red, green, blue, time)));
+		chr.write(FieldPacket.fieldEffect(FieldEffect.setFieldColor(colorFieldType, red, green, blue, time)));
 	}
 
 	public void setFieldGrey(GreyFieldType colorFieldType, boolean show) {
-		chr.write(CField.fieldEffect(FieldEffect.setFieldGrey(colorFieldType, show)));
+		chr.write(FieldPacket.fieldEffect(FieldEffect.setFieldGrey(colorFieldType, show)));
 	}
 
 	public void tremble(int unk1, int unk2, int unk3) {
-		chr.write(CField.fieldEffect(FieldEffect.tremble(unk1, unk2, unk3)));
+		chr.write(FieldPacket.fieldEffect(FieldEffect.tremble(unk1, unk2, unk3)));
 	}
 
 	@Override
@@ -1217,7 +1217,7 @@ public class ScriptManagerImpl implements ScriptManager {
 	@Override
 	public void teleportInField(Position position) {
 
-		chr.write(CField.teleport(position, chr));
+		chr.write(FieldPacket.teleport(position, chr));
 	}
 
 	@Override
@@ -1230,7 +1230,7 @@ public class ScriptManagerImpl implements ScriptManager {
 		Portal portal = chr.getField().getPortalByID(portalId);
 		if (portal != null) {
 			Position position = new Position(portal.getX(), portal.getY());
-			chr.write(CField.teleport(position, chr));
+			chr.write(FieldPacket.teleport(position, chr));
 		}
 	}
 
@@ -1365,7 +1365,7 @@ public class ScriptManagerImpl implements ScriptManager {
 
 	@Override
 	public void openTrunk(int npcTemplateID) {
-		chr.write(CField.trunkDlg(new TrunkOpen(npcTemplateID, chr.getAccount().getTrunk())));
+		chr.write(FieldPacket.trunkDlg(new TrunkOpen(npcTemplateID, chr.getAccount().getTrunk())));
 	}
 
 	@Override
@@ -1603,7 +1603,7 @@ public class ScriptManagerImpl implements ScriptManager {
 		chr.getField().getMobs().stream()
 				.filter(m -> m.getTemplateId() == templateID)
 				.findFirst()
-				.ifPresent(mob -> chr.getField().broadcastPacket(CField.fieldEffect(FieldEffect.mobHPTagFieldEffect(mob))));
+				.ifPresent(mob -> chr.getField().broadcastPacket(FieldPacket.fieldEffect(FieldEffect.mobHPTagFieldEffect(mob))));
 	}
 
 	@Override
@@ -1611,7 +1611,7 @@ public class ScriptManagerImpl implements ScriptManager {
 		chr.getField().getMobs().stream()
 				.filter(m -> m.getHp() > 0)
 				.findFirst()
-				.ifPresent(mob -> chr.getField().broadcastPacket(CField.fieldEffect(FieldEffect.mobHPTagFieldEffect(mob))));
+				.ifPresent(mob -> chr.getField().broadcastPacket(FieldPacket.fieldEffect(FieldEffect.mobHPTagFieldEffect(mob))));
 	}
 
 
@@ -1858,7 +1858,7 @@ public class ScriptManagerImpl implements ScriptManager {
 	@Override
 	public void giveItem(int id, int quantity) {
 		chr.addItemToInventory(id, quantity);
-		chr.write(User.effect(Effect.gainQuestItem(id, quantity)));
+		chr.write(UserPacket.effect(Effect.gainQuestItem(id, quantity)));
 	}
 
 	public void giveAndEquip(int id) {
@@ -1915,7 +1915,7 @@ public class ScriptManagerImpl implements ScriptManager {
 	@Override
 	public void consumeItem(int itemID, int amount) {
 		chr.consumeItem(itemID, amount);
-		chr.write(User.effect(Effect.gainQuestItem(itemID, -amount)));
+		chr.write(UserPacket.effect(Effect.gainQuestItem(itemID, -amount)));
 	}
 
 	@Override
@@ -2189,7 +2189,7 @@ public class ScriptManagerImpl implements ScriptManager {
 			}
 		}
 
-		field.broadcastPacket(CField.createObtacle(ObtacleAtomCreateType.NORMAL, obtacleInRowInfo, obtacleRadianInfo, obtacleAtomInfosSet));
+		field.broadcastPacket(FieldPacket.createObtacle(ObtacleAtomCreateType.NORMAL, obtacleInRowInfo, obtacleRadianInfo, obtacleAtomInfosSet));
 	}
 
 	public void stopEvents() {
@@ -2202,7 +2202,7 @@ public class ScriptManagerImpl implements ScriptManager {
 		} else {
 			field = this.field;
 		}
-		field.broadcastPacket(CField.clock(ClockPacket.removeClock()));
+		field.broadcastPacket(FieldPacket.clock(ClockPacket.removeClock()));
 	}
 
 	private Set<ScheduledFuture> getEvents() {
@@ -2433,7 +2433,7 @@ public class ScriptManagerImpl implements ScriptManager {
 	}
 
 	public void createClock(int hours, int minutes, int seconds) {
-		chr.write(CField.clock(ClockPacket.hmsClock((byte) hours, (byte) minutes, (byte) seconds)));
+		chr.write(FieldPacket.clock(ClockPacket.hmsClock((byte) hours, (byte) minutes, (byte) seconds)));
 		addEvent(EventManager.addEvent(this::removeClock, seconds + minutes * 60 + hours * 3600, TimeUnit.SECONDS));
 	}
 
@@ -2445,7 +2445,7 @@ public class ScriptManagerImpl implements ScriptManager {
 	}
 
 	public void removeClock() {
-		chr.write(CField.clock(ClockPacket.removeClock()));
+		chr.write(FieldPacket.clock(ClockPacket.removeClock()));
 	}
 
 
@@ -2485,11 +2485,11 @@ public class ScriptManagerImpl implements ScriptManager {
 	@Override
 	public void openUI(UIType uiID){
 		int uiIDValue = uiID.getVal();
-		chr.write(CField.openUI(uiIDValue));
+		chr.write(FieldPacket.openUI(uiIDValue));
 	}
 
 	public void openUI(int uiID){
-		chr.write(CField.openUI(uiID));
+		chr.write(FieldPacket.openUI(uiID));
 	}
 
 	public void openUIWithOption(UIType uiID, int option){
@@ -2498,20 +2498,20 @@ public class ScriptManagerImpl implements ScriptManager {
 
 	public void openUIWithOption(UIType uiID, int option, int[] minigameOptions){
 		int uiIDValue = uiID.getVal();
-		chr.write(CField.openUIWithOption(uiIDValue, option, minigameOptions));
+		chr.write(FieldPacket.openUIWithOption(uiIDValue, option, minigameOptions));
 	}
 
 	public void closeUI(UIType uiID){
 		int uiIDValue = uiID.getVal();
-		chr.write(CField.closeUI(uiIDValue));
+		chr.write(FieldPacket.closeUI(uiIDValue));
 	}
 
 	public void closeUI(int uiID){
-		chr.write(CField.closeUI(uiID));
+		chr.write(FieldPacket.closeUI(uiID));
 	}
 
 	public void showClearStageExpWindow(int expGiven) {
-		chr.write(CField.fieldEffect(FieldEffect.showClearStageExpWindow(expGiven)));
+		chr.write(FieldPacket.fieldEffect(FieldEffect.showClearStageExpWindow(expGiven)));
 		giveExpNoMsg(expGiven);
 	}
 
@@ -2526,20 +2526,20 @@ public class ScriptManagerImpl implements ScriptManager {
 
 	public void playSound(String sound) { playSound(sound, 100); }// default
 	public void playSound(String sound, int vol) {
-		chr.write(CField.fieldEffect(FieldEffect.playSound(sound, vol)));
+		chr.write(FieldPacket.fieldEffect(FieldEffect.playSound(sound, vol)));
 	}
 
 	public void blind(int enable, int x, int color, int time) { blind(enable, x, color, 0, 0, time); }
 
-	public void blind(int enable, int x, int color, int unk1, int unk2, int time) { chr.write(CField.fieldEffect(FieldEffect.blind(enable, x, color, unk1, unk2, time, 0))); }
+	public void blind(int enable, int x, int color, int unk1, int unk2, int time) { chr.write(FieldPacket.fieldEffect(FieldEffect.blind(enable, x, color, unk1, unk2, time, 0))); }
 
-	public void blind(int enable, int x, int color, int unk1, int unk2, int time, int unk3){ chr.write(CField.fieldEffect(FieldEffect.blind(enable, x, color, unk1, unk2, time, unk3)));}
+	public void blind(int enable, int x, int color, int unk1, int unk2, int time, int unk3){ chr.write(FieldPacket.fieldEffect(FieldEffect.blind(enable, x, color, unk1, unk2, time, unk3)));}
 
-	public void OnOffLayer_On(int term, String key, int unk1, int unk2, int z, String path, int origin, int unk5, int unk6, int unk7) { chr.write(CField.fieldEffect(FieldEffect.OnOffLayer_On(term, key, unk1, unk2, z, path, origin, unk5, unk6, unk7))); }
+	public void OnOffLayer_On(int term, String key, int unk1, int unk2, int z, String path, int origin, int unk5, int unk6, int unk7) { chr.write(FieldPacket.fieldEffect(FieldEffect.OnOffLayer_On(term, key, unk1, unk2, z, path, origin, unk5, unk6, unk7))); }
 
-	public void OnOffLayer_Move(int term, String key, int dx, int dy) { chr.write(CField.fieldEffect(FieldEffect.OnOffLayer_Move(term, key, dx, dy))); }
+	public void OnOffLayer_Move(int term, String key, int dx, int dy) { chr.write(FieldPacket.fieldEffect(FieldEffect.OnOffLayer_Move(term, key, dx, dy))); }
 
-	public void OnOffLayer_Off(int term, String key, int unk) { chr.write(CField.fieldEffect(FieldEffect.OnOffLayer_Off(term, key, unk))); }
+	public void OnOffLayer_Off(int term, String key, int unk) { chr.write(FieldPacket.fieldEffect(FieldEffect.OnOffLayer_Off(term, key, unk))); }
 
 	@Override
 	public int getRandomIntBelow(int upBound) {
@@ -2561,7 +2561,7 @@ public class ScriptManagerImpl implements ScriptManager {
 
 	@Override
 	public void showEffect(String dir, int placement, int delay) {
-		OutPacket outPacket = User.effect(Effect.effectFromWZ(dir, false, delay, placement, 0));
+		OutPacket outPacket = UserPacket.effect(Effect.effectFromWZ(dir, false, delay, placement, 0));
 		if (isLockUI()) {
 			effects.add(outPacket);
 		} else {
@@ -2570,7 +2570,7 @@ public class ScriptManagerImpl implements ScriptManager {
 	}
 
 	public void createFieldTextEffect(String msg, int letterDelay, int showTime, int clientPosition, int boxPosX, int boxPosY, int align, int lineSpace, TextEffectType type, int enterType, int leaveType) {
-		OutPacket outPacket = User.effect(Effect.createFieldTextEffect(msg, letterDelay, showTime, clientPosition, new Position(boxPosX, boxPosY), align, lineSpace, type, enterType, leaveType));
+		OutPacket outPacket = UserPacket.effect(Effect.createFieldTextEffect(msg, letterDelay, showTime, clientPosition, new Position(boxPosX, boxPosY), align, lineSpace, type, enterType, leaveType));
 		if (isLockUI()) {
 			effects.add(outPacket);
 		} else {
@@ -2579,7 +2579,7 @@ public class ScriptManagerImpl implements ScriptManager {
 	}
 
 	public void createFieldTextEffect(String msg, int letterDelay, int showTime, int clientPosition, int boxPosX, int boxPosY, int align, int lineSpace, int type, int enterType, int leaveType) {
-		OutPacket outPacket = User.effect(Effect.createFieldTextEffect(msg, letterDelay, showTime, clientPosition, new Position(boxPosX, boxPosY), align, lineSpace, type, enterType, leaveType));
+		OutPacket outPacket = UserPacket.effect(Effect.createFieldTextEffect(msg, letterDelay, showTime, clientPosition, new Position(boxPosX, boxPosY), align, lineSpace, type, enterType, leaveType));
 		if (isLockUI()) {
 			effects.add(outPacket);
 		} else {
@@ -2588,7 +2588,7 @@ public class ScriptManagerImpl implements ScriptManager {
 	}
 
 	public void avatarOriented(String effectPath) {
-		OutPacket outPacket = User.effect(Effect.avatarOriented(effectPath));
+		OutPacket outPacket = UserPacket.effect(Effect.avatarOriented(effectPath));
 		if (isLockUI()) {
 			effects.add(outPacket);
 		} else {
@@ -2597,7 +2597,7 @@ public class ScriptManagerImpl implements ScriptManager {
 	}
 
 	public void reservedEffect(String effectPath) {
-		OutPacket outPacket = User.effect(Effect.reservedEffect(effectPath));
+		OutPacket outPacket = UserPacket.effect(Effect.reservedEffect(effectPath));
 		if (isLockUI()) {
 			effects.add(outPacket);
 		} else {
@@ -2619,7 +2619,7 @@ public class ScriptManagerImpl implements ScriptManager {
 	}
 
 	public void reservedEffectRepeat(String effectPath, boolean start) {
-		OutPacket outPacket = User.effect(Effect.reservedEffectRepeat(effectPath, start));
+		OutPacket outPacket = UserPacket.effect(Effect.reservedEffectRepeat(effectPath, start));
 		if (isLockUI()) {
 			effects.add(outPacket);
 		} else {
@@ -2630,7 +2630,7 @@ public class ScriptManagerImpl implements ScriptManager {
 	public void reservedEffectRepeat(String effectPath) { reservedEffectRepeat(effectPath, true); }
 
 	public void playExclSoundWithDownBGM(String soundPath, int volume) {
-		OutPacket outPacket = User.effect(Effect.playExclSoundWithDownBGM(soundPath, volume));
+		OutPacket outPacket = UserPacket.effect(Effect.playExclSoundWithDownBGM(soundPath, volume));
 		if (isLockUI()) {
 			effects.add(outPacket);
 		} else {
@@ -2639,7 +2639,7 @@ public class ScriptManagerImpl implements ScriptManager {
 	}
 
 	public void blindEffect(boolean blind) {
-		OutPacket outPacket = User.effect(Effect.blindEffect(blind));
+		OutPacket outPacket = UserPacket.effect(Effect.blindEffect(blind));
 		if (isLockUI()) {
 			effects.add(outPacket);
 		} else {
@@ -2648,7 +2648,7 @@ public class ScriptManagerImpl implements ScriptManager {
 	}
 
 	public void fadeInOut(int fadeIn, int delay, int fadeOut, int alpha) {
-		OutPacket outPacket = User.effect(Effect.fadeInOut(fadeIn, delay, fadeOut, alpha));
+		OutPacket outPacket = UserPacket.effect(Effect.fadeInOut(fadeIn, delay, fadeOut, alpha));
 		//if (isLockUI()) {
 		//    effects.add(outPacket);
 		//} else {
@@ -2657,7 +2657,7 @@ public class ScriptManagerImpl implements ScriptManager {
 	}
 
 	public void speechBalloon(boolean normal, int range, int nameHeight, String speech, int time, int origin, int x, int y, int z, int lineSpace, int templateID) {
-		OutPacket outPacket = User.effect(Effect.speechBalloon(normal, range, nameHeight, speech, time, origin, x, y, z, lineSpace, templateID, chr.getId()));
+		OutPacket outPacket = UserPacket.effect(Effect.speechBalloon(normal, range, nameHeight, speech, time, origin, x, y, z, lineSpace, templateID, chr.getId()));
 		if (isLockUI()) {
 			effects.add(outPacket);
 		} else {
@@ -3011,7 +3011,7 @@ public class ScriptManagerImpl implements ScriptManager {
 	}
 
 	public void changeBGM(String sound, int startTime, int unk) {
-		chr.write(CField.fieldEffect(FieldEffect.changeBGM(sound, startTime, unk)));
+		chr.write(FieldPacket.fieldEffect(FieldEffect.changeBGM(sound, startTime, unk)));
 	}
 
 	public void setPartner(boolean add, int npcID, int skillID, boolean hasScript) {
@@ -3019,7 +3019,7 @@ public class ScriptManagerImpl implements ScriptManager {
 	}
 
 	public void sendUnityPortalDialog() {
-		chr.write(CField.unityPortalResult());
+		chr.write(FieldPacket.unityPortalResult());
 	}
 
 	public int getAnswerVal() {
@@ -3035,27 +3035,27 @@ public class ScriptManagerImpl implements ScriptManager {
 	}
 
 	public void setBGMVolume(int bgmVolume, int fadingDuration) {
-		chr.write(CField.fieldEffect(FieldEffect.setBGMVolume(bgmVolume, fadingDuration)));
+		chr.write(FieldPacket.fieldEffect(FieldEffect.setBGMVolume(bgmVolume, fadingDuration)));
 	}
 
 	public void offSpineScreenImmediate(String layer) {
-		chr.write(CField.fieldEffect(FieldEffect.offSpineScreenImmediate(layer)));
+		chr.write(FieldPacket.fieldEffect(FieldEffect.offSpineScreenImmediate(layer)));
 	}
 
 	public void offSpineScreenAlpha(String layer, int alpha) {
-		chr.write(CField.fieldEffect(FieldEffect.offSpineScreenAlpha(layer, alpha)));
+		chr.write(FieldPacket.fieldEffect(FieldEffect.offSpineScreenAlpha(layer, alpha)));
 	}
 
 	public void offSpineScreenAni(String layer, String path) {
-		chr.write(CField.fieldEffect(FieldEffect.offSpineScreenAni(layer, path)));
+		chr.write(FieldPacket.fieldEffect(FieldEffect.offSpineScreenAni(layer, path)));
 	}
 
 	public void objectStateByString(String name) {
-		chr.write(CField.fieldEffect(FieldEffect.objectStateByString(name)));
+		chr.write(FieldPacket.fieldEffect(FieldEffect.objectStateByString(name)));
 	}
 
 	public void spineScreen(boolean binary, boolean loop, boolean postRender, int endDelay, String path, String animation, String keyName) {
-		chr.write(CField.fieldEffect(FieldEffect.spineScreen(binary, loop, postRender, endDelay, path, animation, keyName)));
+		chr.write(FieldPacket.fieldEffect(FieldEffect.spineScreen(binary, loop, postRender, endDelay, path, animation, keyName)));
 	}
 
 	public void setMapTaggedObjectAnimation(String tagName, int type) {

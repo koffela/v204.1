@@ -13,12 +13,9 @@ import net.swordie.ms.client.character.skills.temp.CharacterTemporaryStat;
 import net.swordie.ms.client.character.skills.temp.TemporaryStatManager;
 import net.swordie.ms.client.jobs.Job;
 import net.swordie.ms.connection.InPacket;
-import net.swordie.ms.connection.packet.CField;
-import net.swordie.ms.connection.packet.UserLocal;
+import net.swordie.ms.connection.packet.FieldPacket;
 import net.swordie.ms.constants.JobConstants;
-import net.swordie.ms.enums.ChatType;
 import net.swordie.ms.enums.ForceAtomEnum;
-import net.swordie.ms.handlers.EventManager;
 import net.swordie.ms.life.AffectedArea;
 import net.swordie.ms.life.mob.Mob;
 import net.swordie.ms.loaders.SkillData;
@@ -27,12 +24,10 @@ import net.swordie.ms.util.Rect;
 import net.swordie.ms.util.Util;
 import net.swordie.ms.world.field.Field;
 
-import javax.persistence.Basic;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.ScheduledFuture;
 
 import static net.swordie.ms.client.character.skills.SkillStat.*;
 import static net.swordie.ms.client.character.skills.temp.CharacterTemporaryStat.*;
@@ -695,7 +690,7 @@ public class Ark extends Job {
             forceAtoms.add(scarletFA);
             forceAtoms.add(basicFA);
             i++;
-            field.broadcastPacket(CField.createArkForceAtom(chr.getId(), SPELL_BULLETS, forceAtoms));
+            field.broadcastPacket(FieldPacket.createArkForceAtom(chr.getId(), SPELL_BULLETS, forceAtoms));
         }
     }
 

@@ -13,7 +13,7 @@ import net.swordie.ms.client.jobs.Job;
 import net.swordie.ms.connection.InPacket;
 import net.swordie.ms.connection.OutPacket;
 import net.swordie.ms.connection.packet.Effect;
-import net.swordie.ms.connection.packet.User;
+import net.swordie.ms.connection.packet.UserPacket;
 import net.swordie.ms.connection.packet.UserLocal;
 import net.swordie.ms.connection.packet.UserRemote;
 import net.swordie.ms.constants.JobConstants;
@@ -610,7 +610,7 @@ public class Luminous extends Job {
                 tsm.putCharacterStatValue(AntiMagicShell, o);
                 tsm.sendSetStatPacket();
             }
-            chr.write(User.effect(Effect.skillSpecial(skill.getSkillId())));
+            chr.write(UserPacket.effect(Effect.skillSpecial(skill.getSkillId())));
             chr.getField().broadcastPacket(UserRemote.effect(chr.getId(), Effect.skillSpecial(skill.getSkillId())));
         }
     }

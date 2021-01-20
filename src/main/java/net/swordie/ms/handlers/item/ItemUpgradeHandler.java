@@ -78,11 +78,6 @@ public class ItemUpgradeHandler {
         chr.dispose();
     }
 
-    @Handler(op = InHeader.USER_EX_ITEM_UPGRADE_ITEM_USE_REQUEST)
-    public static void handleUserExItemUpgradeItemUseRequest(Char chr, InPacket inPacket) {
-
-    }
-
     @Handler(op = InHeader.USER_MEMORIAL_CUBE_OPTION_REQUEST)
     public static void handleUserMemorialCubeOptionRequest(Char chr, InPacket inPacket) {
         inPacket.decodeInt(); // tick

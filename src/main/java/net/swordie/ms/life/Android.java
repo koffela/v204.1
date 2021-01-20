@@ -56,6 +56,11 @@ public class Android extends Life implements Encodable {
         outPacket.encodeByte(getMoveAction());
         outPacket.encodeShort(getFh());
         encodeAndroidInfo(outPacket);
+
+        // idk
+        outPacket.encodeInt(0);
+        outPacket.encodeArr(new byte[8]);
+
         List<Integer> androidItems = getItems(); // size always 7
         for (int itemId : androidItems) {
             outPacket.encodeInt(itemId);

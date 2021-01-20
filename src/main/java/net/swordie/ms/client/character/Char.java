@@ -5121,7 +5121,7 @@ public class Char {
 		if (getAndroid() == null || override) {
 			Item heart = getEquippedItemByBodyPart(BodyPart.MechanicalHeart);
 			Item android = getEquippedItemByBodyPart(BodyPart.Android);
-			if (heart != null && android != null && ((Equip) heart).getAndroidGrade() + 3 >= ((Equip) android).getAndroidGrade()) {
+			if (heart != null && android != null && (((Equip) android).getAndroidGrade() - ((Equip) heart).getAndroidGrade()) > 0) {
 				int androidId = ((Equip) android).getAndroid();
 				AndroidInfo androidInfo = EtcData.getAndroidInfoById(androidId);
 				if (getAndroid() != null) {

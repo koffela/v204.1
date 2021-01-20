@@ -1164,6 +1164,16 @@ public enum InHeader {
     );
 
     private short value;
+    private final static Map<Short, InHeader> opToHeaderMap = new HashMap<>();
+
+    static {
+        for (InHeader ih : values()) {
+            final short ihValue = ih.getValue();
+            if (!opToHeaderMap.containsKey(ihValue)) {
+                opToHeaderMap.put(ih.getValue(), ih);
+            }
+        }
+    }
 
     InHeader(int op) {
         this.value = (short) op;
@@ -1174,15 +1184,11 @@ public enum InHeader {
     }
 
     public static InHeader getInHeaderByOp(int op) {
-        for (InHeader inHeader : InHeader.values()) {
-            if (inHeader.getValue() == op) {
-                return inHeader;
-            }
-        }
-        return null;
+        return opToHeaderMap.getOrDefault((short) op, null);
     }
 
     public static boolean isSpamHeader(InHeader inHeaderByOp) {
         return spam.contains(inHeaderByOp);
     }
+
 }

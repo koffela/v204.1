@@ -390,6 +390,16 @@ public class WvsContext {
         return outPacket;
     }
 
+    public static OutPacket questRecordExMessage(Quest quest) {
+        OutPacket outPacket = new OutPacket(OutHeader.MESSAGE);
+
+        outPacket.encodeByte(QUEST_RECORD_EX_MESSAGE.getVal());
+        outPacket.encodeInt(quest.getQRKey());
+        outPacket.encodeString(quest.getQRValue());
+
+        return outPacket;
+    }
+
     public static OutPacket questRecordExMessage(QuestEx quest) {
         OutPacket outPacket = new OutPacket(OutHeader.MESSAGE);
 

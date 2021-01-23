@@ -2273,7 +2273,7 @@ public class AdminCommands {
 
 
 
-    @Command(names = {"givenx"}, requiredType = Tester)
+    @Command(names = {"givenx"}, requiredType = TESTER)
     public static class giveNx extends AdminCommand {
 
         public static void execute(Char chr, String[] args) {

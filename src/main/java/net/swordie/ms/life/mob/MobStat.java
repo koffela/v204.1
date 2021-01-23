@@ -64,12 +64,14 @@ public enum MobStat {
     DarkLightning(54),
     PinkBeanFlowerPot(55),
 
-    BattlePvPHelenaMark(56),
+    //BattlePvPHelenaMark(56),
+    PowerImmune(56),
     PsychicLock(57),
     PsychicLockCoolTime(58),
     PsychicGroundMark(59),
 
-    PowerImmune(56),
+    Unknown_60(60),
+
     PsychicForce(61),
     MultiPMDR(62),
     ElementResetBySummon(63),
@@ -83,23 +85,42 @@ public enum MobStat {
     Treasure(70),
     AddEffect(71),
 
-    Unknown1(72),
-    Unknown2(73),
+    Unknown_72(72),
+    Unknown_73(73),
     Invincible(74),
     Explosion(75),
     HangOver(76),
+    Unknown_77(77),
+    Unknown_78(78),
+    Unknown_79(79),
+    Unknown_80(80),
+    Unknown_81(81),
+    Unknown_82(82),
+    Unknown_83(83),
+    Unknown_84(84),
+    Unknown_85(85),
     BurnedInfo(86),// v202.3
-    InvincibleBalog(78),
-    ExchangeAttack(79),
+
+    InvincibleBalog(87),
+    ExchangeAttack(88),
 
     ExtraBuffStat(89),// v200.3
-    LinkTeam(81),
-    SoulExplosion(82),
-    SeperateSoulP(83),
-    SeperateSoulC(84),
-    Ember(85),
-    TrueSight(86),
-    Laser(87),
+    LinkTeam(90),
+
+    SoulExplosion(91),
+    SeperateSoulP(92),
+    SeperateSoulC(93),
+    Ember(94),
+    TrueSight(95),
+    Laser(96),
+    Unknown_98(98),
+
+    Unknown_99(99),
+    Unknown_100(100),
+    Unknown_101(101),
+    Unknown_102(102),
+    Unknown_103(103),
+    Unknown_104(104)
     ;
 
     private int val, pos, bitPos;

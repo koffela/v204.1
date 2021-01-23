@@ -79,108 +79,48 @@ public class MobTemporaryStat {
 
 	public void encode(OutPacket outPacket) {
 		synchronized (currentStatVals) {
-			// DecodeBuffer(12) + MobStat::DecodeTemporary
+			// DecodeBuffer(20) + MobStat::DecodeTemporary
 			int[] mask = getNewMask();
+			System.out.printf("Mask length: %s%n", mask.length);
 			for (int i = 0; i < mask.length; i++) {
 				outPacket.encodeInt(mask[i]);
 			}
 
 			for (Map.Entry<MobStat, Option> entry : getNewStatVals().entrySet()) {
-				MobStat mobStat = entry.getKey();
-				Option option = entry.getValue();
-				switch (mobStat) {
-					case PAD:
-					case PDR:
-					case MAD:
-					case MDR:
-					case ACC:
-					case EVA:
-					case Speed:
-					case Stun:
-					case Freeze:
-					case Poison:
-					case Seal:
-					case Darkness:
-					case PowerUp:
-					case MagicUp:
-					case PGuardUp:
-					case MGuardUp:
-					case PImmune:
-					case MImmune:
-					case Web:
-					case HardSkin:
-					case Ambush:
-					case Venom:
-					case Blind:
-					case SealSkill:
-					case Dazzle:
-					case PCounter:
-					case MCounter:
-					case RiseByToss:
-					case BodyPressure:
-					case Weakness:
-					case Showdown:
-					case MagicCrash:
-					case DamagedElemAttr:
-					case Dark:
-					case Mystery:
-					case AddDamParty:
-					case HitCriDamR:
-					case Fatality:
-					case Lifting:
-					case DeadlyCharge:
-					case Smite:
-					case AddDamSkill:
-					case Incizing:
-					case DodgeBodyAttack:
-					case DebuffHealing:
-					case AddDamSkill2:
-					case BodyAttack:
-					case TempMoveAbility:
-					case FixDamRBuff:
-					case ElementDarkness:
-					case AreaInstallByHit:
-					case BMageDebuff:
-					case JaguarProvoke:
-					case JaguarBleeding:
-					case DarkLightning:
-					case PinkBeanFlowerPot:
-					case BattlePvPHelenaMark:
-					case PsychicLock:
-					case PsychicLockCoolTime:
-					case PsychicGroundMark:
-					case PowerImmune:
-					case PsychicForce:
-					case MultiPMDR:
-					case ElementResetBySummon:
-					case BahamutLightElemAddDam:
-					case BossPropPlus:
-					case MultiDamSkill:
-					case RWLiftPress:
-					case RWChoppingHammer:
-					case TimeBomb:
-					case Treasure:
-					case AddEffect:
-					case Invincible:
-					case Explosion:
-					case HangOver:
-						outPacket.encodeInt(getNewOptionsByMobStat(mobStat).nOption);
-						outPacket.encodeInt(getNewOptionsByMobStat(mobStat).rOption);
-						outPacket.encodeShort(getNewOptionsByMobStat(mobStat).tOption / 500);
+				final MobStat mobStat = entry.getKey();
+				final Option option = entry.getValue();
+
+				if (mobStat.getBitPos() < 86) {
+					outPacket.encodeInt(option.nOption);
+					outPacket.encodeInt(option.rOption);
+					outPacket.encodeShort(option.tOption / 500);
 				}
 			}
+
 			if (hasNewMobStat(PDR)) {
 				outPacket.encodeInt(getNewOptionsByMobStat(PDR).cOption);
 			}
+
 			if (hasNewMobStat(MDR)) {
 				outPacket.encodeInt(getNewOptionsByMobStat(MDR).cOption);
 			}
+
+			if (hasNewMobStat(Speed)) {
+				outPacket.encodeByte(getNewOptionsByMobStat(Speed).mOption);
+			}
+
+			if (hasNewMobStat(Freeze)) {
+				outPacket.encodeInt(getNewOptionsByMobStat(Freeze).cOption);
+			}
+
 			if (hasNewMobStat(PCounter)) {
 				outPacket.encodeInt(getNewOptionsByMobStat(PCounter).wOption);
 			}
+
 			if (hasNewMobStat(MCounter)) {
 				outPacket.encodeInt(getNewOptionsByMobStat(MCounter).wOption);
 			}
+
 			if (hasNewMobStat(PCounter)) {
 				outPacket.encodeInt(getNewOptionsByMobStat(PCounter).mOption); // nCounterProb
 				outPacket.encodeByte(getNewOptionsByMobStat(PCounter).bOption); // bCounterDelay
@@ -190,16 +130,139 @@ public class MobTemporaryStat {
 				outPacket.encodeByte(getNewOptionsByMobStat(MCounter).bOption); // bCounterDelay
 				outPacket.encodeInt(getNewOptionsByMobStat(MCounter).nReason); // nAggroRank
 			}
+
+			if (hasNewMobStat(Dark)) {
+				outPacket.encodeInt(getNewOptionsByMobStat(Dark).wOption);
+				outPacket.encodeInt(getNewOptionsByMobStat(Dark).pOption);
+				outPacket.encodeInt(getNewOptionsByMobStat(Dark).cOption);
+			}
+
+			if (hasNewMobStat(AddDamParty)) {
+				outPacket.encodeInt(getNewOptionsByMobStat(AddDamParty).wOption);
+				outPacket.encodeInt(getNewOptionsByMobStat(AddDamParty).pOption);
+				outPacket.encodeInt(getNewOptionsByMobStat(AddDamParty).cOption);
+			}
+
+			if (hasNewMobStat(TempMoveAbility)) {
+				// decode4
+			}
+
+			if (hasNewMobStat(FixDamRBuff)) {
+				// decode4
+			}
+
 			if (hasNewMobStat(Fatality)) {
+				// decode4
+				// decode4
+				// instead of
 				outPacket.encodeInt(getNewOptionsByMobStat(Fatality).wOption);
 				outPacket.encodeInt(getNewOptionsByMobStat(Fatality).uOption);
 				outPacket.encodeInt(getNewOptionsByMobStat(Fatality).pOption);
 				outPacket.encodeInt(getNewOptionsByMobStat(Fatality).yOption);
 				outPacket.encodeInt(getNewOptionsByMobStat(Fatality).mOption);
 			}
-			if (hasNewMobStat(Explosion)) {
-				outPacket.encodeInt(getNewOptionsByMobStat(Explosion).wOption);
+
+			if (hasNewMobStat(Smite)) {
+				outPacket.encodeInt(getNewOptionsByMobStat(Smite).wOption);
+				outPacket.encodeInt(getNewOptionsByMobStat(Smite).pOption);
+				outPacket.encodeInt(getNewOptionsByMobStat(Smite).cOption);
 			}
+
+			if (hasNewMobStat(AreaInstallByHit)) {
+				// decode4
+			}
+
+			if (hasNewMobStat(JaguarBleeding)) {
+				// decode4
+			}
+
+			if (hasNewMobStat(PinkBeanFlowerPot)) {
+				// decode4
+			}
+
+			if (hasNewMobStat(PsychicForce)) {
+				// decode4
+			}
+
+			if (hasNewMobStat(MultiPMDR)) {
+				outPacket.encodeInt(getNewOptionsByMobStat(MultiPMDR).cOption);
+				// +
+				// decode4
+				// decode4
+				// decode4
+			}
+
+			if (hasNewMobStat(ElementResetBySummon)) {
+				// decode4
+				// decode4
+				// instead of
+				outPacket.encodeInt(getNewOptionsByMobStat(ElementResetBySummon).cOption);
+				outPacket.encodeInt(getNewOptionsByMobStat(ElementResetBySummon).pOption);
+				outPacket.encodeInt(getNewOptionsByMobStat(ElementResetBySummon).uOption);
+				outPacket.encodeInt(getNewOptionsByMobStat(ElementResetBySummon).wOption);
+			}
+
+			if (hasNewMobStat(MultiDamSkill)) {
+				outPacket.encodeInt(getNewOptionsByMobStat(MultiDamSkill).cOption);
+			}
+
+			if (hasNewMobStat(BahamutLightElemAddDam)) {
+				outPacket.encodeInt(getNewOptionsByMobStat(BahamutLightElemAddDam).pOption);
+				outPacket.encodeInt(getNewOptionsByMobStat(BahamutLightElemAddDam).cOption);
+				// +
+				// decode4
+			}
+
+			if (hasNewMobStat(Unknown_72)) {
+				// decode4
+			}
+
+			if (hasNewMobStat(Poison)) {
+				// decode4
+			}
+
+			if (hasNewMobStat(Ambush)) {
+				// decode4
+			}
+
+			if (hasNewMobStat(Unknown_83)) {
+				// decode4
+			}
+
+			if (hasNewMobStat(BurnedInfo)) {
+				// decode1
+				// + call to sub_ACA290
+				// decode4
+				// decode4
+				// decode8
+				// decode4
+				// decode4
+				// decode4
+				// decode4
+				// decode4
+				// decode4
+				// decode4
+				// decode4
+				// decode4
+				// decode4
+				// decode4
+				// decode4
+				// instead of
+				outPacket.encodeByte(getBurnedInfos().size());
+				for (BurnedInfo bi : getBurnedInfos()) {
+					bi.encode(outPacket);
+				}
+			}
+
+			if (hasNewMobStat(InvincibleBalog)) {
+				outPacket.encodeByte(getNewOptionsByMobStat(InvincibleBalog).nOption);
+				outPacket.encodeByte(getNewOptionsByMobStat(InvincibleBalog).bOption);
+			}
+
+			if (hasNewMobStat(ExchangeAttack)) {
+				outPacket.encodeByte(getNewOptionsByMobStat(ExchangeAttack).bOption);
+			}
+
 			if (hasNewMobStat(ExtraBuffStat)) {
 				List<Option> values = getNewOptionsByMobStat(ExtraBuffStat).extraOpts;
 				outPacket.encodeByte(values.size() > 0);
@@ -210,59 +273,41 @@ public class MobTemporaryStat {
 					outPacket.encodeInt(getNewOptionsByMobStat(ExtraBuffStat).extraOpts.get(0).yOption); // nMDR
 				}
 			}
-			if (hasNewMobStat(DeadlyCharge)) {
-				outPacket.encodeInt(getNewOptionsByMobStat(DeadlyCharge).pOption);
-				outPacket.encodeInt(getNewOptionsByMobStat(DeadlyCharge).pOption);
-			}
-			if (hasNewMobStat(Incizing)) {
-				outPacket.encodeInt(getNewOptionsByMobStat(Incizing).wOption);
-				outPacket.encodeInt(getNewOptionsByMobStat(Incizing).uOption);
-				outPacket.encodeInt(getNewOptionsByMobStat(Incizing).pOption);
-			}
-			if (hasNewMobStat(Speed)) {
-				outPacket.encodeByte(getNewOptionsByMobStat(Speed).mOption);
-			}
-			if (hasNewMobStat(BMageDebuff)) {
-				outPacket.encodeInt(getNewOptionsByMobStat(BMageDebuff).cOption);
-			}
-			if (hasNewMobStat(DarkLightning)) {
-				outPacket.encodeInt(getNewOptionsByMobStat(DarkLightning).cOption);
-			}
-			if (hasNewMobStat(BattlePvPHelenaMark)) {
-				outPacket.encodeInt(getNewOptionsByMobStat(BattlePvPHelenaMark).cOption);
-			}
-			if (hasNewMobStat(MultiPMDR)) {
-				outPacket.encodeInt(getNewOptionsByMobStat(MultiPMDR).cOption);
-			}
-			if (hasNewMobStat(Freeze)) {
-				outPacket.encodeInt(getNewOptionsByMobStat(Freeze).cOption);
-			}
-			if (hasNewMobStat(BurnedInfo)) {
-				outPacket.encodeByte(getBurnedInfos().size());
-				for (BurnedInfo bi : getBurnedInfos()) {
-					bi.encode(outPacket);
-				}
-			}
-			if (hasNewMobStat(InvincibleBalog)) {
-				outPacket.encodeByte(getNewOptionsByMobStat(InvincibleBalog).nOption);
-				outPacket.encodeByte(getNewOptionsByMobStat(InvincibleBalog).bOption);
-			}
-			if (hasNewMobStat(ExchangeAttack)) {
-				outPacket.encodeByte(getNewOptionsByMobStat(ExchangeAttack).bOption);
-			}
-			if (hasNewMobStat(AddDamParty)) {
-				outPacket.encodeInt(getNewOptionsByMobStat(AddDamParty).wOption);
-				outPacket.encodeInt(getNewOptionsByMobStat(AddDamParty).pOption);
-				outPacket.encodeInt(getNewOptionsByMobStat(AddDamParty).cOption);
-			}
+
 			if (hasNewMobStat(LinkTeam)) {
 				outPacket.encodeString(getLinkTeam());
 			}
+
+			if (hasNewMobStat(Unknown_99)) {
+				// decode4
+			}
+
+			if (hasNewMobStat(Unknown_100)) {
+				// decode8
+			}
+
+			if (hasNewMobStat(Unknown_101)) {
+				// decode4
+			}
+
+			if (hasNewMobStat(Unknown_102)) {
+				// decode4
+			}
+
+			if (hasNewMobStat(Unknown_103)) {
+				// decode4
+			}
+
+			if (hasNewMobStat(Unknown_104)) {
+				// decode4
+			}
+
 			if (hasNewMobStat(SoulExplosion)) {
 				outPacket.encodeInt(getNewOptionsByMobStat(SoulExplosion).nOption);
 				outPacket.encodeInt(getNewOptionsByMobStat(SoulExplosion).rOption);
 				outPacket.encodeInt(getNewOptionsByMobStat(SoulExplosion).wOption);
 			}
+
 			if (hasNewMobStat(SeperateSoulP)) {
 				outPacket.encodeInt(getNewOptionsByMobStat(SeperateSoulP).nOption);
 				outPacket.encodeInt(getNewOptionsByMobStat(SeperateSoulP).rOption);
@@ -270,12 +315,14 @@ public class MobTemporaryStat {
 				outPacket.encodeInt(getNewOptionsByMobStat(SeperateSoulP).wOption);
 				outPacket.encodeInt(getNewOptionsByMobStat(SeperateSoulP).uOption);
 			}
+
 			if (hasNewMobStat(SeperateSoulC)) {
 				outPacket.encodeInt(getNewOptionsByMobStat(SeperateSoulC).nOption);
 				outPacket.encodeInt(getNewOptionsByMobStat(SeperateSoulC).rOption);
 				outPacket.encodeShort(getNewOptionsByMobStat(SeperateSoulC).tOption / 500);
 				outPacket.encodeInt(getNewOptionsByMobStat(SeperateSoulC).wOption);
 			}
+
 			if (hasNewMobStat(Ember)) {
 				outPacket.encodeInt(getNewOptionsByMobStat(Ember).nOption);
 				outPacket.encodeInt(getNewOptionsByMobStat(Ember).rOption);
@@ -283,6 +330,7 @@ public class MobTemporaryStat {
 				outPacket.encodeInt(getNewOptionsByMobStat(Ember).tOption / 500);
 				outPacket.encodeInt(getNewOptionsByMobStat(Ember).uOption);
 			}
+
 			if (hasNewMobStat(TrueSight)) {
 				outPacket.encodeInt(getNewOptionsByMobStat(TrueSight).nOption);
 				outPacket.encodeInt(getNewOptionsByMobStat(TrueSight).rOption);
@@ -292,9 +340,7 @@ public class MobTemporaryStat {
 				outPacket.encodeInt(getNewOptionsByMobStat(TrueSight).uOption);
 				outPacket.encodeInt(getNewOptionsByMobStat(TrueSight).wOption);
 			}
-			if (hasNewMobStat(MultiDamSkill)) {
-				outPacket.encodeInt(getNewOptionsByMobStat(MultiDamSkill).cOption);
-			}
+
 			if (hasNewMobStat(Laser)) {
 				outPacket.encodeInt(getNewOptionsByMobStat(Laser).nOption);
 				outPacket.encodeInt(getNewOptionsByMobStat(Laser).rOption);
@@ -302,16 +348,13 @@ public class MobTemporaryStat {
 				outPacket.encodeInt(getNewOptionsByMobStat(Laser).wOption);
 				outPacket.encodeInt(getNewOptionsByMobStat(Laser).uOption);
 			}
-			if (hasNewMobStat(ElementResetBySummon)) {
-				outPacket.encodeInt(getNewOptionsByMobStat(ElementResetBySummon).cOption);
-				outPacket.encodeInt(getNewOptionsByMobStat(ElementResetBySummon).pOption);
-				outPacket.encodeInt(getNewOptionsByMobStat(ElementResetBySummon).uOption);
-				outPacket.encodeInt(getNewOptionsByMobStat(ElementResetBySummon).wOption);
+
+			if (hasNewMobStat(Unknown_98)) {
+				// decode4
+				// decode4
+				// decode4
 			}
-			if (hasNewMobStat(BahamutLightElemAddDam)) {
-				outPacket.encodeInt(getNewOptionsByMobStat(BahamutLightElemAddDam).pOption);
-				outPacket.encodeInt(getNewOptionsByMobStat(BahamutLightElemAddDam).cOption);
-			}
+
 			getNewStatVals().clear();
 		}
 	}
@@ -320,10 +363,6 @@ public class MobTemporaryStat {
 		int[] res = new int[5];
 		for (MobStat mobStat : map.keySet()) {
 			res[mobStat.getPos()] |= mobStat.getVal();
-		}
-		OutPacket outPacket = new OutPacket();
-		for (int i = 0; i < res.length; i++) {
-			outPacket.encodeInt(res[i]);
 		}
 		return res;
 	}

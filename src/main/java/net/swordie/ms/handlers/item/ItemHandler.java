@@ -1129,10 +1129,10 @@ public class ItemHandler {
             return;
         }
 
-        if (chr != null && chr.getHP() > 0 && ItemConstants.isBridleItem(itemID)) {
+        if (chr.getHP() > 0 && ItemConstants.isBridleItem(itemID)) {
             ItemInfo bridle = ItemData.getItemInfoByID(itemID);
             if (mob.getTemplateId() == bridle.getMobID()) {
-                if (mob.getHp() < (mob.getMaxHp() * bridle.getMobHP()/100)) { //success/failure hp check
+                if (mob.getHp() < (mob.getMaxHp() * bridle.getMobHP() / 100)) { //success/failure hp check
                     // do success handler
                     chr.write(MobPool.effectByItem(mob, item.getItemId(), true));
                     
@@ -1147,8 +1147,6 @@ public class ItemHandler {
             }
 
         }
-
-        chr.dispose();
 
     }
 

@@ -1141,8 +1141,7 @@ public class ItemHandler {
                     mob.die(false);
                 } else {
                     // do fail handler
-                    chr.write(WvsContext.bridleMobCatchFail(item.getItemId()));
-
+                    chr.write(WvsContext.bridleMobCatchFail(item.getItemId(), item.getItemId() == 2270002));
                 }
             }
 

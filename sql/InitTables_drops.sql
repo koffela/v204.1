@@ -14522,7 +14522,11 @@ insert into `mob_drops` (`mobid`, `itemid`, `chance`, `minquant`, `maxquant`) va
 (9390610, 4310098, 9000, 1, 1),
 (9390610, 4310097, 10000, 1, 1),
 (9390610, 2000005, 10000, 1, 3),
-(9390610, 2000005, 10000, 1, 3);
+(9390610, 2000005, 10000, 1, 3),
+(8610022, 4032922, 100, 1, 1),
+(8610011, 4032925, 100, 1, 1)
+;
+
 
 #Reactor drops
 insert into `mob_drops` (`mobid`, `itemid`, `chance`, `minquant`, `maxquant`, reactordrop) values

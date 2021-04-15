@@ -5,6 +5,7 @@ import net.swordie.ms.connection.packet.Effect;
 import net.swordie.ms.connection.packet.UserPacket;
 import net.swordie.ms.enums.AccountType;
 import net.swordie.ms.enums.BaseStat;
+import net.swordie.ms.enums.PrivateStatusIDFlag;
 import net.swordie.ms.scripts.ScriptManagerImpl;
 import net.swordie.ms.scripts.ScriptType;
 import net.swordie.ms.util.Util;
@@ -18,11 +19,12 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import static net.swordie.ms.enums.ChatType.Mob;
+import static net.swordie.ms.enums.PrivateStatusIDFlag.*;
 
 public class PlayerCommands {
     static final org.apache.log4j.Logger log = LogManager.getRootLogger();
 
-    @Command(names = {"check", "dispose", "fix"}, requiredType = AccountType.Player)
+    @Command(names = {"check", "dispose", "fix"}, requiredType = NONE)
     public static class Dispose extends PlayerCommand {
         public static void execute(Char chr, String[] args){
             chr.dispose();
@@ -43,14 +45,14 @@ public class PlayerCommands {
         }
     }
 
-    @Command(names = {"event"}, requiredType = AccountType.Player)
+    @Command(names = {"event"}, requiredType = NONE)
     public static class JoinEvent extends PlayerCommand {
         public static void execute(Char chr, String[] args){
             InGameEventManager.getInstance().joinPublicEvent(chr);
         }
     }
 
-    @Command(names = {"roll"}, requiredType = AccountType.Player)
+    @Command(names = {"roll"}, requiredType = NONE)
     public static class OneArmedBandit extends PlayerCommand {
         public static void execute(Char chr, String[] args){
 

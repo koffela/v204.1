@@ -117,7 +117,6 @@ public class ScriptManagerImpl implements ScriptManager {
 	private boolean isLockUI;
 	private int patternInputCount = 0;
 	private FieldTransferInfo fieldTransferInfo;
-	private int objectID;
 
 	private ScriptManagerImpl(Char chr, Field field) {
 		this.chr = chr;

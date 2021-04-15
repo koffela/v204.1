@@ -4,15 +4,22 @@ import net.swordie.ms.client.Client;
 import net.swordie.ms.client.character.BroadcastMsg;
 import net.swordie.ms.client.character.Char;
 import net.swordie.ms.client.character.items.*;
+import net.swordie.ms.client.character.quest.Quest;
+import net.swordie.ms.client.character.quest.QuestManager;
 import net.swordie.ms.connection.InPacket;
+import net.swordie.ms.connection.OutPacket;
 import net.swordie.ms.connection.packet.FieldPacket;
+import net.swordie.ms.connection.packet.UserPacket;
 import net.swordie.ms.connection.packet.WvsContext;
 import net.swordie.ms.constants.ItemConstants;
+import net.swordie.ms.constants.QuestConstants;
 import net.swordie.ms.enums.*;
-import net.swordie.ms.handlers.EventManager;
 import net.swordie.ms.handlers.Handler;
 import net.swordie.ms.handlers.header.InHeader;
+import net.swordie.ms.handlers.header.OutHeader;
 import net.swordie.ms.loaders.ItemData;
+import net.swordie.ms.loaders.QuestData;
+import net.swordie.ms.loaders.containerclasses.ItemInfo;
 import net.swordie.ms.util.Util;
 import org.apache.log4j.Logger;
 
@@ -68,6 +75,16 @@ public class ItemUpgradeHandler {
             if (success) {
                 boolean eternalFlame = vals.getOrDefault(ScrollStat.createType, 6) >= 7;
                 equip.randomizeFlameStats(eternalFlame); // Generate high stats if it's an eternal/RED flame only.
+                //apply flame to zero's weapon
+                if (ItemConstants.isLongOrBigSword(equip.getItemId())) {
+                    Equip zeroWeapon = (Equip) chr.getEquippedInventory().getItemBySlot(11);
+                    if (zeroWeapon != null) {
+                        for (EquipBaseStat stat : EquipBaseStat.values()) {
+                            zeroWeapon.setBaseStatFlame(stat, (int) equip.getBaseStatFlame(stat));
+                        }
+                        zeroWeapon.updateToChar(chr);
+                    }
+                }
             }
 
             c.write(FieldPacket.showItemUpgradeEffect(chr.getId(), success, false, flame.getItemId(), equip.getItemId(), false));
@@ -227,72 +244,52 @@ public class ItemUpgradeHandler {
         Item scroll = chr.getInventoryByType(InvType.CONSUME).getItemBySlot(uPos);
         InvType invType = ePos < 0 ? EQUIPPED : EQUIP;
         Equip equip = (Equip) chr.getInventoryByType(invType).getItemBySlot(ePos);
-        if (scroll == null || equip == null || equip.hasSpecialAttribute(EquipSpecialAttribute.Vestige)) {
+        Equip zeroWeapon = null;
+        if (ItemConstants.isLongOrBigSword(equip.getItemId())) {
+            zeroWeapon = (Equip) chr.getEquippedInventory().getItemBySlot(11);
+        }
+        if (scroll == null || equip.hasSpecialAttribute(EquipSpecialAttribute.Vestige)) {
             chr.chatMessage(SystemNotice, "Could not find scroll or equip.");
+            chr.dispose();
             return;
         }
         int scrollID = scroll.getItemId();
         boolean success = true;
-        boolean boom = false;
         Map<ScrollStat, Integer> vals = ItemData.getItemInfoByID(scrollID).getScrollStats();
         if (vals.size() > 0) {
-            if (equip.getBaseStat(tuc) <= 0) {
-                WvsContext.dispose(chr);
-                return;
-            }
             int chance = vals.getOrDefault(ScrollStat.success, 100);
-            int curse = vals.getOrDefault(ScrollStat.cursed, 0);
             success = Util.succeedProp(chance);
-            if (success) {
-                boolean chaos = vals.containsKey(ScrollStat.randStat);
-                if (chaos) {
-                    boolean noNegative = vals.containsKey(ScrollStat.noNegative);
-                    int max = vals.containsKey(ScrollStat.incRandVol) ? ItemConstants.RAND_CHAOS_MAX : ItemConstants.INC_RAND_CHAOS_MAX;
-                    for (EquipBaseStat ebs : ScrollStat.getRandStats()) {
-                        int cur = (int) equip.getBaseStat(ebs);
-                        if (cur == 0) {
-                            continue;
-                        }
-                        int randStat = Util.getRandom(max);
-                        randStat = !noNegative && Util.succeedProp(50) ? -randStat : randStat;
-                        equip.addStat(ebs, randStat);
+            boolean chaos = vals.containsKey(ScrollStat.randStat);
+            if (success && chaos && zeroWeapon != null) {
+                boolean noNegative = vals.containsKey(ScrollStat.noNegative);
+                int max = vals.containsKey(ScrollStat.incRandVol) ? ItemConstants.INC_RAND_CHAOS_MAX : ItemConstants.RAND_CHAOS_MAX;
+                for (EquipBaseStat ebs : ScrollStat.getRandStats()) {
+                    int cur = (int) equip.getBaseStat(ebs);
+                    if (cur == 0) {
+                        continue;
                     }
-                } else {
-                    for (Map.Entry<ScrollStat, Integer> entry : vals.entrySet()) {
-                        ScrollStat ss = entry.getKey();
-                        int val = entry.getValue();
-                        if (ss.getEquipStat() != null) {
-                            equip.addStat(ss.getEquipStat(), val);
-                        }
-                    }
+                    int randStat = Util.getRandom(max);
+                    randStat = !noNegative && Util.succeedProp(50) ? -randStat : randStat;
+                    equip.addStat(ebs, randStat);
+                    zeroWeapon.addStat(ebs, randStat);
                 }
-                equip.addStat(tuc, -1);
-                equip.addStat(cuc, 1);
-            } else {
-                if (curse > 0) {
-                    boom = Util.succeedProp(curse);
-                    if (boom && !equip.hasAttribute(EquipAttribute.ProtectionScroll)) {
-                        chr.consumeItem(equip);
-                    } else {
-                        boom = false;
-                    }
-                }
-                if (!equip.hasAttribute(EquipAttribute.UpgradeCountProtection)) {
-                    equip.addStat(tuc, -1);
-                }
-            }
-            equip.removeAttribute(EquipAttribute.ProtectionScroll);
-            equip.removeAttribute(EquipAttribute.LuckyDay);
-            equip.removeAttribute(EquipAttribute.UpgradeCountProtection);
-            c.write(FieldPacket.showItemUpgradeEffect(chr.getId(), success, false, scrollID, equip.getItemId(), boom));
-            if (!boom) {
+                equip.addStat(EquipBaseStat.tuc, -1);
+                zeroWeapon.addStat(EquipBaseStat.tuc, -1);
+                equip.addStat(EquipBaseStat.cuc, 1);
+                zeroWeapon.addStat(EquipBaseStat.cuc, 1);
                 equip.recalcEnchantmentStats();
+                zeroWeapon.recalcEnchantmentStats();
                 equip.updateToChar(chr);
+                zeroWeapon.updateToChar(chr);
+                chr.write(FieldPacket.showItemUpgradeEffect(chr.getId(), success, false, scrollID, equip.getItemId(), false));
+                //chr.write(FieldPacket.showItemUpgradeEffect(chr.getId(), success, false, scrollID, zeroWeapon.getItemId(), false));
+                chr.consumeItem(scroll);
+            } else {
+                equip.applyScroll(scroll, chr, success);
+                if (zeroWeapon != null) {
+                    zeroWeapon.applyScroll(scroll, chr, success);
+                }
             }
-            chr.consumeItem(scroll);
-        } else {
-            chr.chatMessage("Could not find scroll data.");
-            chr.dispose();
         }
     }
 
@@ -476,5 +473,48 @@ public class ItemUpgradeHandler {
         }
         c.write(FieldPacket.showItemReleaseEffect(chr.getId(), ePos, bonus));
         equip.updateToChar(chr);
+    }
+
+    @Handler(op = InHeader.EGO_EQUIP_CHECK_UPDATE_ITEM_REQUEST)
+    public static void handleEgoEquipCheckUpdateItemRequest(Client c, InPacket inpacket) {
+        Char chr = c.getChr();
+        int inv = inpacket.decodeInt();
+        int itemSlot = inpacket.decodeInt();
+        int idk1 = inpacket.decodeInt();
+        int idk2 = inpacket.decodeInt();
+        int weaponWindowSlot = inpacket.decodeInt();
+        chr.write(UserPacket.checkUpgradeItemResult(weaponWindowSlot));
+    }
+
+    @Handler(op = InHeader.EGO_EQUIP_GAUGE_COMPLETE_RETURN)
+    public static void handleEgoEquipGaugeCompleteReturn(Client c, InPacket inPacket) {
+        // todo: gauge complete
+        //OutPacket outPacket = new OutPacket(OutHeader.GAUGE_COMPLETE);
+        //c.write(outPacket);
+    }
+
+    @Handler(op = InHeader.USER_LUCKY_ITEM_USE_REQUEST)
+    public static void handleUserLuckyItemUseRequest(Client c, InPacket inPacket) {
+        Char chr = c.getChr();
+        inPacket.decodeInt(); //idk...
+        byte slot = inPacket.decodeByte();
+        Item scroll = chr.getConsumeInventory().getItemBySlot(slot);
+        if(scroll == null) {
+            return;
+        }
+        ItemInfo scrollInfo = ItemData.getItemInfoByID(scroll.getItemId());
+        int setId = scrollInfo.getScrollStats().getOrDefault(ScrollStat.setItemCategory, 0);
+        boolean success = Util.succeedProp(scrollInfo.getScrollStats().getOrDefault(ScrollStat.success, 100), 100);
+        if (setId != 0 && success) {
+            QuestManager qm = chr.getQuestManager();
+            if(qm.hasQuestInProgress(QuestConstants.ZERO_SET_QUEST) || qm.hasQuestCompleted(QuestConstants.ZERO_SET_QUEST)){
+                qm.removeQuest(QuestConstants.ZERO_SET_QUEST);
+            }
+            Quest q = QuestData.createQuestFromId(QuestConstants.ZERO_SET_QUEST);
+            q.setQrValue(String.valueOf(setId));
+            qm.addQuest(q);
+        }
+        chr.consumeItem(scroll);
+        chr.dispose();
     }
 }

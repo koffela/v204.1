@@ -42,6 +42,7 @@ public enum ScrollStat {
     recover,
     reset,
     perfectReset,
+    reduceCooltime,
     boss,
     ignoreTargetDEF,
     incSTRr,
@@ -62,6 +63,7 @@ public enum ScrollStat {
     statincAsrR,
     statincMesoProp,
     statincRewardProp,
+    setItemCategory,
     ;
 
     public static ScrollStat getScrollStatByString(String name) {

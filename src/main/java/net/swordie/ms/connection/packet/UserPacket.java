@@ -196,4 +196,13 @@ public class UserPacket {
         }
         return outPacket;
     }
+
+    public static OutPacket checkUpgradeItemResult(int index) {
+        OutPacket outPacket = new OutPacket(OutHeader.EGO_EQUIP_CHECK_UPGRADE_ITEM_RESULT);
+
+        outPacket.encodeByte(true);
+        outPacket.encodeString("");
+        outPacket.encodeInt(index);
+        return outPacket;
+    }
 }

@@ -731,6 +731,9 @@ FFFFFFFF
 
     public static final int MATRIX_SHARDS = 1477;
 
+    public static final int ZERO_SET_QUEST = 41907;
+    public static final int ZERO_WEAPON_WINDOW_QUEST = 40905;
+
     public static String getWhStorageQuestValByTemplateID(int templateId) {
         if (templateId >= 9304000 && templateId <= 9304008) {
             return String.valueOf((templateId % 10) + 1);

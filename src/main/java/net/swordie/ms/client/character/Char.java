@@ -4779,7 +4779,7 @@ public class Char {
 		return hasEnough;
 	}
 
-	public boolean applyBulletCon(int skillID, byte slv) {
+	public boolean applyBulletCon(int skillID, int slv) {
 		if (getTemporaryStatManager().hasStat(NoBulletConsume) || JobConstants.isPhantom(getJob())) {
 			return true;
 		}

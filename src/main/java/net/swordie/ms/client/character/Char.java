@@ -3272,6 +3272,10 @@ public class Char {
 		}
 	}
 
+	public void heal(int amount, boolean whilstDeath) {
+		heal(amount, false, whilstDeath);
+	}
+
 	public void heal(int amount) {
 		heal(amount, false, false);
 	}

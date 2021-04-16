@@ -165,9 +165,8 @@ public class Char {
 	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	private AvatarData avatarData;
 
-	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "charId")
-	@OrderColumn(name = "ord")
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<FuncKeyMap> funcKeyMaps;
 
 	@JoinColumn(name = "charId")
@@ -2581,7 +2580,7 @@ public class Char {
 	public void initFuncKeyMaps(int keySettingType, boolean beastTamer) {
 		int amount = beastTamer ? 5 : 1;
 		for (int i = 0; i < amount; i++) {
-			FuncKeyMap funcKeyMap = FuncKeyMap.getDefaultMapping(keySettingType);
+			FuncKeyMap funcKeyMap = FuncKeyMap.getDefaultMapping(keySettingType, this);
 			funcKeyMaps.add(funcKeyMap);
 		}
 	}

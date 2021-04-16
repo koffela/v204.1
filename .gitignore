@@ -25,3 +25,4 @@ src/main/java/net/swordie/ms/Test.java
 v201.rar
 venv/
 Exclude/
+scripts/**/autogen*.py

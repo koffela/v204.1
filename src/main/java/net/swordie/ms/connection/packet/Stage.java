@@ -3,7 +3,6 @@ package net.swordie.ms.connection.packet;
 import net.swordie.ms.ServerConfig;
 import net.swordie.ms.client.character.damage.DamageCalc;
 import net.swordie.ms.util.FileTime;
-import net.swordie.ms.util.Util;
 import net.swordie.ms.world.field.Field;
 import net.swordie.ms.client.character.Char;
 import net.swordie.ms.world.field.FieldCustom;

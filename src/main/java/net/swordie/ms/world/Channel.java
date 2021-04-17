@@ -6,7 +6,6 @@ import net.swordie.ms.client.Client;
 import net.swordie.ms.client.character.Char;
 import net.swordie.ms.connection.OutPacket;
 import net.swordie.ms.constants.GameConstants;
-import net.swordie.ms.life.Life;
 import net.swordie.ms.loaders.FieldData;
 import net.swordie.ms.util.Util;
 import net.swordie.ms.util.container.Tuple;

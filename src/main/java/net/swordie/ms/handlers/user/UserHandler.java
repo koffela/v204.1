@@ -40,7 +40,6 @@ import net.swordie.ms.util.Position;
 import net.swordie.ms.util.Util;
 import net.swordie.ms.util.container.Tuple;
 import net.swordie.ms.world.field.Field;
-import net.swordie.ms.world.field.Portal;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;

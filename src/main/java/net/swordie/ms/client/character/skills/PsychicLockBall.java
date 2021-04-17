@@ -3,7 +3,6 @@ package net.swordie.ms.client.character.skills;
 import net.swordie.ms.life.mob.Mob;
 import net.swordie.ms.connection.OutPacket;
 import net.swordie.ms.util.Position;
-import net.swordie.ms.util.Util;
 
 /**
  * Created on 1/13/2018.

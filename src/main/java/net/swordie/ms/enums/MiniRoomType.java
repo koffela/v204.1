@@ -1,8 +1,5 @@
 package net.swordie.ms.enums;
 
-import net.swordie.ms.client.character.Char;
-import net.swordie.ms.connection.OutPacket;
-
 import java.util.Arrays;
 
 /**

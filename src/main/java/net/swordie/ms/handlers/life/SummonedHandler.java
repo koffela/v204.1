@@ -2,11 +2,9 @@ package net.swordie.ms.handlers.life;
 
 import net.swordie.ms.client.Client;
 import net.swordie.ms.client.character.Char;
-import net.swordie.ms.client.jobs.nova.Kaiser;
 import net.swordie.ms.client.jobs.resistance.BattleMage;
 import net.swordie.ms.connection.InPacket;
 import net.swordie.ms.connection.packet.Summoned;
-import net.swordie.ms.enums.AssistType;
 import net.swordie.ms.handlers.Handler;
 import net.swordie.ms.handlers.header.InHeader;
 import net.swordie.ms.life.Life;

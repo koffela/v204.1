@@ -6,10 +6,7 @@ import net.swordie.ms.ServerConstants;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
 import net.swordie.ms.util.Util;
-import net.swordie.ms.util.XMLApi;
 
 import java.io.*;
 import java.util.*;

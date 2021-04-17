@@ -3,7 +3,6 @@ package net.swordie.ms.connection;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;
 import io.netty.buffer.PooledByteBufAllocator;
-import net.swordie.ms.client.guild.Guild;
 import net.swordie.ms.handlers.header.OutHeader;
 import net.swordie.ms.util.FileTime;
 import net.swordie.ms.util.Position;

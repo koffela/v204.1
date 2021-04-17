@@ -26,10 +26,7 @@ import net.swordie.ms.world.field.Field;
 import java.util.Arrays;
 
 import static net.swordie.ms.client.character.skills.SkillStat.*;
-import static net.swordie.ms.client.character.skills.SkillStat.time;
 import static net.swordie.ms.client.character.skills.temp.CharacterTemporaryStat.*;
-import static net.swordie.ms.client.character.skills.temp.CharacterTemporaryStat.ACCR;
-import static net.swordie.ms.client.character.skills.temp.CharacterTemporaryStat.EVAR;
 
 /**
  * Created by MechAviv on 3/10/2019.

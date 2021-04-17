@@ -1,8 +1,5 @@
 package net.swordie.ms.client.character;
 
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-
 import javax.persistence.*;
 
 /**

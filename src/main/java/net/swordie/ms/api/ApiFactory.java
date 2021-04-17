@@ -2,13 +2,9 @@ package net.swordie.ms.api;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import net.swordie.ms.api.data.UserInfo;
-import net.swordie.ms.client.Account;
 import net.swordie.ms.client.Client;
 import net.swordie.ms.client.character.BroadcastMsg;
-import net.swordie.ms.connection.packet.Login;
 import net.swordie.ms.connection.packet.WvsContext;
-import net.swordie.ms.enums.LoginType;
 import okhttp3.*;
 
 import java.io.IOException;

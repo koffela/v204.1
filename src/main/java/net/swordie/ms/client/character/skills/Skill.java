@@ -1,10 +1,6 @@
 package net.swordie.ms.client.character.skills;
 
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-
 import javax.persistence.*;
-import java.util.Map;
 
 /**
  * Created on 12/20/2017.

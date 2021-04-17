@@ -5,7 +5,6 @@ import net.swordie.ms.connection.packet.UserLocal;
 import net.swordie.ms.loaders.containerclasses.MonsterCollectionMobInfo;
 import net.swordie.ms.util.Util;
 
-import javax.persistence.*;
 import java.util.*;
 
 /**

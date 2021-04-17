@@ -2,7 +2,6 @@ package net.swordie.ms.handlers.social;
 
 import net.swordie.ms.client.Account;
 import net.swordie.ms.client.Client;
-import net.swordie.ms.client.User;
 import net.swordie.ms.client.character.Char;
 import net.swordie.ms.client.friend.Friend;
 import net.swordie.ms.client.friend.FriendFlag;

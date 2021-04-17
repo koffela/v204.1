@@ -1,16 +1,8 @@
 package net.swordie.ms.loaders;
 
 import net.swordie.ms.ServerConstants;
-import net.swordie.ms.enums.FieldType;
-import net.swordie.ms.life.Life;
-import net.swordie.ms.life.Reactor;
-import net.swordie.ms.util.Position;
 import net.swordie.ms.util.Util;
 import net.swordie.ms.util.XMLApi;
-import net.swordie.ms.world.field.Field;
-import net.swordie.ms.world.field.Foothold;
-import net.swordie.ms.world.field.Portal;
-import net.swordie.ms.world.field.PortalType;
 import org.apache.log4j.LogManager;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;

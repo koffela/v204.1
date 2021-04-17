@@ -5,10 +5,6 @@ import net.swordie.ms.client.character.items.Equip;
 import net.swordie.ms.client.character.items.Item;
 import net.swordie.ms.client.character.items.PetItem;
 import net.swordie.ms.connection.OutPacket;
-import net.swordie.ms.connection.db.FileTimeConverter;
-import net.swordie.ms.connection.db.InlinedIntArrayConverter;
-import net.swordie.ms.loaders.ItemData;
-import net.swordie.ms.util.FileTime;
 
 import javax.persistence.*;
 import java.util.ArrayList;

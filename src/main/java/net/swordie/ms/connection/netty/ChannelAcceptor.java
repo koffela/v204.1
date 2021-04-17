@@ -11,9 +11,6 @@ import org.apache.log4j.LogManager;
 import net.swordie.ms.connection.packet.Login;
 import net.swordie.ms.handlers.EventManager;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import static net.swordie.ms.connection.netty.NettyClient.CLIENT_KEY;
 
 public class ChannelAcceptor implements Runnable {

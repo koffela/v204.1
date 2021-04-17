@@ -1,7 +1,5 @@
 package net.swordie.ms.enums;
 
-import net.swordie.ms.client.jobs.flora.Ark;
-
 import java.util.Arrays;
 
 /**

@@ -3,7 +3,6 @@ package net.swordie.ms.loaders;
 import net.swordie.ms.client.character.runestones.RuneStone;
 import net.swordie.ms.connection.db.DatabaseManager;
 import net.swordie.ms.constants.GameConstants;
-import net.swordie.ms.enums.FieldOption;
 import net.swordie.ms.enums.FieldType;
 import net.swordie.ms.world.field.*;
 import net.swordie.ms.life.Life;

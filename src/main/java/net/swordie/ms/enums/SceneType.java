@@ -2,8 +2,6 @@ package net.swordie.ms.enums;
 
 import net.swordie.ms.util.Util;
 
-import java.util.Arrays;
-
 /**
  * Created by Asura on 28-8-2018.
  */

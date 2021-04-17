@@ -11,20 +11,15 @@ import net.swordie.ms.client.character.skills.info.SkillInfo;
 import net.swordie.ms.client.character.skills.temp.TemporaryStatManager;
 import net.swordie.ms.client.jobs.Job;
 import net.swordie.ms.connection.InPacket;
-import net.swordie.ms.connection.packet.WvsContext;
 import net.swordie.ms.constants.JobConstants;
 import net.swordie.ms.enums.ChatType;
-import net.swordie.ms.enums.Stat;
 import net.swordie.ms.life.Summon;
 import net.swordie.ms.loaders.SkillData;
 import net.swordie.ms.world.field.Field;
 
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 
 import static net.swordie.ms.client.character.skills.SkillStat.*;
-import static net.swordie.ms.client.character.skills.SkillStat.time;
 import static net.swordie.ms.client.character.skills.temp.CharacterTemporaryStat.Jump;
 import static net.swordie.ms.client.character.skills.temp.CharacterTemporaryStat.Speed;
 

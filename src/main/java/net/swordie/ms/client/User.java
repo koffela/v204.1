@@ -5,8 +5,6 @@ import net.swordie.ms.client.anticheat.OffenseManager;
 import net.swordie.ms.client.character.Char;
 import net.swordie.ms.connection.db.DatabaseManager;
 import net.swordie.ms.connection.db.FileTimeConverter;
-import net.swordie.ms.constants.JobConstants;
-import net.swordie.ms.enums.AccountType;
 import net.swordie.ms.enums.PicStatus;
 import net.swordie.ms.enums.PrivateStatusIDFlag;
 import net.swordie.ms.util.FileTime;

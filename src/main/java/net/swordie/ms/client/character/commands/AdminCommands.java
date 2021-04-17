@@ -1,7 +1,6 @@
 package net.swordie.ms.client.character.commands;
 
 import net.swordie.ms.Server;
-import net.swordie.ms.client.Account;
 import net.swordie.ms.client.character.BroadcastMsg;
 import net.swordie.ms.client.User;
 import net.swordie.ms.client.character.Char;
@@ -18,7 +17,6 @@ import net.swordie.ms.client.character.skills.temp.TemporaryStatManager;
 import net.swordie.ms.client.jobs.adventurer.Archer;
 import net.swordie.ms.client.jobs.adventurer.Magician;
 import net.swordie.ms.client.jobs.adventurer.Thief;
-import net.swordie.ms.client.jobs.legend.Evan;
 import net.swordie.ms.client.jobs.nova.Kaiser;
 import net.swordie.ms.connection.OutPacket;
 import net.swordie.ms.connection.db.DatabaseManager;
@@ -54,16 +52,11 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.time.LocalDateTime;
 import java.util.*;
-import java.util.List;
 
 import static net.swordie.ms.client.character.skills.SkillStat.*;
-import static net.swordie.ms.client.character.skills.SkillStat.prop;
 import static net.swordie.ms.client.character.skills.temp.CharacterTemporaryStat.*;
-import static net.swordie.ms.client.character.skills.temp.CharacterTemporaryStat.Stance;
 import static net.swordie.ms.enums.PrivateStatusIDFlag.*;
 
-import static net.swordie.ms.client.character.skills.temp.CharacterTemporaryStat.RideVehicle;
-import static net.swordie.ms.enums.AccountType.*;
 import static net.swordie.ms.enums.ChatType.*;
 import static net.swordie.ms.enums.InventoryOperation.Add;
 

@@ -1,8 +1,6 @@
 package net.swordie.ms.util.tools;
 
 import net.swordie.ms.ServerConstants;
-import net.swordie.ms.connection.InPacket;
-import net.swordie.ms.connection.OutPacket;
 import net.swordie.ms.handlers.header.InHeader;
 import net.swordie.ms.handlers.header.OutHeader;
 

@@ -7,7 +7,6 @@ import net.swordie.ms.client.character.items.*;
 import net.swordie.ms.client.character.quest.Quest;
 import net.swordie.ms.client.character.quest.QuestManager;
 import net.swordie.ms.connection.InPacket;
-import net.swordie.ms.connection.OutPacket;
 import net.swordie.ms.connection.packet.FieldPacket;
 import net.swordie.ms.connection.packet.UserPacket;
 import net.swordie.ms.connection.packet.WvsContext;

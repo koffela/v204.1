@@ -3,7 +3,6 @@ package net.swordie.ms.life.drop;
 import net.swordie.ms.client.character.Char;
 import net.swordie.ms.client.character.items.Equip;
 import net.swordie.ms.client.character.items.Item;
-import net.swordie.ms.connection.packet.WvsContext;
 import net.swordie.ms.constants.ItemConstants;
 import net.swordie.ms.enums.DropMotionType;
 import net.swordie.ms.enums.DropType;

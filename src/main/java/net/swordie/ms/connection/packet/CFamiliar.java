@@ -6,11 +6,7 @@ import net.swordie.ms.connection.OutPacket;
 import net.swordie.ms.constants.GameConstants;
 import net.swordie.ms.handlers.header.OutHeader;
 import net.swordie.ms.life.Familiar;
-import net.swordie.ms.life.movement.Movement;
 import net.swordie.ms.life.movement.MovementInfo;
-import net.swordie.ms.util.Position;
-
-import java.util.List;
 
 /**
  * @author Sjonnie

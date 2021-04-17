@@ -1,8 +1,6 @@
 package net.swordie.ms.connection.packet;
 
-import net.swordie.ms.Server;
 import net.swordie.ms.connection.OutPacket;
-import net.swordie.ms.enums.Gr2dAniType;
 import net.swordie.ms.enums.SpineMsgType;
 import net.swordie.ms.handlers.header.OutHeader;
 

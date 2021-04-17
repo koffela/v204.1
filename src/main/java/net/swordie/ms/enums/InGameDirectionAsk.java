@@ -1,7 +1,5 @@
 package net.swordie.ms.enums;
 
-import java.util.Arrays;
-
 public enum InGameDirectionAsk {
     NOT(0),
     DELAY(1),

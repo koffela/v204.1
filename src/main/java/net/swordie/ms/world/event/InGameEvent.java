@@ -1,7 +1,6 @@
 package net.swordie.ms.world.event;
 
 import net.swordie.ms.client.character.Char;
-import net.swordie.ms.world.field.Field;
 
 public interface InGameEvent {
 

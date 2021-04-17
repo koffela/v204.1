@@ -2,7 +2,6 @@ package net.swordie.ms.scripts;
 
 import javax.script.Bindings;
 import javax.script.Invocable;
-import javax.script.ScriptEngine;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.concurrent.locks.Lock;

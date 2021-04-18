@@ -19,7 +19,7 @@ public class StopForceAtom {
         outPacket.encodeInt(getCount());
         outPacket.encodeInt(getWeaponId());
         outPacket.encodeInt(getAngleInfo().size());
-        for(int i : getAngleInfo()) {
+        for (int i : getAngleInfo()) {
             outPacket.encodeInt(i);
         }
     }

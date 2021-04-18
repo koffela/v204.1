@@ -66,8 +66,8 @@ public class DumpFieldDirectionNode {
     }
 
     public static void main(String[] args) {
-        //loadFieldInfoFromWz();
-        //saveFields();
+        // loadFieldInfoFromWz();
+        // saveFields();
         System.out.println(getScriptByDirectionKey(910150000, 2));
     }
 
@@ -97,7 +97,7 @@ public class DumpFieldDirectionNode {
                             switch (XMLApi.getNamedAttribute(dirs, "name")) {
                                 case "EventQ":
                                     for (Node events : XMLApi.getAllChildren(dirs)) {
-                                        //System.out.println("Adding " + XMLApi.getNamedAttribute(events, "value") + " to key " + dirKey);
+                                        // System.out.println("Adding " + XMLApi.getNamedAttribute(events, "value") + " to key " + dirKey);
                                         eventsQ.put(dirKey, XMLApi.getNamedAttribute(events, "value"));
                                     }
                                     break;

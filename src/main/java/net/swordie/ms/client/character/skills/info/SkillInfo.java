@@ -94,31 +94,28 @@ public class SkillInfo {
     public int getValue(SkillStat skillStat, int slv) {
         int result = 0;
         String value = getSkillStatInfo().get(skillStat);
-        if(value == null || slv == 0) {
+        if (value == null || slv == 0) {
             return 0;
         }
         // Sometimes newlines get taken, just remove those
         value = value.replace("\n", "").replace("\r", "");
         value = value.replace("\\n", "").replace("\\r", ""); // unluko
         String original = value;
-        if(Util.isNumber(value)) {
+        if (Util.isNumber(value)) {
             result = Integer.parseInt(value);
         } else {
             try {
                 value = value.replace("u", "Math.ceil");
                 value = value.replace("d", "Math.floor");
-                String toReplace = value.contains("y") ? "y"
-                        : value.contains("X") ? "X"
-                        : "x";
+                String toReplace = value.contains("y") ? "y" : value.contains("X") ? "X" : "x";
                 Object res = engine.eval(value.replace(toReplace, slv + ""));
-                if(res instanceof Integer) {
+                if (res instanceof Integer) {
                     result = (Integer) res;
-                } else if(res instanceof Double) {
+                } else if (res instanceof Double) {
                     result = ((Double) res).intValue();
                 }
             } catch (ScriptException e) {
-                log.error(String.format("Error when parsing: skill %d, level %d, skill stat %s, tried to eval %s.",
-                        getSkillId(), slv, skillStat, original));
+                log.error(String.format("Error when parsing: skill %d, level %d, skill stat %s, tried to eval %s.", getSkillId(), slv, skillStat, original));
                 e.printStackTrace();
             }
         }
@@ -179,7 +176,7 @@ public class SkillInfo {
 
     public Map<BaseStat, Integer> getBaseStatValues(Char chr, int slv, int skillID) {
         Map<BaseStat, Integer> stats = new HashMap<>();
-        chr.chatMessage(ChatType.Mob,"SkillID : " + skillID);
+        chr.chatMessage(ChatType.Mob, "SkillID : " + skillID);
         for (SkillStat ss : getSkillStatInfo().keySet()) {
             Tuple<BaseStat, Integer> bs = getBaseStatValue(ss, slv, chr);
             stats.put(bs.getLeft(), bs.getRight());

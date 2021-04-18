@@ -14,7 +14,11 @@ public enum GreyFieldType {
 
     private byte val;
 
-    GreyFieldType(int val) {this.val = (byte) val;}
+    GreyFieldType(int val) {
+        this.val = (byte) val;
+    }
 
-    public byte getVal() {return val;}
+    public byte getVal() {
+        return val;
+    }
 }

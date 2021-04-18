@@ -22,25 +22,25 @@ public class DropData {
     public static void loadCompleteDropsFromTxt(File file) {
         try (Scanner scanner = new Scanner(new FileInputStream(file))) {
             int mobID = 0;
-            while(scanner.hasNextLine()) {
+            while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
-                if(line.contains("//")) {
+                if (line.contains("//")) {
                     continue;
                 }
                 String[] split = line.split(" ");
                 /*
-                Format:
-                mobID (int)
-                or:
-                itemID (int) chance (int out of 10000) minCount (int) maxCount (int)
-                itemID (int) chance (int out of 10000)
-                So, single line = mobID, else 2/4 ints
+                 * Format:
+                 * mobID (int)
+                 * or:
+                 * itemID (int) chance (int out of 10000) minCount (int) maxCount (int)
+                 * itemID (int) chance (int out of 10000)
+                 * So, single line = mobID, else 2/4 ints
                  */
-                if(split.length == 1 && split[0].equalsIgnoreCase("global")) {
+                if (split.length == 1 && split[0].equalsIgnoreCase("global")) {
                     mobID = -1;
-                } else if(split.length == 1 && !split[0].equals("")) {
+                } else if (split.length == 1 && !split[0].equals("")) {
                     mobID = Integer.parseInt(split[0]);
-                } else if(split.length >= 2) {
+                } else if (split.length >= 2) {
                     int itemID = Integer.parseInt(split[0]);
                     int chance = Integer.parseInt(split[1]);
                     int minQuant = 1;
@@ -60,18 +60,19 @@ public class DropData {
                     log.debug(String.format("(%d, %d, %d, %d, %d),", mobID, di.getItemID(), di.getChance(), di.getMinQuant(), di.getMaxQuant()));
                 }
             }
-//            for (DropInfo globalDrop : getDropInfoByID(-1)) {
-//                for (int key : getDrops().keySet()) {
-//                    if (key != -1) {
-//                        addDrop(key, globalDrop);
-//                    }
-//                }
-//            }
+            // for (DropInfo globalDrop : getDropInfoByID(-1)) {
+            // for (int key : getDrops().keySet()) {
+            // if (key != -1) {
+            // addDrop(key, globalDrop);
+            // }
+            // }
+            // }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
     public static Set<DropInfo> getDropInfoByID(int mobID) {
         Set<DropInfo> drops = getCachedDropInfoById(mobID);
         if (drops == null) {
@@ -86,7 +87,7 @@ public class DropData {
 
     private static Set<DropInfo> getDropInfoByIdFromDB(int mobID) {
         List l;
-        try(Session session = DatabaseManager.getSession()) {
+        try (Session session = DatabaseManager.getSession()) {
             Transaction transaction = session.beginTransaction();
             // String.format for query, just to fill in the class
             // Can't set the FROM clause with a parameter it seems
@@ -104,7 +105,7 @@ public class DropData {
     }
 
     private static void addDrop(int mobID, DropInfo dropInfo) {
-        if(!getDrops().containsKey(mobID)) {
+        if (!getDrops().containsKey(mobID)) {
             getDrops().put(mobID, new HashSet<>());
         }
         getDrops().get(mobID).add(dropInfo);

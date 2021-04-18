@@ -16,9 +16,13 @@ public enum StealMemoryType {
 
     private byte val;
 
-    StealMemoryType(int val) {this.val = (byte) val;}
+    StealMemoryType(int val) {
+        this.val = (byte) val;
+    }
 
-    public byte getVal() {return val;}
+    public byte getVal() {
+        return val;
+    }
 
     public static StealMemoryType getByVal(byte val) {
         return Arrays.stream(values()).filter(smt -> smt.getVal() == val).findAny().orElse(null);

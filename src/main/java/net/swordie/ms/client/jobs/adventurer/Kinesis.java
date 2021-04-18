@@ -62,11 +62,9 @@ public class Kinesis extends Job {
     public static final int MENTAL_OVERDRIVE = 142121032;
     public static final int PSYCHIC_GRAB = 142111002;
 
-
-
     public static final int MAX_PP = 30;
 
-    private final int[] buffs = new int[]{
+    private final int[] buffs = new int[] {
             ESP_BOOSTER,
             MENTAL_SHIELD,
             PSYCHIC_ARMOR,
@@ -235,7 +233,7 @@ public class Kinesis extends Job {
                 o1.nOption = 1;
                 o1.rOption = skillID;
                 o1.tOption = si.getValue(time, slv);
-                tsm.putCharacterStatValue(NewFlying, o1); //38s
+                tsm.putCharacterStatValue(NewFlying, o1); // 38s
                 break;
         }
         tsm.sendSetStatPacket();
@@ -244,8 +242,6 @@ public class Kinesis extends Job {
     public boolean isBuff(int skillID) {
         return super.isBuff(skillID) || Arrays.stream(buffs).anyMatch(b -> b == skillID);
     }
-
-
 
     // Attack related methods ------------------------------------------------------------------------------------------
 
@@ -257,8 +253,8 @@ public class Kinesis extends Job {
         Char chr = c.getChr();
         TemporaryStatManager tsm = chr.getTemporaryStatManager();
         Skill skill = chr.getSkill(attackInfo.skillId);
-        if(skill == null) {
-            switch(attackInfo.skillId) {
+        if (skill == null) {
+            switch (attackInfo.skillId) {
                 case PSYCHIC_ASSAULT_DOWN:
                     skill = chr.getSkill(PSYCHIC_ASSAULT_FWD);
                     break;
@@ -304,7 +300,7 @@ public class Kinesis extends Job {
                     if (mob == null) {
                         continue;
                     }
-                    if(mob.isBoss()) {
+                    if (mob.isBoss()) {
                         count += si.getValue(x, slv);
                     } else {
                         count++;
@@ -324,7 +320,7 @@ public class Kinesis extends Job {
                     if (mob == null) {
                         continue;
                     }
-                    if(!mob.isBoss()) {
+                    if (!mob.isBoss()) {
                         MobTemporaryStat mts = mob.getTemporaryStat();
                         o1.nOption = 1;
                         o1.rOption = skillID;
@@ -339,19 +335,17 @@ public class Kinesis extends Job {
     }
 
     private void createKineticOrbForceAtom(int skillID, byte slv, AttackInfo attackInfo) {
-        if(Arrays.asList(nonOrbSkills).contains(skillID)) {
+        if (Arrays.asList(nonOrbSkills).contains(skillID)) {
             return;
         }
         SkillInfo si = SkillData.getSkillInfoById(KINETIC_COMBO);
-        for(MobAttackInfo mai : attackInfo.mobAttackInfo) {
+        for (MobAttackInfo mai : attackInfo.mobAttackInfo) {
             if (Util.succeedProp(si.getValue(prop, slv))) {
                 int mobID = mai.mobId;
                 ForceAtomEnum fae = ForceAtomEnum.KINESIS_ORB_REAL;
                 int curTime = Util.getCurrentTime();
-                ForceAtomInfo fai = new ForceAtomInfo(1, fae.getInc(), 15, 15,
-                        0, 0, curTime, 0, skillID, new Position(0, 0));
-                c.getChr().getField().broadcastPacket(FieldPacket.createForceAtom(false, 0, chr.getId(), fae.getForceAtomType(), true,
-                        mobID, KINETIC_COMBO, fai, null, 0, 0, null, 0, null));
+                ForceAtomInfo fai = new ForceAtomInfo(1, fae.getInc(), 15, 15, 0, 0, curTime, 0, skillID, new Position(0, 0));
+                c.getChr().getField().broadcastPacket(FieldPacket.createForceAtom(false, 0, chr.getId(), fae.getForceAtomType(), true, mobID, KINETIC_COMBO, fai, null, 0, 0, null, 0, null));
             }
         }
     }
@@ -369,14 +363,14 @@ public class Kinesis extends Job {
         Char chr = c.getChr();
         Skill skill = chr.getSkill(skillID);
         SkillInfo si = null;
-        if(skill != null) {
+        if (skill != null) {
             si = SkillData.getSkillInfoById(skillID);
         }
         if (isBuff(skillID)) {
             handleBuff(c, inPacket, skillID, slv);
         } else {
             Option o1 = new Option();
-            switch(skillID) {
+            switch (skillID) {
                 case PSYCHIC_CHARGER:
                     int add = (MAX_PP - getPsychicPoints()) / 2;
                     incPsychicPoints(add);
@@ -390,18 +384,16 @@ public class Kinesis extends Job {
         }
     }
 
-
-
     // Hit related methods ---------------------------------------------------------------------------------------------
 
     @Override
     public void handleHit(Client c, InPacket inPacket, HitInfo hitInfo) {
         TemporaryStatManager tsm = chr.getTemporaryStatManager();
-        if(tsm.hasStat(KinesisPsychicShield)) {
+        if (tsm.hasStat(KinesisPsychicShield)) {
             hitInfo.hpDamage = (int) (hitInfo.hpDamage * (tsm.getOption(KinesisPsychicEnergeShield).nOption / 100D));
             incPsychicPoints(-1);
         }
-        if(getPsychicPoints() <= 0) {
+        if (getPsychicPoints() <= 0) {
             tsm.removeStat(KinesisPsychicShield, false);
         }
         super.handleHit(c, inPacket, hitInfo);

@@ -19,7 +19,6 @@ import java.util.Set;
 
 /**
  * Class representing an Account, which is a world-specific "User" class.
- *
  * Created by Tim on 4/30/2017.
  */
 @Entity
@@ -29,7 +28,8 @@ public class Account {
     @Transient
     private static final Logger log = Logger.getLogger(Account.class);
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private int worldId;
@@ -76,7 +76,7 @@ public class Account {
         this.linkSkills = new HashSet<>();
     }
 
-    public Account(){
+    public Account() {
     }
 
     public static Account getFromDBById(int accountID) {
@@ -92,7 +92,7 @@ public class Account {
     }
 
     public void addCharacter(Char character) {
-       getCharacters().add(character);
+        getCharacters().add(character);
     }
 
     public void setId(int id) {
@@ -108,7 +108,7 @@ public class Account {
     }
 
     public void addFriend(Friend friend) {
-        if(getFriendByAccID(friend.getFriendAccountID()) == null) {
+        if (getFriendByAccID(friend.getFriendAccountID()) == null) {
             getFriends().add(friend);
         }
     }
@@ -122,7 +122,7 @@ public class Account {
     }
 
     public void removeFriend(Friend f) {
-        if(f != null) {
+        if (f != null) {
             getFriends().remove(f);
         }
     }
@@ -136,13 +136,13 @@ public class Account {
     }
 
     public void addDamageSkin(DamageSkinSaveData dssd) {
-        if(getDamageSkinByItemID(dssd.getItemID()) == null) {
+        if (getDamageSkinByItemID(dssd.getItemID()) == null) {
             getDamageSkins().add(dssd);
         }
     }
 
     public void removeDamageSkin(DamageSkinSaveData dssd) {
-        if(dssd != null) {
+        if (dssd != null) {
             getDamageSkins().remove(dssd);
         }
     }
@@ -152,8 +152,7 @@ public class Account {
     }
 
     public void addDamageSkinByItemID(int itemID) {
-        addDamageSkin(new DamageSkinSaveData(ItemConstants.getDamageSkinIDByItemID(itemID), itemID, false,
-                StringData.getItemStringById(itemID)));
+        addDamageSkin(new DamageSkinSaveData(ItemConstants.getDamageSkinIDByItemID(itemID), itemID, false, StringData.getItemStringById(itemID)));
     }
 
     public DamageSkinSaveData getDamageSkinByItemID(int itemID) {
@@ -165,7 +164,7 @@ public class Account {
     }
 
     public Trunk getTrunk() {
-        if(trunk == null) {
+        if (trunk == null) {
             trunk = new Trunk((byte) 20);
         }
         return trunk;
@@ -195,8 +194,7 @@ public class Account {
     }
 
     public void removeLinkSkillByOwnerID(int ownerID) {
-        getLinkSkills().stream().filter(l -> l.getOwnerID() == ownerID).findFirst()
-                .ifPresent(ls -> getLinkSkills().remove(ls));
+        getLinkSkills().stream().filter(l -> l.getOwnerID() == ownerID).findFirst().ifPresent(ls -> getLinkSkills().remove(ls));
     }
 
     public Set<LinkSkill> getLinkSkills() {
@@ -273,6 +271,5 @@ public class Account {
 
         return employeeTrunk;
     }
-
 
 }

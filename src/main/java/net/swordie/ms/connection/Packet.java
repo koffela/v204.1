@@ -21,7 +21,7 @@ import net.swordie.ms.util.Util;
 
 /**
  * Represents a net.swordie.ms.connection.packet to be sent over a TCP socket for MapleStory.
- * Very simply, it is an abstraction of raw data that applies some extra 
+ * Very simply, it is an abstraction of raw data that applies some extra
  * functionality because it is a MapleStory packet.
  *
  * @author Zygon
@@ -56,18 +56,20 @@ public class Packet implements Cloneable {
     public byte[] getData() {
         return data;
     }
-    
+
     @Override
     public String toString() {
-        if (data == null) return "";
+        if (data == null)
+            return "";
         return "[Pck] | " + Util.readableByteArray(data);
     }
-    
+
     @Override
     public Packet clone() {
         return new Packet(data);
     }
 
-    public void release(){}
+    public void release() {
+    }
 
 }

@@ -48,15 +48,12 @@ public class UserStatHandler {
         Map<Stat, Object> stats;
         int rootId = skill.getRootId();
         if ((!JobConstants.isBeginnerJob((short) rootId) && !SkillConstants.isMatching(rootId, chr.getJob())) || SkillConstants.isSkillFromItem(skillID)) {
-            log.error(String.format("Character %d tried adding an invalid skill (job %d, skill id %d)",
-                    chr.getId(), skillID, rootId));
+            log.error(String.format("Character %d tried adding an invalid skill (job %d, skill id %d)", chr.getId(), skillID, rootId));
             return;
         }
         if (JobConstants.isBeginnerJob((short) rootId)) {
             stats = new HashMap<>();
-            int spentSp = chr.getSkills().stream()
-                    .filter(s -> JobConstants.isBeginnerJob((short) s.getRootId()))
-                    .mapToInt(Skill::getCurrentLevel).sum();
+            int spentSp = chr.getSkills().stream().filter(s -> JobConstants.isBeginnerJob((short) s.getRootId())).mapToInt(Skill::getCurrentLevel).sum();
             int totalSp;
             if (JobConstants.isResistance((short) skill.getRootId())) {
                 totalSp = Math.min(chr.getLevel(), GameConstants.RESISTANCE_SP_MAX_LV) - 1; // sp gained from 2~10
@@ -81,9 +78,7 @@ public class UserStatHandler {
                 stats = new HashMap<>();
                 stats.put(sp, esp);
             } else {
-                log.error(String.format("Character %d tried adding a skill without having the required amount of sp" +
-                                " (required %d, has %d)",
-                        chr.getId(), currentSp, amount));
+                log.error(String.format("Character %d tried adding a skill without having the required amount of sp" + " (required %d, has %d)", chr.getId(), currentSp, amount));
                 return;
             }
         } else {
@@ -97,9 +92,7 @@ public class UserStatHandler {
                 stats = new HashMap<>();
                 stats.put(sp, chr.getAvatarData().getCharacterStat().getSp());
             } else {
-                log.error(String.format("Character %d tried adding a skill without having the required amount of sp" +
-                                " (required %d, has %d)",
-                        chr.getId(), currentSp, amount));
+                log.error(String.format("Character %d tried adding a skill without having the required amount of sp" + " (required %d, has %d)", chr.getId(), currentSp, amount));
                 return;
             }
         }
@@ -112,7 +105,6 @@ public class UserStatHandler {
             chr.dispose();
         }
     }
-
 
     @Handler(op = InHeader.USER_ABILITY_UP_REQUEST)
     public static void handleUserAbilityUpRequest(Client c, InPacket inPacket) {
@@ -188,7 +180,7 @@ public class UserStatHandler {
         if (hashMap.containsKey(Stat.mp)) {
             chr.healMP(hashMap.get(Stat.mp));
         }
-//        c.write(WvsContext.statChanged(newStats));
+        // c.write(WvsContext.statChanged(newStats));
     }
 
     @Handler(op = InHeader.USER_REQUEST_INSTANCE_TABLE)

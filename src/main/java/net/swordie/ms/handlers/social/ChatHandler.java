@@ -48,8 +48,7 @@ public class ChatHandler {
 
         // doesn't start with command prefix
         if (commandClasses == null) {
-            chr.getField().broadcastPacket(UserPacket.chat(chr.getId(), chr.getName(), ChatUserType.User, msg,
-                    false, 0, c.getWorldId()));
+            chr.getField().broadcastPacket(UserPacket.chat(chr.getId(), chr.getName(), ChatUserType.User, msg, false, 0, c.getWorldId()));
             return;
         }
 
@@ -78,8 +77,7 @@ public class ChatHandler {
                             break;
                     }
 
-                    commandClass.getDeclaredMethod("execute", Char.class, String[].class)
-                            .invoke(iCommand, chr, msg.split(" "));
+                    commandClass.getDeclaredMethod("execute", Char.class, String[].class).invoke(iCommand, chr, msg.split(" "));
 
                 } catch (Exception e) {
                     chr.chatMessage("Exception: " + e.getCause().toString());

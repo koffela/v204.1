@@ -20,10 +20,11 @@ import static net.swordie.ms.connection.netty.NettyClient.CLIENT_KEY;
 /**
  * Created by Tim on 2/18/2017.
  */
-public class LoginAcceptor implements Runnable{
+public class LoginAcceptor implements Runnable {
 
     public static Map<String, Channel> channelPool = new HashMap<>();
     private static final org.apache.log4j.Logger log = LogManager.getRootLogger();
+
     @Override
     public void run() {
         // Taken from http://netty.io/wiki/user-guide-for-4.x.html
@@ -46,17 +47,16 @@ public class LoginAcceptor implements Runnable{
 
                     Client c = new Client(ch, siv, riv);
                     // remove after debug stage
-//                    log.debug(String.format("Opened session with %s in LoginAcceptor", c.getIP()));
+                    // log.debug(String.format("Opened session with %s in LoginAcceptor", c.getIP()));
                     c.write(Login.sendConnect(riv, siv, c.getPort() == 8484));
-//                  c.write("hi".getBytes());
+                    // c.write("hi".getBytes());
 
                     channelPool.put(c.getIP(), ch);
-
 
                     ch.attr(CLIENT_KEY).set(c);
                     ch.attr(Client.AES_CIPHER).set(new AESCipher());
 
-                    //c.write(Login.setOpcodes());
+                    // c.write(Login.setOpcodes());
                     EventManager.addFixedRateEvent(c::sendPing, 0, 10000);
                 }
             });

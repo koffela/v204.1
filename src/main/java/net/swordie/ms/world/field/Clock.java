@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @author Asura
- * Created on 14/09/2018.
+ *         Created on 14/09/2018.
  */
 public class Clock {
     private ClockType clockType;
@@ -23,13 +23,13 @@ public class Clock {
         this.clockType = clockType;
         this.field = field;
         this.seconds = seconds;
-        this.timeInMillis = (seconds*1000) + System.currentTimeMillis();
+        this.timeInMillis = (seconds * 1000) + System.currentTimeMillis();
 
         createClock();
     }
 
     public void createClock() {
-        if(field.getClock() != null) {
+        if (field.getClock() != null) {
             field.getClock().removeClock();
         }
         switch (getClockType()) {
@@ -48,7 +48,7 @@ public class Clock {
     }
 
     public void showClock(Char chr) {
-        if(field.getClock() != null) {
+        if (field.getClock() != null) {
             switch (field.getClock().getClockType()) {
                 case SecondsClock:
                     chr.write(FieldPacket.clock(ClockPacket.secondsClock((int) getRemainingTime())));
@@ -68,13 +68,12 @@ public class Clock {
     }
 
     public void removeClock() {
-        if(field.getClock() != null) {
+        if (field.getClock() != null) {
             field.broadcastPacket(FieldPacket.clock(ClockPacket.removeClock()));
             clockRemovalTimer.cancel(true);
             field.setClock(null);
         }
     }
-
 
     public ClockType getClockType() {
         return clockType;

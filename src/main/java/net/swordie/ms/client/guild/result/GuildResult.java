@@ -27,6 +27,7 @@ public class GuildResult {
     private GuildResult(GuildType type) {
         this.type = type;
     }
+
     public void encode(OutPacket outPacket) {
         outPacket.encodeByte(type.getVal());
         switch (type) {
@@ -137,6 +138,7 @@ public class GuildResult {
                 break;
         }
     }
+
     public static GuildResult findGuild(Guild guild) {
         GuildResult gr = new GuildResult(Res_FindGuild_Done);
         gr.guild = guild;

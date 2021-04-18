@@ -132,7 +132,7 @@ public class ZeroInfo {
     public void encode(OutPacket outPacket) {
         short mask = 0x1 | 0x2 | 0x4 | 0x40 | 0x80;
         outPacket.encodeShort(mask);
-        if((mask & 0x1) != 0){
+        if ((mask & 0x1) != 0) {
             outPacket.encodeByte(true);
         }
         if ((mask & 0x2) != 0) {
@@ -162,7 +162,7 @@ public class ZeroInfo {
         if ((mask & 0x200) != 0) {
             outPacket.encodeInt(getMixBaseHairColor());
             outPacket.encodeInt(getMixAddHairColor());
-            outPacket.encodeInt(getMixHairBaseProb()); 
+            outPacket.encodeInt(getMixHairBaseProb());
         }
     }
 }

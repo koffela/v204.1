@@ -16,9 +16,9 @@ public class BuyLimitInfo {
 
     public void encode(OutPacket outPacket) {
         outPacket.encodeByte(getType());
-        if(getType() == 1 || getType() == 3 || getType() == 4) {
+        if (getType() == 1 || getType() == 3 || getType() == 4) {
             outPacket.encodeInt(getDates().size());
-            for(FileTime ft : getDates()) {
+            for (FileTime ft : getDates()) {
                 outPacket.encodeFT(ft);
             }
         }

@@ -363,16 +363,16 @@ public class PetInfo {
         pi.setLevel((byte) 1);
         pi.setPetHue(-1);
         pi.addPetSkill(PetSkill.ITEM_PICKUP); // each pet has this now
-        if(isAutoBuff()) {
+        if (isAutoBuff()) {
             pi.addPetSkill(PetSkill.AUTO_BUFF);
         }
-        if(isAutoReact()) {
+        if (isAutoReact()) {
             pi.addPetSkill(PetSkill.AUTO_FEED); // correct one?
         }
-        if(isSweepForDrop()) {
+        if (isSweepForDrop()) {
             pi.addPetSkill(PetSkill.AUTO_MOVE);
         }
-        if(isLongRange()) {
+        if (isLongRange()) {
             pi.addPetSkill(PetSkill.EXPANDED_AUTO_MOVE);
         }
 

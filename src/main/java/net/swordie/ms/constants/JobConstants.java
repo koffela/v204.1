@@ -29,8 +29,7 @@ public class JobConstants {
     }
 
     public static JobEnum getJobEnumById(short jobId) {
-        return Arrays.stream(JobEnum.values()).filter(job -> job.getJobId() == jobId)
-                .findFirst().orElse(null);
+        return Arrays.stream(JobEnum.values()).filter(job -> job.getJobId() == jobId).findFirst().orElse(null);
     }
 
     public static boolean isWildHunter(short job) {
@@ -138,7 +137,7 @@ public class JobConstants {
     }
 
     public static double getDamageConstant(short job) {
-        // get_job_damage_const 
+        // get_job_damage_const
         if (job > 222) {
             if (job > 1200) {
                 if (job >= 1210 && job <= 1212)
@@ -188,9 +187,7 @@ public class JobConstants {
 
     public static byte getJobLevelByZeroSkillID(int skillID) {
         int prefix = (skillID % 1000) / 100;
-        return (byte) (prefix == 1 ? 2
-                : prefix == 2 ? 1
-                : 3);
+        return (byte) (prefix == 1 ? 2 : prefix == 2 ? 1 : 3);
     }
 
     public static boolean isMechanic(short id) {
@@ -793,6 +790,7 @@ public class JobConstants {
 
             DISABLED(0),
             ENABLED(1);
+
             private final int flag;
 
             JobFlag(int flag) {
@@ -822,29 +820,11 @@ public class JobConstants {
     }
 
     public static boolean isAdventurerWarrior(short jobId) {
-        return jobId == 100
-                || jobId == 110
-                || jobId == 111
-                || jobId == 112
-                || jobId == 120
-                || jobId == 121
-                || jobId == 122
-                || jobId == 130
-                || jobId == 131
-                || jobId == 132;
+        return jobId == 100 || jobId == 110 || jobId == 111 || jobId == 112 || jobId == 120 || jobId == 121 || jobId == 122 || jobId == 130 || jobId == 131 || jobId == 132;
     }
 
     public static boolean isAdventurerMage(short jobId) {
-        return jobId == 200
-                || jobId == 210
-                || jobId == 211
-                || jobId == 212
-                || jobId == 220
-                || jobId == 221
-                || jobId == 222
-                || jobId == 230
-                || jobId == 231
-                || jobId == 232;
+        return jobId == 200 || jobId == 210 || jobId == 211 || jobId == 212 || jobId == 220 || jobId == 221 || jobId == 222 || jobId == 230 || jobId == 231 || jobId == 232;
     }
 
     public static boolean isAdventurerArcher(short jobId) {
@@ -852,25 +832,11 @@ public class JobConstants {
     }
 
     public static boolean isAdventurerThief(short jobId) {
-        return jobId == 400
-                || jobId == 420
-                || jobId == 421
-                || jobId == 422
-                || jobId == 410
-                || jobId == 411
-                || jobId == 412
-                || jobId / 10 == 43;
+        return jobId == 400 || jobId == 420 || jobId == 421 || jobId == 422 || jobId == 410 || jobId == 411 || jobId == 412 || jobId / 10 == 43;
     }
 
     public static boolean isAdventurerPirate(short jobId) {
-        return jobId == 500
-                || jobId == 510
-                || jobId == 511
-                || jobId == 512
-                || jobId == 520
-                || jobId == 521
-                || jobId == 522
-                || isCannonShooter(jobId);
+        return jobId == 500 || jobId == 510 || jobId == 511 || jobId == 512 || jobId == 520 || jobId == 521 || jobId == 522 || isCannonShooter(jobId);
     }
 
     public static boolean isCannonShooter(short jobId) {
@@ -924,8 +890,6 @@ public class JobConstants {
     public static boolean isKinesis(short jobId) {
         return jobId == 14000 || jobId == 14200 || jobId == 14210 || jobId == 14211 || jobId == 14212;
     }
-
-
 
     public static boolean isExtendSpJob(short jobId) {
         return !isBeastTamer(jobId) && !isPinkBean(jobId) && !isGmJob(jobId) && !isManagerJob(jobId);
@@ -1052,15 +1016,12 @@ public class JobConstants {
     }
 
     public static boolean isWarriorEquipJob(short jobID) {
-        return isAdventurerWarrior(jobID) || isPinkBean(jobID) || isDawnWarrior(jobID) || isMihile(jobID) ||
-                isAran(jobID) || isKaiser(jobID) || isBlaster(jobID) || isDemon(jobID) || isHayato(jobID) ||
-                isZero(jobID);
+        return isAdventurerWarrior(jobID) || isPinkBean(jobID) || isDawnWarrior(jobID) || isMihile(jobID) || isAran(jobID) || isKaiser(jobID) || isBlaster(jobID) || isDemon(jobID) || isHayato(jobID) || isZero(jobID);
 
     }
 
     public static boolean isMageEquipJob(short jobID) {
-        return isBeastTamer(jobID) || isKinesis(jobID) || isAdventurerMage(jobID) || isBlazeWizard(jobID) ||
-                isEvan(jobID) || isLuminous(jobID) || isBattleMage(jobID) || isKanna(jobID);
+        return isBeastTamer(jobID) || isKinesis(jobID) || isAdventurerMage(jobID) || isBlazeWizard(jobID) || isEvan(jobID) || isLuminous(jobID) || isBattleMage(jobID) || isKanna(jobID);
     }
 
     public static boolean isArcherEquipJob(short jobID) {
@@ -1072,8 +1033,7 @@ public class JobConstants {
     }
 
     public static boolean isPirateEquipJob(short jobID) {
-        return isAdventurerPirate(jobID) || isThunderBreaker(jobID) || isShade(jobID) || isAngelicBuster(jobID) ||
-                isXenon(jobID) || isMechanic(jobID) || isJett(jobID);
+        return isAdventurerPirate(jobID) || isThunderBreaker(jobID) || isShade(jobID) || isAngelicBuster(jobID) || isXenon(jobID) || isMechanic(jobID) || isJett(jobID);
     }
 
     public static boolean isUsingXbow(short jobId) {

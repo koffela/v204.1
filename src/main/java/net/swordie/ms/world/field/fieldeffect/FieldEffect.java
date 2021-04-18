@@ -141,9 +141,9 @@ public class FieldEffect {
                 break;
             case ChangeColor:
                 outPacket.encodeShort(getArg1());   // GreyField Type (but doesn't contain Reactor
-                outPacket.encodeShort(getArg2());   // red      (250 is normal value)
-                outPacket.encodeShort(getArg3());   // green    (250 is normal value)
-                outPacket.encodeShort(getArg4());   // blue     (250 is normal value)
+                outPacket.encodeShort(getArg2());   // red (250 is normal value)
+                outPacket.encodeShort(getArg3());   // green (250 is normal value)
+                outPacket.encodeShort(getArg4());   // blue (250 is normal value)
                 outPacket.encodeInt(getArg5());     // time in ms, that it takes to transition from old colours to the new colours
                 outPacket.encodeInt(0);          // is in queue
                 if (getArg1() == 4) {
@@ -167,12 +167,14 @@ public class FieldEffect {
                 }
                 break;
             case OffSpineScreen:
-                /*enum $886F2E0581A468BCCA02C1C9C4415C7C
-                {
-                    OffSpineScr_Immediate = 0x0,
-                    OffSpineScr_Alpha = 0x1,
-                    OffSpineScr_Ani = 0x2,
-                };*/
+                /*
+                 * enum $886F2E0581A468BCCA02C1C9C4415C7C
+                 * {
+                 * OffSpineScr_Immediate = 0x0,
+                 * OffSpineScr_Alpha = 0x1,
+                 * OffSpineScr_Ani = 0x2,
+                 * };
+                 */
                 outPacket.encodeString(getString());// pLayer
                 outPacket.encodeInt(getArg1());// nType
                 if (getArg1() == 1) {// PROCESS_HITPARTS

@@ -15,9 +15,13 @@ public class MemorialCubeInfo {
 
     /**
      * Creates a new MemorialCubeInfo with a given equip and cube id.
-     * @param equip the equip of this MemorialCubeInfo
-     * @param oldEquip the old equip, which should be a copy of the normal equip
-     * @param cubeItemID the cube's item id
+     * 
+     * @param equip
+     *            the equip of this MemorialCubeInfo
+     * @param oldEquip
+     *            the old equip, which should be a copy of the normal equip
+     * @param cubeItemID
+     *            the cube's item id
      */
     public MemorialCubeInfo(Equip equip, Equip oldEquip, int cubeItemID) {
         this.equip = equip;
@@ -29,7 +33,7 @@ public class MemorialCubeInfo {
     public void encode(OutPacket outPacket) {
         Equip equip = getEquip();
         outPacket.encodeByte(equip != null);
-        if(equip != null) {
+        if (equip != null) {
             equip.encode(outPacket);
             outPacket.encodeInt(getCubeItemID());
             outPacket.encodeInt(equip.getBagIndex());

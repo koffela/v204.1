@@ -81,7 +81,7 @@ public class NpcShopItem {
         } else {
             new BuyLimitInfo().encode(outPacket);
         }
-        //outPacket.encodeInt(getQuestID());
+        // outPacket.encodeInt(getQuestID());
         outPacket.encodeByte(0);
         outPacket.encodeFT(getSellStart());
         outPacket.encodeFT(getSellEnd());
@@ -102,17 +102,19 @@ public class NpcShopItem {
         outPacket.encodeFT(FileTime.fromType(FileTime.Type.MAX_TIME));
         // end NpcShopItem::Decode
 
-        /*outPacket.encodeByte(getItem() != null);
-        if (getItem() != null) {
-            getItem().encode(outPacket);
-        }*/
+        /*
+         * outPacket.encodeByte(getItem() != null);
+         * if (getItem() != null) {
+         * getItem().encode(outPacket);
+         * }
+         */
         // wtf is the following
         outPacket.encodeByte(0);
         boolean idkProperty = false;
-        if(idkProperty) {
+        if (idkProperty) {
             boolean bool2 = false;
             outPacket.encodeByte(bool2);
-            if(bool2) {
+            if (bool2) {
                 outPacket.encodeByte(0);
             }
         }
@@ -125,14 +127,16 @@ public class NpcShopItem {
         // end sub_71F670
         outPacket.encodeByte(0);
     }
+
     public int getItemID() {
         return itemID;
     }
 
-
     /**
      * Sets the item id of this item.
-     * @param itemID The id of this item
+     * 
+     * @param itemID
+     *            The id of this item
      */
     public void setItemID(int itemID) {
         this.itemID = itemID;
@@ -144,7 +148,9 @@ public class NpcShopItem {
 
     /**
      * Sets the price of this item, in mesos. If both this and token price are set, the item will not be displayed.
-     * @param price The price of this item
+     * 
+     * @param price
+     *            The price of this item
      */
     public void setPrice(int price) {
         this.price = price;
@@ -156,7 +162,9 @@ public class NpcShopItem {
 
     /**
      * Sets the token id. Token ids start with 431. Items that aren't tokens won't get their token displayed.
-     * @param tokenItemID The id of the token
+     * 
+     * @param tokenItemID
+     *            The id of the token
      */
     public void setTokenItemID(int tokenItemID) {
         this.tokenItemID = tokenItemID;
@@ -168,7 +176,9 @@ public class NpcShopItem {
 
     /**
      * Sets the token price of this item. If both this and mesos price are set, the item will not be displayed.
-     * @param tokenPrice The token price of this item.
+     * 
+     * @param tokenPrice
+     *            The token price of this item.
      */
     public void setTokenPrice(int tokenPrice) {
         this.tokenPrice = tokenPrice;
@@ -284,7 +294,9 @@ public class NpcShopItem {
 
     /**
      * Sets the tab index of this item.
-     * @param tabIndex the tab index of this item.
+     * 
+     * @param tabIndex
+     *            the tab index of this item.
      */
     public void setTabIndex(int tabIndex) {
         this.tabIndex = tabIndex;
@@ -296,7 +308,9 @@ public class NpcShopItem {
 
     /**
      * Sets whether or not this item should be displayed on this world.
-     * @param worldBlock whether or not this item should be displayed on this world.
+     * 
+     * @param worldBlock
+     *            whether or not this item should be displayed on this world.
      */
     public void setWorldBlock(boolean worldBlock) {
         this.worldBlock = worldBlock;
@@ -308,7 +322,9 @@ public class NpcShopItem {
 
     /**
      * Sets the potential grade of this item (see {@link ItemGrade}). Will do nothing if this item is not an equip.
-     * @param potentialGrade The potential grade of this item
+     * 
+     * @param potentialGrade
+     *            The potential grade of this item
      */
     public void setPotentialGrade(int potentialGrade) {
         this.potentialGrade = potentialGrade;
@@ -320,7 +336,9 @@ public class NpcShopItem {
 
     /**
      * Sets the buy limit of this item.
-     * @param buyLimit The buy limit of this item.
+     * 
+     * @param buyLimit
+     *            The buy limit of this item.
      */
     public void setBuyLimit(int buyLimit) {
         this.buyLimit = buyLimit;
@@ -340,7 +358,9 @@ public class NpcShopItem {
 
     /**
      * Sets the quantity this item should be given with.
-     * @param quantity The quantity of this item
+     * 
+     * @param quantity
+     *            The quantity of this item
      */
     public void setQuantity(short quantity) {
         this.quantity = quantity;
@@ -360,6 +380,7 @@ public class NpcShopItem {
 
     /**
      * Sets the maximum amount of items the user can buy of these at once.
+     * 
      * @param maxPerSlot
      */
     public void setMaxPerSlot(short maxPerSlot) {
@@ -380,7 +401,9 @@ public class NpcShopItem {
 
     /**
      * Sets the discount percentage of this item, from 0 to 100.
-     * @param discountPerc The discount percentage of this item
+     * 
+     * @param discountPerc
+     *            The discount percentage of this item
      */
     public void setDiscountPerc(int discountPerc) {
         this.discountPerc = discountPerc;

@@ -70,8 +70,8 @@ public class EtcData {
     }
 
     public static void loadSetEffectsFromWz() {
-        //String wzDir = ServerConstants.WZ_DIR + "/Etc.wz/SetItemInfo";
-        //Node root = XMLApi.getRoot(new File(wzDir));
+        // String wzDir = ServerConstants.WZ_DIR + "/Etc.wz/SetItemInfo";
+        // Node root = XMLApi.getRoot(new File(wzDir));
         File file = new File(String.format("%s/Etc.wz/SetItemInfo.img.xml", ServerConstants.WZ_DIR));
         Node root = XMLApi.getRoot(file);
         Node mainNode = XMLApi.getAllChildren(root).get(0);
@@ -139,9 +139,9 @@ public class EtcData {
                     soul2 = Integer.valueOf(XMLApi.getNamedAttribute(soul2Node, "value"));
                 }
                 int finalSkillId = -1;
-                if (i <= SoulType.Radiant.getVal()) { //normal soul
+                if (i <= SoulType.Radiant.getVal()) { // normal soul
                     finalSkillId = skillId;
-                } else { //hard soul
+                } else { // hard soul
                     finalSkillId = skillIdH;
                 }
                 BossSoul bs = new BossSoul(finalSkillId, SoulType.getSoulTypeByVal(i));
@@ -192,7 +192,7 @@ public class EtcData {
             try (DataOutputStream dataOutputStream = new DataOutputStream(new FileOutputStream(new File(dir + "/" + entry.getKey() + ".dat")))) {
                 dataOutputStream.writeShort(entry.getValue().getEffectsToLevel().size()); //
                 for (Map.Entry<Integer, List<Object>> level : entry.getValue().getEffectsToLevel().entrySet()) {
-                    dataOutputStream.writeInt(level.getKey()); //levels non consistent
+                    dataOutputStream.writeInt(level.getKey()); // levels non consistent
                     dataOutputStream.writeShort(level.getValue().size());
                     for (Object stat : level.getValue()) {
                         if (stat instanceof Tuple) {
@@ -334,7 +334,6 @@ public class EtcData {
             }
         }
     }
-
 
     @Saver(varName = "familiarSkills")
     private static void saveFamiliarSkills(File file) {

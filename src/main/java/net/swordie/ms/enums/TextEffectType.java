@@ -1,6 +1,5 @@
 package net.swordie.ms.enums;
 
-
 public enum TextEffectType {
     KinesisIntro(0),
     BlackFadedBrush(1),
@@ -10,7 +9,11 @@ public enum TextEffectType {
 
     private byte val;
 
-    TextEffectType(int val) { this.val = (byte) val;}
+    TextEffectType(int val) {
+        this.val = (byte) val;
+    }
 
-    public byte getVal() { return val;}
+    public byte getVal() {
+        return val;
+    }
 }

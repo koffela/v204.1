@@ -116,7 +116,6 @@ public enum NpcMessageType {
         this.delay = delay;
     }
 
-
     public ResponseType getResponseType() {
         return responseType;
     }

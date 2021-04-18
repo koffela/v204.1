@@ -18,18 +18,18 @@ public class ScriptMan {
         int overrideTemplate = nsi.getOverrideSpeakerTemplateID();
         outPacket.encodeInt(overrideTemplate != 0 ? overrideTemplate : nsi.getTemplateID());
         outPacket.encodeByte(overrideTemplate > 0);
-        if(overrideTemplate > 0) {
+        if (overrideTemplate > 0) {
             outPacket.encodeInt(overrideTemplate);
         }
         outPacket.encodeByte(nmt.getVal());
         outPacket.encodeShort(nsi.getParam());
         outPacket.encodeByte(nsi.getColor());
-        switch(nmt) {
+        switch (nmt) {
             case Say:
             case SayOk:
             case SayNext:
             case SayPrev:
-                if((nsi.getParam() & 4) != 0) {
+                if ((nsi.getParam() & 4) != 0) {
                     outPacket.encodeInt(nsi.getOverrideSpeakerTemplateID());
                 }
                 outPacket.encodeString(nsi.getText());
@@ -49,21 +49,21 @@ public class ScriptMan {
             case SayImage:
                 String[] images = nsi.getImages();
                 outPacket.encodeByte(images.length);
-                for(String image : images) {
+                for (String image : images) {
                     outPacket.encodeString(image);
                 }
                 break;
             case AskMenu:
             case AskAccept:
             case AskYesNo:
-                if((nsi.getParam() & 4) != 0) {
+                if ((nsi.getParam() & 4) != 0) {
                     outPacket.encodeInt(nsi.getOverrideSpeakerTemplateID());
                 }
                 outPacket.encodeString(nsi.getText());
                 break;
             case AskText:
             case AskBoxtext:
-                if((nsi.getParam() & 4) != 0) {
+                if ((nsi.getParam() & 4) != 0) {
                     outPacket.encodeInt(nsi.getOverrideSpeakerTemplateID());
                 }
                 outPacket.encodeString(nsi.getText());
@@ -79,7 +79,7 @@ public class ScriptMan {
                 break;
             case InitialQuiz:
                 outPacket.encodeByte(nsi.getType());
-                if(nsi.getType() != 1) {
+                if (nsi.getType() != 1) {
                     outPacket.encodeString(nsi.getTitle());
                     outPacket.encodeString(nsi.getProblemText());
                     outPacket.encodeString(nsi.getHintText());
@@ -90,7 +90,7 @@ public class ScriptMan {
                 break;
             case InitialSpeedQuiz:
                 outPacket.encodeByte(nsi.getType());
-                if(nsi.getType() != 1) {
+                if (nsi.getType() != 1) {
                     outPacket.encodeInt(nsi.getQuizType());
                     outPacket.encodeInt(nsi.getAnswer());
                     outPacket.encodeInt(nsi.getCorrectAnswers());
@@ -100,7 +100,7 @@ public class ScriptMan {
                 break;
             case ICQuiz:
                 outPacket.encodeByte(nsi.getType());
-                if(nsi.getType() != 1) {
+                if (nsi.getType() != 1) {
                     outPacket.encodeString(nsi.getText());
                     outPacket.encodeString(nsi.getHintText());
                     outPacket.encodeInt(nsi.getTime()); // in seconds
@@ -144,7 +144,7 @@ public class ScriptMan {
             case SayIllustrationOk:
             case SayIllustrationNext:
             case SayIllustrationPrev:
-                if((nsi.getParam() & 4) != 0) {
+                if ((nsi.getParam() & 4) != 0) {
                     outPacket.encodeInt(nsi.getOverrideSpeakerTemplateID());
                 }
                 outPacket.encodeString(nsi.getText());

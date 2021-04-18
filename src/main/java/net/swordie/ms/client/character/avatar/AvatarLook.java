@@ -103,7 +103,6 @@ public class AvatarLook {
         return gender;
     }
 
-
     public void setGender(int gender) {
         this.gender = gender;
     }
@@ -282,7 +281,7 @@ public class AvatarLook {
         }
         short jobID = (short) getJob();
         if (JobConstants.isZero(jobID)) {
-             outPacket.encodeByte(isZeroBetaLook());
+            outPacket.encodeByte(isZeroBetaLook());
         }
         if (JobConstants.isXenon(jobID)) {
             outPacket.encodeInt(getXenonDefFaceAcc());
@@ -311,12 +310,12 @@ public class AvatarLook {
         // and let's call it loop unrolling
         int[] hairEquips = new int[11];
         for (int i = 0; i < hairEquips.length; i++) {
-             Item item = chr.getEquippedInventory().getItemBySlot((short) i);
-             if (item != null) {
-                 hairEquips[i] = item.getItemId();
-             } else {
-                 hairEquips[i] = -1;
-             }
+            Item item = chr.getEquippedInventory().getItemBySlot((short) i);
+            if (item != null) {
+                hairEquips[i] = item.getItemId();
+            } else {
+                hairEquips[i] = -1;
+            }
         }
         byte[] data = new byte[24];
         int weaponID = getWeaponStickerId() != 0 ? getWeaponStickerId() : getWeaponId();
@@ -413,7 +412,6 @@ public class AvatarLook {
         this.tail = tail;
     }
 
-
     public int getId() {
         return id;
     }
@@ -468,7 +466,7 @@ public class AvatarLook {
     }
 
     public void addItem(int itemID, boolean isCash) {
-        //remove normal item of same slot if adding cash
+        // remove normal item of same slot if adding cash
         if (isCash) {
             int toRemove = hairEquips.stream().filter(i -> ItemConstants.getItemPrefix(i) == ItemConstants.getItemPrefix(itemID)).findFirst().orElse(-1);
             if (toRemove != -1) {

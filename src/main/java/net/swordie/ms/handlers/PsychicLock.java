@@ -25,7 +25,7 @@ public class PsychicLock {
         outPacket.encodeInt(action);
         outPacket.encodeInt(actionSpeed);
         outPacket.encodeByte(psychicLockBalls.size());
-        for(PsychicLockBall plb : psychicLockBalls) {
+        for (PsychicLockBall plb : psychicLockBalls) {
             plb.encode(outPacket);
         }
         outPacket.encodeByte(0);

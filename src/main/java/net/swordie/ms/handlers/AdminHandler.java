@@ -102,11 +102,11 @@ public class AdminHandler {
                 }
                 case Hide: {
                     /*
-                    if ( v2->m_pField && v2->m_nGradeCode & 1 ) {
-                        v71 = CInPacket::Decode1(v4);
-                        CUser::SetHide(v2, v71);
-                        CUser::SendCharacterHidePacket(v2);
-                    }
+                     * if ( v2->m_pField && v2->m_nGradeCode & 1 ) {
+                     * v71 = CInPacket::Decode1(v4);
+                     * CUser::SetHide(v2, v71);
+                     * CUser::SendCharacterHidePacket(v2);
+                     * }
                      */
                     break;
                 }

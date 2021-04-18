@@ -47,7 +47,7 @@ import static net.swordie.ms.client.character.skills.temp.CharacterTemporaryStat
  * Created on 12/14/2017.
  */
 public class BeastTamer extends Job {
-    //Common
+    // Common
     public static final int HOMEWARD_BOUND = 110001514;
     public static final int MAPLE_GUARDIAN = 110001511;
     public static final int BEAR_MODE = 110001501;
@@ -55,7 +55,7 @@ public class BeastTamer extends Job {
     public static final int HAWK_MODE = 110001503;
     public static final int CAT_MODE = 110001504;
 
-    //Bear Mode
+    // Bear Mode
     public static final int LIL_FORT = 112001007;
     public static final int FORT_FOLLOW_UP = 112000015;
     public static final int MAJESTIC_TRUMPET = 112001006;
@@ -63,33 +63,31 @@ public class BeastTamer extends Job {
     public static final int BEAR_ASSAULT = 112001009;
     public static final int FISHY_SLAP = 112001008;
 
-
-    //Snow Leopard Mode
+    // Snow Leopard Mode
     public static final int BRO_ATTACK = 112101016;
     public static final int THUNDER_DASH = 112101007;
     public static final int ADV_THUNDER_DASH = 112100012;
-    public static final int THUNDER_TRAIL = 112100008; //tile
+    public static final int THUNDER_TRAIL = 112100008; // tile
 
-    //Hawk Mode
-    public static final int EKA_EXPRESS = 112111010;    //Door skill
+    // Hawk Mode
+    public static final int EKA_EXPRESS = 112111010;    // Door skill
     public static final int FLY = 112111000;
     public static final int HAWK_FLOCK = 112111007;
     public static final int RAPTOR_TALONS = 112111006;
     public static final int BIRDS_EYE_VIEW = 112111009;
     public static final int RAZOR_BEAK = 112111008;
-    public static final int REGROUP = 112111011;    //Warp Party to player
+    public static final int REGROUP = 112111011;    // Warp Party to player
     public static final int DEFENSIVE_FORMATION = 112110005;
     public static final int TORNADO_FLIGHT = 112001016;
 
-
-    //Cat Mode
+    // Cat Mode
     public static final int MEOW_HEAL = 112121013;
     public static final int PURR_ZONE = 112121005; // Special Skill
     public static final int MEOW_CARD = 112121006; // Meow Card
-    public static final int MEOW_CARD_RED = 112121007; //Red
-    public static final int MEOW_CARD_BLUE = 112121008; //Blue
-    public static final int MEOW_CARD_GREEN = 112121009; //Green
-    public static final int MEOW_CARD_GOLD = 112121020; //112120009;    //Gold
+    public static final int MEOW_CARD_RED = 112121007; // Red
+    public static final int MEOW_CARD_BLUE = 112121008; // Blue
+    public static final int MEOW_CARD_GREEN = 112121009; // Green
+    public static final int MEOW_CARD_GOLD = 112121020; // 112120009; //Gold
     public static final int MEOW_CARD_GOLD_SKILL = 112120019; // If chr has the Gold Card Skill
     public static final int FIRE_KITTY = 112121004;
     public static final int CATS_CRADLE_BLITZKRIEG = 112121057; // Special Skill (like PURR_ZONE)
@@ -102,11 +100,10 @@ public class BeastTamer extends Job {
     public static final int MEOW_CURE = 112121010;
     public static final int MEOW_REVIVE = 112121011;
 
-
-    //Hyper
+    // Hyper
     public static final int TEAM_ROAR = 112121056;
 
-    private int[] buffs = new int[]{
+    private int[] buffs = new int[] {
             MAPLE_GUARDIAN,
             BEAR_MODE,
             SNOW_LEOPARD_MODE,
@@ -141,7 +138,7 @@ public class BeastTamer extends Job {
             TEAM_ROAR,
     };
 
-    private int[] addedSkills = new int[]{
+    private int[] addedSkills = new int[] {
             BEAR_MODE,
             SNOW_LEOPARD_MODE,
             HAWK_MODE,
@@ -149,23 +146,23 @@ public class BeastTamer extends Job {
             HOMEWARD_BOUND,
     };
 
-    private static int[] bearBuffs = new int[]{
+    private static int[] bearBuffs = new int[] {
             BEAR_ASSAULT,
     };
 
-    private static int[] leopardBuffs = new int[]{
+    private static int[] leopardBuffs = new int[] {
             BRO_ATTACK,
 
     };
 
-    private static int[] hawkBuffs = new int[]{
+    private static int[] hawkBuffs = new int[] {
             HAWK_FLOCK,
             RAPTOR_TALONS,
             BIRDS_EYE_VIEW,
             RAZOR_BEAK,
     };
 
-    private static int[] catBuffs = new int[]{
+    private static int[] catBuffs = new int[] {
             MEOW_CARD,
             MEOW_CARD_RED,
             MEOW_CARD_BLUE,
@@ -180,7 +177,7 @@ public class BeastTamer extends Job {
             FRIENDS_OF_ARBY,
     };
 
-    private int[] cards = new int[]{
+    private int[] cards = new int[] {
             MEOW_CARD_RED,
             MEOW_CARD_GREEN,
             MEOW_CARD_BLUE,
@@ -238,8 +235,7 @@ public class BeastTamer extends Job {
         return tsm.getOption(BeastMode).nOption == 4;
     }
 
-
-    //  Buff related methods -------------------------------------------------------------------------------------------
+    // Buff related methods -------------------------------------------------------------------------------------------
 
     public void handleBuff(Client c, InPacket inPacket, int skillID, byte slv) {
         Char chr = c.getChr();
@@ -253,7 +249,7 @@ public class BeastTamer extends Job {
         Summon summon;
         Field field;
         switch (skillID) {
-            //Common
+            // Common
             case BEAR_MODE:
             case SNOW_LEOPARD_MODE:
             case HAWK_MODE:
@@ -281,7 +277,7 @@ public class BeastTamer extends Job {
                 tsm.putCharacterStatValue(IndieStatR, o1);
                 break;
 
-            //Bear Mode
+            // Bear Mode
             case LIL_FORT:
                 summon = Summon.getSummonBy(c.getChr(), skillID, slv);
                 field = c.getChr().getField();
@@ -309,7 +305,7 @@ public class BeastTamer extends Job {
                 tsm.putCharacterStatValue(Enrage, o4);
                 break;
 
-            //Leopard Mode
+            // Leopard Mode
             case BRO_ATTACK:
                 o1.nOption = 1;
                 o1.rOption = skillID;
@@ -317,14 +313,14 @@ public class BeastTamer extends Job {
                 tsm.putCharacterStatValue(ACC, o1);
                 break;
 
-            //Hawk Mode
+            // Hawk Mode
             case FLY:
                 o1.nOption = 1;
                 o1.rOption = skillID;
                 o1.tOption = 0;
                 tsm.putCharacterStatValue(NewFlying, o1);
 
-                //TODO  summon Defensive Formation
+                // TODO summon Defensive Formation
                 break;
             case HAWK_FLOCK:
                 o1.nOption = si.getValue(speed, slv);
@@ -379,13 +375,13 @@ public class BeastTamer extends Job {
                 tsm.putCharacterStatValue(IndiePAD, o2);
                 break;
 
-            //Cat Mode
+            // Cat Mode
             case MEOW_CARD:
             case MEOW_CARD_GOLD_SKILL:
                 giveMeowCard(slv);
                 break;
 
-            //Hyper
+            // Hyper
             case TEAM_ROAR:
                 o1.nReason = skillID;
                 o1.nValue = si.getValue(indieDamR, slv);
@@ -587,7 +583,6 @@ public class BeastTamer extends Job {
         return defensiveFormation;
     }
 
-
     // Attack related methods ------------------------------------------------------------------------------------------
 
     @Override
@@ -649,9 +644,9 @@ public class BeastTamer extends Job {
                 AffectedArea aa2 = AffectedArea.getAffectedArea(chr, attackInfo);
                 aa2.setMobOrigin((byte) 0);
                 aa2.setSkillID(THUNDER_TRAIL);
-                //int x = chr.getPosition().getX();
-                //int y = chr.getPosition().getY() + 41;
-                //aa.setPosition(new Position(x, y));
+                // int x = chr.getPosition().getX();
+                // int y = chr.getPosition().getY() + 41;
+                // aa.setPosition(new Position(x, y));
                 aa2.setPosition(chr.getPosition());
                 Rect rect = tdi.getRects().get(0);
                 if (!chr.isLeft()) {
@@ -661,7 +656,7 @@ public class BeastTamer extends Job {
                 aa2.setDelay((short) 4);
                 chr.getField().spawnAffectedArea(aa2);
                 break;
-            case PURR_ZONE: //TODO  isn't a AffectedArea, but a 'Special'
+            case PURR_ZONE: // TODO isn't a AffectedArea, but a 'Special'
                 SkillInfo pz = SkillData.getSkillInfoById(PURR_ZONE);
                 AffectedArea aa3 = AffectedArea.getAffectedArea(chr, attackInfo);
                 aa3.setMobOrigin((byte) 0);
@@ -752,7 +747,6 @@ public class BeastTamer extends Job {
         return 0;
     }
 
-
     // Skill related methods -------------------------------------------------------------------------------------------
 
     @Override
@@ -775,7 +769,7 @@ public class BeastTamer extends Job {
                     Field toField = chr.getOrCreateFieldByCurrentInstanceType(o1.nValue);
                     chr.warp(toField);
                     break;
-                case EKA_EXPRESS: //TODO Eka Express Skill
+                case EKA_EXPRESS: // TODO Eka Express Skill
                     Field townField = FieldData.getFieldById(chr.getField().getReturnMap());
                     int x = townField.getPortalByName("tp").getX();
                     int y = townField.getPortalByName("tp").getY();
@@ -803,10 +797,7 @@ public class BeastTamer extends Job {
                         if (!chr.isLeft()) {
                             rect = rect.moveRight();
                         }
-                        List<PartyMember> eligblePartyMemberList = field.getPartyMembersInRect(chr, rect).stream().
-                                filter(pml -> pml.getChr().getId() != chr.getId() &&
-                                        pml.getChr().getHP() <= 0).
-                                collect(Collectors.toList());
+                        List<PartyMember> eligblePartyMemberList = field.getPartyMembersInRect(chr, rect).stream().filter(pml -> pml.getChr().getId() != chr.getId() && pml.getChr().getHP() <= 0).collect(Collectors.toList());
 
                         if (eligblePartyMemberList.size() > 0) {
                             Char randomPartyChr = Util.getRandomFromCollection(eligblePartyMemberList).getChr();
@@ -823,7 +814,7 @@ public class BeastTamer extends Job {
         }
     }
 
-    public static void beastTamerRegroup(Char chr) { //Handled in WorldHandler
+    public static void beastTamerRegroup(Char chr) { // Handled in WorldHandler
         Party party = chr.getParty();
         if (party != null) {
             for (PartyMember pm : party.getOnlineMembers()) {
@@ -836,7 +827,6 @@ public class BeastTamer extends Job {
             }
         }
     }
-
 
     // Hit related methods ---------------------------------------------------------------------------------------------
 

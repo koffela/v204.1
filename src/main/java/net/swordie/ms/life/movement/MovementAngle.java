@@ -1,6 +1,5 @@
 package net.swordie.ms.life.movement;
 
-
 import net.swordie.ms.client.character.Char;
 import net.swordie.ms.connection.InPacket;
 import net.swordie.ms.connection.OutPacket;

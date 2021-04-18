@@ -7,7 +7,6 @@ import net.swordie.ms.connection.OutPacket;
  */
 public class MiniRoom {
 
-
     private byte type;
     private int ID;
     private String miniRoomTitle;

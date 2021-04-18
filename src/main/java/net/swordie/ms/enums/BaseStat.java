@@ -64,7 +64,6 @@ public enum BaseStat {
     buffTimeR, // Buff Duration multiplier
     recoveryUp, mpconReduce, reduceCooltime, padLv, madLv, mhpLv, mmpLv; // % increase in heal potion use
 
-
     public static BaseStat getFromStat(Stat s) {
         switch (s) {
             case str:
@@ -116,7 +115,7 @@ public enum BaseStat {
     }
 
     public BaseStat getLevelVar() {
-        switch(this) {
+        switch (this) {
             case str:
                 return strLv;
             case dex:
@@ -385,7 +384,7 @@ public enum BaseStat {
     }
 
     public Stat toStat() {
-        switch(this) {
+        switch (this) {
             case str:
                 return Stat.str;
             case dex:

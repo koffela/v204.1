@@ -44,8 +44,6 @@ public class SkillHandler {
 
     private static final Logger log = Logger.getLogger(SkillHandler.class);
 
-
-
     @Handler(op = InHeader.USER_FORCE_ATOM_COLLISION)
     public static void handleForceAtomCollision(Client c, InPacket inPacket) {
         int size = inPacket.decodeInt();
@@ -56,19 +54,18 @@ public class SkillHandler {
             int mobID = inPacket.decodeInt();
             Mob mob = (Mob) c.getChr().getField().getLifeByObjectID(mobID);
             if (mob != null) {
-//            mob.damage((long) 133337);
-//            c.write(FieldPacket.damaged(mobID, (long) 133337, mob.getTemplateId(), (byte) 1, (int) mob.getHp(), (int) mob.getMaxHp()));
+                // mob.damage((long) 133337);
+                // c.write(FieldPacket.damaged(mobID, (long) 133337, mob.getTemplateId(), (byte) 1, (int) mob.getHp(), (int) mob.getMaxHp()));
             }
         }
     }
-
 
     @Handler(op = InHeader.USER_ACTIVATE_DAMAGE_SKIN)
     public static void handleUserActivateDamageSkin(Client c, InPacket inPacket) {
         int damageSkin = inPacket.decodeInt();
         Char chr = c.getChr();
         chr.setDamageSkin(damageSkin);
-//        c.write(User.setDamageSkin(chr));
+        // c.write(User.setDamageSkin(chr));
     }
 
     @Handler(op = InHeader.USER_ACTIVATE_DAMAGE_SKIN__PREMIUM)
@@ -78,7 +75,6 @@ public class SkillHandler {
         chr.setPremiumDamageSkin(damageSkin);
         c.write(UserPacket.setPremiumDamageSkin(chr));
     }
-
 
     @Handler(op = InHeader.USER_DAMAGE_SKIN_SAVE_REQUEST)
     public static void handleUserDamageSkinSaveRequest(Char chr, InPacket inPacket) {
@@ -143,9 +139,7 @@ public class SkillHandler {
     public static void handleUserSkillUseRequest(Client c, InPacket inPacket) {
         Char chr = c.getChr();
         Field field = chr.getField();
-        if (GameConstants.getMaplerunnerField(field.getId()) == -1 &&
-                ((field.getFieldLimit() & FieldOption.SkillLimit.getVal()) > 0 ||
-                        (field.getFieldLimit() & FieldOption.MoveSkillOnly.getVal()) > 0)) {
+        if (GameConstants.getMaplerunnerField(field.getId()) == -1 && ((field.getFieldLimit() & FieldOption.SkillLimit.getVal()) > 0 || (field.getFieldLimit() & FieldOption.MoveSkillOnly.getVal()) > 0)) {
             chr.dispose();
             return;
         }
@@ -163,15 +157,11 @@ public class SkillHandler {
                 if (r != null) {
                     Rect rectAround = chr.getRectAround(r);
                     for (PartyMember pm : chr.getParty().getOnlineMembers()) {
-                        if (pm.getChr() != null
-                                && pm.getFieldID() == chr.getFieldID()
-                                && rectAround.hasPositionInside(pm.getChr().getPosition())) {
+                        if (pm.getChr() != null && pm.getFieldID() == chr.getFieldID() && rectAround.hasPositionInside(pm.getChr().getPosition())) {
                             Char ptChr = pm.getChr();
                             Effect effect = Effect.skillAffected(skillID, slv, 0);
                             if (ptChr != chr) { // Caster shouldn't get the Affected Skill Effect
-                                chr.getField().broadcastPacket(
-                                        UserRemote.effect(ptChr.getId(), effect)
-                                        , ptChr);
+                                chr.getField().broadcastPacket(UserRemote.effect(ptChr.getId(), effect), ptChr);
                                 ptChr.write(UserPacket.effect(effect));
                             }
                             sourceJobHandler.handleSkill(pm.getChr().getClient(), skillID, slv, inPacket);
@@ -193,19 +183,14 @@ public class SkillHandler {
         Account acc = chr.getAccount();
         Char son = acc.getCharacters().stream().filter(c -> c.getId() == sonID).findAny().orElse(null);
         // remove old link skill if another with the same skill exists
-        acc.getLinkSkills().stream()
-                .filter(ls -> SkillConstants.getOriginalOfLinkedSkill(ls.getLinkSkillID()) == skillID)
-                .findAny()
-                .ifPresent(oldLinkSkill -> acc.removeLinkSkillByOwnerID(oldLinkSkill.getOwnerID()));
+        acc.getLinkSkills().stream().filter(ls -> SkillConstants.getOriginalOfLinkedSkill(ls.getLinkSkillID()) == skillID).findAny().ifPresent(oldLinkSkill -> acc.removeLinkSkillByOwnerID(oldLinkSkill.getOwnerID()));
         // if the skill is not null and we expect this link skill id from the given job
         int linkSkillID = SkillConstants.getLinkSkillByJob(jobID);
         if (son != null && SkillConstants.getOriginalOfLinkedSkill(linkSkillID) == skillID) {
             acc.addLinkSkill(chr, sonID, linkSkillID);
-            chr.write(WvsContext.setSonOfLinkedSkillResult(LinkedSkillResultType.SetSonOfLinkedSkillResult_Success,
-                    son.getId(), son.getName(), skillID, null));
+            chr.write(WvsContext.setSonOfLinkedSkillResult(LinkedSkillResultType.SetSonOfLinkedSkillResult_Success, son.getId(), son.getName(), skillID, null));
         } else {
-            chr.write(WvsContext.setSonOfLinkedSkillResult(LinkedSkillResultType.SetSonOfLinkedSkillResult_Fail_Unknown,
-                    0, null, 0, null));
+            chr.write(WvsContext.setSonOfLinkedSkillResult(LinkedSkillResultType.SetSonOfLinkedSkillResult_Fail_Unknown, 0, null, 0, null));
         }
     }
 
@@ -233,8 +218,7 @@ public class SkillHandler {
                 }
             }
             if (success) {
-                chr.getField().broadcastPacket(UserRemote.throwGrenade(chr.getId(), grenadeID, pos, keyDown, skillID,
-                        bySummonedID, slv, left, attackSpeed), chr);
+                chr.getField().broadcastPacket(UserRemote.throwGrenade(chr.getId(), grenadeID, pos, keyDown, skillID, bySummonedID, slv, left, attackSpeed), chr);
             }
         }
     }
@@ -339,7 +323,6 @@ public class SkillHandler {
         chr.write(UserPacket.effect(Effect.gainQuestItem(itemResult)));
     }
 
-
     @Handler(op = InHeader.USER_CREATE_AREA_DOT_REQUEST)
     public static void handleUserCreateAreaDoTRequest(Char chr, InPacket inPacket) {
         inPacket.decodeInt(); // unk
@@ -356,8 +339,7 @@ public class SkillHandler {
     @Handler(op = InHeader.USER_SKILL_PREPARE_REQUEST)
     public static void handleUserSkillPrepareRequest(Char chr, InPacket inPacket) {
         Field field = chr.getField();
-        if ((field.getFieldLimit() & FieldOption.SkillLimit.getVal()) > 0 ||
-                (field.getFieldLimit() & FieldOption.MoveSkillOnly.getVal()) > 0) {
+        if ((field.getFieldLimit() & FieldOption.SkillLimit.getVal()) > 0 || (field.getFieldLimit() & FieldOption.MoveSkillOnly.getVal()) > 0) {
             chr.dispose();
             return;
         }
@@ -378,7 +360,7 @@ public class SkillHandler {
         tsm.removeStatsBySkill(skillId);
 
         if (SkillConstants.isKeyDownSkill(skillId)) {
-            if(SkillConstants.isKeydownCDSkill(skillId)){
+            if (SkillConstants.isKeydownCDSkill(skillId)) {
                 Skill skill = chr.getSkill(skillId);
                 chr.setSkillCooldown(skillId, (byte) skill.getCurrentLevel());
             }

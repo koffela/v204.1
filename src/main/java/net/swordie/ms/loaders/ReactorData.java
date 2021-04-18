@@ -202,7 +202,7 @@ public class ReactorData {
 
     private static ReactorInfo loadReactorByID(int id) {
         File file = new File(String.format("%s/reactors/%d.dat", ServerConstants.DAT_DIR, id));
-        if(file.exists()) {
+        if (file.exists()) {
             return loadReactorFromFile(file);
         } else {
             return null;

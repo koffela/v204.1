@@ -96,7 +96,7 @@ public class CashShopItem {
         outPacket.encodeFT(getIdkTime4());
 
         outPacket.encodeInt(getNewPrice());
-        outPacket.encodeInt(1); //getIdk3());
+        outPacket.encodeInt(1); // getIdk3());
         outPacket.encodeInt(getBundleQuantity());
         outPacket.encodeInt(getAvailableDays());
 
@@ -113,10 +113,10 @@ public class CashShopItem {
 
         outPacket.encodeString(getIdk10());
 
-        outPacket.encodeInt(0); //getIdk11());
-        outPacket.encodeInt(30); //getStock());
-        outPacket.encodeInt(31); //getIdk13());
-        outPacket.encodeInt(41); //getIdk14());
+        outPacket.encodeInt(0); // getIdk11());
+        outPacket.encodeInt(30); // getStock());
+        outPacket.encodeInt(31); // getIdk13());
+        outPacket.encodeInt(41); // getIdk14());
 
         outPacket.encodeByte(false); // has favorited, maybe implement later
         outPacket.encodeByte(false); // has liked, maybe implement later
@@ -136,8 +136,6 @@ public class CashShopItem {
             outPacket.encodeInt(9);
         }
     }
-
-
 
     public void playEncode(OutPacket outPacket) {
         outPacket.encodeInt(0);
@@ -457,13 +455,9 @@ public class CashShopItem {
 
     @Override
     public String toString() {
-        return "CashShopItem{" +
-                "itemID=" + itemID +
-                ", newPrice=" + newPrice +
-                ", category='" + category + '\'' +
-                ", cashShopCategory=" + cashShopCategory +
-                '}';
+        return "CashShopItem{" + "itemID=" + itemID + ", newPrice=" + newPrice + ", category='" + category + '\'' + ", cashShopCategory=" + cashShopCategory + '}';
     }
+
     public void setCashShopCategory(CashShopCategory cashShopCategory) {
         this.cashShopCategory = cashShopCategory;
     }
@@ -496,6 +490,5 @@ public class CashShopItem {
         AccountLimited,
         CharLimited
     }
-
 
 }

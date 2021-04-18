@@ -62,7 +62,6 @@ public class StolenSkill {
         this.currentlv = currentlv;
     }
 
-
     public static void setSkill(Char chr, int skillId, int position, byte currentLv) {
         Skill skill = SkillData.getSkillDeepCopyById(skillId);
         skill.setCurrentLevel(currentLv);
@@ -74,11 +73,11 @@ public class StolenSkill {
 
     public static void removeSkill(Char chr, int skillId) {
         StolenSkill stolenSkill = chr.getStolenSkillBySkillId(skillId);
-        if(stolenSkill == null) {
+        if (stolenSkill == null) {
             return;
         }
         chr.removeStolenSkill(stolenSkill);
-        if(chr.hasSkill(skillId)) {
+        if (chr.hasSkill(skillId)) {
             Skill skill = SkillData.getSkillDeepCopyById(skillId);
             skill.setCurrentLevel(0);
             chr.addSkill(skill);
@@ -87,13 +86,13 @@ public class StolenSkill {
 
     public static int getFirstEmptyPosition(Char chr, int skillId) {
 
-        //Used to calculate the position to assign the stolen skill to
+        // Used to calculate the position to assign the stolen skill to
         int smJobID = SkillConstants.getStealSkillManagerTabFromSkill(skillId);
         int maxPos = SkillConstants.getMaxPosBysmJobID(smJobID);
         int startingPos = SkillConstants.getStartPosBysmJobID(smJobID);
 
-        for(int i = startingPos; i <= (startingPos+maxPos); i++) {
-            if(chr.getStolenSkillByPosition(i) == null) {
+        for (int i = startingPos; i <= (startingPos + maxPos); i++) {
+            if (chr.getStolenSkillByPosition(i) == null) {
                 return i;
             }
         }
@@ -102,17 +101,17 @@ public class StolenSkill {
 
     public static int getPositionForTab(int position, int skillId) {
 
-        //Used to calculate the position to assign the stolen skill to
+        // Used to calculate the position to assign the stolen skill to
         int smJobID = SkillConstants.getStealSkillManagerTabFromSkill(skillId);
         int maxPos = SkillConstants.getMaxPosBysmJobID(smJobID);
         int startingPos = SkillConstants.getStartPosBysmJobID(smJobID);
 
-        return position-startingPos;
+        return position - startingPos;
     }
 
     public static int getPositionPerTabFromStolenSkill(StolenSkill stolenSkill) {
 
-        //Used to calculate the position to assign the stolen skill to
+        // Used to calculate the position to assign the stolen skill to
         int smJobID = SkillConstants.getStealSkillManagerTabFromSkill(stolenSkill.getSkillid());
         int maxPos = SkillConstants.getMaxPosBysmJobID(smJobID);
         int startingPos = SkillConstants.getStartPosBysmJobID(smJobID);

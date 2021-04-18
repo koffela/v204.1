@@ -95,7 +95,6 @@ public class RuneStone {
         return runeStone;
     }
 
-
     public void activateRuneStoneEffect(Char chr) {
         int runeBuffID = 0;
         switch (runeType) {
@@ -125,7 +124,7 @@ public class RuneStone {
                 break;
             case Riches:
 
-                //TODO  Drop stuff from the sky
+                // TODO Drop stuff from the sky
 
                 applyRuneRiches(chr);
                 runeBuffID = LIBERATE_THE_RUNE_OF_RICHES;
@@ -149,7 +148,7 @@ public class RuneStone {
         SkillInfo si = SkillData.getSkillInfoById(skill.getSkillId());
         Option o1 = new Option();
         o1.nReason = skillID;
-        o1.nValue = si.getValue(indieExp, slv); //200% EXP
+        o1.nValue = si.getValue(indieExp, slv); // 200% EXP
         o1.tStart = (int) System.currentTimeMillis();
         o1.tTerm = si.getValue(time, slv);
         tsm.putCharacterStatValue(IndieEXP, o1);
@@ -250,14 +249,14 @@ public class RuneStone {
     }
 
     private void randAreaAttack(int fieldID, TemporaryStatManager tsm, Char chr) {
-        if((tsm.getOptByCTSAndSkill(RandAreaAttack, LIBERATE_THE_RUNE_OF_THUNDER_2) == null) || fieldID != chr.getFieldID()) {
+        if ((tsm.getOptByCTSAndSkill(RandAreaAttack, LIBERATE_THE_RUNE_OF_THUNDER_2) == null) || fieldID != chr.getFieldID()) {
             return;
         }
 
         Mob randomMob = Util.getRandomFromCollection(chr.getField().getMobs());
         chr.write(UserLocal.userRandAreaAttackRequest(randomMob, LIBERATE_THE_RUNE_OF_THUNDER_2));
 
-        if(thunderTimer != null && !thunderTimer.isDone()) {
+        if (thunderTimer != null && !thunderTimer.isDone()) {
             thunderTimer.cancel(true);
         }
         thunderTimer = EventManager.addEvent(() -> randAreaAttack(fieldID, tsm, chr), GameConstants.THUNDER_RUNE_ATTACK_DELAY, TimeUnit.SECONDS);
@@ -288,7 +287,7 @@ public class RuneStone {
     private void applyRuneDarkness(Char chr) {
         Field field = chr.getField();
         int numberOfEliteMobsSpawned = GameConstants.DARKNESS_RUNE_NUMBER_OF_ELITE_MOBS_SPAWNED;
-        for(int i = 0; i < numberOfEliteMobsSpawned; i++) {
+        for (int i = 0; i < numberOfEliteMobsSpawned; i++) {
             Mob mob = Util.getRandomFromCollection(field.getMobs());
             mob.spawnEliteMobRuneOfDarkness();
         }

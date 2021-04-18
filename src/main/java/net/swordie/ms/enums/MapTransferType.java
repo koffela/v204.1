@@ -16,12 +16,13 @@ public enum MapTransferType {
     TargetDied(7),
     NotAllowed(8),
     AlreadyInMap(9),
-    RegisterFail(10)
-    ;
+    RegisterFail(10);
 
     private byte val;
 
-    MapTransferType(int val) {this.val = (byte) val;}
+    MapTransferType(int val) {
+        this.val = (byte) val;
+    }
 
     public byte getVal() {
         return val;

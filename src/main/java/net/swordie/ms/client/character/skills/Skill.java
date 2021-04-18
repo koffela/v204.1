@@ -9,7 +9,8 @@ import javax.persistence.*;
 @Table(name = "skills")
 public class Skill {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private int charId;
     private int skillId;

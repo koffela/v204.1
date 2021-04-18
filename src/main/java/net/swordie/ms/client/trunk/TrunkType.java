@@ -13,7 +13,7 @@ public enum TrunkType {
     TrunkReq_GetItem(4),
     TrunkReq_PutItem(5),
     TrunkReq_SortItem(6),
-    TrunkReq_Money (7),
+    TrunkReq_Money(7),
     TrunkReq_CloseDialog(8),
     TrunkRes_GetSuccess(9),
     TrunkRes_GetUnknown(10),

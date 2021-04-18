@@ -1,6 +1,5 @@
 package net.swordie.ms.client.character;
 
-
 import net.swordie.ms.connection.OutPacket;
 import net.swordie.ms.connection.db.FileTimeConverter;
 import net.swordie.ms.util.FileTime;
@@ -14,7 +13,8 @@ import javax.persistence.*;
 @Table(name = "noncombatstatdaylimit")
 public class NonCombatStatDayLimit {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private short charisma;
     private short charm;
@@ -38,7 +38,7 @@ public class NonCombatStatDayLimit {
     }
 
     public NonCombatStatDayLimit() {
-        this((short) 0, (short) 0, (byte) 0,(short) 0,(short) 0,(short) 0,(short) 0, FileTime.fromType(FileTime.Type.ZERO_TIME));
+        this((short) 0, (short) 0, (byte) 0, (short) 0, (short) 0, (short) 0, (short) 0, FileTime.fromType(FileTime.Type.ZERO_TIME));
     }
 
     public short getCharm() {
@@ -115,7 +115,6 @@ public class NonCombatStatDayLimit {
     public void setCharisma(short charisma) {
         this.charisma = charisma;
     }
-
 
     public int getId() {
         return id;

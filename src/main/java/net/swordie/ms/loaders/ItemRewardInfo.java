@@ -2,7 +2,7 @@ package net.swordie.ms.loaders;
 
 /**
  * @author Sjonnie
- * Created on 7/21/2018.
+ *         Created on 7/21/2018.
  */
 public class ItemRewardInfo {
     private int count;

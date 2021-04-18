@@ -36,12 +36,15 @@ public class Util {
 
     /**
      * Gets a random element from a given List. This is done by utilizing {@link #getRandom(int)}.
-     * @param list The list to select the element from
-     * @param <T> The type of elements of the list
+     * 
+     * @param list
+     *            The list to select the element from
+     * @param <T>
+     *            The type of elements of the list
      * @return A random element from the list, or null if the list is null or empty.
      */
     public static <T> T getRandomFromCollection(List<T> list) {
-        if(list != null && list.size() > 0) {
+        if (list != null && list.size() > 0) {
             return list.get(getRandom(list.size() - 1));
         }
         return null;
@@ -50,8 +53,11 @@ public class Util {
     /**
      * Gets a random element from a given Collection. This is done by making an array from the Collection and calling
      * {@link #getRandomFromCollection(List)}
-     * @param coll The collection to select the element from
-     * @param <T> The type of elements of the list
+     * 
+     * @param coll
+     *            The collection to select the element from
+     * @param <T>
+     *            The type of elements of the list
      * @return A random element from the list, or null if the list is null or empty.
      */
     public static <T> T getRandomFromCollection(Collection<T> coll) {
@@ -60,12 +66,15 @@ public class Util {
 
     /**
      * Gets a random element from a given List. This is done by utilizing {@link #getRandom(int)}.
-     * @param list The list to select the element from
-     * @param <T> The type of elements of the list
+     * 
+     * @param list
+     *            The list to select the element from
+     * @param <T>
+     *            The type of elements of the list
      * @return A random element from the list, or null if the list is null or empty.
      */
     public static <T> T getRandomFromCollection(T[] list) {
-        if(list != null && list.length > 0) {
+        if (list != null && list.length > 0) {
             return list[getRandom(list.length - 1)];
         }
         return null;
@@ -73,10 +82,14 @@ public class Util {
 
     /**
      * Reads a file and returns the contents as a single String.
-     * @param path The path to the file
-     * @param encoding The encoding the file is in.
+     * 
+     * @param path
+     *            The path to the file
+     * @param encoding
+     *            The encoding the file is in.
      * @return The contents of the File as a single String.
-     * @throws IOException If the file cannot be found (usually)
+     * @throws IOException
+     *             If the file cannot be found (usually)
      */
     public static String readFile(String path, Charset encoding) throws IOException {
         byte[] encoded = Files.readAllBytes(Paths.get(path));
@@ -87,13 +100,15 @@ public class Util {
      * Creates a writes to a file with given directory path.
      * Will overwrite any pre-existing file.
      *
-     * @param path path to the file
-     * @param content content of new file. Each string in content is on a new line
-     * @throws IOException if file already exists and is currently in use
+     * @param path
+     *            path to the file
+     * @param content
+     *            content of new file. Each string in content is on a new line
+     * @throws IOException
+     *             if file already exists and is currently in use
      */
     public static void createAndWriteToFile(String path, List<String> content) throws IOException {
-        try (Writer writer = new BufferedWriter(new OutputStreamWriter(
-                new FileOutputStream(path), StandardCharsets.UTF_8))) {
+        try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(path), StandardCharsets.UTF_8))) {
             for (String line : content) {
                 writer.write(line + "\r\n");
             }
@@ -103,10 +118,13 @@ public class Util {
     /**
      * Returns a bitwise OR of two arrays. Takes the length of arr1 as the return array size. If arr2 is smaller,
      * will return an {@link ArrayIndexOutOfBoundsException}.
-     * @param arr1 The first array
-     * @param arr2 The second array
+     * 
+     * @param arr1
+     *            The first array
+     * @param arr2
+     *            The second array
      * @return The result of using bitwise OR on all contents of arr1 to arr2 such that for all index i with i < arr1.length:
-     *  res[i] == arr1[i] | arr2[i]
+     *         res[i] == arr1[i] | arr2[i]
      */
     public static int[] bitwiseOr(int[] arr1, int[] arr2) {
         int[] res = new int[arr1.length];
@@ -118,6 +136,7 @@ public class Util {
 
     /**
      * Returns the current time as an int. See System.currentTimeMillis().
+     * 
      * @return the current time as an int.
      */
     public static int getCurrentTime() {
@@ -126,6 +145,7 @@ public class Util {
 
     /**
      * Returns the current time. Simply calls System.currentTimeMillis().
+     * 
      * @return The current time as milliseconds since unix start time
      */
     public static long getCurrentTimeLong() {
@@ -135,7 +155,9 @@ public class Util {
     /**
      * Returns a random number from 0 up to (and <b>including</b>) inclBound. Creates a new Random class upon call.
      * If a bound smaller or equal to 0 is given, always returns 0.
-     * @param inclBound the upper bound of the random number
+     * 
+     * @param inclBound
+     *            the upper bound of the random number
      * @return A random number from 0 up to and including inclBound
      */
     public static int getRandom(int inclBound) {
@@ -148,8 +170,11 @@ public class Util {
     /**
      * Returns a random number from <code>start</code> up to <code>end</code>. Creates a new Random class upon call.
      * If <code>start</code> is greater than <code>end</code>, <code>start</code> will be swapped with <code>end</code>.
-     * @param start the lower bound of the random number
-     * @param end the upper bound of the random number
+     * 
+     * @param start
+     *            the lower bound of the random number
+     * @param end
+     *            the upper bound of the random number
      * @return A random number from <code>start</code> up to <code>end</code>
      */
     public static int getRandom(int start, int end) {
@@ -166,8 +191,11 @@ public class Util {
 
     /**
      * Checks if some action succeeds, given a chance and maximum number.
-     * @param chance The threshold at which something is classified as success
-     * @param max The maximum number that is generated, exclusive
+     * 
+     * @param chance
+     *            The threshold at which something is classified as success
+     * @param max
+     *            The maximum number that is generated, exclusive
      * @return Whether or not the test succeeded
      */
     public static boolean succeedProp(int chance, int max) {
@@ -177,7 +205,9 @@ public class Util {
 
     /**
      * Checks of some action succeeds, given a chance out of a 100.
-     * @param chance The threshold at which something is classified as success
+     * 
+     * @param chance
+     *            The threshold at which something is classified as success
      * @return Whether or not the test succeeded
      */
     public static boolean succeedProp(int chance) {
@@ -188,7 +218,9 @@ public class Util {
 
     /**
      * Reverses all the bits of an integer.
-     * @param n The number to reverse the bits of
+     * 
+     * @param n
+     *            The number to reverse the bits of
      * @return The reversed bits
      */
     public static int reverseBits(int n) {
@@ -201,9 +233,13 @@ public class Util {
 
     /**
      * Swaps two bits of a given number.
-     * @param n The number that the bits should be swapped of
-     * @param i The first swapping index
-     * @param j The second swapping index
+     * 
+     * @param n
+     *            The number that the bits should be swapped of
+     * @param i
+     *            The first swapping index
+     * @param j
+     *            The second swapping index
      * @return The number with the bits reversed
      */
     private static int swapBits(int n, int i, int j) {
@@ -218,7 +254,9 @@ public class Util {
 
     /**
      * Checks if a String is a number ((negative) natural or decimal).
-     * @param string The String to check
+     * 
+     * @param string
+     *            The String to check
      * @return Whether or not the String is a number
      */
     public static boolean isNumber(String string) {
@@ -227,7 +265,9 @@ public class Util {
 
     /**
      * Creates a byte array given a string. Ignores spaces and the '|' character.
-     * @param s The String to transform
+     * 
+     * @param s
+     *            The String to transform
      * @return The byte array that the String contained (if there is any, some RuntimeException otherwise)
      */
     public static byte[] getByteArrayByString(String s) {
@@ -236,33 +276,36 @@ public class Util {
         int len = s.length();
         byte[] data = new byte[len / 2];
         for (int i = 0; i < len; i += 2) {
-            data[i / 2] = (byte) ((Character.digit(s.charAt(i), 16) << 4)
-                    + Character.digit(s.charAt(i + 1), 16));
+            data[i / 2] = (byte) ((Character.digit(s.charAt(i), 16) << 4) + Character.digit(s.charAt(i + 1), 16));
         }
         return data;
     }
 
     /**
      * Turns a byte array into a readable String (e.g., 3A 00 89 BF).
-     * @param arr The array to transform
+     * 
+     * @param arr
+     *            The array to transform
      * @return The readable byte array
      */
     public static String readableByteArray(byte[] arr) {
         StringBuilder res = new StringBuilder();
-        for(byte b : arr) {
-            res.append(String.format("%02X ",b));
+        for (byte b : arr) {
+            res.append(String.format("%02X ", b));
         }
         return res.toString();
     }
 
     /**
      * Turns a ByteBuf into a readable String (e.g., 3A 00 89 BF).
-     * @param buf The ByteBuf to transform
+     * 
+     * @param buf
+     *            The ByteBuf to transform
      * @return The readable byte array
      */
     public static String readableByteArrayFromByteBuf(ByteBuf buf) {
         byte[] bytes = new byte[buf.capacity()];
-        for(int i = buf.readableBytes(); i < buf.capacity(); i++) {
+        for (int i = buf.readableBytes(); i < buf.capacity(); i++) {
             bytes[i] = buf.getByte(i);
         }
         return Util.readableByteArray(bytes);
@@ -270,7 +313,9 @@ public class Util {
 
     /**
      * Transforms an integer into a byte array of length 4, Little Endian.
-     * @param n The number to turn into a byte array
+     * 
+     * @param n
+     *            The number to turn into a byte array
      * @return The created byte array (Little Endian)
      */
     public static byte[] IntToByteArrayLE(int n) {
@@ -284,11 +329,13 @@ public class Util {
 
     /**
      * Creates a directory if there is none.
-     * @param dir The directory to create
+     * 
+     * @param dir
+     *            The directory to create
      */
     public static void makeDirIfAbsent(String dir) {
         File file = new File(dir);
-        if(!file.exists()) {
+        if (!file.exists()) {
             file.mkdir();
         }
     }
@@ -297,19 +344,23 @@ public class Util {
      * Adds right padding given an initial String, padding character and maximum length. If the input String is longer
      * than the given maximum length, the String length is taken instead (effectively doing nothing, as there is
      * nothing to pad.
-     * @param totalLength The total length the String should amount to
-     * @param c The padding character
-     * @param value The initial value of the String
+     * 
+     * @param totalLength
+     *            The total length the String should amount to
+     * @param c
+     *            The padding character
+     * @param value
+     *            The initial value of the String
      * @return The right padded String
      */
     public static String rightPaddedString(int totalLength, char c, String value) {
         totalLength = Math.max(totalLength, value.length());
         char[] chars = new char[totalLength];
         char[] valueChars = value.toCharArray();
-        for (int i = 0; i < value.length() ; i++) {
+        for (int i = 0; i < value.length(); i++) {
             chars[i] = valueChars[i];
         }
-        for(int i = value.length(); i < chars.length; i++) {
+        for (int i = value.length(); i < chars.length; i++) {
             chars[i] = c;
         }
         return new String(chars);
@@ -319,9 +370,13 @@ public class Util {
      * Adds left padding given an initial String, padding character and maximum length. If the input String is longer
      * than the given maximum length, the String length is taken instead (effectively doing nothing, as there is
      * nothing to pad.
-     * @param totalLength The total length the String should amount to
-     * @param c The padding character
-     * @param value The initial value of the String
+     * 
+     * @param totalLength
+     *            The total length the String should amount to
+     * @param c
+     *            The padding character
+     * @param value
+     *            The initial value of the String
      * @return The left padded String
      */
     public static String leftPaddedString(int totalLength, char c, String value) {
@@ -330,11 +385,11 @@ public class Util {
         char[] valueChars = value.toCharArray();
         int pad = totalLength - value.length();
         int i;
-        for (i = 0; i < pad ; i++) {
+        for (i = 0; i < pad; i++) {
             chars[i] = c;
         }
         int j = 0;
-        for(i = pad; i < chars.length; i++) {
+        for (i = pad; i < chars.length; i++) {
             chars[i] = valueChars[j++];
         }
         return new String(chars);
@@ -343,9 +398,13 @@ public class Util {
     /**
      * Gets a single element from a collection by using a predicate. Returns a random element if there are multiple
      * elements for which the predicate holds.
-     * @param collection The collection the element should be gathered from
-     * @param pred The predicate that should hold for the element
-     * @param <T> The type of the collection's elements
+     * 
+     * @param collection
+     *            The collection the element should be gathered from
+     * @param pred
+     *            The predicate that should hold for the element
+     * @param <T>
+     *            The type of the collection's elements
      * @return An element for which the predicate holds, or null if there is none
      */
     public static <T> T findWithPred(java.util.Collection<T> collection, Predicate<T> pred) {
@@ -355,9 +414,13 @@ public class Util {
     /**
      * Gets a single element from an array by using a predicate. Returns a random element if there are multiple
      * elements for which the predicate holds.
-     * @param arr The array the element should be gathered from
-     * @param pred The predicate that should hold for the element
-     * @param <T> The type of the collection's elements
+     * 
+     * @param arr
+     *            The array the element should be gathered from
+     * @param pred
+     *            The predicate that should hold for the element
+     * @param <T>
+     *            The type of the collection's elements
      * @return An element for which the predicate holds, or null if there is none
      */
     public static <T> T findWithPred(T[] arr, Predicate<T> pred) {
@@ -367,7 +430,8 @@ public class Util {
     /**
      * Returns a formatted number, using English locale.
      *
-     * @param number The number to be formatted
+     * @param number
+     *            The number to be formatted
      * @return The formatted number
      */
     public static String formatNumber(String number) {
@@ -381,7 +445,8 @@ public class Util {
     /**
      * Tells us if a string is a BCrypt hash.
      *
-     * @param password Password to check
+     * @param password
+     *            Password to check
      * @return Boolean value
      */
     public static boolean isStringBCrypt(String password) {
@@ -390,7 +455,9 @@ public class Util {
 
     /**
      * Returns the long as an int, or Integer.MAX_VALUE if it exceeds the maximum int value.
-     * @param num the number that should be capped at Integer.MAX_VALUE
+     * 
+     * @param num
+     *            the number that should be capped at Integer.MAX_VALUE
      * @return <code>num</code> if the number is small enough, else Integer.MAX_VALUE
      */
     public static int maxInt(long num) {
@@ -399,8 +466,11 @@ public class Util {
 
     /**
      * Creates a Set of given elements.
-     * @param elems a list of elements
-     * @param <T> the type of the elements
+     * 
+     * @param elems
+     *            a list of elements
+     * @param <T>
+     *            the type of the elements
      * @return a new Set created from the elements
      */
     public static <T> Set<T> makeSet(T... elems) {
@@ -413,7 +483,9 @@ public class Util {
 
     /**
      * Checks if a String is purely made out of digits and/or letters.
-     * @param str the String to check
+     * 
+     * @param str
+     *            the String to check
      * @return if the String only contains digits and/or letters
      */
     public static boolean isDigitLetterString(String str) {
@@ -422,7 +494,9 @@ public class Util {
 
     /**
      * Checks if a String is valid enough that it won't crash other users.
-     * @param str the String to check
+     * 
+     * @param str
+     *            the String to check
      * @return whether or not the String is valid
      */
     public static boolean isValidString(String str) {
@@ -431,7 +505,9 @@ public class Util {
 
     /**
      * Checks if a String is an int.
-     * @param val the String to check
+     * 
+     * @param val
+     *            the String to check
      * @return whether or not the String is an int
      */
     public static boolean isInteger(String val) {
@@ -451,23 +527,23 @@ public class Util {
     }
 
     public int strStr(String haystack, String needle) {
-        if(haystack==null || needle==null)
+        if (haystack == null || needle == null)
             return 0;
 
-        if(needle.length() == 0)
+        if (needle.length() == 0)
             return 0;
 
-        for(int i=0; i<haystack.length(); i++){
-            if(i + needle.length() > haystack.length())
+        for (int i = 0; i < haystack.length(); i++) {
+            if (i + needle.length() > haystack.length())
                 return -1;
 
             int m = i;
-            for(int j=0; j<needle.length(); j++){
-                if(needle.charAt(j)==haystack.charAt(m)){
-                    if(j==needle.length()-1)
+            for (int j = 0; j < needle.length(); j++) {
+                if (needle.charAt(j) == haystack.charAt(m)) {
+                    if (j == needle.length() - 1)
                         return i;
                     m++;
-                }else{
+                } else {
                     break;
                 }
 
@@ -483,8 +559,11 @@ public class Util {
 
     /**
      * Rotates a given value by a certain amount left.
-     * @param value the value to rotate
-     * @param rotateAmount the amount to rotate
+     * 
+     * @param value
+     *            the value to rotate
+     * @param rotateAmount
+     *            the amount to rotate
      * @return the rotated value
      */
     public static int rotateLeft(int value, byte rotateAmount) {
@@ -493,7 +572,9 @@ public class Util {
 
     /**
      * Creates an int from a byte array of length >= 4, Big Endian.
-     * @param arr the arr to convert
+     * 
+     * @param arr
+     *            the arr to convert
      * @return the BE int from the array
      */
     public static int toInt(byte[] arr) {
@@ -502,19 +583,24 @@ public class Util {
 
     /**
      * Checks whether or not a raw int array contains a value.
-     * @param arr the array to check the value
-     * @param checkVal the value to look for
+     * 
+     * @param arr
+     *            the array to check the value
+     * @param checkVal
+     *            the value to look for
      * @return whether or not the array contains the value
      */
     public static boolean arrayContains(int[] arr, int checkVal) {
         return IntStream.of(arr).anyMatch(val -> val == checkVal);
     }
 
-
     /**
      * Searches through the given directory recursively to find all files
-     * @param toAdd the set to add the files to
-     * @param dir the directory to start in
+     * 
+     * @param toAdd
+     *            the set to add the files to
+     * @param dir
+     *            the directory to start in
      */
     public static void findAllFilesInDirectory(Set<File> toAdd, File dir) {
         // depth first search
@@ -533,7 +619,9 @@ public class Util {
 
     /**
      * Compute the SHA-1 hash of the bytes in the given buffer
-     * @param toHash ByteBuffer
+     * 
+     * @param toHash
+     *            ByteBuffer
      * @return byte[]
      */
     public static byte[] sha1Hash(byte[] toHash) {
@@ -541,8 +629,7 @@ public class Util {
             MessageDigest crypt = MessageDigest.getInstance("SHA-1");
             crypt.update(toHash);
             return crypt.digest();
-        }
-        catch (NoSuchAlgorithmException nsae)   {
+        } catch (NoSuchAlgorithmException nsae) {
             return null;
         }
     }

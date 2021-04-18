@@ -17,7 +17,8 @@ public class QuestStartCompletionRequirement implements QuestStartRequirement {
     private int questID;
     private byte questStatus;
 
-    public QuestStartCompletionRequirement() {}
+    public QuestStartCompletionRequirement() {
+    }
 
     public QuestStartCompletionRequirement(int questID, byte questStatus) {
         this.questID = questID;
@@ -43,11 +44,11 @@ public class QuestStartCompletionRequirement implements QuestStartRequirement {
     @Override
     public boolean hasRequirements(Char chr) {
         QuestManager qm = chr.getQuestManager();
-        switch(getQuestStatus()) {
-//            case 0: // Not started
-//                return !qm.hasQuestInProgress(getQuestID()) && !qm.hasQuestCompleted(getQuestID());
-//            case 1: // In progress
-//                return qm.hasQuestInProgress(getQuestID());
+        switch (getQuestStatus()) {
+            // case 0: // Not started
+            // return !qm.hasQuestInProgress(getQuestID()) && !qm.hasQuestCompleted(getQuestID());
+            // case 1: // In progress
+            // return qm.hasQuestInProgress(getQuestID());
             case 0: // Completed
                 return qm.hasQuestCompleted(getQuestID());
             default:

@@ -31,7 +31,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * Abstraction for Netty channels that contains some attribute keys
  * for important resources used by the net.swordie.ms.client during encryption,
  * decryption, and general functions. <B>Note: Some methods cannot be
- * overridden by descendents due to the nature of the functionality they 
+ * overridden by descendents due to the nature of the functionality they
  * provide</B>
  * 
  * @author Zygon
@@ -65,19 +65,19 @@ public class NettyClient {
      * I/O operations regarding a MapleStory game session.
      */
     protected final Channel ch;
-    
+
     /**
-     * Lock regarding the encoding of packets to be sent to remote 
+     * Lock regarding the encoding of packets to be sent to remote
      * sessions.
      */
     private final ReentrantLock lock;
-    
+
     /**
      * InPacket object for this specific session since this can help
      * scaling compared to keeping OutPacket for each session.
      */
     private final InPacket r;
-    
+
     /**
      * Empty constructor for child class implementation.
      */
@@ -86,13 +86,17 @@ public class NettyClient {
         lock = null;
         r = null;
     }
-    
+
     /**
      * Construct a new NettyClient with the corresponding Channel that
      * will be used to write to as well as the send and recv seeds or IVs.
-     * @param c the channel object associated with this net.swordie.ms.client session.
-     * @param alpha the send seed or IV.
-     * @param delta the recv seed or IV.
+     * 
+     * @param c
+     *            the channel object associated with this net.swordie.ms.client session.
+     * @param alpha
+     *            the send seed or IV.
+     * @param delta
+     *            the recv seed or IV.
      */
     public NettyClient(Channel c, int alpha, int delta) {
         ch = c;
@@ -101,43 +105,49 @@ public class NettyClient {
         r = new InPacket();
         lock = new ReentrantLock(true); // note: lock is fair to ensure logical sequence is maintained server-side
     }
-    
+
     /**
      * Gets the InPacket object associated with this NettyClient.
+     * 
      * @return a net.swordie.ms.connection.packet reader.
      */
     public final InPacket getReader() {
         return r;
     }
-    
+
     /**
      * Gets the stored length for the next net.swordie.ms.connection.packet to be read. Used as
      * a decoding state variable to determine when it is ok to proceed with
      * decoding a net.swordie.ms.connection.packet.
+     * 
      * @return stored length for next net.swordie.ms.connection.packet.
      */
     public final int getStoredLength() {
         return storedLength;
     }
-    
+
     /**
      * Sets the stored length for the next net.swordie.ms.connection.packet to be read.
-     * @param val length of the next net.swordie.ms.connection.packet to be read.
+     * 
+     * @param val
+     *            length of the next net.swordie.ms.connection.packet to be read.
      */
     public final void setStoredLength(int val) {
         storedLength = val;
     }
-    
+
     /**
      * Gets the current send seed or IV.
+     * 
      * @return send IV.
      */
     public final int getSendIV() {
         return siv;
     }
-    
+
     /**
      * Gets the current recv seed or IV.
+     * 
      * @return recv IV.
      */
     public final int getRecvIV() {
@@ -146,7 +156,9 @@ public class NettyClient {
 
     /**
      * Sets the send seed or IV for this session.
-     * @param alpha the new send IV.
+     * 
+     * @param alpha
+     *            the new send IV.
      */
     public final void setSendIV(int alpha) {
         siv = alpha;
@@ -154,30 +166,35 @@ public class NettyClient {
 
     /**
      * Sets the recv seed or IV for this session.
-     * @param delta  the new recv IV.
+     * 
+     * @param delta
+     *            the new recv IV.
      */
     public final void setRecvIV(int delta) {
         riv = delta;
     }
-    
+
     /**
      * Writes a message to the channel. Gets encoded later in the
      * pipeline.
-     * @param msg the message to be sent.
+     * 
+     * @param msg
+     *            the message to be sent.
      */
     public void write(Packet msg) {
         ch.writeAndFlush(msg);
     }
-    
+
     /**
      * Closes this channel and session.
      */
     public void close() {
         ch.close();
     }
-    
+
     /**
      * Gets the remote IP address for this session.
+     * 
      * @return the remote IP address.
      */
     public String getIP() {
@@ -190,14 +207,14 @@ public class NettyClient {
 
     /**
      * Acquires the encoding state for this specific send IV. This is to
-     * prevent multiple encoding states to be possible at the same time. If 
+     * prevent multiple encoding states to be possible at the same time. If
      * allowed, the send IV would mutate to an unusable IV and the session would
      * be dropped as a result.
      */
     public final void acquireEncoderState() {
         lock.lock();
     }
-    
+
     /**
      * Releases the encoding state for this specific send IV.
      */

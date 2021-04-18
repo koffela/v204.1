@@ -126,13 +126,6 @@ public class Offense {
 
     @Override
     public String toString() {
-        return "Offense{" +
-                "charID=" + charID +
-                ", accountID=" + accountID +
-                ", msg='" + msg + '\'' +
-                ", type=" + type +
-                ", issueDate=" + issueDate +
-                ", issuerCharID=" + issuerCharID +
-                '}';
+        return "Offense{" + "charID=" + charID + ", accountID=" + accountID + ", msg='" + msg + '\'' + ", type=" + type + ", issueDate=" + issueDate + ", issuerCharID=" + issuerCharID + '}';
     }
 }

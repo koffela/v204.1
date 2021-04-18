@@ -56,9 +56,7 @@ public class WvsContext {
         return statChanged(stats, false, (byte) -1, (byte) 0, (byte) 0, (byte) 0, false, 0, 0);
     }
 
-    public static OutPacket statChanged(Map<Stat, Object> stats, boolean exclRequestSent, byte mixBaseHairColor,
-                                        byte mixAddHairColor, byte mixHairBaseProb, byte charmOld, boolean updateCovery,
-                                        int hpRecovery, int mpRecovery) {
+    public static OutPacket statChanged(Map<Stat, Object> stats, boolean exclRequestSent, byte mixBaseHairColor, byte mixAddHairColor, byte mixHairBaseProb, byte charmOld, boolean updateCovery, int hpRecovery, int mpRecovery) {
         OutPacket outPacket = new OutPacket(OutHeader.STAT_CHANGED);
 
         outPacket.encodeByte(exclRequestSent);
@@ -207,12 +205,12 @@ public class WvsContext {
                 break;
         }
         outPacket.encodeByte(0);// new
-        //if (bAddMovementInfo) {
+        // if (bAddMovementInfo) {
         outPacket.encodeByte(addMovementInfo);
-        //}
-        //if (invType == InvType.EQUIP && (oldPos < 0 || newPos < 0)) {
-        //    outPacket.encodeByte(item.getCashItemSerialNumber() > 0);// must be > 0
-        //}
+        // }
+        // if (invType == InvType.EQUIP && (oldPos < 0 || newPos < 0)) {
+        // outPacket.encodeByte(item.getCashItemSerialNumber() > 0);// must be > 0
+        // }
         return outPacket;
     }
 
@@ -237,8 +235,7 @@ public class WvsContext {
         return changeSkillRecordResult(skills, true, false, false, false);
     }
 
-    public static OutPacket changeSkillRecordResult(List<Skill> skills, boolean exclRequestSent, boolean showResult,
-                                                    boolean removeLinkSkill, boolean sn) {
+    public static OutPacket changeSkillRecordResult(List<Skill> skills, boolean exclRequestSent, boolean showResult, boolean removeLinkSkill, boolean sn) {
         OutPacket outPacket = new OutPacket(OutHeader.CHANGE_SKILL_RECORD_RESULT);
 
         outPacket.encodeByte(exclRequestSent);
@@ -280,7 +277,7 @@ public class WvsContext {
         for (int i : temporaryStatManager.getRemovedMask()) {
             outPacket.encodeInt(i);
         }
-//        temporaryStatManager.getRemovedStats().forEach((cts, option) -> outPacket.encodeInt(0));
+        // temporaryStatManager.getRemovedStats().forEach((cts, option) -> outPacket.encodeInt(0));
         temporaryStatManager.encodeRemovedIndieTempStat(outPacket);
         if (temporaryStatManager.hasRemovedMovingEffectingStat()) {
             outPacket.encodeByte(0);
@@ -288,7 +285,7 @@ public class WvsContext {
         outPacket.encodeByte(0); // ?
         outPacket.encodeByte(demount);
 
-        if(isMigrate) {
+        if (isMigrate) {
             temporaryStatManager.getToBroadcastAfterMigrate().add(outPacket);
         }
 
@@ -319,7 +316,8 @@ public class WvsContext {
         outPacket.encodeInt(0);
         outPacket.encodeByte(0);
 
-        if (internetCafeExtra > 0) type = 8;
+        if (internetCafeExtra > 0)
+            type = 8;
         outPacket.encodeByte(type);
         // also error (?) codes -2, ,-3, -4, -5, <default>
         switch (type) {
@@ -378,7 +376,7 @@ public class WvsContext {
         QuestStatus state = quest.getStatus();
         outPacket.encodeByte(state.getVal());
 
-        switch(state) {
+        switch (state) {
             case NotStarted:
                 outPacket.encodeByte(0); // If quest is completed, but should never be true?
                 break;
@@ -457,8 +455,10 @@ public class WvsContext {
      * ITEM_ABILITY_TIME_LIMITED_EXPIRE_MESSAGE<br>
      * SKILL_EXPIRE_MESSAGE
      *
-     * @param mt    The message type.
-     * @param items The list of ints that should be encoded.
+     * @param mt
+     *            The message type.
+     * @param items
+     *            The list of ints that should be encoded.
      * @return The message OutPacket.
      */
     public static OutPacket message(MessageType mt, List<Integer> items) {
@@ -498,25 +498,33 @@ public class WvsContext {
 
         return outPacket;
     }
+
     /**
      * Returns a net.swordie.ms.connection.packet for messages with the following {@link MessageType}:<br>
      * int: <br>
      * CASH_ITEM_EXPIRE_MESSAGE<br>
      * INC_POP_MESSAGE<br>
      * INC_GP_MESSAGE<br>
-     * GIVE_BUFF_MESSAGE<br><br>
+     * GIVE_BUFF_MESSAGE<br>
+     * <br>
      * int + byte: <br>
-     * INC_COMMITMENT_MESSAGE<br><br>
+     * INC_COMMITMENT_MESSAGE<br>
+     * <br>
      * String: <br>
-     * SYSTEM_MESSAGE<br><br>
+     * SYSTEM_MESSAGE<br>
+     * <br>
      * int + String: <br>
      * QUEST_RECORD_EX_MESSAGE<br>
      * WORLD_SHARE_RECORD_MESSAGE<br>
      *
-     * @param mt     The message type.
-     * @param i      The integer to encode.
-     * @param string The String to encode.
-     * @param type   The type (byte) to encode.
+     * @param mt
+     *            The message type.
+     * @param i
+     *            The integer to encode.
+     * @param string
+     *            The String to encode.
+     * @param type
+     *            The type (byte) to encode.
      * @return The message OutPacket.
      */
     public static OutPacket message(MessageType mt, int i, String string, byte type) {
@@ -544,11 +552,11 @@ public class WvsContext {
                 outPacket.encodeString(string);
                 break;
             case INC_HARDCORE_EXP_MESSAGE:
-                outPacket.encodeInt(i); //You have gained x EXP
-                outPacket.encodeInt(i); //Field Bonus Exp
+                outPacket.encodeInt(i); // You have gained x EXP
+                outPacket.encodeInt(i); // Field Bonus Exp
                 break;
             case BARRIER_EFFECT_IGNORE_MESSAGE:
-                outPacket.encodeByte(type); //protection/shield scroll pop-up Message
+                outPacket.encodeByte(type); // protection/shield scroll pop-up Message
                 break;
         }
 
@@ -621,7 +629,7 @@ public class WvsContext {
         OutPacket outPacket = new OutPacket(OutHeader.PARTY_MEMBER_CANDIDATE_RESULT);
 
         outPacket.encodeByte(chars.size());
-        for(Char chr : chars) {
+        for (Char chr : chars) {
             outPacket.encodeInt(chr.getId());
             outPacket.encodeString(chr.getName());
             outPacket.encodeShort(chr.getJob());
@@ -636,7 +644,7 @@ public class WvsContext {
         OutPacket outPacket = new OutPacket(OutHeader.PARTY_CANDIDATE_RESULT);
 
         outPacket.encodeByte(parties.size());
-        for(Party party : parties) {
+        for (Party party : parties) {
             Char leader = party.getPartyLeader().getChr();
             outPacket.encodeInt(party.getId());
             outPacket.encodeString(leader.getName());
@@ -644,7 +652,7 @@ public class WvsContext {
             outPacket.encodeByte(party.getMembers().size());
             outPacket.encodeString(party.getName());
             outPacket.encodeByte(party.getMembers().size());
-            for(PartyMember pm : party.getMembers()) {
+            for (PartyMember pm : party.getMembers()) {
                 outPacket.encodeInt(pm.getCharID());
                 outPacket.encodeString(pm.getCharName());
                 outPacket.encodeShort(pm.getJob());
@@ -682,7 +690,6 @@ public class WvsContext {
         return outPacket;
     }
 
-
     public static OutPacket allianceResult(AllianceResult ar) {
         OutPacket outPacket = new OutPacket(OutHeader.ALLIANCE_RESULT);
 
@@ -702,22 +709,22 @@ public class WvsContext {
     public static OutPacket flameWizardFlareBlink(Char chr, Position newPosition, boolean used) {
         OutPacket outPacket = new OutPacket(OutHeader.FLAME_WIZARD_FLARE_BLINK);
 
-        Position zero = new Position(0,0);
-        outPacket.encodeInt(chr.getId()); //chr?
-        outPacket.encodeByte(used); //used?
+        Position zero = new Position(0, 0);
+        outPacket.encodeInt(chr.getId()); // chr?
+        outPacket.encodeByte(used); // used?
 
         if (used) {
 
-        //Blink - Clear + Teleport
+            // Blink - Clear + Teleport
             chr.write(FieldPacket.teleport(newPosition, chr));
 
         } else {
 
-        //Blink - Set Position
+            // Blink - Set Position
             outPacket.encodeByte(used);
             outPacket.encodeShort(1);
-            outPacket.encodePosition(newPosition); //2x encode Short (x/y)
-            outPacket.encodePosition(zero); //2x encode Short (x/y)
+            outPacket.encodePosition(newPosition); // 2x encode Short (x/y)
+            outPacket.encodePosition(zero); // 2x encode Short (x/y)
         }
         return outPacket;
     }
@@ -731,12 +738,11 @@ public class WvsContext {
         return outPacket;
     }
 
-
     public static OutPacket loadAccountIDOfCharacterFriendResult(Set<Friend> friends) {
         OutPacket outPacket = new OutPacket(OutHeader.LOAD_ACCOUNT_ID_OF_CHARACTER_FRIEND_RESULT);
 
         outPacket.encodeInt(friends.size());
-        for(Friend fr : friends) {
+        for (Friend fr : friends) {
             outPacket.encodeInt(fr.getFriendID());
             outPacket.encodeInt(fr.getFriendAccountID());
         }
@@ -748,14 +754,14 @@ public class WvsContext {
         OutPacket outPacket = new OutPacket(OutHeader.MACRO_SYS_DATA_INIT);
 
         outPacket.encodeByte(macros.size());
-        for(Macro macro : macros) {
+        for (Macro macro : macros) {
             macro.encode(outPacket);
         }
         return outPacket;
     }
 
     public static OutPacket monsterBookSetCard(int id) {
-//        OutPacket outPacket = new OutPacket(OutHeader.MONSTER_LIFE_INVITE_ITEM_RESULT);
+        // OutPacket outPacket = new OutPacket(OutHeader.MONSTER_LIFE_INVITE_ITEM_RESULT);
         OutPacket outPacket = new OutPacket(OutHeader.MONSTER_BOOK_SET_CARD);
 
         outPacket.encodeByte(id > 0); // false -> already added msg
@@ -788,8 +794,7 @@ public class WvsContext {
         return characterPotentialSet(true, true, cp.getKey(), cp.getSkillID(), cp.getSlv(), cp.getGrade(), true);
     }
 
-    public static OutPacket characterPotentialSet(boolean exclRequest, boolean changed, short pos, int skillID,
-                                                  short skillLevel, short grade, boolean updatePassive) {
+    public static OutPacket characterPotentialSet(boolean exclRequest, boolean changed, short pos, int skillID, short skillLevel, short grade, boolean updatePassive) {
         OutPacket outPacket = new OutPacket(OutHeader.CHARACTER_POTENTIAL_SET);
 
         outPacket.encodeByte(exclRequest);
@@ -816,9 +821,9 @@ public class WvsContext {
     public static OutPacket bridleMobCatchFail(int itemID, boolean elementRock) {
         OutPacket outPacket = new OutPacket(OutHeader.BRIDLE_MOB_CATCH_FAIL);
 
-        outPacket.encodeByte(elementRock);//rock?
+        outPacket.encodeByte(elementRock);// rock?
         outPacket.encodeInt(itemID);
-        outPacket.encodeInt(0); //ignored
+        outPacket.encodeInt(0); // ignored
 
         return outPacket;
     }
@@ -832,8 +837,7 @@ public class WvsContext {
         return outPacket;
     }
 
-    public static OutPacket setSonOfLinkedSkillResult(LinkedSkillResultType lsrt, int sonID, String sonName,
-                                                      int originalSkillID, String existingParentName) {
+    public static OutPacket setSonOfLinkedSkillResult(LinkedSkillResultType lsrt, int sonID, String sonName, int originalSkillID, String existingParentName) {
         OutPacket outPacket = new OutPacket(OutHeader.SET_SON_OF_LINKED_SKILL_RESULT);
 
         outPacket.encodeInt(lsrt.getVal());
@@ -896,8 +900,6 @@ public class WvsContext {
         return outPacket;
     }
 
-
-
     public static OutPacket broadcastMessage(int type, int channel, String message, boolean megaEar) {
         OutPacket outPacket = new OutPacket();
 
@@ -932,20 +934,20 @@ public class WvsContext {
                 outPacket.encodeShort(0);
             case 4: // server slide
             case 5: // red notice
-            case 7: //dc
-            case 8://dc
-            case 10://dc
-            case 13://does nothing
-            case 14: //does nothing
-            case 15://idk
-            case 16://dc
-            case 17://dc
-            case 18://dc
-            case 19://yellow
-            case 21://dc
-            case 23://dc
+            case 7: // dc
+            case 8:// dc
+            case 10:// dc
+            case 13:// does nothing
+            case 14: // does nothing
+            case 15:// idk
+            case 16:// dc
+            case 17:// dc
+            case 18:// dc
+            case 19:// yellow
+            case 21:// dc
+            case 23:// dc
         }
-       return outPacket;
+        return outPacket;
     }
 
     public static OutPacket setAvatarMegaphone(Char chr, int megaItemId, List<String> lineList, boolean whisperIcon) {
@@ -954,7 +956,7 @@ public class WvsContext {
         outPacket.encodeInt(megaItemId); // Avatar Megaphone Item ID
         outPacket.encodeString(chr.getName());
 
-        for(String line : lineList) {
+        for (String line : lineList) {
             outPacket.encodeString(line);
         }
 
@@ -1036,19 +1038,21 @@ public class WvsContext {
     /**
      * Creates a packet to indicate the golden hammer is finished.
      *
-     * @param returnResult See below
+     * @param returnResult
+     *            See below
      * @param result
-     *  when returnResult is:
-     *    0 or 1:
-     *      Anything: Golden hammer refinement applied
-     *    2:
-     *      0: Increased available upgrade by 1
-     *      1: Refining using golden hammer failed
-     *    3:
-     *      1: Item is not upgradable
-     *      2: 2 upgrade increases have been used already
-     *      3: You can't vicious hammer non-horntail necklace
-     * @param upgradesLeft amount of upgrades left. NOTE: ((v9 >> 8) & 0xFF) - v9 + 2) (where v9 = upgradesLeft)
+     *            when returnResult is:
+     *            0 or 1:
+     *            Anything: Golden hammer refinement applied
+     *            2:
+     *            0: Increased available upgrade by 1
+     *            1: Refining using golden hammer failed
+     *            3:
+     *            1: Item is not upgradable
+     *            2: 2 upgrade increases have been used already
+     *            3: You can't vicious hammer non-horntail necklace
+     * @param upgradesLeft
+     *            amount of upgrades left. NOTE: ((v9 >> 8) & 0xFF) - v9 + 2) (where v9 = upgradesLeft)
      * @return the created packet
      */
     public static OutPacket goldHammerItemUpgradeResult(GoldHammerResult returnResult, int result, int upgradesLeft) {
@@ -1060,7 +1064,7 @@ public class WvsContext {
         if (returnResult.equals(GoldHammerResult.Success)) {
             outPacket.encodeInt(upgradesLeft);
         }
-        
+
         return outPacket;
     }
 
@@ -1092,7 +1096,7 @@ public class WvsContext {
         switch (prType) {
             case Success:
                 outPacket.encodeString(targetChr.getName());
-                outPacket.encodeByte(inc); // true = fame  |  false = defame
+                outPacket.encodeByte(inc); // true = fame | false = defame
                 outPacket.encodeInt(newFame);
                 break;
 
@@ -1104,7 +1108,7 @@ public class WvsContext {
 
             case Notify:
                 outPacket.encodeString(targetChr.getName());
-                outPacket.encodeByte(inc); // true = fame  |  false = defame
+                outPacket.encodeByte(inc); // true = fame | false = defame
                 break;
         }
 
@@ -1150,8 +1154,7 @@ public class WvsContext {
                 outPacket.encodeInt(image.length);
                 outPacket.encodeArr(image);
             }
-        } else if (notificationType == AntiMacro.AntiMacroResultType.AntiMacroRes_Fail.getVal() ||
-                notificationType == AntiMacro.AntiMacroResultType.AntiMacroRes_Success.getVal()) {
+        } else if (notificationType == AntiMacro.AntiMacroResultType.AntiMacroRes_Fail.getVal() || notificationType == AntiMacro.AntiMacroResultType.AntiMacroRes_Success.getVal()) {
             outPacket.encodeString(""); // unused?
         }
 

@@ -9,7 +9,8 @@ public class StatPair {
     private Stat statFlag;
     private int value;
 
-    public StatPair() {}
+    public StatPair() {
+    }
 
     public StatPair(Stat statFlag, int value) {
         this.statFlag = statFlag;

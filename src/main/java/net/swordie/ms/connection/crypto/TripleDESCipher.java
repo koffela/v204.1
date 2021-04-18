@@ -5,7 +5,6 @@ import javax.crypto.spec.SecretKeySpec;
 import java.security.Key;
 
 /**
- *
  * @author PacketBakery
  */
 public class TripleDESCipher {

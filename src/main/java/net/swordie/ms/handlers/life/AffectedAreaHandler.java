@@ -11,7 +11,6 @@ public class AffectedAreaHandler {
 
     private static final Logger log = Logger.getLogger(AffectedAreaHandler.class);
 
-
     @Handler(op = InHeader.USER_AFFECTED_AREA_REMOVE_BY_TIME)
     public static void handleUserAffectedAreaRemoveByTime(Char chr, InPacket inPacket) {
         int skillID = inPacket.decodeInt();

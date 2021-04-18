@@ -31,7 +31,6 @@ public class SummonedHandler {
         }
     }
 
-
     @Handler(op = InHeader.SUMMONED_REMOVE)
     public static void handleSummonedRemove(Client c, InPacket inPacket) {
         int id = inPacket.decodeInt();
@@ -41,10 +40,7 @@ public class SummonedHandler {
         if (summon == null) {
             return;
         }
-        if (summon.getSkillID() == BattleMage.CONDEMNATION
-                || summon.getSkillID() == BattleMage.CONDEMNATION_I
-                || summon.getSkillID() == BattleMage.CONDEMNATION_II
-                || summon.getSkillID() == BattleMage.CONDEMNATION_III) {
+        if (summon.getSkillID() == BattleMage.CONDEMNATION || summon.getSkillID() == BattleMage.CONDEMNATION_I || summon.getSkillID() == BattleMage.CONDEMNATION_II || summon.getSkillID() == BattleMage.CONDEMNATION_III) {
 
             ((BattleMage) chr.getJobHandler()).removeCondemnationBuff(summon);
         }

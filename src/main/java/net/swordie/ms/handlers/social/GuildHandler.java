@@ -115,8 +115,7 @@ public class GuildHandler {
                 guild = chr.getClient().getWorld().getGuildByID(guildID);
                 if (guild != null && chr.getGuild() == null) {
                     guild.addMember(chr);
-                    guild.broadcast(WvsContext.guildResult(
-                            GuildResult.joinGuild(guild, guild.getMemberByCharID(chr.getId()))));
+                    guild.broadcast(WvsContext.guildResult(GuildResult.joinGuild(guild, guild.getMemberByCharID(chr.getId()))));
                     chr.write(WvsContext.guildResult(GuildResult.loadGuild(guild)));
                 } else {
                     chr.write(WvsContext.guildResult(GuildResult.msg(GuildType.Res_CreateNewGuild_AlreadyJoined)));
@@ -237,21 +236,18 @@ public class GuildHandler {
                     int spentSp = guild.getSpentSp();
                     if (SkillConstants.isGuildContentSkill(skillID)) {
                         if (spentSp >= guild.getLevel() * 2) {
-                            chr.getOffenseManager().addOffense(String.format("Character %d tried to add a guild skill without enough sp (spent %d, level %d).",
-                                    chr.getId(), spentSp, guild.getLevel()));
+                            chr.getOffenseManager().addOffense(String.format("Character %d tried to add a guild skill without enough sp (spent %d, level %d).", chr.getId(), spentSp, guild.getLevel()));
                             chr.write(WvsContext.guildResult(GuildResult.msg(GuildType.Res_SetSkill_LevelSet_Unknown)));
                             return;
                         }
                     } else if (guild.getBattleSp() - guild.getSpentBattleSp() <= 0) { // Noblesse
-                        chr.getOffenseManager().addOffense(String.format("Character %d tried to add a guild battle skill without enough sp (spent %d).",
-                                chr.getId(), guild.getSpentSp()));
+                        chr.getOffenseManager().addOffense(String.format("Character %d tried to add a guild battle skill without enough sp (spent %d).", chr.getId(), guild.getSpentSp()));
                         chr.write(WvsContext.guildResult(GuildResult.msg(GuildType.Res_SetSkill_LevelSet_Unknown)));
                         return;
                     }
                     SkillInfo si = SkillData.getSkillInfoById(skillID);
                     if (spentSp < si.getReqTierPoint()) {
-                        chr.getOffenseManager().addOffense(String.format("Character %d tried to add a guild skill without enough sp spent (spent %d, needed %d).",
-                                chr.getId(), spentSp, si.getReqTierPoint()));
+                        chr.getOffenseManager().addOffense(String.format("Character %d tried to add a guild skill without enough sp spent (spent %d, needed %d).", chr.getId(), spentSp, si.getReqTierPoint()));
                         chr.write(WvsContext.guildResult(GuildResult.msg(GuildType.Res_SetSkill_LevelSet_Unknown)));
                         return;
                     }
@@ -260,9 +256,7 @@ public class GuildHandler {
                         int reqSlv = entry.getValue();
                         GuildSkill gs = guild.getSkillById(skillID);
                         if (gs == null || gs.getLevel() < reqSlv) {
-                            chr.getOffenseManager().addOffense(String.format("Character %d tried to add a guild skill without having the required " +
-                                            "skill first (req id %d, needed %d, has %d).",
-                                    chr.getId(), reqSkillID, reqSlv, gs == null ? 0 : gs.getLevel()));
+                            chr.getOffenseManager().addOffense(String.format("Character %d tried to add a guild skill without having the required " + "skill first (req id %d, needed %d, has %d).", chr.getId(), reqSkillID, reqSlv, gs == null ? 0 : gs.getLevel()));
                             chr.write(WvsContext.guildResult(GuildResult.msg(GuildType.Res_SetSkill_LevelSet_Unknown)));
                             return;
                         }
@@ -285,14 +279,12 @@ public class GuildHandler {
                 } else {
                     GuildSkill gs = guild.getSkillById(skillID);
                     if (gs == null || gs.getLevel() == 0) {
-                        chr.getOffenseManager().addOffense(String.format("Character %d tried to decrement a guild skill without that skill existing (id %d).",
-                                chr.getId(), skillID));
+                        chr.getOffenseManager().addOffense(String.format("Character %d tried to decrement a guild skill without that skill existing (id %d).", chr.getId(), skillID));
                         chr.write(WvsContext.guildResult(GuildResult.msg(GuildType.Res_SetSkill_LevelSet_Unknown)));
                         return;
                     }
                     if (guild.getGgp() < GameConstants.GGP_FOR_SKILL_RESET) {
-                        chr.getOffenseManager().addOffense(String.format("Character %d tried to decrement a guild skill without having enough GGP (needed %d, has %d).",
-                                chr.getId(), GameConstants.GGP_FOR_SKILL_RESET, guild.getGgp()));
+                        chr.getOffenseManager().addOffense(String.format("Character %d tried to decrement a guild skill without having enough GGP (needed %d, has %d).", chr.getId(), GameConstants.GGP_FOR_SKILL_RESET, guild.getGgp()));
                         chr.write(WvsContext.guildResult(GuildResult.msg(GuildType.Res_SetSkill_LevelSet_Unknown)));
                         return;
                     }
@@ -318,8 +310,7 @@ public class GuildHandler {
                 }
                 GuildSkill gs = guild.getSkillById(skillID);
                 if (gs == null || gs.getLevel() == 0) {
-                    chr.getOffenseManager().addOffense(String.format("Character %d tried to use a guild skill without having it (id %d).",
-                            chr.getId(), skillID));
+                    chr.getOffenseManager().addOffense(String.format("Character %d tried to use a guild skill without having it (id %d).", chr.getId(), skillID));
                     chr.write(WvsContext.guildResult(GuildResult.msg(GuildType.Res_SetSkill_LevelSet_Unknown)));
                     return;
                 }
@@ -486,10 +477,7 @@ public class GuildHandler {
                 break;
             case Req_LoadPages:
                 int page = inPacket.decodeInt();
-                List<BBSRecord> records = guild.getBbsRecords()
-                        .stream()
-                        .sorted(Comparator.comparingInt(BBSRecord::getIdForBbs))
-                        .collect(Collectors.toList());
+                List<BBSRecord> records = guild.getBbsRecords().stream().sorted(Comparator.comparingInt(BBSRecord::getIdForBbs)).collect(Collectors.toList());
                 final int PAGE_SIZE = GameConstants.GUILD_BBS_RECORDS_PER_PAGE;
                 if (page != 0 && page * PAGE_SIZE >= records.size()) {
                     chr.chatMessage("No more BBS records to show.");

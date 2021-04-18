@@ -59,7 +59,7 @@ public class GameConstants {
     public static final int COMBO_KILL_REWARD_RED = 750; // Combo kills
 
     // Multi Kill
-    public static final float MULTI_KILL_BONUS_EXP_MULTIPLIER = 0.01f; // Multi Kill Bonus Exp given  =  mobEXP * (( multi Kill Amount - 2 ) * 5) * BONUS_EXP_FOR_MULTI_KILL
+    public static final float MULTI_KILL_BONUS_EXP_MULTIPLIER = 0.01f; // Multi Kill Bonus Exp given = mobEXP * (( multi Kill Amount - 2 ) * 5) * BONUS_EXP_FOR_MULTI_KILL
 
     // Inner Ability
     public static final int CHAR_POT_BASE_ID = 70000000;
@@ -90,11 +90,11 @@ public class GameConstants {
     };
 
     // BurningField
-    public static final int BURNING_FIELD_MAX_LEVEL = 10; //Maximum Burning Field Level
-    public static final int BURNING_FIELD_LEVEL_ON_START = BURNING_FIELD_MAX_LEVEL; //Starts Burning Maps at BurningLevel 10
+    public static final int BURNING_FIELD_MAX_LEVEL = 10; // Maximum Burning Field Level
+    public static final int BURNING_FIELD_LEVEL_ON_START = BURNING_FIELD_MAX_LEVEL; // Starts Burning Maps at BurningLevel 10
     public static final int BURNING_FIELD_TIMER = 10; // minutes
-    public static final int BURNING_FIELD_MIN_MOB_LEVEL = 0; //Minimum Mob Level for the Field to become a Burning Field
-    public static final int BURNING_FIELD_BONUS_EXP_MULTIPLIER_PER_LEVEL = 10; // multiplied by the BurningField Level  =  Bonus Exp% given
+    public static final int BURNING_FIELD_MIN_MOB_LEVEL = 0; // Minimum Mob Level for the Field to become a Burning Field
+    public static final int BURNING_FIELD_BONUS_EXP_MULTIPLIER_PER_LEVEL = 10; // multiplied by the BurningField Level = Bonus Exp% given
 
     // Exp Orb
     public static final int BLUE_EXP_ORB_ID = 2023484;
@@ -114,8 +114,8 @@ public class GameConstants {
     public static final int ELITE_MOB_SPAWN_CHANCE = 5; // out of a 1000
     public static final int ELITE_MOB_DARK_NOTIFICATION = 17;
     public static final int ELITE_BOSS_REQUIRED_KILLS = 20;
-    public static final Integer[] ELITE_BOSS_TEMPLATES = new Integer[]{9303130, 9303131, 9303132, 9303133, 9303134, // 2 types, easy/hard I think
-            9303135, 9303136, 9303137, 9303138, 9303139};
+    public static final Integer[] ELITE_BOSS_TEMPLATES = new Integer[] { 9303130, 9303131, 9303132, 9303133, 9303134, // 2 types, easy/hard I think
+            9303135, 9303136, 9303137, 9303138, 9303139 };
     public static final String ELITE_BOSS_BGM = "Bgm45/Anthem For Heroes";
     public static final long ELITE_BOSS_HP_RATE = 500; // multiplier for boss' hp compared to the mobs on the map
 
@@ -137,7 +137,7 @@ public class GameConstants {
     public static final long PARTY_QUEST_GLOBAL_EXP = 30000000; // The minimum amount of Exp given from a PQ.
 
     public static final long PARTY_QUEST_EXP_FORMULA(Char chr) {
-        return PARTY_QUEST_GLOBAL_EXP * (1+(chr.getParty().getPartyMembers().length*100 / chr.getParty().getAvgLevel()));
+        return PARTY_QUEST_GLOBAL_EXP * (1 + (chr.getParty().getPartyMembers().length * 100 / chr.getParty().getAvgLevel()));
     } // Exp formula for giving Exp from Party Quests
 
     // Dojo
@@ -148,17 +148,17 @@ public class GameConstants {
     public static final byte MAX_MONSTER_PARK_RUNS = 7; // Max Monster Park runs per character
     public static final int MONSTER_PARK_EXP_QUEST = 99999; // Quest where the Exp for MP runs gets stored.
     public static final int MONSTER_PARK_ENTRANCE_CHECK_QUEST = 99997; // Quest where the Number of MP runs are stored
-    public static final int MONSTER_PARK_TIME = 10  *60; // 10minutes
+    public static final int MONSTER_PARK_TIME = 10 * 60; // 10minutes
 
     // Lord Pirate Party Quest
     public static final int LORD_PIRATE_QUEST = 99998; // Quest where the NPC state is stored, to close/open portals
 
     // END OF Party Quests
 
-    //Boss QR Values
+    // Boss QR Values
     public static final int EASY_HORNTAIL_QUEST = 99996; // Quest where the Spawn state of horntail's heads is stored
-    public static final int EASY_HILLA_QUEST = 99995; //Quest where the state of hilla portals is stored
-    public static final int ARKARIUM_QUEST = 99994; //Quest wehre difficulty of arkarium is stored
+    public static final int EASY_HILLA_QUEST = 99995; // Quest where the state of hilla portals is stored
+    public static final int ARKARIUM_QUEST = 99994; // Quest wehre difficulty of arkarium is stored
     // Trading
     public static final int MAX_TRADE_ITEMS = 9;
 
@@ -188,11 +188,11 @@ public class GameConstants {
     // Skills
     public static final int TIME_LEAP_QR_KEY = 99996; // Quest where personal Time Leap CDs get stored
 
-    //Merchant
+    // Merchant
     public static final int MAX_MERCHANT_VISITORS = 6;
     public static final int MAX_MERCHANT_SLOTS = 16;
 
-    //Inventory
+    // Inventory
     public static final int MAX_INVENTORY_SLOTS = 128;
 
     public static final int SILENT_CRUSADE_BOSS_COOLDOWN = 240; // minutes between silent crusade attempts (240 min = 4 hours)
@@ -222,31 +222,31 @@ public class GameConstants {
             // first array = per job
             // then a list of tuples (minHP, maxHP, minMP, maxMP, randMP)
             // 1st value is for levelup, 2nd for assigning sp
-                    {{12, 16}, {0, 10}, {12, 0}, {8, 12}, {0, 6}, {8, 15}},// 0
-                    {{64, 68}, {0, 4}, {6, 0}, {50, 54}, {0, 2}, {4, 15}},// 1
-                    {{10, 14}, {0, 22}, {24, 0}, {6, 10}, {0, 18}, {20, 15}},// 2
-                    {{20, 24}, {0, 14}, {16, 0}, {16, 20}, {0, 10}, {12, 15}},// 3
-                    {{20, 24}, {0, 14}, {16, 0}, {16, 20}, {0, 10}, {12, 15}},// 4
-                    {{22, 26}, {0, 18}, {22, 0}, {18, 20}, {0, 14}, {16, 15}},// 5
-                    {{25, 29}, {0, 18}, {22, 0}, {28, 30}, {0, 14}, {16, 15}},// 6
-                    {{20, 24}, {0, 14}, {16, 20}, {16, 20}, {0, 10}, {12, 15}},// 7
-                    {{44, 48}, {0, 4}, {8, 0}, {30, 34}, {0, 2}, {4, 15}},// 8 - Aran
-                    {{16, 20}, {0, 35}, {39, 0}, {12, 16}, {0, 21}, {25, 15}},// 9 - Evan
-                    {{20, 24}, {0, 14}, {16, 0}, {16, 20}, {0, 10}, {12, 15}},// 10 - Mercedes
-                    {{16, 20}, {0, 198}, {200, 0}, {12, 16}, {0, 21}, {25, 15}},// 11 - Luminous
-                    {{34, 38}, {0, 22}, {24, 0}, {20, 24}, {0, 18}, {20, 15}},// 12 - Kinesis/BAM
-                    {{20, 24}, {0, 14}, {16, 0}, {16, 20}, {0, 10}, {12, 15}},// 13 - Phantom
-                    {{22, 26}, {0, 18}, {22, 0}, {18, 20}, {0, 14}, {16, 15}},// 14 - Mechanic
-                    {{52, 56}, {0, 0}, {0, 0}, {38, 40}, {0, 0}, {0, 0}},// 15 - Demon Slayer
-                    {{28, 32}, {0, 0}, {0, 0}, {24, 26}, {0, 0}, {0, 0}},// 16 - Angelic Buster
-                    {{30, 30}, {0, 0}, {0, 0}, {30, 30}, {0, 0}, {0, 0}},// 17 - Demon Avanger.
-                    {{20, 24}, {0, 14}, {16, 0}, {16, 20}, {0, 10}, {12, 15}},// 18 - Xenon
-                    {{64, 68}, {0, 0}, {0, 0}, {50, 54}, {0, 0}, {0, 0}},// 19 - Zero
-                    {{44, 48}, {0, 18}, {22, 0}, {30, 34}, {0, 14}, {16, 15}},// 20 - Jett
-                    {{37, 41}, {0, 22}, {24, 0}, {28, 30}, {0, 18}, {20, 0}},// 21 - Cannon
-                    {{44, 48}, {0, 4}, {8, 20}, {34, 38}, {0, 2}, {4, 15}},// 22 - Hayato
-                    {{40, 44}, {0, 0}, {0, 0}, {28, 32}, {0, 0}, {0, 0}},// 23 - Kanna
-            };
+            { { 12, 16 }, { 0, 10 }, { 12, 0 }, { 8, 12 }, { 0, 6 }, { 8, 15 } },// 0
+            { { 64, 68 }, { 0, 4 }, { 6, 0 }, { 50, 54 }, { 0, 2 }, { 4, 15 } },// 1
+            { { 10, 14 }, { 0, 22 }, { 24, 0 }, { 6, 10 }, { 0, 18 }, { 20, 15 } },// 2
+            { { 20, 24 }, { 0, 14 }, { 16, 0 }, { 16, 20 }, { 0, 10 }, { 12, 15 } },// 3
+            { { 20, 24 }, { 0, 14 }, { 16, 0 }, { 16, 20 }, { 0, 10 }, { 12, 15 } },// 4
+            { { 22, 26 }, { 0, 18 }, { 22, 0 }, { 18, 20 }, { 0, 14 }, { 16, 15 } },// 5
+            { { 25, 29 }, { 0, 18 }, { 22, 0 }, { 28, 30 }, { 0, 14 }, { 16, 15 } },// 6
+            { { 20, 24 }, { 0, 14 }, { 16, 20 }, { 16, 20 }, { 0, 10 }, { 12, 15 } },// 7
+            { { 44, 48 }, { 0, 4 }, { 8, 0 }, { 30, 34 }, { 0, 2 }, { 4, 15 } },// 8 - Aran
+            { { 16, 20 }, { 0, 35 }, { 39, 0 }, { 12, 16 }, { 0, 21 }, { 25, 15 } },// 9 - Evan
+            { { 20, 24 }, { 0, 14 }, { 16, 0 }, { 16, 20 }, { 0, 10 }, { 12, 15 } },// 10 - Mercedes
+            { { 16, 20 }, { 0, 198 }, { 200, 0 }, { 12, 16 }, { 0, 21 }, { 25, 15 } },// 11 - Luminous
+            { { 34, 38 }, { 0, 22 }, { 24, 0 }, { 20, 24 }, { 0, 18 }, { 20, 15 } },// 12 - Kinesis/BAM
+            { { 20, 24 }, { 0, 14 }, { 16, 0 }, { 16, 20 }, { 0, 10 }, { 12, 15 } },// 13 - Phantom
+            { { 22, 26 }, { 0, 18 }, { 22, 0 }, { 18, 20 }, { 0, 14 }, { 16, 15 } },// 14 - Mechanic
+            { { 52, 56 }, { 0, 0 }, { 0, 0 }, { 38, 40 }, { 0, 0 }, { 0, 0 } },// 15 - Demon Slayer
+            { { 28, 32 }, { 0, 0 }, { 0, 0 }, { 24, 26 }, { 0, 0 }, { 0, 0 } },// 16 - Angelic Buster
+            { { 30, 30 }, { 0, 0 }, { 0, 0 }, { 30, 30 }, { 0, 0 }, { 0, 0 } },// 17 - Demon Avanger.
+            { { 20, 24 }, { 0, 14 }, { 16, 0 }, { 16, 20 }, { 0, 10 }, { 12, 15 } },// 18 - Xenon
+            { { 64, 68 }, { 0, 0 }, { 0, 0 }, { 50, 54 }, { 0, 0 }, { 0, 0 } },// 19 - Zero
+            { { 44, 48 }, { 0, 18 }, { 22, 0 }, { 30, 34 }, { 0, 14 }, { 16, 15 } },// 20 - Jett
+            { { 37, 41 }, { 0, 22 }, { 24, 0 }, { 28, 30 }, { 0, 18 }, { 20, 0 } },// 21 - Cannon
+            { { 44, 48 }, { 0, 4 }, { 8, 20 }, { 34, 38 }, { 0, 2 }, { 4, 15 } },// 22 - Hayato
+            { { 40, 44 }, { 0, 0 }, { 0, 0 }, { 28, 32 }, { 0, 0 }, { 0, 0 } },// 23 - Kanna
+    };
     static {
         initCharExp();
         initEnchantRates();
@@ -257,31 +257,19 @@ public class GameConstants {
 
     private static void initQuickMove() {
         quickMoveInfos = new ArrayList<>();
-        quickMoveInfos.add(new QuickMoveInfo(0, 9072302, QuickMoveType.Boat, 1, "Warping", false,
-                FileTime.fromType(FileTime.Type.ZERO_TIME), FileTime.fromType(FileTime.Type.MAX_TIME)));
-        quickMoveInfos.add(new QuickMoveInfo(0, 9010022, QuickMoveType.DimensionalPortal, 1, "Dimensional Portal", false,
-                FileTime.fromType(FileTime.Type.ZERO_TIME), FileTime.fromType(FileTime.Type.MAX_TIME)));
-        quickMoveInfos.add(new QuickMoveInfo(0, 9071003, QuickMoveType.MonsterPark, 1, "Monster Park", false,
-                FileTime.fromType(FileTime.Type.ZERO_TIME), FileTime.fromType(FileTime.Type.MAX_TIME)));
-        quickMoveInfos.add(new QuickMoveInfo(0, 1012124, QuickMoveType.FreeMarket, 1, "Free Market", false,
-                FileTime.fromType(FileTime.Type.ZERO_TIME), FileTime.fromType(FileTime.Type.MAX_TIME)));
-        quickMoveInfos.add(new QuickMoveInfo(0, 9400302, QuickMoveType.BigHeadward, 1, "Change Hair", false,
-                FileTime.fromType(FileTime.Type.ZERO_TIME), FileTime.fromType(FileTime.Type.MAX_TIME)));
+        quickMoveInfos.add(new QuickMoveInfo(0, 9072302, QuickMoveType.Boat, 1, "Warping", false, FileTime.fromType(FileTime.Type.ZERO_TIME), FileTime.fromType(FileTime.Type.MAX_TIME)));
+        quickMoveInfos.add(new QuickMoveInfo(0, 9010022, QuickMoveType.DimensionalPortal, 1, "Dimensional Portal", false, FileTime.fromType(FileTime.Type.ZERO_TIME), FileTime.fromType(FileTime.Type.MAX_TIME)));
+        quickMoveInfos.add(new QuickMoveInfo(0, 9071003, QuickMoveType.MonsterPark, 1, "Monster Park", false, FileTime.fromType(FileTime.Type.ZERO_TIME), FileTime.fromType(FileTime.Type.MAX_TIME)));
+        quickMoveInfos.add(new QuickMoveInfo(0, 1012124, QuickMoveType.FreeMarket, 1, "Free Market", false, FileTime.fromType(FileTime.Type.ZERO_TIME), FileTime.fromType(FileTime.Type.MAX_TIME)));
+        quickMoveInfos.add(new QuickMoveInfo(0, 9400302, QuickMoveType.BigHeadward, 1, "Change Hair", false, FileTime.fromType(FileTime.Type.ZERO_TIME), FileTime.fromType(FileTime.Type.MAX_TIME)));
 
-        quickMoveInfos.add(new QuickMoveInfo(0, 1012124, QuickMoveType.Cat, 1, "Cat", false,
-                FileTime.fromType(FileTime.Type.ZERO_TIME), FileTime.fromType(FileTime.Type.MAX_TIME)));
-        quickMoveInfos.add(new QuickMoveInfo(0, 1012124, QuickMoveType.Bunny, 1, "Bunny", false,
-                FileTime.fromType(FileTime.Type.ZERO_TIME), FileTime.fromType(FileTime.Type.MAX_TIME)));
-        quickMoveInfos.add(new QuickMoveInfo(0, 1012124, QuickMoveType.Girl, 1, "Girl", false,
-                FileTime.fromType(FileTime.Type.ZERO_TIME), FileTime.fromType(FileTime.Type.MAX_TIME)));
-        quickMoveInfos.add(new QuickMoveInfo(0, 1012124, QuickMoveType.Announcer, 1, "Announcer", false,
-                FileTime.fromType(FileTime.Type.ZERO_TIME), FileTime.fromType(FileTime.Type.MAX_TIME)));
-        quickMoveInfos.add(new QuickMoveInfo(0, 1012124, QuickMoveType.MobileWoman, 1, "Mobile Woman", false,
-                FileTime.fromType(FileTime.Type.ZERO_TIME), FileTime.fromType(FileTime.Type.MAX_TIME)));
-        quickMoveInfos.add(new QuickMoveInfo(0, 1012124, QuickMoveType.Waitress, 1, "Waitress", false,
-                FileTime.fromType(FileTime.Type.ZERO_TIME), FileTime.fromType(FileTime.Type.MAX_TIME)));
-        quickMoveInfos.add(new QuickMoveInfo(0, 1012124, QuickMoveType.Baret, 1, "Baret", false,
-                FileTime.fromType(FileTime.Type.ZERO_TIME), FileTime.fromType(FileTime.Type.MAX_TIME)));
+        quickMoveInfos.add(new QuickMoveInfo(0, 1012124, QuickMoveType.Cat, 1, "Cat", false, FileTime.fromType(FileTime.Type.ZERO_TIME), FileTime.fromType(FileTime.Type.MAX_TIME)));
+        quickMoveInfos.add(new QuickMoveInfo(0, 1012124, QuickMoveType.Bunny, 1, "Bunny", false, FileTime.fromType(FileTime.Type.ZERO_TIME), FileTime.fromType(FileTime.Type.MAX_TIME)));
+        quickMoveInfos.add(new QuickMoveInfo(0, 1012124, QuickMoveType.Girl, 1, "Girl", false, FileTime.fromType(FileTime.Type.ZERO_TIME), FileTime.fromType(FileTime.Type.MAX_TIME)));
+        quickMoveInfos.add(new QuickMoveInfo(0, 1012124, QuickMoveType.Announcer, 1, "Announcer", false, FileTime.fromType(FileTime.Type.ZERO_TIME), FileTime.fromType(FileTime.Type.MAX_TIME)));
+        quickMoveInfos.add(new QuickMoveInfo(0, 1012124, QuickMoveType.MobileWoman, 1, "Mobile Woman", false, FileTime.fromType(FileTime.Type.ZERO_TIME), FileTime.fromType(FileTime.Type.MAX_TIME)));
+        quickMoveInfos.add(new QuickMoveInfo(0, 1012124, QuickMoveType.Waitress, 1, "Waitress", false, FileTime.fromType(FileTime.Type.ZERO_TIME), FileTime.fromType(FileTime.Type.MAX_TIME)));
+        quickMoveInfos.add(new QuickMoveInfo(0, 1012124, QuickMoveType.Baret, 1, "Baret", false, FileTime.fromType(FileTime.Type.ZERO_TIME), FileTime.fromType(FileTime.Type.MAX_TIME)));
     }
 
     public static List<QuickMoveInfo> getQuickMoveInfos() {
@@ -300,155 +288,154 @@ public class GameConstants {
         charExp[8] = 840;
         charExp[9] = 1242;
         for (int i = 10; i <= 14; i++) {
-            charExp[i] = charExp[i-1];
+            charExp[i] = charExp[i - 1];
         }
-        for(int i = 15; i <= 29; i++) {
-            charExp[i] = (long) (charExp[i-1] * 1.2);
+        for (int i = 15; i <= 29; i++) {
+            charExp[i] = (long) (charExp[i - 1] * 1.2);
         }
-        for(int i = 30; i <= 34; i++) {
-            charExp[i] = charExp[i-1];
+        for (int i = 30; i <= 34; i++) {
+            charExp[i] = charExp[i - 1];
         }
-        for(int i = 35; i <= 39; i++) {
-            charExp[i] = (long) (charExp[i-1] * 1.2);
+        for (int i = 35; i <= 39; i++) {
+            charExp[i] = (long) (charExp[i - 1] * 1.2);
         }
-        for(int i = 40; i <= 59; i++) {
-            charExp[i] = (long) (charExp[i-1] * 1.08);
+        for (int i = 40; i <= 59; i++) {
+            charExp[i] = (long) (charExp[i - 1] * 1.08);
         }
-        for(int i = 60; i <= 64; i++) {
-            charExp[i] = charExp[i-1];
+        for (int i = 60; i <= 64; i++) {
+            charExp[i] = charExp[i - 1];
         }
-        for(int i = 65; i <= 74; i++) {
-            charExp[i] = (long) (charExp[i-1] * 1.075);
+        for (int i = 65; i <= 74; i++) {
+            charExp[i] = (long) (charExp[i - 1] * 1.075);
         }
-        for(int i = 75; i <= 89; i++) {
-            charExp[i] = (long) (charExp[i-1] * 1.07);
+        for (int i = 75; i <= 89; i++) {
+            charExp[i] = (long) (charExp[i - 1] * 1.07);
         }
-        for(int i = 90; i <= 99; i++) {
-            charExp[i] = (long) (charExp[i-1] * 1.065);
+        for (int i = 90; i <= 99; i++) {
+            charExp[i] = (long) (charExp[i - 1] * 1.065);
         }
-        for(int i = 100; i <= 104; i++) {
-            charExp[i] = charExp[i-1];
+        for (int i = 100; i <= 104; i++) {
+            charExp[i] = charExp[i - 1];
         }
-        for(int i = 105; i <= 139; i++) {
-            charExp[i] = (long) (charExp[i-1] * 1.065);
+        for (int i = 105; i <= 139; i++) {
+            charExp[i] = (long) (charExp[i - 1] * 1.065);
         }
-        for(int i = 140; i <= 179; i++) {
-            charExp[i] = (long) (charExp[i-1] * 1.0625);
+        for (int i = 140; i <= 179; i++) {
+            charExp[i] = (long) (charExp[i - 1] * 1.0625);
         }
-        for(int i = 180; i <= 199; i++) {
-            charExp[i] = (long) (charExp[i-1] * 1.06);
+        for (int i = 180; i <= 199; i++) {
+            charExp[i] = (long) (charExp[i - 1] * 1.06);
         }
         // level 200
         charExp[200] = 2207026470L;
-        for(int i = 201; i <= 209; i++) {
-            charExp[i] = (long) (charExp[i-1] * 1.12);
+        for (int i = 201; i <= 209; i++) {
+            charExp[i] = (long) (charExp[i - 1] * 1.12);
         }
 
         // level 210
         charExp[210] = (long) (charExp[209] * 1.375 * 2);
-        for(int i = 211; i <= 219; i++) {
-            charExp[i] = (long) (charExp[i-1] * 1.08);
+        for (int i = 211; i <= 219; i++) {
+            charExp[i] = (long) (charExp[i - 1] * 1.08);
         }
 
         // level 220
         charExp[220] = 84838062013L;
-        for(int i = 221; i <= 229; i++) {
-            charExp[i] = (long) (charExp[i-1] * 1.04);
+        for (int i = 221; i <= 229; i++) {
+            charExp[i] = (long) (charExp[i - 1] * 1.04);
         }
 
         // level 230
         charExp[230] = (long) (charExp[229] * 1.02 * 2);
-        for(int i = 231; i <= 239; i++) {
-            charExp[i] = (long) (charExp[i-1] * 1.02);
+        for (int i = 231; i <= 239; i++) {
+            charExp[i] = (long) (charExp[i - 1] * 1.02);
         }
 
         // level 240
         charExp[240] = (long) (charExp[239] * 1.01 * 2);
-        for(int i = 241; i <= 249; i++) {
-            charExp[i] = (long) (charExp[i-1] * 1.01);
+        for (int i = 241; i <= 249; i++) {
+            charExp[i] = (long) (charExp[i - 1] * 1.01);
         }
 
         // level 250
         charExp[250] = (long) (charExp[249] * 1.01 * 2);
-        for(int i = 251; i <= 259; i++) {
-            charExp[i] = (long) (charExp[i-1] * 1.01);
+        for (int i = 251; i <= 259; i++) {
+            charExp[i] = (long) (charExp[i - 1] * 1.01);
         }
 
         // level 260
         charExp[260] = (long) (charExp[259] * 1.01 * 2);
-        for(int i = 261; i <= 269; i++) {
-            charExp[i] = (long) (charExp[i-1] * 1.01);
+        for (int i = 261; i <= 269; i++) {
+            charExp[i] = (long) (charExp[i - 1] * 1.01);
         }
 
         // level 260
         charExp[270] = (long) (charExp[269] * 1.01 * 2);
-        for(int i = 271; i <= 274; i++) {
-            charExp[i] = (long) (charExp[i-1] * 1.01);
+        for (int i = 271; i <= 274; i++) {
+            charExp[i] = (long) (charExp[i - 1] * 1.01);
         }
     }
 
     public static int getMaxStars(Equip equip) {
         int level = equip.getrLevel() + equip.getiIncReq();
-        int stars = Arrays.stream(equip.isSuperiorEqp() ? STARFORCE_LEVELS_SUPERIOR : STARFORCE_LEVELS)
-                .filter(lv -> level <= lv[0]).findFirst().get()[1];
+        int stars = Arrays.stream(equip.isSuperiorEqp() ? STARFORCE_LEVELS_SUPERIOR : STARFORCE_LEVELS).filter(lv -> level <= lv[0]).findFirst().get()[1];
         return stars != -1 ? stars : ItemConstants.getItemStarLimit(equip.getItemId());
     }
 
     private static void initEnchantRates() {
         // kms rates: success / destroy
         // out of 1000
-        enchantSuccessRates = new int[][]{
-                {950, 0},
-                {900, 0},
-                {850, 0},
-                {850, 0},
-                {800, 0},
+        enchantSuccessRates = new int[][] {
+                { 950, 0 },
+                { 900, 0 },
+                { 850, 0 },
+                { 850, 0 },
+                { 800, 0 },
 
-                {750, 0},
-                {700, 0},
-                {650, 0},
-                {600, 0},
-                {550, 0},
+                { 750, 0 },
+                { 700, 0 },
+                { 650, 0 },
+                { 600, 0 },
+                { 550, 0 },
 
-                {450, 0},
-                {350, 0},
-                {300, 7},
-                {300, 14},
-                {300, 14},
+                { 450, 0 },
+                { 350, 0 },
+                { 300, 7 },
+                { 300, 14 },
+                { 300, 14 },
 
-                {300, 21},
-                {300, 21},
-                {300, 21},
-                {300, 28},
-                {300, 28},
+                { 300, 21 },
+                { 300, 21 },
+                { 300, 21 },
+                { 300, 28 },
+                { 300, 28 },
 
-                {300, 70},
-                {300, 70},
-                {30, 194},
-                {20, 294},
-                {10, 396},
+                { 300, 70 },
+                { 300, 70 },
+                { 30, 194 },
+                { 20, 294 },
+                { 10, 396 },
         };
     }
 
     private static void initEnchantRatesSuperior() {
-        enchantSuccessRatesSuperior = new int[][]{
-                {500, 0},
-                {500, 0},
-                {450, 0},
-                {400, 0},
-                {400, 0},
+        enchantSuccessRatesSuperior = new int[][] {
+                { 500, 0 },
+                { 500, 0 },
+                { 450, 0 },
+                { 400, 0 },
+                { 400, 0 },
 
-                {400, 18},
-                {400, 30},
-                {400, 42},
-                {400, 60},
-                {370, 95},
+                { 400, 18 },
+                { 400, 30 },
+                { 400, 42 },
+                { 400, 60 },
+                { 370, 95 },
 
-                {350, 130},
-                {350, 162},
-                {30, 485},
-                {20, 490},
-                {10, 500},
+                { 350, 130 },
+                { 350, 162 },
+                { 30, 485 },
+                { 20, 490 },
+                { 10, 500 },
         };
     }
 
@@ -462,7 +449,8 @@ public class GameConstants {
     public static long getEnchantmentMesoCost(int reqLevel, int chuc, boolean superior) {
         if (superior) {
             return (long) Math.pow(reqLevel, 3.56);
-        } if (chuc < 10) {
+        }
+        if (chuc < 10) {
             return (long) (1000 + Math.pow(reqLevel, 3) * (chuc + 1) / 25);
         } else if (chuc < 15) {
             return (long) (1000 + Math.pow(reqLevel, 3) * Math.pow(chuc + 1, 2.7) / 400);
@@ -476,7 +464,7 @@ public class GameConstants {
             return 1000;
         }
         int chuc = equip.getChuc();
-        if(chuc < 0 || chuc > 24) {
+        if (chuc < 0 || chuc > 24) {
             return 0;
         } else if (equip.isSuperiorEqp()) {
             return enchantSuccessRatesSuperior[chuc][0];
@@ -490,7 +478,7 @@ public class GameConstants {
             return 0;
         }
         int chuc = equip.getChuc();
-        if(chuc < 0 || chuc > 24) {
+        if (chuc < 0 || chuc > 24) {
             return 0;
         } else if (equip.isSuperiorEqp()) {
             return enchantSuccessRatesSuperior[chuc][1];
@@ -620,25 +608,13 @@ public class GameConstants {
     }
 
     public static BaseStat getMainStatForJob(short job) {
-        if (JobConstants.isBeginnerJob(job) || JobConstants.isBuccaneer(job) || JobConstants.isAdventurerPirate(job)
-                || JobConstants.isPinkBean(job) || JobConstants.isDawnWarrior(job) || JobConstants.isKaiser(job)
-                || JobConstants.isZero(job) || JobConstants.isDemon(job)
-                || JobConstants.isDemonSlayer(job) || JobConstants.isAran(job) || JobConstants.isCannonShooter(job)
-            || JobConstants.isDarkKnight(job) || JobConstants.isHero(job) || JobConstants.isPage(job)
-            || JobConstants.isBlaster(job) || JobConstants.isHayato(job) || JobConstants.isMihile(job)
-            || JobConstants.isShade(job) || JobConstants.isThunderBreaker(job) || JobConstants.isAdventurerWarrior(job)) {
+        if (JobConstants.isBeginnerJob(job) || JobConstants.isBuccaneer(job) || JobConstants.isAdventurerPirate(job) || JobConstants.isPinkBean(job) || JobConstants.isDawnWarrior(job) || JobConstants.isKaiser(job) || JobConstants.isZero(job) || JobConstants.isDemon(job) || JobConstants.isDemonSlayer(job) || JobConstants.isAran(job) || JobConstants.isCannonShooter(job) || JobConstants.isDarkKnight(job) || JobConstants.isHero(job) || JobConstants.isPage(job) || JobConstants.isBlaster(job) || JobConstants.isHayato(job) || JobConstants.isMihile(job) || JobConstants.isShade(job) || JobConstants.isThunderBreaker(job) || JobConstants.isAdventurerWarrior(job)) {
             return BaseStat.str;
-        } else if (JobConstants.isJett(job) || JobConstants.isCorsair(job) || JobConstants.isWildHunter(job)
-                || JobConstants.isMercedes(job) || JobConstants.isAngelicBuster(job) || JobConstants.isWindArcher(job)
-                || JobConstants.isAdventurerArcher(job)) {
+        } else if (JobConstants.isJett(job) || JobConstants.isCorsair(job) || JobConstants.isWildHunter(job) || JobConstants.isMercedes(job) || JobConstants.isAngelicBuster(job) || JobConstants.isWindArcher(job) || JobConstants.isAdventurerArcher(job)) {
             return BaseStat.dex;
-        } else if (JobConstants.isBeastTamer(job) || JobConstants.isBlazeWizard(job) || JobConstants.isCleric(job)
-                || JobConstants.isEvan(job) || JobConstants.isIceLightning(job) || JobConstants.isFirePoison(job)
-                || JobConstants.isAdventurerMage(job) || JobConstants.isKanna(job) || JobConstants.isKinesis(job)
-                || JobConstants.isLuminous(job)) {
+        } else if (JobConstants.isBeastTamer(job) || JobConstants.isBlazeWizard(job) || JobConstants.isCleric(job) || JobConstants.isEvan(job) || JobConstants.isIceLightning(job) || JobConstants.isFirePoison(job) || JobConstants.isAdventurerMage(job) || JobConstants.isKanna(job) || JobConstants.isKinesis(job) || JobConstants.isLuminous(job)) {
             return BaseStat.inte;
-        } else if (JobConstants.isAdventurerThief(job) || JobConstants.isNightLord(job) || JobConstants.isShadower(job)
-                || JobConstants.isPhantom(job) || JobConstants.isNightWalker(job) || JobConstants.isDualBlade(job)) {
+        } else if (JobConstants.isAdventurerThief(job) || JobConstants.isNightLord(job) || JobConstants.isShadower(job) || JobConstants.isPhantom(job) || JobConstants.isNightWalker(job) || JobConstants.isDualBlade(job)) {
             return BaseStat.luk;
         } else if (JobConstants.isDemonAvenger(job)) {
             return BaseStat.mhp;
@@ -648,30 +624,19 @@ public class GameConstants {
 
     public static ItemJob getItemJobByJob(int jobArg) {
         short job = (short) jobArg;
-        if (JobConstants.isPinkBean(job) || JobConstants.isDawnWarrior(job) || JobConstants.isKaiser(job)
-                || JobConstants.isZero(job) || JobConstants.isDemon(job) || JobConstants.isDemonSlayer(job)
-                || JobConstants.isAran(job) || JobConstants.isDarkKnight(job) || JobConstants.isHero(job)
-                || JobConstants.isPage(job) || JobConstants.isBlaster(job) || JobConstants.isHayato(job)
-                || JobConstants.isMihile(job) || JobConstants.isAdventurerWarrior(job)) {
+        if (JobConstants.isPinkBean(job) || JobConstants.isDawnWarrior(job) || JobConstants.isKaiser(job) || JobConstants.isZero(job) || JobConstants.isDemon(job) || JobConstants.isDemonSlayer(job) || JobConstants.isAran(job) || JobConstants.isDarkKnight(job) || JobConstants.isHero(job) || JobConstants.isPage(job) || JobConstants.isBlaster(job) || JobConstants.isHayato(job) || JobConstants.isMihile(job) || JobConstants.isAdventurerWarrior(job)) {
             return ItemJob.WARRIOR;
         }
-        if (JobConstants.isWildHunter(job) || JobConstants.isMercedes(job) || JobConstants.isWindArcher(job) ||
-                JobConstants.isAdventurerArcher(job)) {
+        if (JobConstants.isWildHunter(job) || JobConstants.isMercedes(job) || JobConstants.isWindArcher(job) || JobConstants.isAdventurerArcher(job)) {
             return ItemJob.BOWMAN;
         }
-        if (JobConstants.isBeastTamer(job) || JobConstants.isBlazeWizard(job) || JobConstants.isCleric(job)
-                || JobConstants.isEvan(job) || JobConstants.isIceLightning(job) || JobConstants.isFirePoison(job)
-                || JobConstants.isAdventurerMage(job) || JobConstants.isKanna(job) || JobConstants.isBlazeWizard(job)
-                || JobConstants.isKinesis(job) || JobConstants.isLuminous(job)) {
+        if (JobConstants.isBeastTamer(job) || JobConstants.isBlazeWizard(job) || JobConstants.isCleric(job) || JobConstants.isEvan(job) || JobConstants.isIceLightning(job) || JobConstants.isFirePoison(job) || JobConstants.isAdventurerMage(job) || JobConstants.isKanna(job) || JobConstants.isBlazeWizard(job) || JobConstants.isKinesis(job) || JobConstants.isLuminous(job)) {
             return ItemJob.MAGICIAN;
         }
-        if (JobConstants.isAdventurerThief(job) || JobConstants.isNightLord(job) || JobConstants.isShadower(job)
-                || JobConstants.isPhantom(job) || JobConstants.isNightWalker(job) || JobConstants.isDualBlade(job)) {
+        if (JobConstants.isAdventurerThief(job) || JobConstants.isNightLord(job) || JobConstants.isShadower(job) || JobConstants.isPhantom(job) || JobConstants.isNightWalker(job) || JobConstants.isDualBlade(job)) {
             return ItemJob.THIEF;
         }
-        if (JobConstants.isBuccaneer(job) || JobConstants.isAdventurerPirate(job) || JobConstants.isCannonShooter(job)
-                || JobConstants.isShade(job) || JobConstants.isThunderBreaker(job) || JobConstants.isCorsair(job)
-                || JobConstants.isAngelicBuster(job) || JobConstants.isJett(job)) {
+        if (JobConstants.isBuccaneer(job) || JobConstants.isAdventurerPirate(job) || JobConstants.isCannonShooter(job) || JobConstants.isShade(job) || JobConstants.isThunderBreaker(job) || JobConstants.isCorsair(job) || JobConstants.isAngelicBuster(job) || JobConstants.isJett(job)) {
             return ItemJob.PIRATE;
         } else {
             return ItemJob.BEGINNER;
@@ -679,10 +644,10 @@ public class GameConstants {
     }
 
     public static BaseStat getSecStatByMainStat(BaseStat mainStat) {
-        if(mainStat == null) {
+        if (mainStat == null) {
             return null;
         }
-        switch(mainStat) {
+        switch (mainStat) {
             case str:
                 return BaseStat.dex;
             case dex:
@@ -709,7 +674,9 @@ public class GameConstants {
 
     /**
      * Gets a list of possible elite stats by mob level.
-     * @param level the level of the mob
+     * 
+     * @param level
+     *            the level of the mob
      * @return list of Triples, each triple indicating the level (left), extra hp rate (mid) and the extra exp/meso drop rate (right).
      */
     public static List<Triple<Integer, Double, Double>> getEliteInfoByMobLevel(int level) {

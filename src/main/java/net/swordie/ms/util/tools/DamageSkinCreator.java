@@ -34,7 +34,8 @@ public class DamageSkinCreator {
                 switch (name) {
                     case "ItemID":
                         if (value / 10000 == 243 && !isIgnored(value)) {
-                            if (printCases) System.out.println(String.format("case %d:// %s\r\nreturn %d;", value, StringData.getItemStringById(value), damageSkinID));
+                            if (printCases)
+                                System.out.println(String.format("case %d:// %s\r\nreturn %d;", value, StringData.getItemStringById(value), damageSkinID));
                             createScript(value);
                         }
                         break;
@@ -54,7 +55,8 @@ public class DamageSkinCreator {
     private static void createScript(int itemID) {
         ItemInfo ii = ItemData.getItemInfoByID(itemID);
         String script;
-        if (printItemID) System.out.println("[DEBUG] Item ID " + itemID);
+        if (printItemID)
+            System.out.println("[DEBUG] Item ID " + itemID);
         if (ii.getScript() == null || ii.getScript().isEmpty()) {
             script = String.valueOf(itemID);
         } else {
@@ -67,7 +69,7 @@ public class DamageSkinCreator {
             writer.write(String.format("if sm.addDamageSkin(%d):\n", itemID));
             writer.write(String.format("    sm.chat(%s)\r\n", Util.quotes(String.format("'%s'  Damage Skin has been added to your account's damage skin collection.", StringData.getItemStringById(itemID)))));
             writer.write("    sm.consumeItem()");
+        } catch (IOException ex) {
         }
-        catch (IOException ex) {}
     }
 }

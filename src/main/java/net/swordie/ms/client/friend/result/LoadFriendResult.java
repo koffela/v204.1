@@ -25,7 +25,7 @@ public class LoadFriendResult implements FriendResult {
     @Override
     public void encode(OutPacket outPacket) {
         outPacket.encodeInt(friends.size());
-        for(Friend f : friends) {
+        for (Friend f : friends) {
             f.encode(outPacket);
         }
     }

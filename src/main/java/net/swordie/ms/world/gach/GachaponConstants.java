@@ -23,28 +23,28 @@ public class GachaponConstants {
         initEquipment();
         List<GachaponInfo.GachItem> items;
         // Town Gachapon
-        String[] messages = new String[]{"Swordie Town Gachapon", "Text 1", "Text 2"};
+        String[] messages = new String[] { "Swordie Town Gachapon", "Text 1", "Text 2" };
         items = new ArrayList<>(equipments);
         items.addAll(nebulites);
         gachaponInfo.put(GachaponDlgType.TOWN, new GachaponInfo(Arrays.asList(messages), items));
 
         // Nebulite Gachapon
-        messages = new String[]{"Swordie Nebulite Gachapon", "Text 1", "Text 2"};
+        messages = new String[] { "Swordie Nebulite Gachapon", "Text 1", "Text 2" };
         items = new ArrayList<>(nebulites);
         gachaponInfo.put(GachaponDlgType.NEBULITE, new GachaponInfo(Arrays.asList(messages), items));
 
         // Chair Gachapon
-        messages = new String[]{"Swordie Chair Gachapon", "Text 1", "Text 2"};
+        messages = new String[] { "Swordie Chair Gachapon", "Text 1", "Text 2" };
         items = new ArrayList<>();
         gachaponInfo.put(GachaponDlgType.CHAIR, new GachaponInfo(Arrays.asList(messages), items));
 
         // Mount Gachapon
-        messages = new String[]{"Swordie Mount Gachapon", "Text 1", "Text 2"};
+        messages = new String[] { "Swordie Mount Gachapon", "Text 1", "Text 2" };
         items = new ArrayList<>();
         gachaponInfo.put(GachaponDlgType.MOUNT, new GachaponInfo(Arrays.asList(messages), items));
 
         // Special Gachapon
-        messages = new String[]{"Swordie Special Gachapon", "Text 1", "Text 2"};
+        messages = new String[] { "Swordie Special Gachapon", "Text 1", "Text 2" };
         items = new ArrayList<>();
         gachaponInfo.put(GachaponDlgType.SPECIAL, new GachaponInfo(Arrays.asList(messages), items));
     }
@@ -52,12 +52,18 @@ public class GachaponConstants {
     private static void initEquipment() {
         equipments = new ArrayList<>();
         // Empress Set
-        for (int i = 1152108; i <= 1152113; i++) equipments.add(new GachaponInfo.GachItem(i));// Shoulder
-        for (int i = 1003172; i <= 1003176; i++) equipments.add(new GachaponInfo.GachItem(i));// Helmet
-        for (int i = 1102275; i <= 1102279; i++) equipments.add(new GachaponInfo.GachItem(i));// Cape
-        for (int i = 1082295; i <= 1082299; i++) equipments.add(new GachaponInfo.GachItem(i));// Gloves
-        for (int i = 1052314; i <= 1052318; i++) equipments.add(new GachaponInfo.GachItem(i));// Suit
-        for (int i = 1072485; i <= 1072489; i++) equipments.add(new GachaponInfo.GachItem(i));// Shoes
+        for (int i = 1152108; i <= 1152113; i++)
+            equipments.add(new GachaponInfo.GachItem(i));// Shoulder
+        for (int i = 1003172; i <= 1003176; i++)
+            equipments.add(new GachaponInfo.GachItem(i));// Helmet
+        for (int i = 1102275; i <= 1102279; i++)
+            equipments.add(new GachaponInfo.GachItem(i));// Cape
+        for (int i = 1082295; i <= 1082299; i++)
+            equipments.add(new GachaponInfo.GachItem(i));// Gloves
+        for (int i = 1052314; i <= 1052318; i++)
+            equipments.add(new GachaponInfo.GachItem(i));// Suit
+        for (int i = 1072485; i <= 1072489; i++)
+            equipments.add(new GachaponInfo.GachItem(i));// Shoes
         equipments.add(new GachaponInfo.GachItem(1302152));// Lionheart Cutlass
         equipments.add(new GachaponInfo.GachItem(1312065));// Lionheart Champion Axe
         equipments.add(new GachaponInfo.GachItem(1322096));// Lionheart Battle Hammer
@@ -86,7 +92,7 @@ public class GachaponConstants {
         nebulites.add(new GachaponInfo.GachItem(3063231, true));
         nebulites.add(new GachaponInfo.GachItem(3063231, true));
         for (int i = 3060000; i <= 3064490; i++) {// alot of null nebulites.. need to handle it in another way
-            //nebulites.add(new GachaponInfo.GachItem(i));
+            // nebulites.add(new GachaponInfo.GachItem(i));
         }
     }
 

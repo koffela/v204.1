@@ -51,30 +51,15 @@ public class SkillConstants {
     public static final int MINING_SKILL = 92010000;
     public static final int HERBALISM_SKILL = 92000000;
 
-    public static final HashSet<Integer> KEYDOWN_SKILLS = new HashSet<>(
-            Arrays.asList(
-                    Shade.SPIRIT_INCARNATION,
-                    Shade.SPIRIT_FRENZY,
-                    BeastTamer.FISHY_SLAP,
-                    BeastTamer.TORNADO_FLIGHT,
-                    PinkBean.LETS_ROLL,
-                    Demon.VITALITY_VEIL,
-                    AngelicBuster.SOUL_RESONANCE,
-                    BlazeWizard.DRAGON_BLAZE_FIRST,
-                    Phantom.TEMPEST,
-                    Magician.LIGHTNING_ORB,
-                    Pirate.FALLING_STARS,
-                    Pirate.BACKUP_BEATDOWN,
-                    AngelicBuster.SUPREME_SUPERNOVA)
-    );
+    public static final HashSet<Integer> KEYDOWN_SKILLS = new HashSet<>(Arrays.asList(Shade.SPIRIT_INCARNATION, Shade.SPIRIT_FRENZY, BeastTamer.FISHY_SLAP, BeastTamer.TORNADO_FLIGHT, PinkBean.LETS_ROLL, Demon.VITALITY_VEIL, AngelicBuster.SOUL_RESONANCE, BlazeWizard.DRAGON_BLAZE_FIRST, Phantom.TEMPEST, Magician.LIGHTNING_ORB, Pirate.FALLING_STARS, Pirate.BACKUP_BEATDOWN, AngelicBuster.SUPREME_SUPERNOVA));
 
-    //custom skill cd's
+    // custom skill cd's
     public static int getSkillCooldown(int skillId) {
 
-        switch(skillId) {
-            case 32120052: //Sweeping Staff - BM Hyper
-            case 32120055: //Sweeping Staff - BM Hyper
-            case 32121052: //Sweeping Staff - BM Hyper
+        switch (skillId) {
+            case 32120052: // Sweeping Staff - BM Hyper
+            case 32120055: // Sweeping Staff - BM Hyper
+            case 32121052: // Sweeping Staff - BM Hyper
                 return 0;
 
         }
@@ -83,17 +68,11 @@ public class SkillConstants {
     }
 
     public static boolean isSkillNeedMasterLevel(int skillId) {
-        if (isIgnoreMasterLevel(skillId)
-                || (skillId / 1000000 == 92 && (skillId % 10000 == 0))
-                || isMakingSkillRecipe(skillId)
-                || isCommonSkill(skillId)
-                || isNoviceSkill(skillId)
-                || isFieldAttackObjSkill(skillId)) {
+        if (isIgnoreMasterLevel(skillId) || (skillId / 1000000 == 92 && (skillId % 10000 == 0)) || isMakingSkillRecipe(skillId) || isCommonSkill(skillId) || isNoviceSkill(skillId) || isFieldAttackObjSkill(skillId)) {
             return false;
         }
         int job = getSkillRootFromSkill(skillId);
-        return skillId != 42120024 && !JobConstants.isBeastTamer((short) job)
-                && (isAddedSpDualAndZeroSkill(skillId) || (JobConstants.getJobLevel((short) job) == 4 && !JobConstants.isZero((short) job)));
+        return skillId != 42120024 && !JobConstants.isBeastTamer((short) job) && (isAddedSpDualAndZeroSkill(skillId) || (JobConstants.getJobLevel((short) job) == 4 && !JobConstants.isZero((short) job)));
     }
 
     public static boolean isAddedSpDualAndZeroSkill(int skillId) {
@@ -142,7 +121,7 @@ public class SkillConstants {
     }
 
     private static boolean isNoviceSkill(int skillId) {
-        int prefix  = skillId / 10000;
+        int prefix = skillId / 10000;
         if (skillId / 10000 == 8000) {
             prefix = skillId / 100;
         }
@@ -205,16 +184,7 @@ public class SkillConstants {
 
     // updated to v200
     public static boolean isKeyDownSkill(int skillID) {
-        return skillID == 1311011 || skillID == 2221011 || skillID == 2221052 || skillID == 2321001 || skillID == 3101008 || skillID == 3111013 || skillID == 3121020 || skillID == 4341002 ||
-               skillID == 5081002 || skillID == 5081010 || skillID == 5221004 || skillID == 5311002 || skillID == 5700010 || skillID == 5711021 || skillID == 5721001 || skillID == 5721061 ||
-               skillID == 11121052 || skillID == 11121055 || skillID == 12121054 || skillID == 13111020 || skillID == 13121001 || skillID == 14111006 || skillID == 14121004 || skillID == 20041226 ||
-               skillID == 21120018 || skillID == 22171083 || skillID == 23121000 || skillID == 24121000 || skillID == 24121005 || skillID == 25111005 || skillID == 25121030 || skillID == 27101202 ||
-               skillID == 27111100 || skillID == 30021238 || skillID == 31001000 || skillID == 31101000 || skillID == 31111005 || skillID == 31211001 || skillID == 33121009 || skillID == 33121114 ||
-               skillID == 33121214 || skillID == 35121015 || skillID == 36101001 || skillID == 36121000 || skillID == 37121003 || skillID == 37121052 || skillID == 41121001 || skillID == 42121000 ||
-               skillID == 60011216 || skillID == 64001000 || skillID == 64001007 || skillID == 64001008 || skillID == 64121002 || skillID == 65121003 || skillID == 80001392 || skillID == 80001587 ||
-               skillID == 80001629 || skillID == 80001836 || skillID == 80001887 || skillID == 80002458 || skillID == 80011051 || skillID == 80011362 || skillID == 80011366 || skillID == 80011371 ||
-               skillID == 80011381 || skillID == 80011382 || skillID == 80011387 || skillID == 95001001 || skillID == 101110101 || skillID == 101110102 || skillID == 112001008 || skillID == 112110003 ||
-               skillID == 112111016 || skillID == 131001004 || skillID == 131001008 || skillID == 131001020 || skillID == 142111010 || skillID == 155121341 || skillID == 21120019;
+        return skillID == 1311011 || skillID == 2221011 || skillID == 2221052 || skillID == 2321001 || skillID == 3101008 || skillID == 3111013 || skillID == 3121020 || skillID == 4341002 || skillID == 5081002 || skillID == 5081010 || skillID == 5221004 || skillID == 5311002 || skillID == 5700010 || skillID == 5711021 || skillID == 5721001 || skillID == 5721061 || skillID == 11121052 || skillID == 11121055 || skillID == 12121054 || skillID == 13111020 || skillID == 13121001 || skillID == 14111006 || skillID == 14121004 || skillID == 20041226 || skillID == 21120018 || skillID == 22171083 || skillID == 23121000 || skillID == 24121000 || skillID == 24121005 || skillID == 25111005 || skillID == 25121030 || skillID == 27101202 || skillID == 27111100 || skillID == 30021238 || skillID == 31001000 || skillID == 31101000 || skillID == 31111005 || skillID == 31211001 || skillID == 33121009 || skillID == 33121114 || skillID == 33121214 || skillID == 35121015 || skillID == 36101001 || skillID == 36121000 || skillID == 37121003 || skillID == 37121052 || skillID == 41121001 || skillID == 42121000 || skillID == 60011216 || skillID == 64001000 || skillID == 64001007 || skillID == 64001008 || skillID == 64121002 || skillID == 65121003 || skillID == 80001392 || skillID == 80001587 || skillID == 80001629 || skillID == 80001836 || skillID == 80001887 || skillID == 80002458 || skillID == 80011051 || skillID == 80011362 || skillID == 80011366 || skillID == 80011371 || skillID == 80011381 || skillID == 80011382 || skillID == 80011387 || skillID == 95001001 || skillID == 101110101 || skillID == 101110102 || skillID == 112001008 || skillID == 112110003 || skillID == 112111016 || skillID == 131001004 || skillID == 131001008 || skillID == 131001020 || skillID == 142111010 || skillID == 155121341 || skillID == 21120019;
     }
 
     // updated to v202
@@ -278,7 +248,7 @@ public class SkillConstants {
 
     public static boolean isZeroSkill(int skillID) {
         int prefix = skillID / 10000;
-        if(prefix == 8000) {
+        if (prefix == 8000) {
             prefix = skillID / 100;
         }
         return prefix == 10000 || prefix == 10100 || prefix == 10110 || prefix == 10111 || prefix == 10112;
@@ -386,7 +356,7 @@ public class SkillConstants {
     }
 
     public static boolean isAranFallingStopSkill(int skillID) {
-        switch(skillID) {
+        switch (skillID) {
             case 21110028:
             case 21120025:
             case 21110026:
@@ -408,10 +378,7 @@ public class SkillConstants {
     }
 
     public static boolean isFlipAffectAreaSkill(int skillID) {
-        return skillID == 33111013 || skillID == 33121016 || skillID == 33121012 || skillID == 131001207 ||
-                skillID == 131001107 || skillID == 4121015 || skillID == 51120057 || skillID == 400001017 ||
-                skillID == 400021039 || skillID == 400041041 || skillID == 152121041|| skillID == 400020046 ||
-                skillID == 400020051 || skillID == 35121052;
+        return skillID == 33111013 || skillID == 33121016 || skillID == 33121012 || skillID == 131001207 || skillID == 131001107 || skillID == 4121015 || skillID == 51120057 || skillID == 400001017 || skillID == 400021039 || skillID == 400041041 || skillID == 152121041 || skillID == 400020046 || skillID == 400020051 || skillID == 35121052;
     }
 
     public static boolean isShootSkillNotConsumingBullets(int skillID) {
@@ -432,15 +399,13 @@ public class SkillConstants {
             case 1078:
                 return true;
             default:
-                return getDummyBulletItemIDForJob(job, 0, 0) > 0
-                        || isShootSkillNotUsingShootingWeapon(skillID, false)
-                        || isFieldAttackObjSkill(skillID);
+                return getDummyBulletItemIDForJob(job, 0, 0) > 0 || isShootSkillNotUsingShootingWeapon(skillID, false) || isFieldAttackObjSkill(skillID);
 
         }
     }
 
     private static boolean isShootSkillNotUsingShootingWeapon(int skillID, boolean bySteal) {
-        if(bySteal || (skillID >= 80001848 && skillID <= 80001850)) {
+        if (bySteal || (skillID >= 80001848 && skillID <= 80001850)) {
             return true;
         }
         switch (skillID) {
@@ -490,21 +455,21 @@ public class SkillConstants {
     }
 
     private static int getDummyBulletItemIDForJob(int job, int subJob, int skillID) {
-        if ( job / 100 == 35 )
+        if (job / 100 == 35)
             return 2333000;
-        if ( job / 10 == 53 || job == 501 || (job / 1000) == 0 && subJob == 2 )
+        if (job / 10 == 53 || job == 501 || (job / 1000) == 0 && subJob == 2)
             return 2333001;
-        if ( JobConstants.isMercedes((short) job) )
+        if (JobConstants.isMercedes((short) job))
             return 2061010;
-        if ( JobConstants.isAngelicBuster(job) )
+        if (JobConstants.isAngelicBuster(job))
             return 2333001;
         // TODO:
-//        if ( !JobConstants.isPhantom((short) job)
-//                || !is_useable_stealedskill(skillID)
-//                || (result = get_vari_dummy_bullet_by_cane(skillID), result <= 0) )
-//        {
-//            result = 0;
-//        }
+        // if ( !JobConstants.isPhantom((short) job)
+        // || !is_useable_stealedskill(skillID)
+        // || (result = get_vari_dummy_bullet_by_cane(skillID), result <= 0) )
+        // {
+        // result = 0;
+        // }
         return 0;
     }
 
@@ -556,7 +521,7 @@ public class SkillConstants {
 
     public static int getOriginalOfLinkedSkill(int skillID) {
         int result = 0;
-        switch(skillID) {
+        switch (skillID) {
             case 80001040:
                 result = 20021110;
                 break;
@@ -654,7 +619,7 @@ public class SkillConstants {
     }
 
     public static int getAdvancedCountHyperSkill(int skillId) {
-        switch(skillId) {
+        switch (skillId) {
             case 4121013:
                 return 4120051;
             case 5321012:
@@ -665,7 +630,7 @@ public class SkillConstants {
     }
 
     public static int getAdvancedAttackCountHyperSkill(int skillId) {
-        switch(skillId) {
+        switch (skillId) {
             case 25121005:
                 return 25120148;
             case 31121001:
@@ -759,7 +724,7 @@ public class SkillConstants {
     }
 
     public static boolean isKinesisPsychicLockSkill(int skillId) {
-        switch(skillId) {
+        switch (skillId) {
             case 142120000:
             case 142120001:
             case 142120002:
@@ -776,98 +741,98 @@ public class SkillConstants {
 
     public static int getActualSkillIDfromSkillID(int skillID) {
         switch (skillID) {
-            case 101120206: //Zero - Severe Storm Break (Tile)
-                return 101120204; //Zero - Adv Storm Break
+            case 101120206: // Zero - Severe Storm Break (Tile)
+                return 101120204; // Zero - Adv Storm Break
 
-            case 4221016: //Shadower - Assassinate 2
-                return 4221014; //Shadower - Assassinate 1
+            case 4221016: // Shadower - Assassinate 2
+                return 4221014; // Shadower - Assassinate 1
 
-            case 41121020: //Hayato - Tornado Blade-Battoujutsu Link
-                return 41121017; //Tornado Blade
+            case 41121020: // Hayato - Tornado Blade-Battoujutsu Link
+                return 41121017; // Tornado Blade
 
-            case 41121021: //Hayato - Sudden Strike-Battoujutsu Link
-                return 41121018; //Sudden Strike
+            case 41121021: // Hayato - Sudden Strike-Battoujutsu Link
+                return 41121018; // Sudden Strike
 
-            case 5121017: //Bucc - Double Blast
-                return 5121016; //Bucc - Buccaneer Blast
+            case 5121017: // Bucc - Double Blast
+                return 5121016; // Bucc - Buccaneer Blast
 
-            case 5101014: //Bucc - Energy Vortex
-                return 5101012; //Bucc - Tornado Uppercut
+            case 5101014: // Bucc - Energy Vortex
+                return 5101012; // Bucc - Tornado Uppercut
 
-            case 5121020: //Bucc - Octopunch (Max Charge)
-                return 5121007; //Bucc - Octopunch
+            case 5121020: // Bucc - Octopunch (Max Charge)
+                return 5121007; // Bucc - Octopunch
 
-            case 5111013: //Bucc - Hedgehog Buster
-                return 5111002; //Bucc - Energy Burst
+            case 5111013: // Bucc - Hedgehog Buster
+                return 5111002; // Bucc - Energy Burst
 
-            case 5111015: //Bucc - Static Thumper
-                return 5111012; //Bucc - Static Thumper
+            case 5111015: // Bucc - Static Thumper
+                return 5111012; // Bucc - Static Thumper
 
-            case 31011004: //DA - Exceed Double Slash 2
-            case 31011005: //DA - Exceed Double Slash 3
-            case 31011006: //DA - Exceed Double Slash 4
-            case 31011007: //DA - Exceed Double Slash Purple
-                return 31011000; //DA - Exceed Double Slash 1
+            case 31011004: // DA - Exceed Double Slash 2
+            case 31011005: // DA - Exceed Double Slash 3
+            case 31011006: // DA - Exceed Double Slash 4
+            case 31011007: // DA - Exceed Double Slash Purple
+                return 31011000; // DA - Exceed Double Slash 1
 
-            case 31201007: //DA - Exceed Demon Strike 2
-            case 31201008: //DA - Exceed Demon Strike 3
-            case 31201009: //DA - Exceed Demon Strike 4
-            case 31201010: //DA - Exceed Demon Strike Purple
-                return 31201000; //DA - Exceed Demon Strike 1
+            case 31201007: // DA - Exceed Demon Strike 2
+            case 31201008: // DA - Exceed Demon Strike 3
+            case 31201009: // DA - Exceed Demon Strike 4
+            case 31201010: // DA - Exceed Demon Strike Purple
+                return 31201000; // DA - Exceed Demon Strike 1
 
-            case 31211007: //DA - Exceed Lunar Slash 2
-            case 31211008: //DA - Exceed Lunar Slash 3
-            case 31211009: //DA - Exceed Lunar Slash 4
-            case 31211010: //DA - Exceed Lunar Slash Purple
-                return 31211000; //DA - Exceed Lunar Slash 1
+            case 31211007: // DA - Exceed Lunar Slash 2
+            case 31211008: // DA - Exceed Lunar Slash 3
+            case 31211009: // DA - Exceed Lunar Slash 4
+            case 31211010: // DA - Exceed Lunar Slash Purple
+                return 31211000; // DA - Exceed Lunar Slash 1
 
-            case 31221009: //DA - Exceed Execution 2
-            case 31221010: //DA - Exceed Execution 3
-            case 31221011: //DA - Exceed Execution 4
-            case 31221012: //DA - Exceed Execution Purple
-                return 31221000; //DA - Exceed Execution 1
+            case 31221009: // DA - Exceed Execution 2
+            case 31221010: // DA - Exceed Execution 3
+            case 31221011: // DA - Exceed Execution 4
+            case 31221012: // DA - Exceed Execution Purple
+                return 31221000; // DA - Exceed Execution 1
 
-            case 31211002: //DA - Shield Charge (Spikes)
-                return 31211011; //DA - Shield Charge (Rush)
+            case 31211002: // DA - Shield Charge (Spikes)
+                return 31211011; // DA - Shield Charge (Rush)
 
-            case 61120219: //Kaiser - Dragon Slash (Final Form)
-                return 61001000; //Kaiser - Dragon Slash 1
+            case 61120219: // Kaiser - Dragon Slash (Final Form)
+                return 61001000; // Kaiser - Dragon Slash 1
 
-            case 61111215: //Kaiser - Flame Surge (Final Form)
-                return 61001101; //Kaiser - Flame Surge
+            case 61111215: // Kaiser - Flame Surge (Final Form)
+                return 61001101; // Kaiser - Flame Surge
 
-            case 61111216: //Kaiser - Impact Wave (Final Form)
-                return 61101100; //Kaiser - Impact Wave
+            case 61111216: // Kaiser - Impact Wave (Final Form)
+                return 61101100; // Kaiser - Impact Wave
 
-            case 61111217: //Kaiser - Piercing Blaze (Final Form)
-                return 61101101; //Kaiser - Piercing Blaze
+            case 61111217: // Kaiser - Piercing Blaze (Final Form)
+                return 61101101; // Kaiser - Piercing Blaze
 
-            case 61111111: //Kaiser - Wing Beat (Final Form)
-                return 61111100; //Kaiser - Wing Beat
+            case 61111111: // Kaiser - Wing Beat (Final Form)
+                return 61111100; // Kaiser - Wing Beat
 
-            case 61111219: //Kaiser - Pressure Chain (Final Form)
-                return 61111101; //Kaiser - Pressure Chain
+            case 61111219: // Kaiser - Pressure Chain (Final Form)
+                return 61111101; // Kaiser - Pressure Chain
 
-            case 61121201: //Kaiser - Gigas Wave (Final Form)
-                return 61121100; //Kaiser - Gigas Wave
+            case 61121201: // Kaiser - Gigas Wave (Final Form)
+                return 61121100; // Kaiser - Gigas Wave
 
-            case 61121222: //Kaiser - Inferno Breath (Final Form)
-                return 61121105; //Kaiser - Inferno Breath
+            case 61121222: // Kaiser - Inferno Breath (Final Form)
+                return 61121105; // Kaiser - Inferno Breath
 
-            case 61121203: //Kaiser - Dragon Barrage (Final Form)
-                return 61121102; //Kaiser - Dragon Barrage
+            case 61121203: // Kaiser - Dragon Barrage (Final Form)
+                return 61121102; // Kaiser - Dragon Barrage
 
-            case 61121221: //Kaiser - Blade Burst (Final Form)
-                return 61121104; //Kaiser - Blade Burst
+            case 61121221: // Kaiser - Blade Burst (Final Form)
+                return 61121104; // Kaiser - Blade Burst
 
-            case 14101021: //NW - Quint. Throw Finisher
-                return 14101020; //NW - Quint. Throw
+            case 14101021: // NW - Quint. Throw Finisher
+                return 14101020; // NW - Quint. Throw
 
-            case 14111021: //NW - Quad Throw Finisher
-                return 14111020; //NW - Quad Throw
+            case 14111021: // NW - Quad Throw Finisher
+                return 14111020; // NW - Quad Throw
 
-            case 14121002: //NW - Triple Throw Finisher
-                return 14121001; //NW - Triple Throw
+            case 14121002: // NW - Triple Throw Finisher
+                return 14121001; // NW - Triple Throw
 
             case STAGGERING_STRIKES:
                 return STUNNING_STRIKES;
@@ -882,7 +847,7 @@ public class SkillConstants {
             case SOUL_SEEKER_ATOM:
                 return SOUL_SEEKER;
 
-            case 65101006: //AB - Lovely Sting Explosion
+            case 65101006: // AB - Lovely Sting Explosion
                 return LOVELY_STING;
 
             case 65121007:
@@ -959,7 +924,7 @@ public class SkillConstants {
     }
 
     public static boolean isShikigamiHauntingSkill(int skillID) {
-        switch(skillID) {
+        switch (skillID) {
             case 80001850:
             case 42001000:
             case 42001005:
@@ -980,8 +945,8 @@ public class SkillConstants {
     public static int getStealSkillManagerTabFromSkill(int skillID) {
         int smJobID;
 
-        //Hyper Skills
-        if(skillID % 100 == 54) {
+        // Hyper Skills
+        if (skillID % 100 == 54) {
             return 5;
         }
         switch (skillID / 10000) {
@@ -1004,7 +969,6 @@ public class SkillConstants {
             case 210:
             case 220:
             case 230:
-
 
             case 310:
             case 320:
@@ -1207,7 +1171,7 @@ public class SkillConstants {
     }
 
     public static int getLinkedSkill(int skillID) {
-        switch(skillID) {
+        switch (skillID) {
             case Zero.STORM_BREAK_INIT:
                 return Zero.STORM_BREAK;
             case Zero.ADV_STORM_BREAK_SHOCK_INIT:
@@ -1344,11 +1308,7 @@ public class SkillConstants {
     }
 
     public static int getBaseSpByLevel(short level) {
-        return level > 140 ? 0
-                : level > 130 ? 6
-                : level > 120 ? 5
-                : level > 110 ? 4
-                : 3;
+        return level > 140 ? 0 : level > 130 ? 6 : level > 120 ? 5 : level > 110 ? 4 : 3;
     }
 
     public static int getTotalPassiveHyperSpByLevel(short level) {
@@ -1564,10 +1524,7 @@ public class SkillConstants {
     }
 
     public static boolean isDecompositionRecipeScroll(int recipeID) {
-        return isMakingSkillRecipe(recipeID)
-                && recipeCodeToMakingSkillCode(recipeID) == 92040000
-                && recipeID - 92040000 >= 9003
-                && recipeID - 92040000 <= 9006;
+        return isMakingSkillRecipe(recipeID) && recipeCodeToMakingSkillCode(recipeID) == 92040000 && recipeID - 92040000 >= 9003 && recipeID - 92040000 <= 9006;
     }
 
     public static boolean isDecompositionRecipeCube(int recipeID) {
@@ -1575,9 +1532,7 @@ public class SkillConstants {
     }
 
     public static boolean isDecompositionRecipe(int recipeID) {
-        if (isMakingSkillRecipe(recipeID) && recipeCodeToMakingSkillCode(recipeID) == 92040000 && recipeID == 92049000
-         || isDecompositionRecipeScroll(recipeID)
-         || isDecompositionRecipeScroll(recipeID)) {
+        if (isMakingSkillRecipe(recipeID) && recipeCodeToMakingSkillCode(recipeID) == 92040000 && recipeID == 92049000 || isDecompositionRecipeScroll(recipeID) || isDecompositionRecipeScroll(recipeID)) {
             return true;
         }
         return false;
@@ -1615,11 +1570,10 @@ public class SkillConstants {
     }
 
     public static boolean isBeginnerSpAddableSkill(int skillID) {
-        return skillID == 1000 || skillID == 1001 || skillID == 1002 || skillID == 140000291 || skillID == 30001000
-                || skillID == 30001001 || skillID == 30001002;
+        return skillID == 1000 || skillID == 1001 || skillID == 1002 || skillID == 140000291 || skillID == 30001000 || skillID == 30001001 || skillID == 30001002;
     }
 
-    public static boolean isKinesisPsychicAreaSkill(int skillId){
+    public static boolean isKinesisPsychicAreaSkill(int skillId) {
         switch (skillId) {
             case 142001002:
             case 142120003:
@@ -1661,8 +1615,7 @@ public class SkillConstants {
         }
     }
 
-    public static boolean isKeydownCDSkill(int nSkillID)
-    {
+    public static boolean isKeydownCDSkill(int nSkillID) {
         return KEYDOWN_SKILLS.contains(nSkillID);
     }
 }

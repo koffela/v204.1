@@ -20,12 +20,12 @@ public enum BroadcastMsgType {
     ITEM_SPEAKER(8), // Holds item info
     SPEAKER_BRIDGE(9),
     ART_SPEAKER_WORLD(10),
-    GACHAPON_MSG(11), //  item shown when clicked,  does hold Item info
-    BLOW_WEATHER(12), // TODO  Contains PackedCharLook
-    ANNOUNCED_QUEST_OPEN(13), // tries to auto start quests with the announcement (?) - probably the  "A quest has arrived! Please clock on the icon at the botfom of your screen."
+    GACHAPON_MSG(11), // item shown when clicked, does hold Item info
+    BLOW_WEATHER(12), // TODO Contains PackedCharLook
+    ANNOUNCED_QUEST_OPEN(13), // tries to auto start quests with the announcement (?) - probably the "A quest has arrived! Please clock on the icon at the botfom of your screen."
     ANNOUNCED_QUEST_CLOSED(14), // tries to auto start quests (?)
     MIRACLE_TIME(15), // Repeats the string 3x on the same line
-    EVENT_MSG_WITH_CHANNEL(16), // May be for  /find ?
+    EVENT_MSG_WITH_CHANNEL(16), // May be for /find ?
     LOTTERY_ITEM_SPEAKER(17), // Holds item info
     LOTTERY_ITEM_SPEAKER_WORLD(18),
     MONSTER_LIFE_WORLD_MSG(19),
@@ -33,7 +33,7 @@ public enum BroadcastMsgType {
     PICKUP_ITEM_WORLD(21), // Holds item info
     MAKING_SKILL_MEISTER_ITEM(22),
     SPEAKER_WORLD_GUILD_SKILL(23),
-    WEATHER_MSG(24), // TODO   Contains PackedCharLook
+    WEATHER_MSG(24), // TODO Contains PackedCharLook
     UNK25(25),
     UNK26(26),
     UNK27(27),
@@ -46,6 +46,7 @@ public enum BroadcastMsgType {
     UNK34(34),
     UNK35(35),
     UNK36(36);
+
     private byte val;
 
     BroadcastMsgType(int val) {

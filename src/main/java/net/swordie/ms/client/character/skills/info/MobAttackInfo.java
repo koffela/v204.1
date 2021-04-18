@@ -56,12 +56,12 @@ public class MobAttackInfo {
         mai.oldPosY = oldPosY;
         mai.hpPerc = hpPerc;
         mai.damages = new long[damages.length];
-        if(damages != null && damages.length > 0) {
+        if (damages != null && damages.length > 0) {
             System.arraycopy(damages, 0, mai.damages, 0, damages.length);
         }
         mai.mobUpDownYRange = mobUpDownYRange;
         mai.animationDeltaL = animationDeltaL;
-        if(hitPartRunTimes != null && hitPartRunTimes.length > 0) {
+        if (hitPartRunTimes != null && hitPartRunTimes.length > 0) {
             System.arraycopy(hitPartRunTimes, 0, mai.hitPartRunTimes, 0, hitPartRunTimes.length);
         }
         mai.templateID = templateID;

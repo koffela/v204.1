@@ -6,7 +6,7 @@ import net.swordie.ms.world.field.Instance;
 
 /**
  * @author Sjonnie
- * Created on 1/22/2019.
+ *         Created on 1/22/2019.
  */
 public class FieldTransferInfo {
     private int fieldId, portal, channel;

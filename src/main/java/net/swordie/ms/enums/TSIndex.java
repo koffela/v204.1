@@ -8,6 +8,7 @@ import java.util.List;
 
 /**
  * Created on 2/3/2018.
+ * 
  * @author Eric
  */
 public enum TSIndex {
@@ -18,6 +19,7 @@ public enum TSIndex {
     PartyBooster(4),
     GuidedBullet(5),
     Undead(6);
+
     private final int index;
 
     TSIndex(int index) {
@@ -33,7 +35,7 @@ public enum TSIndex {
     }
 
     public static CharacterTemporaryStat getCTSFromTwoStatIndex(int index) {
-        switch(index) {
+        switch (index) {
             case 0:
                 return CharacterTemporaryStat.EnergyCharged;
             case 1:
@@ -54,7 +56,7 @@ public enum TSIndex {
     }
 
     public static TSIndex getTSEFromCTS(CharacterTemporaryStat cts) {
-        switch(cts) {
+        switch (cts) {
             case EnergyCharged:
                 return EnergyCharged;
             case DashJump:
@@ -80,6 +82,7 @@ public enum TSIndex {
     /**
      * Creates a list of all {@link CharacterTemporaryStat CharacterTemporaryStats} that are a TwoState.
      * Is guaranteed to be sorted by their index.
+     * 
      * @return
      */
     public static List<CharacterTemporaryStat> getAllCTS() {

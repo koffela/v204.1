@@ -12,6 +12,7 @@ public enum Gr2dAniType {
     GA_REPEAT(0x20),
     GA_REVERSE(0x40),
     GA_REVERSE_WITH_CLEAR(0x240);
+
     private final int val;
 
     Gr2dAniType(int val) {

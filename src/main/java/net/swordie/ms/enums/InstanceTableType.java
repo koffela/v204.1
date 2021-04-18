@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 /**
  * @author Sjonnie
- * Created on 7/26/2018.
+ *         Created on 7/26/2018.
  */
 public enum InstanceTableType {
 

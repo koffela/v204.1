@@ -82,7 +82,7 @@ public class PacketDecoder extends ByteToMessageDecoder {
 
                     c.setRecvIV(CIGCipher.InnoHash(uSeqRcv, 4, 0));
                     c.setStoredLength(-1);
-//                dec = ShandaCrypto.decrypt(dec); // pre-149
+                    // dec = ShandaCrypto.decrypt(dec); // pre-149
                     InPacket inPacket = new InPacket(dec);
                     out.add(inPacket);
                 }

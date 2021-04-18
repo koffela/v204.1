@@ -50,35 +50,34 @@ public class Xenon extends Job {
     public static final int MIMIC_PROTOCOL = 30020240;
     public static final int PROMESSA_ESCAPE = 30021235;
 
-    public static final int CIRCUIT_SURGE = 36001002; //Buff
-    public static final int PINPOINT_SALVO = 36001005; //Special Attack
+    public static final int CIRCUIT_SURGE = 36001002; // Buff
+    public static final int PINPOINT_SALVO = 36001005; // Special Attack
 
-    public static final int XENON_BOOSTER = 36101004; //Buff
-    public static final int EFFICIENCY_STREAMLINE = 36101003; //Buff
-    public static final int ION_THRUST = 36101001; //Special Attack
-    public static final int PINPOINT_SALVO_REDESIGN_A = 36100010; //Special Attack Upgrade  (Passive Upgrade)
+    public static final int XENON_BOOSTER = 36101004; // Buff
+    public static final int EFFICIENCY_STREAMLINE = 36101003; // Buff
+    public static final int ION_THRUST = 36101001; // Special Attack
+    public static final int PINPOINT_SALVO_REDESIGN_A = 36100010; // Special Attack Upgrade (Passive Upgrade)
 
-    public static final int HYBRID_DEFENSES = 36111003; //Buff
-    public static final int AEGIS_SYSTEM = 36111004; //Special Buff (ON/OFF)
-    public static final int AEGIS_SYSTEM_ATOM = 36110004; //Special Buff (ON/OFF)
-    public static final int MANIFEST_PROJECTOR = 36111006; //Special Buff (Special Duration)
-    public static final int EMERGENCY_RESUPPLY = 36111008; //Special Skill
-    public static final int PINPOINT_SALVO_REDESIGN_B = 36110012; //Special Attack Upgrade  (Passive Upgrade)
+    public static final int HYBRID_DEFENSES = 36111003; // Buff
+    public static final int AEGIS_SYSTEM = 36111004; // Special Buff (ON/OFF)
+    public static final int AEGIS_SYSTEM_ATOM = 36110004; // Special Buff (ON/OFF)
+    public static final int MANIFEST_PROJECTOR = 36111006; // Special Buff (Special Duration)
+    public static final int EMERGENCY_RESUPPLY = 36111008; // Special Skill
+    public static final int PINPOINT_SALVO_REDESIGN_B = 36110012; // Special Attack Upgrade (Passive Upgrade)
     public static final int TRIANGULATION = 36110005;
 
-    public static final int HYPOGRAM_FIELD_FORCE_FIELD = 36121002;                  //TODO Summon
+    public static final int HYPOGRAM_FIELD_FORCE_FIELD = 36121002;                  // TODO Summon
     public static final int HYPOGRAM_FIELD_PENETRATE = 36121013;
-    public static final int HYPOGRAM_FIELD_SUPPORT = 36121014;                      //TODO Summon
+    public static final int HYPOGRAM_FIELD_SUPPORT = 36121014;                      // TODO Summon
     public static final int TEMPORAL_POD = 36121007;
-    public static final int OOPARTS_CODE = 36121003; //Buff
-    public static final int MAPLE_WARRIOR_XENON = 36121008; //Buff
-    public static final int PINPOINT_SALVO_PERFECT_DESIGN = 36120015; //Sp. Attack Upgrade  (Passive Upgrade)
+    public static final int OOPARTS_CODE = 36121003; // Buff
+    public static final int MAPLE_WARRIOR_XENON = 36121008; // Buff
+    public static final int PINPOINT_SALVO_PERFECT_DESIGN = 36120015; // Sp. Attack Upgrade (Passive Upgrade)
     public static final int HEROS_WILL_XENON = 36121009;
 
     public static final int ORBITAL_CATACLYSM = 36121052;
     public static final int AMARANTH_GENERATOR = 36121054;
     public static final int ENTANGLISH_LASH = 36121053;
-
 
     private final int MAX_SUPPLY = 20;
     private int supply;
@@ -87,7 +86,7 @@ public class Xenon extends Job {
     private ScheduledFuture supplyTimer;
     private static ScheduledFuture temporalPodTimer;
 
-    private int[] addedSkills = new int[]{
+    private int[] addedSkills = new int[] {
             SUPPLY_SURPLUS,
             MULTILATERAL_I,
             MODAL_SHIFT,
@@ -96,7 +95,7 @@ public class Xenon extends Job {
             PROMESSA_ESCAPE,
     };
 
-    private int[] buffs = new int[]{
+    private int[] buffs = new int[] {
             CIRCUIT_SURGE,
             XENON_BOOSTER,
             EFFICIENCY_STREAMLINE,
@@ -114,7 +113,7 @@ public class Xenon extends Job {
 
     public Xenon(Char chr) {
         super(chr);
-        if(chr.getId() != 0 && isHandlerOfJob(chr.getJob())) {
+        if (chr.getId() != 0 && isHandlerOfJob(chr.getJob())) {
             for (int id : addedSkills) {
                 if (!chr.hasSkill(id)) {
                     Skill skill = SkillData.getSkillDeepCopyById(id);
@@ -124,7 +123,7 @@ public class Xenon extends Job {
             }
             supplyProp = SkillData.getSkillInfoById(SUPPLY_SURPLUS).getValue(prop, 1);
 
-            if(supplyTimer != null && !supplyTimer.isDone()) {
+            if (supplyTimer != null && !supplyTimer.isDone()) {
                 supplyTimer.cancel(true);
             }
             supplyTimer = EventManager.addFixedRateEvent(this::incrementSupply, 2000, 4000);
@@ -135,8 +134,6 @@ public class Xenon extends Job {
     public boolean isHandlerOfJob(short id) {
         return JobConstants.isXenon(id);
     }
-
-
 
     // Buff related methods --------------------------------------------------------------------------------------------
 
@@ -263,10 +260,10 @@ public class Xenon extends Job {
 
     private void applySupplyCost(int skillID, byte slv, SkillInfo si) {
         TemporaryStatManager tsm = chr.getTemporaryStatManager();
-        if(skillID == PINPOINT_SALVO || skillID == PINPOINT_SALVO_REDESIGN_A || skillID == PINPOINT_SALVO_REDESIGN_B || skillID == PINPOINT_SALVO_PERFECT_DESIGN) {
+        if (skillID == PINPOINT_SALVO || skillID == PINPOINT_SALVO_REDESIGN_A || skillID == PINPOINT_SALVO_REDESIGN_B || skillID == PINPOINT_SALVO_PERFECT_DESIGN) {
             return;
         }
-        if(tsm.hasStat(AmaranthGenerator)) {
+        if (tsm.hasStat(AmaranthGenerator)) {
             return;
         } else {
             if (si == null) {
@@ -302,12 +299,10 @@ public class Xenon extends Job {
 
     @Override
     public void handleCancelTimer(Char chr) {
-        if(supplyTimer != null) {
+        if (supplyTimer != null) {
             supplyTimer.cancel(true);
         }
     }
-
-
 
     // Attack related methods ------------------------------------------------------------------------------------------
 
@@ -327,13 +322,7 @@ public class Xenon extends Job {
         }
         if (hasHitMobs) {
             // Increment Supply on attack
-            if (Util.succeedProp(supplyProp) &&
-                    attackInfo.skillId != 0 &&
-                    attackInfo.skillId != PINPOINT_SALVO &&
-                    attackInfo.skillId != PINPOINT_SALVO_REDESIGN_A &&
-                    attackInfo.skillId != PINPOINT_SALVO_REDESIGN_B &&
-                    attackInfo.skillId != PINPOINT_SALVO_PERFECT_DESIGN &&
-                    attackInfo.skillId != TRIANGULATION) {
+            if (Util.succeedProp(supplyProp) && attackInfo.skillId != 0 && attackInfo.skillId != PINPOINT_SALVO && attackInfo.skillId != PINPOINT_SALVO_REDESIGN_A && attackInfo.skillId != PINPOINT_SALVO_REDESIGN_B && attackInfo.skillId != PINPOINT_SALVO_PERFECT_DESIGN && attackInfo.skillId != TRIANGULATION) {
                 incrementSupply();
             }
 
@@ -346,7 +335,7 @@ public class Xenon extends Job {
         Option o3 = new Option();
         switch (attackInfo.skillId) {
             case ENTANGLISH_LASH:
-                for(MobAttackInfo mai : attackInfo.mobAttackInfo) {
+                for (MobAttackInfo mai : attackInfo.mobAttackInfo) {
                     Mob mob = (Mob) chr.getField().getLifeByObjectID(mai.mobId);
                     if (mob == null) {
                         continue;
@@ -367,7 +356,7 @@ public class Xenon extends Job {
                             continue;
                         }
                         MobTemporaryStat mts = mob.getTemporaryStat();
-                        o1.nOption = - si.getValue(x, slv);
+                        o1.nOption = -si.getValue(x, slv);
                         o1.rOption = skillID;
                         o1.tOption = si.getValue(time, slv);
                         mts.addStatOptionsAndBroadcast(MobStat.PDR, o1);
@@ -391,7 +380,7 @@ public class Xenon extends Job {
     }
 
     public void applyTriangulationOnMob(AttackInfo attackInfo) {
-        if(!chr.hasSkill(TRIANGULATION)) {
+        if (!chr.hasSkill(TRIANGULATION)) {
             return;
         }
         Skill skill = chr.getSkill(TRIANGULATION);
@@ -401,14 +390,14 @@ public class Xenon extends Job {
         Option o1 = new Option();
         Option o = new Option();
         int amount = 1;
-        for(MobAttackInfo mai : attackInfo.mobAttackInfo) {
+        for (MobAttackInfo mai : attackInfo.mobAttackInfo) {
             Mob mob = (Mob) chr.getField().getLifeByObjectID(mai.mobId);
-            if(mob == null) {
+            if (mob == null) {
                 continue;
             }
             MobTemporaryStat mts = mob.getTemporaryStat();
 
-            if(Util.succeedProp(proc)) {
+            if (Util.succeedProp(proc)) {
                 if (mts.hasCurrentMobStat(MobStat.Explosion)) {
                     amount = mts.getCurrentOptionsByMobStat(MobStat.Explosion).nOption;
                     if (amount <= 3) {
@@ -432,37 +421,33 @@ public class Xenon extends Job {
 
         SkillInfo si = SkillData.getSkillInfoById(PINPOINT_SALVO);
         Rect rect = chr.getPosition().getRectAround(si.getRects().get(0));
-        if(!chr.isLeft()) {
+        if (!chr.isLeft()) {
             rect = rect.moveRight();
         }
         List<Mob> mobs = field.getMobsInRect(rect);
-        if(mobs.size() <= 0) {
+        if (mobs.size() <= 0) {
             return;
         }
         Mob mob = Util.getRandomFromCollection(mobs);
-        for(int i = 0; i<4; i++) {
+        for (int i = 0; i < 4; i++) {
             int anglenum = new Random().nextInt(160) + 20;
             int mobID = mob.getObjectId();
             int inc = ForceAtomEnum.XENON_ROCKET_3.getInc();
             int type = ForceAtomEnum.XENON_ROCKET_3.getForceAtomType();
-            ForceAtomInfo forceAtomInfo = new ForceAtomInfo(1, inc, 20, 40,
-                    anglenum, 0, (int) System.currentTimeMillis(), 1, 0,
-                    new Position());
-            chr.getField().broadcastPacket(FieldPacket.createForceAtom(false, 0, chr.getId(), type,
-                    true, mobID, getPinPointSkill(), forceAtomInfo, new Rect(), 0, 300,
-                    mob.getPosition(), 0, mob.getPosition()));
+            ForceAtomInfo forceAtomInfo = new ForceAtomInfo(1, inc, 20, 40, anglenum, 0, (int) System.currentTimeMillis(), 1, 0, new Position());
+            chr.getField().broadcastPacket(FieldPacket.createForceAtom(false, 0, chr.getId(), type, true, mobID, getPinPointSkill(), forceAtomInfo, new Rect(), 0, 300, mob.getPosition(), 0, mob.getPosition()));
         }
     }
 
     public int getPinPointSkill() {
         int skill = PINPOINT_SALVO;
-        if(chr.hasSkill(PINPOINT_SALVO_REDESIGN_A)) {
+        if (chr.hasSkill(PINPOINT_SALVO_REDESIGN_A)) {
             skill = PINPOINT_SALVO_REDESIGN_A;
         }
-        if(chr.hasSkill(PINPOINT_SALVO_REDESIGN_B)) {
+        if (chr.hasSkill(PINPOINT_SALVO_REDESIGN_B)) {
             skill = PINPOINT_SALVO_REDESIGN_B;
         }
-        if(chr.hasSkill(PINPOINT_SALVO_PERFECT_DESIGN)) {
+        if (chr.hasSkill(PINPOINT_SALVO_PERFECT_DESIGN)) {
             skill = PINPOINT_SALVO_PERFECT_DESIGN;
         }
         return skill;
@@ -472,8 +457,6 @@ public class Xenon extends Job {
     public int getFinalAttackSkill() {
         return 0;
     }
-
-
 
     // Skill related methods -------------------------------------------------------------------------------------------
 
@@ -525,7 +508,6 @@ public class Xenon extends Job {
         }
     }
 
-
     public static void temporalPodTimer(Char chr) {
         if (temporalPodTimer != null && !temporalPodTimer.isDone()) {
             temporalPodTimer.cancel(true);
@@ -536,15 +518,13 @@ public class Xenon extends Job {
     public static void temporalPodEffect(Char chr) {
         TemporaryStatManager tsm = chr.getTemporaryStatManager();
         if (tsm.hasStatBySkillId(TEMPORAL_POD)) {
-            for(int skillId : chr.getSkillCoolTimes().keySet()) {
+            for (int skillId : chr.getSkillCoolTimes().keySet()) {
                 chr.reduceSkillCoolTime(skillId, 1000);
             }
         } else {
             temporalPodTimer.cancel(true);
         }
     }
-
-
 
     // Hit related methods ---------------------------------------------------------------------------------------------
 
@@ -553,7 +533,7 @@ public class Xenon extends Job {
         TemporaryStatManager tsm = chr.getTemporaryStatManager();
         Option o1 = new Option();
         Option o2 = new Option();
-        if(chr.hasSkill(HYBRID_DEFENSES)) {
+        if (chr.hasSkill(HYBRID_DEFENSES)) {
             Skill skill = chr.getSkill(HYBRID_DEFENSES);
             byte slv = (byte) skill.getCurrentLevel();
             SkillInfo si = SkillData.getSkillInfoById(skill.getSkillId());
@@ -604,14 +584,11 @@ public class Xenon extends Job {
                     int firstImpact = 5 + random.nextInt(6);
                     int secondImpact = 5 + random.nextInt(6);
                     int angle = random.nextInt(180);
-                    ForceAtomInfo fai = new ForceAtomInfo(1, fae.getInc(), firstImpact, secondImpact,
-                            angle, 0, curTime, 0, AEGIS_SYSTEM_ATOM, new Position(0, 0));
+                    ForceAtomInfo fai = new ForceAtomInfo(1, fae.getInc(), firstImpact, secondImpact, angle, 0, curTime, 0, AEGIS_SYSTEM_ATOM, new Position(0, 0));
                     faiList.add(fai);
                     mobList.add(mobID);
                 }
-                chr.getField().broadcastPacket(FieldPacket.createForceAtom(false, 0, chr.getId(), fae.getForceAtomType(), true,
-                        mobList, AEGIS_SYSTEM_ATOM, faiList, null, 0, 0,
-                        null, 0, null));
+                chr.getField().broadcastPacket(FieldPacket.createForceAtom(false, 0, chr.getId(), fae.getForceAtomType(), true, mobList, AEGIS_SYSTEM_ATOM, faiList, null, 0, 0, null, 0, null));
             }
         }
         super.handleHit(c, inPacket, hitInfo);
@@ -624,4 +601,3 @@ public class Xenon extends Job {
         cs.setPosMap(931060089);
     }
 }
-

@@ -235,12 +235,8 @@ public class Summon extends Life {
         Field field = chr.getField();
 
         // Remove both Old Kishins
-        List<Life> oldKishins = field.getLifes().values().stream()
-                .filter(s -> s instanceof Summon &&
-                        ((Summon) s).getChr() == chr &&
-                        ((Summon) s).getSkillID() == Kanna.KISHIN_SHOUKAN)
-                .collect(Collectors.toList());
-        for(Life life : oldKishins) {
+        List<Life> oldKishins = field.getLifes().values().stream().filter(s -> s instanceof Summon && ((Summon) s).getChr() == chr && ((Summon) s).getSkillID() == Kanna.KISHIN_SHOUKAN).collect(Collectors.toList());
+        for (Life life : oldKishins) {
             field.removeLife(life.getObjectId(), false);
         }
 
@@ -253,8 +249,8 @@ public class Summon extends Life {
         kishinLeft.setMoveAbility(MoveAbility.Stop);
         kishinLeft.setMoveAction((byte) 0);
         kishinLeft.setKishinPositions(new Position[] {
-            new Position(chr.getPosition().getX() + 250, chr.getPosition().getY()),
-            new Position(chr.getPosition().getX() - 250, chr.getPosition().getY())
+                new Position(chr.getPosition().getX() + 250, chr.getPosition().getY()),
+                new Position(chr.getPosition().getX() - 250, chr.getPosition().getY())
         });
         field.spawnAddSummon(kishinLeft);
 
@@ -328,7 +324,7 @@ public class Summon extends Life {
         Char chr = getChr();
         Skill skill = chr.getSkill(getSkillID());
 
-        if(skill == null) {
+        if (skill == null) {
             return;
         }
 
@@ -352,7 +348,7 @@ public class Summon extends Life {
                 break;
         }
 
-        if(newSummonHP <= 0) {
+        if (newSummonHP <= 0) {
             TemporaryStatManager tsm = chr.getTemporaryStatManager();
             chr.getField().broadcastPacket(Summoned.summonedRemoved(this, LeaveType.ANIMATION));
             tsm.removeStatsBySkill(skill.getSkillId());

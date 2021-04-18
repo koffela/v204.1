@@ -44,12 +44,12 @@ public class Luminous extends Job {
     public static final int SUNFIRE = 20040216;
     public static final int ECLIPSE = 20040217;
     public static final int EQUILIBRIUM = 20040219;
-    public static final int EQUILIBRIUM2 = 20040220; //test
+    public static final int EQUILIBRIUM2 = 20040220; // test
     public static final int INNER_LIGHT = 20040221;
     public static final int FLASH_BLINK = 20041222;
     public static final int CHANGE_LIGHT_DARK = 20041239;
 
-    public static final int MAGIC_BOOSTER = 27101004; //Buff
+    public static final int MAGIC_BOOSTER = 27101004; // Buff
     public static final int BLACK_BLESSING = 27100003;
 
     public static final int PRESSURE_VOID = 27101202;
@@ -59,23 +59,23 @@ public class Luminous extends Job {
     public static final int LIGHT_AFFINITY = 27000106;
     public static final int DARK_AFFINITY = 27000207;
 
-    public static final int SHADOW_SHELL = 27111004; //Buff
+    public static final int SHADOW_SHELL = 27111004; // Buff
     public static final int RAY_OF_REDEMPTION = 27111101; // Attack + heals party members
-    public static final int DUSK_GUARD = 27111005; //Buff
-    public static final int PHOTIC_MEDITATION = 27111006; //Buff
+    public static final int DUSK_GUARD = 27111005; // Buff
+    public static final int PHOTIC_MEDITATION = 27111006; // Buff
     public static final int LUNAR_TIDE = 27110007;
     public static final int DEATH_SCYTHE = 27111303;
 
-    public static final int DARK_CRESCENDO = 27121005; //Buff
-    public static final int ARCANE_PITCH = 27121006; //Buff
-    public static final int MAPLE_WARRIOR_LUMI = 27121009; //Buff
+    public static final int DARK_CRESCENDO = 27121005; // Buff
+    public static final int ARCANE_PITCH = 27121006; // Buff
+    public static final int MAPLE_WARRIOR_LUMI = 27121009; // Buff
     public static final int ENDER = 27121303;
     public static final int DARKNESS_MASTERY = 27120008;
     public static final int HEROS_WILL_LUMI = 27121010;
 
     public static final int EQUALIZE = 27121054;
     public static final int HEROIC_MEMORIES_LUMI = 27121053;
-    public static final int ARMAGEDDON = 27121052; //Stun debuff
+    public static final int ARMAGEDDON = 27121052; // Stun debuff
 
     // Constants
     private static final int MAX_GAUGE = 10000;
@@ -83,7 +83,7 @@ public class Luminous extends Job {
 
     private int[] addedSkills = new int[] {
             EQUILIBRIUM,
-            //EQUILIBRIUM2,
+            // EQUILIBRIUM2,
             CHANGE_LIGHT_DARK,
             SUNFIRE,
             ECLIPSE,
@@ -91,7 +91,7 @@ public class Luminous extends Job {
             FLASH_BLINK
     };
 
-    private final int[] buffs = new int[]{
+    private final int[] buffs = new int[] {
             MAGIC_BOOSTER,
             SHADOW_SHELL,
             DUSK_GUARD,
@@ -111,7 +111,7 @@ public class Luminous extends Job {
 
     public Luminous(Char chr) {
         super(chr);
-        if(chr.getId() != 0 && isHandlerOfJob(chr.getJob())) {
+        if (chr.getId() != 0 && isHandlerOfJob(chr.getJob())) {
             for (int id : addedSkills) {
                 if (!chr.hasSkill(id)) {
                     Skill skill = SkillData.getSkillDeepCopyById(id);
@@ -143,7 +143,8 @@ public class Luminous extends Job {
                     larknessDiraction = LarknessSkillType.DARK;
                     sendLarkness(tsm, SUNFIRE);
                 }
-                if (reason != 0) sendLarkness(tsm, reason);
+                if (reason != 0)
+                    sendLarkness(tsm, reason);
             }
 
             if (isLightSkill && larknessDiraction == LarknessSkillType.DARK) {
@@ -161,7 +162,7 @@ public class Luminous extends Job {
                     sendLarkness(tsm, SUNFIRE);
                 }
             }
-            if(!tsm.hasStat(Larkness)) {
+            if (!tsm.hasStat(Larkness)) {
                 switch (larknessDiraction) {
                     case LIGHT:
                         sendLarkness(tsm, SUNFIRE);
@@ -296,7 +297,7 @@ public class Luminous extends Job {
 
     private void giveLunarTideBuff() {
         TemporaryStatManager tsm = chr.getTemporaryStatManager();
-        if(chr.hasSkill(LUNAR_TIDE)) {
+        if (chr.hasSkill(LUNAR_TIDE)) {
             Option o1 = new Option();
             Option o2 = new Option();
             SkillInfo lti = SkillData.getSkillInfoById(LUNAR_TIDE);
@@ -306,22 +307,22 @@ public class Luminous extends Job {
             int curMP = c.getChr().getStat(Stat.mp);
             int maxHP = c.getChr().getStat(Stat.mhp);
             int curHP = c.getChr().getStat(Stat.hp);
-            double ratioHP = ((double)curHP/maxHP);
-            double ratioMP = ((double)curMP)/maxMP;
+            double ratioHP = ((double) curHP / maxHP);
+            double ratioMP = ((double) curMP) / maxMP;
 
-            //if (ratioHP > ratioMP) {
-            if(ratioHP > ratioMP) {
-                //Crit Rate      HP is Greater than MP
+            // if (ratioHP > ratioMP) {
+            if (ratioHP > ratioMP) {
+                // Crit Rate HP is Greater than MP
                 o1.nOption = 2;
                 o1.rOption = LUNAR_TIDE;
                 o1.tOption = 0;
                 tsm.putCharacterStatValue(LifeTidal, o1);
-                o2.nOption = lti.getValue(prop, slv);     //only gives 10% for w/e reason but the SkillStat is correct
+                o2.nOption = lti.getValue(prop, slv);     // only gives 10% for w/e reason but the SkillStat is correct
                 o2.rOption = LUNAR_TIDE;
                 o2.tOption = 0;
                 tsm.putCharacterStatValue(CriticalBuff, o2);
             } else {
-                //Damage         MP is Greater than HP
+                // Damage MP is Greater than HP
                 o1.nOption = 1;
                 o1.rOption = LUNAR_TIDE;
                 o1.tOption = 0;
@@ -342,10 +343,10 @@ public class Luminous extends Job {
         TemporaryStatManager tsm = chr.getTemporaryStatManager();
 
         int amount = 1;
-        if(tsm.hasStat(BlessOfDarkness)) {
+        if (tsm.hasStat(BlessOfDarkness)) {
             amount = tsm.getOption(BlessOfDarkness).nOption;
 
-            if(increment) {
+            if (increment) {
                 if (amount < 3) {
                     amount++;
                 }
@@ -372,7 +373,7 @@ public class Luminous extends Job {
                 break;
         }
 
-        if(amount > 0) {
+        if (amount > 0) {
             o.nOption = amount;
             o.rOption = BLACK_BLESSING;
             o.tOption = 0;
@@ -404,14 +405,12 @@ public class Luminous extends Job {
     public int getMoreEquilibriumTime() {
         int eqTime = 20;
         SkillInfo eqi = SkillData.getSkillInfoById(DARKNESS_MASTERY);
-        if(chr.hasSkill(DARKNESS_MASTERY)) {
+        if (chr.hasSkill(DARKNESS_MASTERY)) {
             eqTime += eqi.getValue(time, eqi.getCurrentLevel());
             eqTime += 5;
         }
         return eqTime;
     }
-
-
 
     // Attack related methods ------------------------------------------------------------------------------------------
 
@@ -472,9 +471,9 @@ public class Luminous extends Job {
         Skill skill = chr.getSkill(DARK_CRESCENDO);
         byte slv = (byte) skill.getCurrentLevel();
         int amount = 1;
-        if(tsm.hasStat(StackBuff)) {
+        if (tsm.hasStat(StackBuff)) {
             amount = tsm.getOption(StackBuff).mOption;
-            if(amount < getMaxDarkCrescendoStack()) {
+            if (amount < getMaxDarkCrescendoStack()) {
                 amount++;
             }
         }
@@ -508,8 +507,6 @@ public class Luminous extends Job {
         return 0;
     }
 
-
-
     // Skill related methods -------------------------------------------------------------------------------------------
 
     @Override
@@ -519,7 +516,7 @@ public class Luminous extends Job {
         Skill skill = chr.getSkill(skillID);
         SkillInfo si = null;
         TemporaryStatManager tsm = chr.getTemporaryStatManager();
-        if(skill != null) {
+        if (skill != null) {
             si = SkillData.getSkillInfoById(skillID);
         }
         chr.chatMessage(ChatType.Mob, "SkillID: " + skillID);
@@ -529,7 +526,7 @@ public class Luminous extends Job {
             Option o1 = new Option();
             Option o2 = new Option();
             Option o3 = new Option();
-            switch(skillID) {
+            switch (skillID) {
                 case ECLIPSE:
                 case SUNFIRE:
                 case CHANGE_LIGHT_DARK:
@@ -537,7 +534,7 @@ public class Luminous extends Job {
                     sendIncLarknessResult();
                     o1.nOption = 1;
                     o1.rOption = EQUILIBRIUM;
-//                    o1.tOption = SkillData.getSkillInfoById(EQUILIBRIUM).getValue(time, 1);
+                    // o1.tOption = SkillData.getSkillInfoById(EQUILIBRIUM).getValue(time, 1);
                     tsm.putCharacterStatValue(Larkness, o1);
                     equilibriumTimer = EventManager.addEvent(this::changeMode, getMoreEquilibriumTime(), TimeUnit.SECONDS);
                     chr.resetSkillCoolTime(ENDER);
@@ -555,13 +552,11 @@ public class Luminous extends Job {
         switch (skillId) {
             case ENDER:
             case DEATH_SCYTHE:
-                if(equilibriumTimer != null && !equilibriumTimer.isDone())
-                return 0;
+                if (equilibriumTimer != null && !equilibriumTimer.isDone())
+                    return 0;
         }
         return -1;
     }
-
-
 
     // Hit related methods ---------------------------------------------------------------------------------------------
 
@@ -569,7 +564,7 @@ public class Luminous extends Job {
     public void handleHit(Client c, InPacket inPacket, HitInfo hitInfo) {
         TemporaryStatManager tsm = chr.getTemporaryStatManager();
         Option o = new Option();
-        if(tsm.getOption(Larkness).rOption == EQUILIBRIUM) {
+        if (tsm.getOption(Larkness).rOption == EQUILIBRIUM) {
             return;
         } else {
             if (tsm.hasStat(BlessOfDarkness) && chr.hasSkill(BLACK_BLESSING) && hitInfo.hpDamage > 0) {
@@ -587,7 +582,7 @@ public class Luminous extends Job {
     @Override
     public void handleMobDebuffSkill(Char chr) {
         TemporaryStatManager tsm = chr.getTemporaryStatManager();
-        if(tsm.hasStat(AntiMagicShell)) {
+        if (tsm.hasStat(AntiMagicShell)) {
             tsm.removeAllDebuffs();
             deductShadowShell();
         }
@@ -596,7 +591,7 @@ public class Luminous extends Job {
 
     private void deductShadowShell() {
         TemporaryStatManager tsm = chr.getTemporaryStatManager();
-        if(!chr.hasSkill(SHADOW_SHELL)) {
+        if (!chr.hasSkill(SHADOW_SHELL)) {
             return;
         }
         Skill skill = chr.getSkill(SHADOW_SHELL);
@@ -606,11 +601,11 @@ public class Luminous extends Job {
         if (tsm.hasStat(AntiMagicShell)) {
             int shadowShellCount = tsm.getOption(AntiMagicShell).nOption;
 
-            if(shadowShellCount > 0) {
+            if (shadowShellCount > 0) {
                 shadowShellCount--;
             }
 
-            if(shadowShellCount <= 0) {
+            if (shadowShellCount <= 0) {
                 tsm.removeStatsBySkill(skill.getSkillId());
                 tsm.sendResetStatPacket();
             } else {

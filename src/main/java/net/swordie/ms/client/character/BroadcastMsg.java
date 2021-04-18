@@ -45,18 +45,18 @@ public class BroadcastMsg {
                 chr.encodeChat(outPacket, getString());
                 outPacket.encodeByte(getArg1()); // Channel
                 outPacket.encodeByte(getArg2()); // Mega Ear
-                outPacket.encodeByte(getArg3()); // Boolean  Item: Yes/No
-                if(getArg3() != 0) {
+                outPacket.encodeByte(getArg3()); // Boolean Item: Yes/No
+                if (getArg3() != 0) {
                     getItem().encode(outPacket); // Item encode
                 }
                 break;
             case ART_SPEAKER_WORLD:
                 chr.encodeChat(outPacket, getString());
                 outPacket.encodeByte(getArg1()); // StringList size
-                if(getArg1() > 1) {
+                if (getArg1() > 1) {
                     outPacket.encodeString(getString2()); // String 2
                 }
-                if(getArg1() > 2) {
+                if (getArg1() > 2) {
                     outPacket.encodeString(getString3()); // String 3
                 }
                 outPacket.encodeByte(getArg2()); // Channel
@@ -65,7 +65,7 @@ public class BroadcastMsg {
             case NOTICE_WITH_OUT_PREFIX:
             case LOTTERY_ITEM_SPEAKER_WORLD:
                 outPacket.encodeInt(getArg1()); // item Id
-                if(getArg1() != 0) {
+                if (getArg1() != 0) {
                     getItem().encode(outPacket); // item encode
                 }
                 break;
@@ -73,12 +73,12 @@ public class BroadcastMsg {
                 outPacket.encodeInt(getArg1()); // npc Id
                 break;
             case EVENT_MSG_WITH_CHANNEL:
-                outPacket.encodeInt(getArg1()); //  chr Id
-                // "#channel" will grab  Chr's  Channel
+                outPacket.encodeInt(getArg1()); // chr Id
+                // "#channel" will grab Chr's Channel
                 break;
             case LOTTERY_ITEM_SPEAKER:
-                outPacket.encodeByte(getArg1()); // Boolean  Item: Yes/No
-                if(getArg1() != 0) {
+                outPacket.encodeByte(getArg1()); // Boolean Item: Yes/No
+                if (getArg1() != 0) {
                     getItem().encode(outPacket); // Item encode
                 }
                 break;
@@ -108,18 +108,16 @@ public class BroadcastMsg {
         }
     }
 
-
-
     public static BroadcastMsg tripleMegaphone(List<String> stringList, byte channel, boolean whisperEar, Char chr) {
         BroadcastMsg broadcastMsg = new BroadcastMsg();
         broadcastMsg.setBroadcastMsgType(BroadcastMsgType.ART_SPEAKER_WORLD);
 
         broadcastMsg.setArg1((byte) stringList.size());
         broadcastMsg.setString(stringList.get(0));
-        if(stringList.size() > 1) {
+        if (stringList.size() > 1) {
             broadcastMsg.setString2(stringList.get(1));
         }
-        if(stringList.size() > 2) {
+        if (stringList.size() > 2) {
             broadcastMsg.setString3(stringList.get(2));
         }
         broadcastMsg.setArg2((byte) (channel - 1));
@@ -138,7 +136,6 @@ public class BroadcastMsg {
         broadcastMsg.setChr(chr);
         return broadcastMsg;
     }
-
 
     public static BroadcastMsg itemMegaphone(String string, byte channel, boolean whisperEar, boolean containsItem, Item item, Char chr) {
         BroadcastMsg broadcastMsg = new BroadcastMsg();
@@ -164,7 +161,6 @@ public class BroadcastMsg {
 
         return broadcastMsg;
     }
-
 
     public static BroadcastMsg notice(String string) {
         BroadcastMsg broadcastMsg = new BroadcastMsg();
@@ -216,18 +212,15 @@ public class BroadcastMsg {
         return broadcastMsg;
     }
 
-
-  /*
-    public static BroadcastMsg slideNotice(String string, boolean show) {
-        BroadcastMsg broadcastMsg = new BroadcastMsg();
-        broadcastMsg.setBroadcastMsgType(BroadcastMsgType.SlideNotice);
-
-        broadcastMsg.setString(string);
-        broadcastMsg.setArg1(show ? 1 : 0);
-
-        return broadcastMsg;
-    }
-*/
+    /*
+     * public static BroadcastMsg slideNotice(String string, boolean show) {
+     * BroadcastMsg broadcastMsg = new BroadcastMsg();
+     * broadcastMsg.setBroadcastMsgType(BroadcastMsgType.SlideNotice);
+     * broadcastMsg.setString(string);
+     * broadcastMsg.setArg1(show ? 1 : 0);
+     * return broadcastMsg;
+     * }
+     */
 
     public BroadcastMsgType getBroadcastMsgType() {
         return broadcastMsgType;

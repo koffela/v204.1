@@ -55,7 +55,6 @@ public class JobSkillHandler {
 
     private static final Logger log = Logger.getLogger(JobSkillHandler.class);
 
-
     @Handler(op = InHeader.CREATE_KINESIS_PSYCHIC_AREA)
     public static void handleCreateKinesisPsychicArea(Char chr, InPacket inPacket) {
         PsychicArea pa = new PsychicArea();
@@ -121,7 +120,7 @@ public class JobSkillHandler {
             PsychicLockBall plb = new PsychicLockBall();
             plb.localKey = inPacket.decodeInt();
             plb.psychicLockKey = inPacket.decodeInt() + 1;
-            //plb.psychicLockKey = i;
+            // plb.psychicLockKey = i;
             int mobID = inPacket.decodeInt();
             Life life = f.getLifeByObjectID(mobID);
             if (life == null) {
@@ -174,22 +173,18 @@ public class JobSkillHandler {
             Field field = chr.getField();
             Set<FieldAttackObj> currentFaos = field.getFieldAttackObjects();
             // remove the old arrow platter
-            currentFaos.stream()
-                    .filter(fao -> fao.getOwnerID() == chr.getId() && fao.getTemplateId() == 1)
-                    .findAny().ifPresent(field::removeLife);
+            currentFaos.stream().filter(fao -> fao.getOwnerID() == chr.getId() && fao.getTemplateId() == 1).findAny().ifPresent(field::removeLife);
             SkillInfo si = SkillData.getSkillInfoById(skillID);
             int slv = skill.getCurrentLevel();
             FieldAttackObj fao = new FieldAttackObj(1, chr.getId(), chr.getPosition().deepCopy(), flip);
             field.spawnLife(fao, chr);
             field.broadcastPacket(FieldAttackObjPool.objCreate(fao), chr);
-            ScheduledFuture sf = EventManager.addEvent(() -> field.removeLife(fao.getObjectId(), true),
-                    si.getValue(SkillStat.u, slv), TimeUnit.SECONDS);
+            ScheduledFuture sf = EventManager.addEvent(() -> field.removeLife(fao.getObjectId(), true), si.getValue(SkillStat.u, slv), TimeUnit.SECONDS);
             field.addLifeSchedule(fao, sf);
             field.broadcastPacket(FieldAttackObjPool.setAttack(fao.getObjectId(), 0));
         }
         chr.dispose();
     }
-
 
     @Handler(op = InHeader.USER_FLAME_ORB_REQUEST)
     public static void handleUserFlameOrbRequest(Char chr, InPacket inPacket) {
@@ -244,12 +239,10 @@ public class JobSkillHandler {
                 range /= 1.5;
                 break;
         }
-        ForceAtomInfo fai = new ForceAtomInfo(1, fae.getInc(), firstImpact, secondImpact,
-                angle, 0, curTime, si.getValue(SkillStat.mobCount, slv), skillID, new Position(0, 0));
+        ForceAtomInfo fai = new ForceAtomInfo(1, fae.getInc(), firstImpact, secondImpact, angle, 0, curTime, si.getValue(SkillStat.mobCount, slv), skillID, new Position(0, 0));
         List<ForceAtomInfo> faiList = new ArrayList<>();
         faiList.add(fai);
-        chr.getField().broadcastPacket(FieldPacket.createForceAtom(false, 0, chr.getId(), fae.getForceAtomType(), false,
-                new ArrayList<>(), skillID, faiList, null, dir, range, null, 0, null));
+        chr.getField().broadcastPacket(FieldPacket.createForceAtom(false, 0, chr.getId(), fae.getForceAtomType(), false, new ArrayList<>(), skillID, faiList, null, dir, range, null, 0, null));
     }
 
     @Handler(op = InHeader.ZERO_TAG)
@@ -283,7 +276,7 @@ public class JobSkillHandler {
             return;
         }
         inPacket.decodeInt(); // tick
-        byte skillNumber = inPacket.decodeByte(); //bSkill Number
+        byte skillNumber = inPacket.decodeByte(); // bSkill Number
         // more packet, but seems useless
         switch (skillNumber) {
             case 3:
@@ -303,10 +296,10 @@ public class JobSkillHandler {
         Char chr = c.getChr();
         Field field = chr.getField();
 
-        inPacket.decodeInt(); //tick
-        inPacket.decodeByte(); //unk
+        inPacket.decodeInt(); // tick
+        inPacket.decodeByte(); // unk
         int skillID = inPacket.decodeInt();
-        inPacket.decodeInt(); //unk
+        inPacket.decodeInt(); // unk
 
         if (field.getAffectedAreas().stream().noneMatch(ss -> ss.getSkillID() == skillID)) {
             chr.getOffenseManager().addOffense(String.format("Character %d tried to heal from Holy Fountain (%d) whilst there isn't any on the field.", chr.getId(), skillID));
@@ -400,7 +393,6 @@ public class JobSkillHandler {
         for (int i = 0; i < mobCount; i++) {
             mobid = inPacket.decodeInt();
 
-
             Mob mob = (Mob) chr.getField().getLifeByObjectID(mobid);
             int inc = ForceAtomEnum.KAISER_WEAPON_THROW_1.getInc();
             int type = ForceAtomEnum.KAISER_WEAPON_THROW_1.getForceAtomType();
@@ -420,16 +412,11 @@ public class JobSkillHandler {
                     break;
             }
 
-            ForceAtomInfo forceAtomInfo = new ForceAtomInfo(1, inc, 25, 30,
-                    0, 10 * i, (int) System.currentTimeMillis(), 1, 0,
-                    new Position());
-            chr.getField().broadcastPacket(FieldPacket.createForceAtom(false, 0, chr.getId(), type,
-                    true, mob.getObjectId(), Kaiser.TEMPEST_BLADES_FIVE_FF, forceAtomInfo, new Rect(), 0, 300,
-                    mob.getPosition(), Kaiser.TEMPEST_BLADES_FIVE_FF, mob.getPosition()));
+            ForceAtomInfo forceAtomInfo = new ForceAtomInfo(1, inc, 25, 30, 0, 10 * i, (int) System.currentTimeMillis(), 1, 0, new Position());
+            chr.getField().broadcastPacket(FieldPacket.createForceAtom(false, 0, chr.getId(), type, true, mob.getObjectId(), Kaiser.TEMPEST_BLADES_FIVE_FF, forceAtomInfo, new Rect(), 0, 300, mob.getPosition(), Kaiser.TEMPEST_BLADES_FIVE_FF, mob.getPosition()));
 
             lastMobID = mobid;
         }
-
 
         for (int i = mobCount; i < maxCount; i++) {
 
@@ -452,18 +439,13 @@ public class JobSkillHandler {
                     break;
             }
 
-            ForceAtomInfo forceAtomInfo = new ForceAtomInfo(1, inc, 25, 30,
-                    0, 12 * i, (int) System.currentTimeMillis(), 1, 0,
-                    new Position());
-            chr.getField().broadcastPacket(FieldPacket.createForceAtom(false, 0, chr.getId(), type,
-                    true, mob.getObjectId(), Kaiser.TEMPEST_BLADES_FIVE_FF, forceAtomInfo, new Rect(), 0, 300,
-                    mob.getPosition(), Kaiser.TEMPEST_BLADES_FIVE_FF, mob.getPosition()));
+            ForceAtomInfo forceAtomInfo = new ForceAtomInfo(1, inc, 25, 30, 0, 12 * i, (int) System.currentTimeMillis(), 1, 0, new Position());
+            chr.getField().broadcastPacket(FieldPacket.createForceAtom(false, 0, chr.getId(), type, true, mob.getObjectId(), Kaiser.TEMPEST_BLADES_FIVE_FF, forceAtomInfo, new Rect(), 0, 300, mob.getPosition(), Kaiser.TEMPEST_BLADES_FIVE_FF, mob.getPosition()));
         }
 
         tsm.removeStat(StopForceAtomInfo, false);
         tsm.sendResetStatPacket();
     }
-
 
     @Handler(op = InHeader.USER_REQUEST_STEAL_SKILL_LIST)
     public static void handleUserRequestStealSkillList(Client c, InPacket inPacket) {
@@ -481,14 +463,14 @@ public class JobSkillHandler {
     public static void handleUserRequestStealSkillMemory(Client c, InPacket inPacket) {
         int stealSkillID = inPacket.decodeInt();
         int targetChrID = inPacket.decodeInt();
-        boolean add = inPacket.decodeByte() != 0;   // 0 = add  |  1 = remove
+        boolean add = inPacket.decodeByte() != 0;   // 0 = add | 1 = remove
 
         Char chr = c.getChr();
         Char targetChr = c.getChr().getField().getCharByID(targetChrID);
 
         Skill stolenSkill = SkillData.getSkillDeepCopyById(stealSkillID);
         int stealSkillMaxLv = stolenSkill.getMasterLevel();
-        int stealSkillCurLv = targetChr == null ? stealSkillMaxLv : targetChr.getSkill(stealSkillID).getCurrentLevel(); //TODO this is for testing,  needs to be:    targetChr.getSkillID(stealSkillID).getCurrentLevel();
+        int stealSkillCurLv = targetChr == null ? stealSkillMaxLv : targetChr.getSkill(stealSkillID).getCurrentLevel(); // TODO this is for testing, needs to be: targetChr.getSkillID(stealSkillID).getCurrentLevel();
 
         if (!add) {
             // /Add Stolen Skill
@@ -510,7 +492,7 @@ public class JobSkillHandler {
             int positionPerTab = StolenSkill.getPositionForTab(position, stealSkillID);
             c.write(UserLocal.changeStealMemoryResult(STEAL_SKILL.getVal(), SkillConstants.getStealSkillManagerTabFromSkill(stealSkillID), positionPerTab, stealSkillID, stealSkillCurLv, stealSkillMaxLv));
         } else {
-            //Remove Stolen Skill
+            // Remove Stolen Skill
             int position = StolenSkill.getPositionPerTabFromStolenSkill(chr.getStolenSkillBySkillId(stealSkillID));
             StolenSkill.removeSkill(chr, stealSkillID);
             c.write(UserLocal.changeStealMemoryResult(REMOVE_STEAL_MEMORY.getVal(), SkillConstants.getStealSkillManagerTabFromSkill(stealSkillID), position, stealSkillID, stealSkillCurLv, stealSkillMaxLv));
@@ -541,7 +523,7 @@ public class JobSkillHandler {
     @Handler(op = InHeader.USER_SET_DRESS_CHANGED_REQUEST)
     public static void handleUserSetDressChangedRequest(Char chr, InPacket inPacket) {
         boolean on = inPacket.decodeByte() != 0;
-//        chr.write(UserLocal.setDressChanged(on, true)); // causes client to send this packet again
+        // chr.write(UserLocal.setDressChanged(on, true)); // causes client to send this packet again
     }
 
     @Handler(op = InHeader.BEAST_TAMER_REGROUP_REQUEST)
@@ -594,7 +576,7 @@ public class JobSkillHandler {
                 String value = chr.getQuestEx(QuestConstants.BEAST_FORM_WING_ON_OFF, Integer.toString(skillID));
                 if (value == null || value.equals("0")) {
                     chr.getScriptManager().setQuestEx(QuestConstants.BEAST_FORM_WING_ON_OFF, Integer.toString(skillID), "1");
-                } else if (value.equals("1")){
+                } else if (value.equals("1")) {
                     chr.getScriptManager().setQuestEx(QuestConstants.BEAST_FORM_WING_ON_OFF, Integer.toString(skillID), "0");
                 }
                 break;

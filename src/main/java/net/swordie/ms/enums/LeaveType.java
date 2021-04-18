@@ -8,7 +8,6 @@ public enum LeaveType {
     ANIMATION(1),
     ;
 
-
     private byte val;
 
     LeaveType(int val) {

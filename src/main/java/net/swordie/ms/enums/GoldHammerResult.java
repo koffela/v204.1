@@ -9,14 +9,14 @@ public enum GoldHammerResult {
     Fail(1),
     Done(2),
     Error(3);
-	
-	private byte val;
-	
-	GoldHammerResult(int val) {
-		this.val = (byte) val;
-	}
-	
-	public byte getVal() {
-		return val;
-	}
+
+    private byte val;
+
+    GoldHammerResult(int val) {
+        this.val = (byte) val;
+    }
+
+    public byte getVal() {
+        return val;
+    }
 }

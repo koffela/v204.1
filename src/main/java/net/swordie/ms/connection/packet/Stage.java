@@ -19,17 +19,16 @@ import java.util.Random;
  */
 public class Stage {
 
-    public static OutPacket setField(Char chr, Field field, int channelId, boolean dev, int oldDriverID,
-                                     boolean characterData, boolean usingBuffProtector, byte portal,
-                                     boolean setWhiteFadeInOut, int mobStatAdjustRate, FieldCustom fieldCustom,
-                                     boolean canNotifyAnnouncedQuest, int stackEventGauge) {
+    public static OutPacket setField(Char chr, Field field, int channelId, boolean dev, int oldDriverID, boolean characterData, boolean usingBuffProtector, byte portal, boolean setWhiteFadeInOut, int mobStatAdjustRate, FieldCustom fieldCustom, boolean canNotifyAnnouncedQuest, int stackEventGauge) {
         OutPacket outPacket = new OutPacket(OutHeader.SET_FIELD);
-        /*short shortSize = 0;
-        outPacket.encodeShort(shortSize);
-        for (int i = 0; i < shortSize; i++) {
-            outPacket.encodeInt(0);
-            outPacket.encodeInt(0);
-        }*/
+        /*
+         * short shortSize = 0;
+         * outPacket.encodeShort(shortSize);
+         * for (int i = 0; i < shortSize; i++) {
+         * outPacket.encodeInt(0);
+         * outPacket.encodeInt(0);
+         * }
+         */
 
         outPacket.encodeInt(channelId - 1); // Damn nexon, randomly switching between starting at 1 and 0...
         outPacket.encodeByte(dev);
@@ -43,14 +42,14 @@ public class Stage {
         outPacket.encodeByte(characterData);
         short notifierCheck = 0;
         outPacket.encodeShort(notifierCheck);
-        if(notifierCheck > 0) {
+        if (notifierCheck > 0) {
             outPacket.encodeString(""); // pBlockReasonIter
-            for(int i = 0; i < notifierCheck; i++) {
+            for (int i = 0; i < notifierCheck; i++) {
                 outPacket.encodeString(""); // sMsg2
             }
         }
 
-        if(characterData) {
+        if (characterData) {
             Random random = new SecureRandom();
             int s1 = random.nextInt();
             int s2 = random.nextInt();
@@ -61,8 +60,8 @@ public class Stage {
 
             chr.setDamageCalc(new DamageCalc(chr, s1, s2, s3));
             chr.encode(outPacket, DBChar.All); // <<<<------------------------------------
-            //String packet = "";
-            //outPacket.encodeArr(Util.getByteArrayByString(packet));
+            // String packet = "";
+            // outPacket.encodeArr(Util.getByteArrayByString(packet));
             // unk sub (not in kmst)
             // logout event (mushy)
             encodeLogoutEvent(outPacket);
@@ -77,7 +76,7 @@ public class Stage {
             outPacket.encodeInt(chr.getAvatarData().getCharacterStat().getHp());
             boolean bool = false;
             outPacket.encodeByte(bool);
-            if(bool) {
+            if (bool) {
                 outPacket.encodeInt(0);
                 outPacket.encodeInt(0);
             }
@@ -90,14 +89,14 @@ public class Stage {
         outPacket.encodeInt(mobStatAdjustRate);
         boolean hasFieldCustom = fieldCustom != null;
         outPacket.encodeByte(hasFieldCustom);
-        if(hasFieldCustom) {
+        if (hasFieldCustom) {
             fieldCustom.encode(outPacket);
         }
         outPacket.encodeByte(false); // is pvp map, deprecated
         outPacket.encodeByte(canNotifyAnnouncedQuest);
 
         outPacket.encodeByte(stackEventGauge >= 0);
-        if(stackEventGauge >= 0) {
+        if (stackEventGauge >= 0) {
             outPacket.encodeInt(stackEventGauge);
         }
         // sub_16A52D0
@@ -135,7 +134,7 @@ public class Stage {
         // sub_16A4D10
         outPacket.encodeInt(0); // ?
         // sub_16D99C0
-        //outPacket.encodeArr(new byte[69]);
+        // outPacket.encodeArr(new byte[69]);
 
         return outPacket;
     }

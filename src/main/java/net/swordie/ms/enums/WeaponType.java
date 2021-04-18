@@ -2,10 +2,9 @@ package net.swordie.ms.enums;
 
 import java.util.Arrays;
 
-
 /**
  * @author Sjonnie
- * Created on 8/30/2018.
+ *         Created on 8/30/2018.
  */
 public enum WeaponType {
     // WT_ Enum, but renamed some to make more sense
@@ -45,7 +44,7 @@ public enum WeaponType {
     BigSword(56),
     LongSword(57),
     ArmCannon(58),
-        ;
+    ;
 
     private int val;
 

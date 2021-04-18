@@ -167,7 +167,7 @@ public class PetItem extends Item {
         pet.setFh(chr.getFoothold());
         pet.setPosition(chr.getPosition());
         int chosenIdx = chr.getFirstPetIdx();
-        if(chosenIdx == -1) {
+        if (chosenIdx == -1) {
             log.error("Tried to create a pet while 3 pets already exist.");
         }
         pet.setIdx(chosenIdx);

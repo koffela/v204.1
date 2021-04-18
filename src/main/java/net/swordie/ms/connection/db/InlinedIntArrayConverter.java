@@ -1,13 +1,12 @@
 package net.swordie.ms.connection.db;
 
-
 import javax.persistence.AttributeConverter;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author Sjonnie
- * Created on 12/19/2018.
+ *         Created on 12/19/2018.
  */
 public class InlinedIntArrayConverter implements AttributeConverter<List<Integer>, String> {
     @Override

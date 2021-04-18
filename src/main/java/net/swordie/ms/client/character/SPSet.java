@@ -8,7 +8,8 @@ import javax.persistence.*;
 @Entity
 @Table(name = "spset")
 public class SPSet {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private byte jobLevel;
     private int sp;

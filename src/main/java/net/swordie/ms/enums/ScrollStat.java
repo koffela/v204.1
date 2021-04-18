@@ -67,17 +67,15 @@ public enum ScrollStat {
     ;
 
     public static ScrollStat getScrollStatByString(String name) {
-        return Arrays.stream(values()).filter(ss -> ss.toString().equalsIgnoreCase(name))
-                .findFirst()
-                .orElse(null);
+        return Arrays.stream(values()).filter(ss -> ss.toString().equalsIgnoreCase(name)).findFirst().orElse(null);
     }
 
     public static EquipBaseStat[] getRandStats() {
-        return new EquipBaseStat[]{iStr, iDex, iInt, iLuk, iMaxHP, iMaxMP, iPAD, iMAD, iPDD, iMDD, iACC, iEVA};
+        return new EquipBaseStat[] { iStr, iDex, iInt, iLuk, iMaxHP, iMaxMP, iPAD, iMAD, iPDD, iMDD, iACC, iEVA };
     }
 
     public EquipBaseStat getEquipStat() {
-        switch(this) {
+        switch (this) {
             case incSTR:
                 return iStr;
             case incDEX:
@@ -115,7 +113,7 @@ public enum ScrollStat {
     }
 
     public BaseStat getBaseStat() {
-        switch(this) {
+        switch (this) {
             case incSTR:
                 return BaseStat.str;
             case incDEX:
@@ -154,7 +152,7 @@ public enum ScrollStat {
             case incLUKr:
                 return BaseStat.lukR;
             case incMHPr:
-                return  BaseStat.mhpR;
+                return BaseStat.mhpR;
             case incMMPr:
                 return BaseStat.mmpR;
             default:

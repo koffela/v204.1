@@ -31,7 +31,6 @@ public class ReactorInfo {
     private Rect rect;
     private Set<DropInfo> drops = new HashSet<>();
 
-
     public void setId(int id) {
         this.id = id;
     }
@@ -186,9 +185,7 @@ public class ReactorInfo {
 
     @Override
     public String toString() {
-        return "ReactorInfo{" +
-                "id=" + id +
-                '}';
+        return "ReactorInfo{" + "id=" + id + '}';
     }
 
     public Set<DropInfo> getDrops() {

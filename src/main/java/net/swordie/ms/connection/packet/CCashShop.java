@@ -37,8 +37,7 @@ public class CCashShop {
         return outPacket;
     }
 
-    public static OutPacket cashItemResBuyDone(CashItemInfo cashItemInfo, FileTime registerDate, CashItemInfo receiveBonus,
-                                               int someInt) {
+    public static OutPacket cashItemResBuyDone(CashItemInfo cashItemInfo, FileTime registerDate, CashItemInfo receiveBonus, int someInt) {
         OutPacket outPacket = new OutPacket(OutHeader.CASH_SHOP_CASH_ITEM_RESULT);
 
         outPacket.encodeByte(CashItemType.Res_Buy_Done.getVal());

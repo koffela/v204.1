@@ -37,29 +37,28 @@ import static net.swordie.ms.client.character.skills.SkillStat.*;
  */
 public class PinkBean extends Job {
 
-    public static final int CHILL_OUT_ZZZ = 131001306; //Buff
-    public static final int CHILL_OUT_TONGUE_OUT = 131001106; //Buff
-    public static final int CHILL_OUT_MYSTERIOUS_COCKTAIL = 131001406; //Buff
-    public static final int CHILL_OUT_NOM_NOM_MEAT = 131001206; //Buff
-    public static final int CHILL_OUT_HEADSET = 131001506; //Buff
+    public static final int CHILL_OUT_ZZZ = 131001306; // Buff
+    public static final int CHILL_OUT_TONGUE_OUT = 131001106; // Buff
+    public static final int CHILL_OUT_MYSTERIOUS_COCKTAIL = 131001406; // Buff
+    public static final int CHILL_OUT_NOM_NOM_MEAT = 131001206; // Buff
+    public static final int CHILL_OUT_HEADSET = 131001506; // Buff
 
-    public static final int INSTANT_GARDEN_POSIE = 131001107; //Area of Effect
-    public static final int INSTANT_GARDEN_BREEZY = 131001207; //Area of Effect
-    public static final int INSTANT_GARDEN_PRETTY = 131001307; //Summon
+    public static final int INSTANT_GARDEN_POSIE = 131001107; // Area of Effect
+    public static final int INSTANT_GARDEN_BREEZY = 131001207; // Area of Effect
+    public static final int INSTANT_GARDEN_PRETTY = 131001307; // Summon
 
-    public static final int GO_MINI_BEANS = 131001015; //   ON/OFF buff
-    public static final int MINI_BEANS = 131002015; //Summon Info
-    public static final int EVERYBODY_HAPPY = 131001009; //Buff
+    public static final int GO_MINI_BEANS = 131001015; // ON/OFF buff
+    public static final int MINI_BEANS = 131002015; // Summon Info
+    public static final int EVERYBODY_HAPPY = 131001009; // Buff
     public static final int LETS_ROLL = 131001004;
     public static final int BLAZING_YOYO = 131001010;
     public static final int BLAZING_YOYO_2 = 131001011;
-
 
     private int yoyo;
     private final int MAX_YOYO_STACK = 8;
     private ScheduledFuture yoyoStackTimer;
 
-    private int[] buffs = new int[]{
+    private int[] buffs = new int[] {
             CHILL_OUT_ZZZ,
             CHILL_OUT_TONGUE_OUT,
             CHILL_OUT_MYSTERIOUS_COCKTAIL,
@@ -73,19 +72,16 @@ public class PinkBean extends Job {
 
     public PinkBean(Char chr) {
         super(chr);
-        if(yoyoStackTimer != null && !yoyoStackTimer.isDone()) {
+        if (yoyoStackTimer != null && !yoyoStackTimer.isDone()) {
             yoyoStackTimer.cancel(true);
         }
-        //yoyoInterval();
+        // yoyoInterval();
     }
 
     @Override
     public boolean isHandlerOfJob(short id) {
         return JobConstants.isPinkBean(id);
     }
-
-
-
 
     // Buff related methods --------------------------------------------------------------------------------------------
 
@@ -113,7 +109,7 @@ public class PinkBean extends Job {
                 o2.tTerm = si.getValue(time, slv);
                 tsm.putCharacterStatValue(IndieEXP, o2);
                 break;
-            case CHILL_OUT_TONGUE_OUT:  //buff + debuff (handleSkill)
+            case CHILL_OUT_TONGUE_OUT:  // buff + debuff (handleSkill)
                 o2.nReason = skillID;
                 o2.nValue = si.getValue(indieExp, slv);
                 o2.tStart = (int) System.currentTimeMillis();
@@ -132,11 +128,11 @@ public class PinkBean extends Job {
                 o2.tTerm = si.getValue(time, slv);
                 tsm.putCharacterStatValue(IndieEXP, o2);
                 break;
-            case CHILL_OUT_NOM_NOM_MEAT:    //Regen 1%MaxHP per second
+            case CHILL_OUT_NOM_NOM_MEAT:    // Regen 1%MaxHP per second
                 o1.nOption = si.getValue(dotHealHPPerSecondR, slv);
                 o1.rOption = skillID;
                 o1.tOption = si.getValue(time, slv);
-                tsm.putCharacterStatValue(DotHealHPPerSecond, o1);  //DoTHealHPPerSecond  Rate?
+                tsm.putCharacterStatValue(DotHealHPPerSecond, o1);  // DoTHealHPPerSecond Rate?
                 o2.nReason = skillID;
                 o2.nValue = si.getValue(indieExp, slv);
                 o2.tStart = (int) System.currentTimeMillis();
@@ -161,7 +157,7 @@ public class PinkBean extends Job {
                 tsm.putCharacterStatValue(IndiePADR, o3);
                 break;
 
-            case INSTANT_GARDEN_PRETTY: //Summon
+            case INSTANT_GARDEN_PRETTY: // Summon
                 summon = Summon.getSummonBy(c.getChr(), skillID, slv);
                 field = c.getChr().getField();
                 summon.setFlyMob(false);
@@ -171,7 +167,7 @@ public class PinkBean extends Job {
                 field.spawnSummon(summon);
                 break;
 
-            case GO_MINI_BEANS: //  ON/OFF Buff
+            case GO_MINI_BEANS: // ON/OFF Buff
                 o1.nOption = 1;
                 o1.rOption = skillID;
                 o1.tOption = 0;
@@ -205,14 +201,12 @@ public class PinkBean extends Job {
                 break;
         }
         tsm.sendSetStatPacket();
-        
+
     }
 
     public boolean isBuff(int skillID) {
         return super.isBuff(skillID) || Arrays.stream(buffs).anyMatch(b -> b == skillID);
     }
-
-
 
     // Attack related methods ------------------------------------------------------------------------------------------
 
@@ -230,8 +224,8 @@ public class PinkBean extends Job {
             slv = (byte) skill.getCurrentLevel();
             skillID = skill.getSkillId();
         }
-        if(hasHitMobs) {
-            if(skillID != MINI_BEANS) {
+        if (hasHitMobs) {
+            if (skillID != MINI_BEANS) {
                 summonGoMiniBeans(attackInfo);
             }
         }
@@ -258,37 +252,37 @@ public class PinkBean extends Job {
     public void incrementYoYoStack(int amount) {
         yoyo += amount;
         yoyo = Math.min(MAX_YOYO_STACK, yoyo);
-        //updateYoYo();
+        // updateYoYo();
     }
 
     public void yoyoInterval() {
         yoyoIncrement();
         yoyoStackTimer = EventManager.addEvent(this::yoyoInterval, 1000);
     }
-/*
-    private void updateYoYo() {
-        Option o = new Option();
-        o.nOption = yoyo;
-        chr.getTemporaryStatManager().putCharacterStatValue(PinkbeanYoYoStack, o);
-        chr.getTemporaryStatManager().sendSetStatPacket();
-    }
-*/
+    /*
+     * private void updateYoYo() {
+     * Option o = new Option();
+     * o.nOption = yoyo;
+     * chr.getTemporaryStatManager().putCharacterStatValue(PinkbeanYoYoStack, o);
+     * chr.getTemporaryStatManager().sendSetStatPacket();
+     * }
+     */
 
     private void summonGoMiniBeans(AttackInfo attackInfo) {
         TemporaryStatManager tsm = chr.getTemporaryStatManager();
         Option o1 = new Option();
         Field field;
         Summon summon;
-        if(tsm.hasStat(PinkbeanMinibeenMove)) {
+        if (tsm.hasStat(PinkbeanMinibeenMove)) {
             SkillInfo miniBeanInfo = SkillData.getSkillInfoById(GO_MINI_BEANS);
-            byte slv = (byte)miniBeanInfo.getCurrentLevel();
-            int minibeanproc = 100;//   miniBeanInfo.getValue(z, miniBeanInfo.getCurrentLevel());
-            for(MobAttackInfo mai : attackInfo.mobAttackInfo) {
+            byte slv = (byte) miniBeanInfo.getCurrentLevel();
+            int minibeanproc = 100;// miniBeanInfo.getValue(z, miniBeanInfo.getCurrentLevel());
+            for (MobAttackInfo mai : attackInfo.mobAttackInfo) {
                 Mob mob = (Mob) chr.getField().getLifeByObjectID(mai.mobId);
                 if (mob == null) {
                     continue;
                 }
-                if(Util.succeedProp(minibeanproc)) {
+                if (Util.succeedProp(minibeanproc)) {
                     summon = Summon.getSummonBy(c.getChr(), MINI_BEANS, slv);
                     field = c.getChr().getField();
                     summon.setFlyMob(true);
@@ -305,8 +299,6 @@ public class PinkBean extends Job {
         return 0;
     }
 
-
-
     // Skill related methods -------------------------------------------------------------------------------------------
 
     @Override
@@ -315,7 +307,7 @@ public class PinkBean extends Job {
         Char chr = c.getChr();
         Skill skill = chr.getSkill(skillID);
         SkillInfo si = null;
-        if(skill != null) {
+        if (skill != null) {
             si = SkillData.getSkillInfoById(skillID);
         }
         chr.chatMessage(ChatType.Mob, "SkillID: " + skillID);
@@ -325,15 +317,14 @@ public class PinkBean extends Job {
             Option o1 = new Option();
             Option o2 = new Option();
             Option o3 = new Option();
-            switch(skillID) {
+            switch (skillID) {
                 case CHILL_OUT_TONGUE_OUT:
-                    Rect rect = new Rect(inPacket.decodeShort(), inPacket.decodeShort()
-                            , inPacket.decodeShort(), inPacket.decodeShort());
-                    for(Life life : chr.getField().getLifesInRect(rect)) {
-                        if(life instanceof Mob && ((Mob) life).getHp() > 0) {
+                    Rect rect = new Rect(inPacket.decodeShort(), inPacket.decodeShort(), inPacket.decodeShort(), inPacket.decodeShort());
+                    for (Life life : chr.getField().getLifesInRect(rect)) {
+                        if (life instanceof Mob && ((Mob) life).getHp() > 0) {
                             Mob mob = (Mob) life;
                             MobTemporaryStat mts = mob.getTemporaryStat();
-                            if(Util.succeedProp(si.getValue(prop, slv))) {
+                            if (Util.succeedProp(si.getValue(prop, slv))) {
                                 o1.nOption = si.getValue(x, slv);
                                 o1.rOption = skillID;
                                 o1.tOption = si.getValue(time, slv);
@@ -383,8 +374,6 @@ public class PinkBean extends Job {
             }
         }
     }
-
-
 
     @Override
     public void handleHit(Client c, InPacket inPacket, HitInfo hitInfo) {

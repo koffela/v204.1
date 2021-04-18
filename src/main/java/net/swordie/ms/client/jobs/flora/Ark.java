@@ -93,8 +93,8 @@ public class Ark extends Job {
 
     // Hyper Skills
     public static final int ENDLESS_AGONY = 155121341;
-    public static final int DIVINE_WRATH =  155121042;
-    public static final int CHARGE_SPELL_AMPLIFIER =  155121043;
+    public static final int DIVINE_WRATH = 155121042;
+    public static final int CHARGE_SPELL_AMPLIFIER = 155121043;
 
     // V skills
     public static final int ABYSSAL_RECALL = 400051334;
@@ -106,9 +106,9 @@ public class Ark extends Job {
     private long lastEnergyUpdate = 0L;
 
     private int[] addedSkills = new int[] {
-           // SPECTER_STATE,
-          //  SPECTRA_FARIGUE,
-          //  MASTER_CORRUPTION
+            // SPECTER_STATE,
+            // SPECTRA_FARIGUE,
+            // MASTER_CORRUPTION
     };
 
     public enum SpellChargeType {
@@ -116,17 +116,23 @@ public class Ark extends Job {
         Scarlet(15510),
         Gust(15511),
         Abyssal(15512);
+
         private int val;
 
-        SpellChargeType(int val) { this.val = val; }
+        SpellChargeType(int val) {
+            this.val = val;
+        }
 
-        public int getVal() { return val; }
+        public int getVal() {
+            return val;
+        }
 
         public static SpellChargeType getByVal(int val) {
             return Arrays.stream(values()).filter(sct -> sct.getVal() == val).findAny().orElse(null);
         }
     }
-    private int[] buffs = new int[]{
+
+    private int[] buffs = new int[] {
             // Basic Charge Drive
             BASIC_CHARGE_DRIVE_ATTACK,
             BASIC_CHARGE_DRIVE_ATOM,
@@ -284,16 +290,16 @@ public class Ark extends Job {
         if (chr.hasSkill(ENHANCED_SPECTRA) && chr.getSkillLevel(ENHANCED_SPECTRA) > 0) {
             incEnergy += 1;
         }
-        if (tsm.hasStat(SpecterState) ) {
+        if (tsm.hasStat(SpecterState)) {
             incEnergy = si.getValue(x, slv);
             if (Util.succeedProp(50)) {
                 incEnergy *= 2;
             }
             incEnergy *= -1;
         }
-        //if (chr.hasSkillOnCooldown(MASTER_CORRUPTION) || tsm.hasStat(AbyssalRecall)) {
-        //    return;
-        //}
+        // if (chr.hasSkillOnCooldown(MASTER_CORRUPTION) || tsm.hasStat(AbyssalRecall)) {
+        // return;
+        // }
         updateSpectraEnergy(currentEnergy + incEnergy);
         lastEnergyUpdate = System.currentTimeMillis();
     }
@@ -310,7 +316,7 @@ public class Ark extends Job {
                 SkillInfo si = SkillData.getSkillInfoById(MASTER_CORRUPTION);
                 chr.addSkillCoolTime(MASTER_CORRUPTION, si.getValue(cooltime, 1) * 1000);
             }
-        } else if (o.xOption >= 1000 && !chr.hasSkill(MASTER_CORRUPTION)){
+        } else if (o.xOption >= 1000 && !chr.hasSkill(MASTER_CORRUPTION)) {
             changeSpecterState();
         }
         tsm.sendSetStatPacket();
@@ -355,9 +361,9 @@ public class Ark extends Job {
             slv = skill.getCurrentLevel();
             skillID = skill.getSkillId();
         }
-        //if (!SkillConstants.isArkForceAtomAttack(attackInfo.skillId)) {
-        //    createImpendingDeathForceAtom();
-        //}
+        // if (!SkillConstants.isArkForceAtomAttack(attackInfo.skillId)) {
+        // createImpendingDeathForceAtom();
+        // }
         Option o1 = new Option();
         Option o2 = new Option();
         Option o3 = new Option();
@@ -489,7 +495,7 @@ public class Ark extends Job {
                     }
                     if (tsm.hasStat(InfinitySpell)) {
                         for (int i = spellCharges.size(); i < 5; i++) { // spell charge max size
-                            o1.xOption = tsm.hasStat(BasicCast) ? tsm.getOption(BasicCast).xOption + 2: 2;
+                            o1.xOption = tsm.hasStat(BasicCast) ? tsm.getOption(BasicCast).xOption + 2 : 2;
                             tsm.putCharacterStatValue(BasicCast, o1);
                             spellCharges.add(SpellChargeType.Basic);
                         }
@@ -509,7 +515,7 @@ public class Ark extends Job {
                     if (chr.hasSkillOnCooldown(vSkill)) {
                         return;
                     }
-                    //chr.write(UserLocal.userBonusAttackRequest(vSkill, chr.getPosition()));// TODO
+                    // chr.write(UserLocal.userBonusAttackRequest(vSkill, chr.getPosition()));// TODO
                 }
                 break;
             case NIGHTMARE_ESCAPE:
@@ -574,25 +580,27 @@ public class Ark extends Job {
         SkillInfo si = SkillData.getSkillInfoById(skill.getSkillId());
         byte slv = (byte) skill.getCurrentLevel();
         for (MobAttackInfo mai : attackInfo.mobAttackInfo) {
-            if (Util.succeedProp(si.getValue(s, slv))/* && field.getWreckageByChrId(chr.getId()).size() < si.getValue(z, slv)*/) {
+            if (Util.succeedProp(si.getValue(s, slv))/* && field.getWreckageByChrId(chr.getId()).size() < si.getValue(z, slv) */) {
                 Mob mob = (Mob) field.getLifeByObjectID(mai.mobId);
                 if (mob == null) {
                     continue;
                 }
-                //Wreckage wreckage = Wreckage.getWreckageBy(chr, skill.getSkillId(), mob.getPosition(), si.getValue(q, slv)*1000, 0);
-                //field.spawnWreckage(chr, wreckage);
+                // Wreckage wreckage = Wreckage.getWreckageBy(chr, skill.getSkillId(), mob.getPosition(), si.getValue(q, slv)*1000, 0);
+                // field.spawnWreckage(chr, wreckage);
             }
         }
     }
 
     @Override
-    public int getFinalAttackSkill() { return 0; }
+    public int getFinalAttackSkill() {
+        return 0;
+    }
 
     @Override
     public void handleSkill(Client c, int skillID, byte slv, InPacket inPacket) {
         super.handleSkill(c, skillID, slv, inPacket);
         SkillInfo si = null;
-        if(chr.getSkill(skillID) != null) {
+        if (chr.getSkill(skillID) != null) {
             si = SkillData.getSkillInfoById(skillID);
         }
         TemporaryStatManager tsm = chr.getTemporaryStatManager();
@@ -611,8 +619,8 @@ public class Ark extends Job {
                     tsm.removeAllDebuffs();
                     break;
                 case VENGEFUL_HATE:
-                    //List<Wreckage> wreckageList = chr.getField().getWreckageByCharId(chr.getId());
-                    //createVengefulHateForceAtom(wreckageList);
+                    // List<Wreckage> wreckageList = chr.getField().getWreckageByCharId(chr.getId());
+                    // createVengefulHateForceAtom(wreckageList);
                     break;
             }
         }
@@ -630,18 +638,10 @@ public class Ark extends Job {
             rect = rect.horizontalFlipAround(chr.getPosition().getX());
         }
         int i = new Random().nextBoolean() ? 900 : 700;
-        ForceAtom abyssalFA = new ForceAtom(true, 0, chr.getId(), ForceAtomEnum.ABYSSAL_CHARGE,
-                true, new ArrayList<>(), ABYSSAL_CHARGE_DRIVE_ATOM_1, new ArrayList<>(), new Rect(), 0, 0,
-                new Position(), ABYSSAL_CHARGE_DRIVE_ATOM_1, new Position());
-        ForceAtom gustFA = new ForceAtom(true, 0, chr.getId(), ForceAtomEnum.GUST_CHARGE,
-                true, new ArrayList<>(), GUST_CHARGE_DRIVE_ATOM_1, new ArrayList<>(), new Rect(), 0, 0,
-                new Position(), GUST_CHARGE_DRIVE_ATOM_1, new Position());
-        ForceAtom scarletFA = new ForceAtom(true, 0, chr.getId(), ForceAtomEnum.SCARLET_CHARGE,
-                true, new ArrayList<>(), SCARLET_CHARGE_DRIVE_ATOM, new ArrayList<>(), new Rect(), 0, 0,
-                new Position(), SCARLET_CHARGE_DRIVE_ATOM, new Position());
-        ForceAtom basicFA = new ForceAtom(true, 0, chr.getId(), ForceAtomEnum.BASIC_CHARGE,
-                true, new ArrayList<>(), BASIC_CHARGE_DRIVE_ATOM, new ArrayList<>(), new Rect(), 0, 0,
-                new Position(), BASIC_CHARGE_DRIVE_ATOM, new Position());
+        ForceAtom abyssalFA = new ForceAtom(true, 0, chr.getId(), ForceAtomEnum.ABYSSAL_CHARGE, true, new ArrayList<>(), ABYSSAL_CHARGE_DRIVE_ATOM_1, new ArrayList<>(), new Rect(), 0, 0, new Position(), ABYSSAL_CHARGE_DRIVE_ATOM_1, new Position());
+        ForceAtom gustFA = new ForceAtom(true, 0, chr.getId(), ForceAtomEnum.GUST_CHARGE, true, new ArrayList<>(), GUST_CHARGE_DRIVE_ATOM_1, new ArrayList<>(), new Rect(), 0, 0, new Position(), GUST_CHARGE_DRIVE_ATOM_1, new Position());
+        ForceAtom scarletFA = new ForceAtom(true, 0, chr.getId(), ForceAtomEnum.SCARLET_CHARGE, true, new ArrayList<>(), SCARLET_CHARGE_DRIVE_ATOM, new ArrayList<>(), new Rect(), 0, 0, new Position(), SCARLET_CHARGE_DRIVE_ATOM, new Position());
+        ForceAtom basicFA = new ForceAtom(true, 0, chr.getId(), ForceAtomEnum.BASIC_CHARGE, true, new ArrayList<>(), BASIC_CHARGE_DRIVE_ATOM, new ArrayList<>(), new Rect(), 0, 0, new Position(), BASIC_CHARGE_DRIVE_ATOM, new Position());
         for (SpellChargeType spt : spellCharges) {
             if (spt == null) {
                 continue;
@@ -652,8 +652,7 @@ public class Ark extends Job {
             int angle = new Random().nextInt(20) + 50;
 
             Mob mob = Util.getRandomFromCollection(field.getMobsInRect(rect));
-            ForceAtomInfo fai = new ForceAtomInfo(i, 1, firstImpact, secondImpact,
-                    angle, delay, Util.getCurrentTime(), 0, 0, new Position());
+            ForceAtomInfo fai = new ForceAtomInfo(i, 1, firstImpact, secondImpact, angle, delay, Util.getCurrentTime(), 0, 0, new Position());
             switch (spt) {
                 case Scarlet:
                     scarletFA.addTarget(mob != null ? mob.getObjectId() : 0);
@@ -678,8 +677,7 @@ public class Ark extends Job {
                     angle = new Random().nextInt(20) + 50;
 
                     mob = Util.getRandomFromCollection(field.getMobsInRect(rect));
-                    fai = new ForceAtomInfo(i, 1, firstImpact, secondImpact,
-                            angle, delay, Util.getCurrentTime(), 0, 0, new Position());
+                    fai = new ForceAtomInfo(i, 1, firstImpact, secondImpact, angle, delay, Util.getCurrentTime(), 0, 0, new Position());
                     basicFA.addTarget(mob != null ? mob.getObjectId() : 0);
                     basicFA.addFaiList(fai);
                     break;

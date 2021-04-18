@@ -1,7 +1,6 @@
 package net.swordie.ms.enums;
 
 /**
- *
  * @author Five
  */
 public enum DBChar {
@@ -73,11 +72,11 @@ public enum DBChar {
         return uFlag;
     }
 
-    public boolean isInMask(long mask){
+    public boolean isInMask(long mask) {
         return (mask & get()) != 0;
     }
 
-    public boolean isInMask(DBChar mask){
+    public boolean isInMask(DBChar mask) {
         return (mask.get() & get()) != 0;
     }
 }

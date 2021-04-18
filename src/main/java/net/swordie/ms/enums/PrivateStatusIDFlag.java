@@ -12,7 +12,7 @@ public enum PrivateStatusIDFlag {
     GAME_MASTER(0x15),// PRIMARY_TRACE | ADMIN_CLIENT | MANAGER_ACCOUNT
     TESTER(0x25),// PRIMARY_TRACE | TESTER_ACCOUNT | MANAGER_ACCOUNT
 
-    //~~~~~~~~~~~~~~~~~~~
+    // ~~~~~~~~~~~~~~~~~~~
     PRIMARY_TRACE(0x1),
     MESO_TRACE(0x2),
     ADMIN_CLIENT(0x4),

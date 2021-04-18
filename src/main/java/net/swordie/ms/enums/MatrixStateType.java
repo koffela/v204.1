@@ -7,6 +7,7 @@ import java.util.Arrays;
  */
 public enum MatrixStateType {
     DISASSEMBLED(0), INACTIVE(1), ACTIVE(2);
+
     private int val;
 
     MatrixStateType(int val) {

@@ -520,7 +520,8 @@ public class FieldData {
     }
 
     public static List<Integer> getWorldMapFields() {
-        return worldMapFields; }
+        return worldMapFields;
+    }
 
     public static Field getFieldById(int id) {
         for (Field f : getFields()) {
@@ -544,7 +545,7 @@ public class FieldData {
 
     private static Field readFieldFromFile(File file) {
         Field field = null;
-        try(DataInputStream dataInputStream = new DataInputStream(new FileInputStream(file))) {
+        try (DataInputStream dataInputStream = new DataInputStream(new FileInputStream(file))) {
             field = new Field(dataInputStream.readInt());
             field.setFieldType(FieldType.getByVal(dataInputStream.readInt()));
             field.setTown(dataInputStream.readBoolean());
@@ -576,9 +577,7 @@ public class FieldData {
             field.setVrRight(dataInputStream.readInt());
             short fhSize = dataInputStream.readShort();
             for (int j = 0; j < fhSize; j++) {
-                Foothold fh = new Foothold(
-                        dataInputStream.readInt(), dataInputStream.readInt(), dataInputStream.readInt()
-                );
+                Foothold fh = new Foothold(dataInputStream.readInt(), dataInputStream.readInt(), dataInputStream.readInt());
                 fh.setX1(dataInputStream.readInt());
                 fh.setY1(dataInputStream.readInt());
                 fh.setX2(dataInputStream.readInt());
@@ -709,7 +708,6 @@ public class FieldData {
         log.info(String.format("Loaded world map fields from data file in %dms.", System.currentTimeMillis() - start));
     }
 
-
     public static void loadNPCFromSQL() {
 
         Session session = DatabaseManager.getSession();
@@ -717,28 +715,27 @@ public class FieldData {
 
         Query loadNpcQuery = session.createNativeQuery("SELECT * FROM npc");
 
-        List<Object[]> results =loadNpcQuery.getResultList();
+        List<Object[]> results = loadNpcQuery.getResultList();
 
-        for(Object[] r : results) {
-            Npc n = NpcData.getNpcDeepCopyById((Integer)r[1]);
-            Field f = getFieldById( (Integer)r[2] );
+        for (Object[] r : results) {
+            Npc n = NpcData.getNpcDeepCopyById((Integer) r[1]);
+            Field f = getFieldById((Integer) r[2]);
 
             Position p = new Position();
-            p.setX((Integer)r[3]);
-            p.setY((Integer)r[4]);
+            p.setX((Integer) r[3]);
+            p.setY((Integer) r[4]);
 
             n.setPosition(p);
-            n.setCy((Integer)r[5]);
-            n.setRx0((Integer)r[6]);
-            n.setRx1((Integer)r[7]);
-            n.setFh((Integer)r[8]);
+            n.setCy((Integer) r[5]);
+            n.setRx0((Integer) r[6]);
+            n.setRx1((Integer) r[7]);
+            n.setFh((Integer) r[8]);
 
             f.addLife(n);
         }
         transaction.commit();
         session.close();
     }
-
 
     public static void generateDatFiles() {
         log.info("Started generating field data.");

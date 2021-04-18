@@ -19,7 +19,8 @@ public class GachaponInfo {
     public List<Integer> getHotItems() {
         List<Integer> hotItems = new ArrayList<>();
         for (GachItem i : items)
-            if (i.isHotTime()) hotItems.add(i.getItemID());
+            if (i.isHotTime())
+                hotItems.add(i.getItemID());
         return hotItems;
     }
 

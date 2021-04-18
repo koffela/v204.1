@@ -36,43 +36,42 @@ public class CashShop {
 
     public void encodeSaleInfo(OutPacket outPacket) {
         short size = 0;
-//        outPacket.encodeShort(getSaleItems().size());
-//        for(int i = 0; i < size; i++) {
-//            outPacket.encodeInt(cii.getItemID());
-//            cii.encode(outPacket);
-//            cii.encode(outPacket);
-//            // TODO
-//        }
-//        size = 0;
-//        outPacket.encodeShort(size);
-//        for (int i = 0; i < size; i++) {
-//            outPacket.encodeInt(5160013);
-//            outPacket.encodeString("ayy");
-//        }
+        // outPacket.encodeShort(getSaleItems().size());
+        // for(int i = 0; i < size; i++) {
+        // outPacket.encodeInt(cii.getItemID());
+        // cii.encode(outPacket);
+        // cii.encode(outPacket);
+        // // TODO
+        // }
+        // size = 0;
+        // outPacket.encodeShort(size);
+        // for (int i = 0; i < size; i++) {
+        // outPacket.encodeInt(5160013);
+        // outPacket.encodeString("ayy");
+        // }
         size = 1;
         outPacket.encodeInt(size); // int per size
         for (int i = 0; i < size; i++) {
             outPacket.encodeInt(0);
         }
-//        size = 1;
-//        outPacket.encodeShort(size);
-//        for (int i = 0; i < size; i++) {
-//            outPacket.encodeInt(0);
-//            outPacket.encodeString("");
-//        }
+        // size = 1;
+        // outPacket.encodeShort(size);
+        // for (int i = 0; i < size; i++) {
+        // outPacket.encodeInt(0);
+        // outPacket.encodeString("");
+        // }
         size = 1;
         outPacket.encodeInt(size); // randomItemCount
         for (int i = 0; i < size; i++) {
             outPacket.encodeArr(new byte[20]);
-//            int itemID = 0;
-//            outPacket.encodeInt(itemID); // itemID
-//            if(itemID / 1000 == 5533) {
-//                outPacket.encodeInt(0);
-//            }
+            // int itemID = 0;
+            // outPacket.encodeInt(itemID); // itemID
+            // if(itemID / 1000 == 5533) {
+            // outPacket.encodeInt(0);
+            // }
 
         }
-//        outPacket.encodeInt(5160013);
-
+        // outPacket.encodeInt(5160013);
 
     }
 
@@ -98,51 +97,51 @@ public class CashShop {
         int size = 0;
         outPacket.encodeInt(size);
         for (int i = 0; i < size; i++) {
-//            outPacket.encodeString("ayy"); // sKeyword
-//            outPacket.encodeString("lmao"); // sMsg
+            // outPacket.encodeString("ayy"); // sKeyword
+            // outPacket.encodeString("lmao"); // sMsg
             outPacket.encodeArr(new byte[10]);
         }
     }
 
     public void encode(OutPacket outPacket) {
-//        outPacket.encodeArr(new byte[1 + 4 + 4 + 2 + 4 /*nox*/ + 1080 + 1 + 1 + 1 + 4 + 1 + 1 + 1 + 8 + 1 + 1 + 4 + 1 + 1 + /*extra*/2]);
+        // outPacket.encodeArr(new byte[1 + 4 + 4 + 2 + 4 /*nox*/ + 1080 + 1 + 1 + 1 + 4 + 1 + 1 + 1 + 8 + 1 + 1 + 4 + 1 + 1 + /*extra*/2]);
         // CCashShop::LoadData
         outPacket.encodeByte(!isBetaTest());
         encodeSaleInfo(outPacket);
         encodeMainBest(outPacket);
         encodeCustomizedPackage(outPacket);
-//        encodeSearchHelper(outPacket); // not in gms?
-//        // buffer aBest, 3 inner loops (int (category) + int (gender) + int (sn))
+        // encodeSearchHelper(outPacket); // not in gms?
+        // // buffer aBest, 3 inner loops (int (category) + int (gender) + int (sn))
         outPacket.encodeArr(new byte[1080]);
         short size = 0;
-//        outPacket.encodeShort(size + 1);
-//        for (int i = 0; i < size; i++) {
-//            outPacket.encodeInt(0); // nSN
-//            outPacket.encodeInt(0); // nStockState: CS_StockState IDA
-//        }
-//        outPacket.encodeShort(size);
-//        for (int i = 0; i < size; i++) {
-//            // CS_LIMITGOODS, size 116
-//            outPacket.encodeInt(0);
-//            for (int j = 0; j < 10; j++) {
-//                outPacket.encodeInt(0); // nSN
-//            }
-//            outPacket.encodeInt(0); // CS_LimitGoodsState
-//            outPacket.encodeInt(0); // nOriginCount
-//            outPacket.encodeInt(0); // nRemainCount
-//            outPacket.encodeInt(0); // dwConditionFlag
-//            outPacket.encodeInt(0); // nDateStart
-//            outPacket.encodeInt(0); // nDateEnd
-//            outPacket.encodeInt(0); // nHourStart
-//            outPacket.encodeInt(0); // nHourEnd
-//            for (int j = 0; j < 7; j++) {
-//                outPacket.encodeByte(0); // abWeek
-//            }
-//            outPacket.encodeByte(0); // nBackgrndType
-//            outPacket.encodeString(""); // sNoticeMsg
-//            outPacket.encodeInt(0); // nRepeatMin
-//            // TODO Incomplete
-//        }
+        // outPacket.encodeShort(size + 1);
+        // for (int i = 0; i < size; i++) {
+        // outPacket.encodeInt(0); // nSN
+        // outPacket.encodeInt(0); // nStockState: CS_StockState IDA
+        // }
+        // outPacket.encodeShort(size);
+        // for (int i = 0; i < size; i++) {
+        // // CS_LIMITGOODS, size 116
+        // outPacket.encodeInt(0);
+        // for (int j = 0; j < 10; j++) {
+        // outPacket.encodeInt(0); // nSN
+        // }
+        // outPacket.encodeInt(0); // CS_LimitGoodsState
+        // outPacket.encodeInt(0); // nOriginCount
+        // outPacket.encodeInt(0); // nRemainCount
+        // outPacket.encodeInt(0); // dwConditionFlag
+        // outPacket.encodeInt(0); // nDateStart
+        // outPacket.encodeInt(0); // nDateEnd
+        // outPacket.encodeInt(0); // nHourStart
+        // outPacket.encodeInt(0); // nHourEnd
+        // for (int j = 0; j < 7; j++) {
+        // outPacket.encodeByte(0); // abWeek
+        // }
+        // outPacket.encodeByte(0); // nBackgrndType
+        // outPacket.encodeString(""); // sNoticeMsg
+        // outPacket.encodeInt(0); // nRepeatMin
+        // // TODO Incomplete
+        // }
         // END CCashShop::LoadData
 
         outPacket.encodeShort(0); // not in idb?
@@ -159,28 +158,26 @@ public class CashShop {
 
         outPacket.encodeLong(0);
 
-
         outPacket.encodeByte(0);
         boolean someBool = false;
         outPacket.encodeByte(someBool);
-        if(someBool) { // ^
+        if (someBool) { // ^
             outPacket.encodeString("ayy");
         }
         outPacket.encodeInt(0);
         someBool = false;
         outPacket.encodeByte(someBool);
-        if(someBool) { // ^
+        if (someBool) { // ^
             outPacket.encodeLong(0);
         }
         outPacket.encodeByte(0);
 
-
         // kmst
-//        outPacket.encodeByte(isEventOn());
-//        outPacket.encodeByte(isLockerTransfer());
-//        outPacket.encodeByte(isRefundAvailable());
-//        outPacket.encodeByte(isUsingOTP());
-//        outPacket.encodeByte(isUsingNewOTP());
+        // outPacket.encodeByte(isEventOn());
+        // outPacket.encodeByte(isLockerTransfer());
+        // outPacket.encodeByte(isRefundAvailable());
+        // outPacket.encodeByte(isUsingOTP());
+        // outPacket.encodeByte(isUsingNewOTP());
     }
 
     public boolean isEventOn() {

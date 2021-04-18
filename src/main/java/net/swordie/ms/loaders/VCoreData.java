@@ -127,7 +127,7 @@ public class VCoreData {
     public void addJob(String job) {
         this.jobs.add(job);
     }
-    
+
     public boolean isClassSkill(short job) {
         if (jobs.contains("warrior")) {
             return (job != 100 && JobConstants.isAdventurerWarrior(job)) || JobConstants.isDawnWarrior(job) || JobConstants.isDemon(job) || JobConstants.isMihile(job) || JobConstants.isKaiser(job) || JobConstants.isZero(job) || JobConstants.isAran(job) || JobConstants.isBlaster(job) || JobConstants.isHayato(job);
@@ -138,14 +138,13 @@ public class VCoreData {
         } else if (jobs.contains("rogue")) {
             return (job != 400 && JobConstants.isAdventurerThief(job)) || JobConstants.isDualBlade(job) || JobConstants.isNightWalker(job) || JobConstants.isPhantom(job);
         } else if (jobs.contains("pirate")) {
-            return  (job != 500 && JobConstants.isAdventurerPirate(job)) || JobConstants.isXenon(job) || JobConstants.isThunderBreaker(job) || JobConstants.isCannonShooter(job) || JobConstants.isMechanic(job) || JobConstants.isShade(job) || JobConstants.isAngelicBuster(job) || JobConstants.isJett(job);
+            return (job != 500 && JobConstants.isAdventurerPirate(job)) || JobConstants.isXenon(job) || JobConstants.isThunderBreaker(job) || JobConstants.isCannonShooter(job) || JobConstants.isMechanic(job) || JobConstants.isShade(job) || JobConstants.isAngelicBuster(job) || JobConstants.isJett(job);
         }
         return false;
     }
 
     public boolean isJobSkill(int job) {
-        if (jobs.contains("warrior") || jobs.contains("magician") || jobs.contains("archer")
-                || jobs.contains("rogue") || jobs.contains("pirate") || jobs.contains("none") || jobs.contains("all")) {
+        if (jobs.contains("warrior") || jobs.contains("magician") || jobs.contains("archer") || jobs.contains("rogue") || jobs.contains("pirate") || jobs.contains("none") || jobs.contains("all")) {
             return false;
         }
         for (String sJob : jobs) {

@@ -2,7 +2,7 @@ package net.swordie.ms.enums;
 
 /**
  * @author Sjonnie
- * Created on 8/2/2018.
+ *         Created on 8/2/2018.
  */
 public enum QuickMoveType {
     Gladiator(0),
@@ -29,6 +29,7 @@ public enum QuickMoveType {
     MobileWoman(21),
 
     ;
+
     private int val;
 
     QuickMoveType(int val) {

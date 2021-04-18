@@ -15,7 +15,6 @@ import javax.persistence.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
-
 /**
  * Created on 12/20/2017.
  */
@@ -73,7 +72,7 @@ public class Quest {
     public Quest deepCopy() {
         Quest quest = new Quest();
         quest.setQRKey(getQRKey());
-        for(QuestProgressRequirement qpr : getProgressRequirements()) {
+        for (QuestProgressRequirement qpr : getProgressRequirements()) {
             quest.addQuestProgressRequirement(qpr);
         }
         quest.setStatus(getStatus());
@@ -89,13 +88,11 @@ public class Quest {
     }
 
     public List<QuestProgressMobRequirement> getMobReqs() {
-        return getProgressRequirements().stream().filter(qpr -> qpr instanceof QuestProgressMobRequirement)
-                .map(qpr -> (QuestProgressMobRequirement) qpr).collect(Collectors.toList());
+        return getProgressRequirements().stream().filter(qpr -> qpr instanceof QuestProgressMobRequirement).map(qpr -> (QuestProgressMobRequirement) qpr).collect(Collectors.toList());
     }
 
     public List<QuestProgressItemRequirement> getItemReqs() {
-        return getProgressRequirements().stream().filter(qpr -> qpr instanceof QuestProgressItemRequirement)
-                .map(qpr -> (QuestProgressItemRequirement) qpr).collect(Collectors.toList());
+        return getProgressRequirements().stream().filter(qpr -> qpr instanceof QuestProgressItemRequirement).map(qpr -> (QuestProgressItemRequirement) qpr).collect(Collectors.toList());
     }
 
     public QuestProgressMobRequirement getMobReqByMobID(int mobID) {
@@ -124,13 +121,9 @@ public class Quest {
     }
 
     public void handleMobKill(int mobID) {
-        QuestProgressMobRequirement qpmr = (QuestProgressMobRequirement) getProgressRequirements()
-                .stream()
-                .filter(q -> q instanceof QuestProgressMobRequirement &&
-                        ((QuestProgressMobRequirement) q).getMobID() == mobID)
-                .findFirst().get();
+        QuestProgressMobRequirement qpmr = (QuestProgressMobRequirement) getProgressRequirements().stream().filter(q -> q instanceof QuestProgressMobRequirement && ((QuestProgressMobRequirement) q).getMobID() == mobID).findFirst().get();
         // should never return null, as this method should only be called when this quest indeed has this mob
-        if(qpmr.getCurrentCount() < qpmr.getRequiredCount()) {
+        if (qpmr.getCurrentCount() < qpmr.getRequiredCount()) {
             qpmr.incCurrentCount(1);
         }
     }
@@ -153,10 +146,7 @@ public class Quest {
     }
 
     public void addMoney(int money) {
-        getProgressRequirements().stream()
-                .filter(q -> q instanceof QuestProgressMoneyRequirement)
-                .map(q -> (QuestProgressMoneyRequirement) q)
-                .findAny().ifPresent(qpmr -> qpmr.addMoney(money));
+        getProgressRequirements().stream().filter(q -> q instanceof QuestProgressMoneyRequirement).map(q -> (QuestProgressMoneyRequirement) q).findAny().ifPresent(qpmr -> qpmr.addMoney(money));
     }
 
     public String getQRValue() {
@@ -169,7 +159,7 @@ public class Quest {
             }
             List<QuestProgressMobRequirement> requirements = new ArrayList<>(getMobReqs());
             requirements.sort(Comparator.comparingInt(QuestProgressMobRequirement::getOrder));
-            for(QuestProgressMobRequirement qpmr : requirements) {
+            for (QuestProgressMobRequirement qpmr : requirements) {
                 sb.append(Util.leftPaddedString(3, '0', qpmr.getValue()));
             }
             return sb.toString();

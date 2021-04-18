@@ -18,7 +18,7 @@ import java.util.*;
 
 /**
  * @author Sjonnie
- * Created on 7/23/2018.
+ *         Created on 7/23/2018.
  */
 public class MonsterCollectionData {
     private static final Logger log = Logger.getLogger(MonsterCollectionData.class);
@@ -56,18 +56,12 @@ public class MonsterCollectionData {
             monsterInfo.put(mi.getMobID(), new Triple(mi.getRegion(), mi.getSession(), mi.getPosition()));
         });
         for (MonsterCollectionSessionRewardInfo mcsri : sessionRewardInfos) {
-            monsterCollectionInfo.get(mcsri.getRegion()).getMonsterCollectionSessions().get(mcsri.getSession())
-                    .setReward(mcsri.getRewardID());
-            monsterCollectionInfo.get(mcsri.getRegion()).getMonsterCollectionSessions().get(mcsri.getSession())
-                    .setRewardQuantity(mcsri.getQuantity());
+            monsterCollectionInfo.get(mcsri.getRegion()).getMonsterCollectionSessions().get(mcsri.getSession()).setReward(mcsri.getRewardID());
+            monsterCollectionInfo.get(mcsri.getRegion()).getMonsterCollectionSessions().get(mcsri.getSession()).setRewardQuantity(mcsri.getQuantity());
         }
         for (MonsterCollectionGroupRewardInfo mcgri : groupRewardInfos) {
-            monsterCollectionInfo.get(mcgri.getRegion()).getMonsterCollectionSessions().get(mcgri.getSession())
-                    .getMonsterCollectionGroups().get(mcgri.getGroupID())
-                    .setReward(mcgri.getRewardID());
-            monsterCollectionInfo.get(mcgri.getRegion()).getMonsterCollectionSessions().get(mcgri.getSession())
-                    .getMonsterCollectionGroups().get(mcgri.getGroupID())
-                    .setRewardQuantity(mcgri.getQuantity());
+            monsterCollectionInfo.get(mcgri.getRegion()).getMonsterCollectionSessions().get(mcgri.getSession()).getMonsterCollectionGroups().get(mcgri.getGroupID()).setReward(mcgri.getRewardID());
+            monsterCollectionInfo.get(mcgri.getRegion()).getMonsterCollectionSessions().get(mcgri.getSession()).getMonsterCollectionGroups().get(mcgri.getGroupID()).setRewardQuantity(mcgri.getQuantity());
         }
         log.info("Loaded MonsterCollectionData in " + (System.currentTimeMillis() - start) + "ms.");
     }
@@ -79,7 +73,6 @@ public class MonsterCollectionData {
         monsterCollectionInfo.get(mcmi.getRegion()).addMob(mcmi);
     }
 
-
     public static MonsterCollectionMobInfo getMobInfoByID(int templateID) {
         Triple<Integer, Integer, Integer> info = monsterInfo.get(templateID);
         if (info == null) {
@@ -89,8 +82,7 @@ public class MonsterCollectionData {
     }
 
     public static int getRequiredMobs(int region, int session, int group) {
-        return monsterCollectionInfo.get(region).getMonsterCollectionSessions().get(session)
-                .getMonsterCollectionGroups().get(group).getMobs().size();
+        return monsterCollectionInfo.get(region).getMonsterCollectionSessions().get(session).getMonsterCollectionGroups().get(group).getMobs().size();
     }
 
     private static MonsterCollectionSession getSession(int region, int session) {

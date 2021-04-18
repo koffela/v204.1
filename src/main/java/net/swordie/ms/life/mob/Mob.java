@@ -38,7 +38,6 @@ import net.swordie.ms.world.field.Field;
 import net.swordie.ms.world.field.Foothold;
 import net.swordie.ms.world.field.fieldeffect.FieldEffect;
 
-
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.TimeUnit;
@@ -315,9 +314,13 @@ public class Mob extends Life {
         return copy;
     }
 
-    public long getRespawnDelay() { return respawnDelay; }
+    public long getRespawnDelay() {
+        return respawnDelay;
+    }
 
-    public void setRespawnDelay(long delay) { respawnDelay = delay; }
+    public void setRespawnDelay(long delay) {
+        respawnDelay = delay;
+    }
 
     public Set<DropInfo> getDrops() {
         return drops;
@@ -1226,7 +1229,8 @@ public class Mob extends Life {
     /**
      * Damages a mob.
      *
-     * @param totalDamage the total damage that should be applied to the mob
+     * @param totalDamage
+     *            the total damage that should be applied to the mob
      */
     public void damage(Char damageDealer, long totalDamage) {
         addDamage(damageDealer, totalDamage);
@@ -1272,8 +1276,7 @@ public class Mob extends Life {
             }
         }
         getDamageDone().clear();
-        if (field.canSpawnElite() && getEliteType() == 0 && !isNotRespawnable() &&
-                Util.succeedProp(GameConstants.ELITE_MOB_SPAWN_CHANCE, 1000)) {
+        if (field.canSpawnElite() && getEliteType() == 0 && !isNotRespawnable() && Util.succeedProp(GameConstants.ELITE_MOB_SPAWN_CHANCE, 1000)) {
             spawnEliteVersion();
         } else if (getEliteType() == 1) {
             field.incrementEliteKillCount();
@@ -1292,8 +1295,7 @@ public class Mob extends Life {
                 mob.setHomePosition(getPosition().deepCopy());
                 field.spawnLife(mob, null);
                 field.setEliteState(EliteState.EliteBoss);
-                field.broadcastPacket(FieldPacket.eliteState(EliteState.EliteBoss, false, GameConstants.ELITE_BOSS_BGM,
-                        null, null));
+                field.broadcastPacket(FieldPacket.eliteState(EliteState.EliteBoss, false, GameConstants.ELITE_BOSS_BGM, null, null));
             } else if (field.getKilledElites() >= GameConstants.ELITE_MOB_DARK_NOTIFICATION) {
                 msg = "You feel something in the dark energy...";
             } else {
@@ -1325,20 +1327,16 @@ public class Mob extends Life {
                 fhID = fhBelow.getId();
             }
         }
-        //Set<DropInfo> dropInfoSet = getDrops();
+        // Set<DropInfo> dropInfoSet = getDrops();
         // Add consumable/equip drops based on min(charLv, mobLv)
-        //int level = Math.min(mostDamageChar.getLevel(), getForcedMobStat().getLevel());
-        //dropInfoSet.addAll(ItemConstants.getConsumableMobDrops(level));
-        //dropInfoSet.addAll(ItemConstants.getEquipMobDrops(job, level));
+        // int level = Math.min(mostDamageChar.getLevel(), getForcedMobStat().getLevel());
+        // dropInfoSet.addAll(ItemConstants.getConsumableMobDrops(level));
+        // dropInfoSet.addAll(ItemConstants.getEquipMobDrops(job, level));
         // DropRate & MesoRate Increases
         int mostDamageCharDropRate = (getMostDamageChar() != null ? getMostDamageChar().getTotalStat(BaseStat.dropR) : 0);
         int mostDamageCharMesoRate = (getMostDamageChar() != null ? getMostDamageChar().getTotalStat(BaseStat.mesoR) : 0);
-        int dropRateMob = (getTemporaryStat().hasCurrentMobStat(MobStat.Treasure)
-                ? getTemporaryStat().getCurrentOptionsByMobStat(MobStat.Treasure).yOption
-                : 0); // Item Drop Rate
-        int mesoRateMob = (getTemporaryStat().hasCurrentMobStat(MobStat.Treasure)
-                ? getTemporaryStat().getCurrentOptionsByMobStat(MobStat.Treasure).zOption
-                : 0); // Meso Drop Rate
+        int dropRateMob = (getTemporaryStat().hasCurrentMobStat(MobStat.Treasure) ? getTemporaryStat().getCurrentOptionsByMobStat(MobStat.Treasure).yOption : 0); // Item Drop Rate
+        int mesoRateMob = (getTemporaryStat().hasCurrentMobStat(MobStat.Treasure) ? getTemporaryStat().getCurrentOptionsByMobStat(MobStat.Treasure).zOption : 0); // Meso Drop Rate
         int totalMesoRate = mesoRateMob + mostDamageCharMesoRate;
         int totalDropRate = dropRateMob + mostDamageCharDropRate;
         for (Item item : getMostDamageChar().getCashInventory().getItems()) {
@@ -1361,8 +1359,10 @@ public class Mob extends Life {
      * Adds a damage amount to the given Char's current damage. Purely used for keeping track of total damage done by
      * a Char.
      *
-     * @param chr    the Char the damage originates from
-     * @param damage the damage done
+     * @param chr
+     *            the Char the damage originates from
+     * @param damage
+     *            the damage done
      */
     public void addDamage(Char chr, long damage) {
         long cur = 0;
@@ -1407,7 +1407,7 @@ public class Mob extends Life {
             for (int id : ItemConstants.EXP_2X_COUPON) {
                 if (chr.hasItem(id)) {
                     appliedExpPre *= 2;
-                    break; //so coupons won't stack
+                    break; // so coupons won't stack
                 }
             }
 
@@ -1503,7 +1503,7 @@ public class Mob extends Life {
         copy.setField(field);
 
         copy.setSplitLink(origin.getObjectId());
-        //copy.setDrops(null);
+        // copy.setDrops(null);
 
         field.spawnLife(copy, null);
 
@@ -1577,7 +1577,8 @@ public class Mob extends Life {
     /**
      * Sets when a next skill can be used (in ms from current time).
      *
-     * @param delay The delay until the next skill can be used
+     * @param delay
+     *            The delay until the next skill can be used
      */
     public void setSkillDelay(long delay) {
         setNextPossibleSkillTime(System.currentTimeMillis() + delay);
@@ -1741,16 +1742,13 @@ public class Mob extends Life {
         }
 
         // Random portal spawn
-        if (getField().isChannelField() && chr.getNextRandomPortalTime() <= System.currentTimeMillis()
-                && Util.succeedProp(GameConstants.RANDOM_PORTAL_SPAWN_CHANCE, 1000)) {
+        if (getField().isChannelField() && chr.getNextRandomPortalTime() <= System.currentTimeMillis() && Util.succeedProp(GameConstants.RANDOM_PORTAL_SPAWN_CHANCE, 1000)) {
             chr.setNextRandomPortalTime(System.currentTimeMillis() + GameConstants.RANDOM_PORTAL_COOLTIME);
             // 50% chance for inferno/yellow portal
             List<Foothold> listOfFootHolds = new ArrayList<>(field.getNonWallFootholds());
             Foothold foothold = Util.getRandomFromCollection(listOfFootHolds);
             Position position = foothold.getRandomPosition();
-            RandomPortal.Type portalType = Util.succeedProp(50)
-                    ? RandomPortal.Type.PolloFritto
-                    : RandomPortal.Type.Inferno;
+            RandomPortal.Type portalType = Util.succeedProp(50) ? RandomPortal.Type.PolloFritto : RandomPortal.Type.Inferno;
             RandomPortal randomPortal = new RandomPortal(portalType, position, chr.getId());
             field.addLife(randomPortal);
             chr.write(RandomPortalPool.created(randomPortal));
@@ -1910,21 +1908,18 @@ public class Mob extends Life {
         double amount = ((Math.sqrt(getMaxHp() / 100D)) * ((double) getMaxHp() / (getExp() * getLevel())));
         return (int) (amount + 1);
 
-
         // sjonnie
-//        long hp = getMaxHp();
-//        ForcedMobStat fms = getForcedMobStat();
-//        int base = (int) (50 + (fms.getLevel() / 2D) * (Math.pow(hp, (1 / 7D))));
-//        return Util.getRandom(base, (base + base / 10)); // base + 10% random
+        // long hp = getMaxHp();
+        // ForcedMobStat fms = getForcedMobStat();
+        // int base = (int) (50 + (fms.getLevel() / 2D) * (Math.pow(hp, (1 / 7D))));
+        // return Util.getRandom(base, (base + base / 10)); // base + 10% random
     }
 
     public void handleDamageReflect(Char chr, int skillID, long totalDamage) {
         MobTemporaryStat mts = getTemporaryStat();
         TemporaryStatManager tsm = chr.getTemporaryStatManager();
         SkillInfo si = SkillData.getSkillInfoById(skillID);
-        boolean hasIgnoreCounterCts =
-                tsm.hasStat(CharacterTemporaryStat.IgnoreAllCounter)
-                || tsm.hasStat(CharacterTemporaryStat.IgnoreAllImmune);
+        boolean hasIgnoreCounterCts = tsm.hasStat(CharacterTemporaryStat.IgnoreAllCounter) || tsm.hasStat(CharacterTemporaryStat.IgnoreAllImmune);
         boolean ignoreCounter = hasIgnoreCounterCts || (si != null && si.isIgnoreCounter());
         if ((mts.hasCurrentMobStat(MobStat.PCounter) || mts.hasCurrentMobStat(MobStat.MCounter)) && !ignoreCounter) {
             // DR is always P and M
@@ -1954,8 +1949,7 @@ public class Mob extends Life {
         setHp(newHp);
         long diff = newHp - oldHp;
         if (getField() != null & diff != 0) {
-            getField().broadcastPacket(MobPool.damaged(getObjectId(), diff, getTemplateId(),
-                    (byte) 0, Util.maxInt(getHp()), Util.maxInt(getMaxHp())));
+            getField().broadcastPacket(MobPool.damaged(getObjectId(), diff, getTemplateId(), (byte) 0, Util.maxInt(getHp()), Util.maxInt(getMaxHp())));
         }
         if (oldHp > 0 && newHp <= 0) {
             die(true);
@@ -1973,11 +1967,9 @@ public class Mob extends Life {
         setMp(newMp);
     }
 
-
     public void teleport(int xPos, int yPos) {
         Rect possibleRect = getPosition().getRectAround(new Rect(-xPos, -yPos, xPos, yPos));
-        setPosition(new Position(Util.getRandom(possibleRect.getLeft(), possibleRect.getRight()),
-                Util.getRandom(possibleRect.getTop(), possibleRect.getBottom())));
+        setPosition(new Position(Util.getRandom(possibleRect.getLeft(), possibleRect.getRight()), Util.getRandom(possibleRect.getTop(), possibleRect.getBottom())));
         getField().broadcastPacket(MobPool.teleportRequest(3, getPosition()));
     }
 

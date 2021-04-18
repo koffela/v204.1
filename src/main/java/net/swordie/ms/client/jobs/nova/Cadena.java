@@ -17,7 +17,7 @@ public class Cadena extends Job {
     // MOB_SET_STAT | BE CA 29 01 00 00 00 02 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 E2 FF FF FF F1 93 D0 03 02 00 00 79 00 04 03
     // TEMPORARY_STAT_SET [DarkSight] n[SLV] r[SkillID] t[500]
 
-    private int[] buffs = new int[]{};
+    private int[] buffs = new int[] {};
 
     public Cadena(Char chr) {
         super(chr);

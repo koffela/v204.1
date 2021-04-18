@@ -12,9 +12,13 @@ public enum StylishKillType {
 
     private byte val;
 
-    StylishKillType(int val) { this.val = (byte) val;}
+    StylishKillType(int val) {
+        this.val = (byte) val;
+    }
 
-    public byte getVal() { return val;}
+    public byte getVal() {
+        return val;
+    }
 
     public static StylishKillType getByVal(byte val) {
         return Arrays.stream(values()).filter(skt -> skt.getVal() == val).findAny().orElse(null);

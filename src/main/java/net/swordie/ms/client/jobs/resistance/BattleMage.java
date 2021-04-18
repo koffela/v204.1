@@ -42,36 +42,36 @@ public class BattleMage extends Citizen {
 
     public static final int SECRET_ASSEMBLY = 30001281;
 
-    public static final int CONDEMNATION = 32001014; //Special Buff (ON/OFF)
-    public static final int HASTY_AURA = 32001016; //Buff (Unlimited Duration)
+    public static final int CONDEMNATION = 32001014; // Special Buff (ON/OFF)
+    public static final int HASTY_AURA = 32001016; // Buff (Unlimited Duration)
 
-    public static final int CONDEMNATION_I = 32100010; //Special Buff (ON/OFF)
-    public static final int DRAINING_AURA = 32101009; //Buff (Unlimited Duration)
-    public static final int STAFF_BOOST = 32101005; //Buff
-    public static final int DARK_CHAIN = 32101001; //Special Attack (Stun Debuff)
+    public static final int CONDEMNATION_I = 32100010; // Special Buff (ON/OFF)
+    public static final int DRAINING_AURA = 32101009; // Buff (Unlimited Duration)
+    public static final int STAFF_BOOST = 32101005; // Buff
+    public static final int DARK_CHAIN = 32101001; // Special Attack (Stun Debuff)
 
-    public static final int CONDEMNATION_II = 32110017; //Special Buff (ON/OFF)
-    public static final int BLUE_AURA = 32111012; //Buff (Unlimited Duration
-    public static final int DARK_SHOCK = 32111016; //Buff (ON/OFF)
+    public static final int CONDEMNATION_II = 32110017; // Special Buff (ON/OFF)
+    public static final int BLUE_AURA = 32111012; // Buff (Unlimited Duration
+    public static final int DARK_SHOCK = 32111016; // Buff (ON/OFF)
 
-    public static final int CONDEMNATION_III = 32120019; //Special Buff (ON/OFF)
-    public static final int DARK_GENESIS = 32121004; //Special Attack (Stun Debuff) (Special Properties if on Cooldown)
-    public static final int DARK_GENESIS_FA = 32121011; // Final Attack  attack if DarkGenesis is on CD
-    public static final int DARK_AURA = 32121017; //Buff (Unlimited Duration)
-    public static final int WEAKENING_AURA = 32121018; //Buff (Unlimited Duration)
+    public static final int CONDEMNATION_III = 32120019; // Special Buff (ON/OFF)
+    public static final int DARK_GENESIS = 32121004; // Special Attack (Stun Debuff) (Special Properties if on Cooldown)
+    public static final int DARK_GENESIS_FA = 32121011; // Final Attack attack if DarkGenesis is on CD
+    public static final int DARK_AURA = 32121017; // Buff (Unlimited Duration)
+    public static final int WEAKENING_AURA = 32121018; // Buff (Unlimited Duration)
     public static final int PARTY_SHIELD = 32121006;
-    public static final int BATTLE_RAGE = 32121010; //Buff (ON/OFF)
-    public static final int MAPLE_WARRIOR_BAM = 32121007; //Buff
+    public static final int BATTLE_RAGE = 32121010; // Buff (ON/OFF)
+    public static final int MAPLE_WARRIOR_BAM = 32121007; // Buff
     public static final int HEROS_WILL_BAM = 32121008;
 
     public static final int FOR_LIBERTY_BAM = 32121053;
     public static final int MASTER_OF_DEATH = 32121056;
 
-    private int[] addedSkills = new int[]{
+    private int[] addedSkills = new int[] {
             SECRET_ASSEMBLY,
     };
 
-    private int[] buffs = new int[]{
+    private int[] buffs = new int[] {
             CONDEMNATION,
             CONDEMNATION_I,
             CONDEMNATION_II,
@@ -121,8 +121,6 @@ public class BattleMage extends Citizen {
         return JobConstants.isBattleMage(id);
     }
 
-
-
     // Buff related methods --------------------------------------------------------------------------------------------
 
     public void handleBuff(Client c, InPacket inPacket, int skillID, byte slv) {
@@ -151,7 +149,7 @@ public class BattleMage extends Citizen {
                 tsm.putCharacterStatValue(Booster, o1);
                 break;
             case HASTY_AURA:
-                for(int aura : auras) {
+                for (int aura : auras) {
                     tsm.removeStatsBySkill(aura);
                 }
 
@@ -161,7 +159,7 @@ public class BattleMage extends Citizen {
                 o1.tTerm = 0;
                 tsm.putCharacterStatValue(IndieSpeed, o1);
                 o2.nReason = skillID;
-                o2.nValue = -1;//   si.getValue(indieBooster, slv);
+                o2.nValue = -1;// si.getValue(indieBooster, slv);
                 o2.tStart = (int) System.currentTimeMillis();
                 o2.tTerm = 0;
                 tsm.putCharacterStatValue(IndieBooster, o2);
@@ -171,7 +169,7 @@ public class BattleMage extends Citizen {
                 tsm.putCharacterStatValue(BMageAura, o3);
                 break;
             case DRAINING_AURA:
-                for(int aura : auras) {
+                for (int aura : auras) {
                     tsm.removeStatsBySkill(aura);
                 }
 
@@ -181,7 +179,7 @@ public class BattleMage extends Citizen {
                 tsm.putCharacterStatValue(BMageAura, o3);
                 break;
             case BLUE_AURA:
-                for(int aura : auras) {
+                for (int aura : auras) {
                     tsm.removeStatsBySkill(aura);
                 }
 
@@ -201,10 +199,10 @@ public class BattleMage extends Citizen {
                 o3.rOption = skillID;
                 o3.tOption = 0;
                 tsm.putCharacterStatValue(BMageAura, o3);
-                applyBlueAuraDispel(); //Hyper
+                applyBlueAuraDispel(); // Hyper
                 break;
             case DARK_AURA:
-                for(int aura : auras) {
+                for (int aura : auras) {
                     tsm.removeStatsBySkill(aura);
                 }
 
@@ -219,7 +217,7 @@ public class BattleMage extends Citizen {
                 tsm.putCharacterStatValue(BMageAura, o3);
                 break;
             case WEAKENING_AURA:
-                for(int aura : auras) {
+                for (int aura : auras) {
                     tsm.removeStatsBySkill(aura);
                 }
 
@@ -269,11 +267,13 @@ public class BattleMage extends Citizen {
                 o1.tStart = (int) System.currentTimeMillis();
                 o1.tTerm = si.getValue(time, slv);
                 tsm.putCharacterStatValue(IndieDamR, o1);
-                /*o2.nReason = skillID;
-                o2.nValue = si.getValue(indieMaxDamageOverR, slv);
-                o2.tStart = (int) System.currentTimeMillis();
-                o2.tTerm = si.getValue(time, slv);
-                tsm.putCharacterStatValue(IndieMaxDamageOverR, o2);*/
+                /*
+                 * o2.nReason = skillID;
+                 * o2.nValue = si.getValue(indieMaxDamageOverR, slv);
+                 * o2.tStart = (int) System.currentTimeMillis();
+                 * o2.tTerm = si.getValue(time, slv);
+                 * tsm.putCharacterStatValue(IndieMaxDamageOverR, o2);
+                 */
                 break;
             case MASTER_OF_DEATH:
                 o1.nOption = 1;
@@ -314,7 +314,7 @@ public class BattleMage extends Citizen {
 
     public void removeCondemnationBuff(Summon summon) {
         TemporaryStatManager tsm = chr.getTemporaryStatManager();
-        if(summon != null) {
+        if (summon != null) {
             if (tsm.hasStat(BMageDeath)) {
                 tsm.removeStatsBySkill(summon.getSkillID());
                 tsm.sendResetStatPacket();
@@ -325,15 +325,13 @@ public class BattleMage extends Citizen {
     public void applyBlueAuraDispel() {
         TemporaryStatManager tsm = chr.getTemporaryStatManager();
         Skill skill = chr.getSkill(BLUE_AURA);
-        if (chr.hasSkill(32120062)) { //Blue Aura - Dispel Magic
+        if (chr.hasSkill(32120062)) { // Blue Aura - Dispel Magic
             if (tsm.getOptByCTSAndSkill(BMageAura, skill.getSkillId()) != null) {
                 tsm.removeAllDebuffs();
                 EventManager.addEvent(this::applyBlueAuraDispel, 5, TimeUnit.SECONDS);
             }
         }
     }
-
-
 
     // Attack related methods ------------------------------------------------------------------------------------------
 
@@ -352,11 +350,7 @@ public class BattleMage extends Citizen {
             skillID = skill.getSkillId();
         }
         if (hasHitMobs) {
-            if(attackInfo.skillId != CONDEMNATION
-                    && attackInfo.skillId != CONDEMNATION_I
-                    && attackInfo.skillId != CONDEMNATION_II
-                    && attackInfo.skillId != CONDEMNATION_III
-                    && attackInfo.skillId != RuneStone.LIBERATE_THE_RUNE_OF_THUNDER_2) {
+            if (attackInfo.skillId != CONDEMNATION && attackInfo.skillId != CONDEMNATION_I && attackInfo.skillId != CONDEMNATION_II && attackInfo.skillId != CONDEMNATION_III && attackInfo.skillId != RuneStone.LIBERATE_THE_RUNE_OF_THUNDER_2) {
                 incrementCondemnation(attackInfo);
             }
             drainAuraActiveHPRecovery(attackInfo);
@@ -368,19 +362,19 @@ public class BattleMage extends Citizen {
         switch (attackInfo.skillId) {
             case DARK_CHAIN:
                 for (MobAttackInfo mai : attackInfo.mobAttackInfo) {
-                    //if (Util.succeedProp(si.getValue(hcProp, slv))) {
+                    // if (Util.succeedProp(si.getValue(hcProp, slv))) {
                     Mob mob = (Mob) chr.getField().getLifeByObjectID(mai.mobId);
                     if (mob == null) {
                         continue;
                     }
-                    if(!mob.isBoss()) {
+                    if (!mob.isBoss()) {
                         MobTemporaryStat mts = mob.getTemporaryStat();
                         o1.nOption = 1;
                         o1.rOption = skill.getSkillId();
                         o1.tOption = si.getValue(time, slv);
                         mts.addStatOptionsAndBroadcast(MobStat.Stun, o1);
                     }
-                    //}
+                    // }
                 }
                 break;
             case DARK_GENESIS:
@@ -389,7 +383,7 @@ public class BattleMage extends Citizen {
                     if (mob == null) {
                         continue;
                     }
-                    if(!mob.isBoss()) {
+                    if (!mob.isBoss()) {
                         MobTemporaryStat mts = mob.getTemporaryStat();
                         o1.nOption = 1;
                         o1.rOption = skill.getSkillId();
@@ -418,19 +412,19 @@ public class BattleMage extends Citizen {
                 continue;
             }
             if (mob.isBoss()) {
-                if(hitCountBoss < 1) {
+                if (hitCountBoss < 1) {
                     hitCountBoss++;
                 } else {
                     hitCountBoss = 0;
-                    if(killCount < getCondemnationKillReq()) {
+                    if (killCount < getCondemnationKillReq()) {
                         killCount++;
                     } else {
                         killCount = doCondemnationAttack(killCount);
                     }
                 }
             } else {
-                if(mob.getHp() <= dmgOnMob) {
-                    if(killCount < getCondemnationKillReq()) {
+                if (mob.getHp() <= dmgOnMob) {
+                    if (killCount < getCondemnationKillReq()) {
                         killCount++;
                     } else {
                         killCount = doCondemnationAttack(killCount);
@@ -453,8 +447,8 @@ public class BattleMage extends Citizen {
 
     private int doCondemnationAttack(int killCount) {
         TemporaryStatManager tsm = chr.getTemporaryStatManager();
-        if(lastCondemnationAttack + (getCondemnationCooldown() * 1000) < System.currentTimeMillis()) {
-            spawnDeath(getCondemnationSkill().getSkillId(), (byte)1);
+        if (lastCondemnationAttack + (getCondemnationCooldown() * 1000) < System.currentTimeMillis()) {
+            spawnDeath(getCondemnationSkill().getSkillId(), (byte) 1);
             death = tsm.getOption(IndieEmpty).summon;
             chr.write(Summoned.summonedAssistAttackRequest(death));
             killCount = 0;
@@ -470,7 +464,7 @@ public class BattleMage extends Citizen {
         SkillInfo si = SkillData.getSkillInfoById(skill.getSkillId());
 
         // Master of Death Buff
-        if(tsm.getOptByCTSAndSkill(AttackCountX, MASTER_OF_DEATH) != null) {
+        if (tsm.getOptByCTSAndSkill(AttackCountX, MASTER_OF_DEATH) != null) {
             return 0;
         }
 
@@ -483,7 +477,7 @@ public class BattleMage extends Citizen {
         SkillInfo si = SkillData.getSkillInfoById(skill.getSkillId());
 
         // Master of Death Buff
-        if(tsm.getOptByCTSAndSkill(AttackCountX, MASTER_OF_DEATH) != null) {
+        if (tsm.getOptByCTSAndSkill(AttackCountX, MASTER_OF_DEATH) != null) {
             return 1;
         }
 
@@ -507,7 +501,6 @@ public class BattleMage extends Citizen {
         }
         return skill;
     }
-
 
     private void drainAuraActiveHPRecovery(AttackInfo attackInfo) {
         TemporaryStatManager tsm = chr.getTemporaryStatManager();
@@ -542,7 +535,7 @@ public class BattleMage extends Citizen {
                 continue;
             }
             long totaldmg = Arrays.stream(mai.damages).sum();
-            if(mob == null) {
+            if (mob == null) {
                 return;
             }
             if (totaldmg >= mob.getHp()) {
@@ -563,7 +556,7 @@ public class BattleMage extends Citizen {
         int delay = si.getValue(y, slv);
         if (tsm.getOptByCTSAndSkill(BMageAura, skill.getSkillId()) != null) {
             Rect rect = chr.getPosition().getRectAround(si.getRects().get(0));
-            if(!chr.isLeft()) {
+            if (!chr.isLeft()) {
                 rect = rect.moveRight();
             }
             Field field = chr.getField();
@@ -582,7 +575,7 @@ public class BattleMage extends Citizen {
     @Override
     public int getFinalAttackSkill() {
         SkillInfo si = SkillData.getSkillInfoById(DARK_GENESIS_FA);
-        if(chr.getSkill(DARK_GENESIS) != null) {
+        if (chr.getSkill(DARK_GENESIS) != null) {
             byte slv = (byte) chr.getSkill(DARK_GENESIS).getCurrentLevel();
             if (Util.succeedProp(si.getValue(prop, slv))) {
                 return DARK_GENESIS_FA;
@@ -590,8 +583,6 @@ public class BattleMage extends Citizen {
         }
         return 0;
     }
-
-
 
     // Skill related methods -------------------------------------------------------------------------------------------
 
@@ -633,8 +624,6 @@ public class BattleMage extends Citizen {
             }
         }
     }
-
-
 
     // Hit related methods ---------------------------------------------------------------------------------------------
 

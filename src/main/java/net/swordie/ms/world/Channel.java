@@ -19,7 +19,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * Created on 11/2/2017.
  */
 public class Channel {
-    //CHANNELITEM struct
+    // CHANNELITEM struct
     private int port;
     private String name;
     private int worldId, channelId;
@@ -93,7 +93,8 @@ public class Channel {
     /**
      * Gets a {@link Field} corresponding to a given ID. If it doesn't exist, creates one.
      *
-     * @param id The map ID of the field.
+     * @param id
+     *            The map ID of the field.
      * @return The (possibly newly created) Field.
      */
     public Field getField(int id) {
@@ -169,7 +170,7 @@ public class Channel {
     }
 
     public void broadcastPacket(OutPacket outPacket) {
-        for(Char chr : getChars().values()) {
+        for (Char chr : getChars().values()) {
             chr.write(outPacket);
         }
     }
@@ -203,8 +204,7 @@ public class Channel {
                 return;
             }
 
-            getField(targetFieldId)
-                    .spawnMob(bossInfo.getBossID(), bossInfo.getSpawnPoint(), false, bossInfo.getHealth());
+            getField(targetFieldId).spawnMob(bossInfo.getBossID(), bossInfo.getSpawnPoint(), false, bossInfo.getHealth());
         } else {
             c.chatMessage("The land lacks power... Someone has been here very recently.");
         }

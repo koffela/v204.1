@@ -18,7 +18,7 @@ public enum EnchantStat implements Comparable<EnchantStat> {
     EVA(0x800),
     JUMP(0x1000),
     SPEED(0x2000);
-    
+
     private int val;
 
     EnchantStat(int val) {
@@ -30,7 +30,7 @@ public enum EnchantStat implements Comparable<EnchantStat> {
     }
 
     public EquipBaseStat getEquipBaseStat() {
-        switch(this) {
+        switch (this) {
             case PAD:
                 return EquipBaseStat.iPAD;
             case MAD:
@@ -65,7 +65,7 @@ public enum EnchantStat implements Comparable<EnchantStat> {
     }
 
     public static EnchantStat getByEquipBaseStat(EquipBaseStat ebs) {
-        switch(ebs) {
+        switch (ebs) {
             case iPAD:
                 return PAD;
             case iMAD:

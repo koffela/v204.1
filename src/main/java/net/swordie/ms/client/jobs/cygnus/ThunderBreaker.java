@@ -35,19 +35,19 @@ public class ThunderBreaker extends Noblesse {
     public static final int ELEMENTAL_SHIFT2 = 10000252;
     public static final int ELEMENTAL_HARMONY_STR = 10000246;
 
-    public static final int LIGHTNING_ELEMENTAL = 15001022; //Buff (Charge) //Stackable Charge
+    public static final int LIGHTNING_ELEMENTAL = 15001022; // Buff (Charge) //Stackable Charge
     public static final int ELECTRIFIED = 15000023;
 
-    public static final int KNUCKLE_BOOSTER = 15101022; //Buff
+    public static final int KNUCKLE_BOOSTER = 15101022; // Buff
     public static final int LIGHTNING_BOOST = 15100025;
 
-    public static final int GALE = 15111022; //Special Attack (Charge)
-    public static final int LINK_MASTERY = 15110025; //Special Passive
+    public static final int GALE = 15111022; // Special Attack (Charge)
+    public static final int LINK_MASTERY = 15110025; // Special Passive
     public static final int LIGHTNING_LORD = 15110026;
 
-    public static final int ARC_CHARGER = 15121004; //Buff
-    public static final int SPEED_INFUSION = 15121005; //Buff
-    public static final int CALL_OF_CYGNUS_TB = 15121000; //Buff
+    public static final int ARC_CHARGER = 15121004; // Buff
+    public static final int SPEED_INFUSION = 15121005; // Buff
+    public static final int CALL_OF_CYGNUS_TB = 15121000; // Buff
     public static final int TYPHOON = 15120003;
     public static final int THUNDER_GOD = 15120008;
 
@@ -88,7 +88,7 @@ public class ThunderBreaker extends Noblesse {
 
     public ThunderBreaker(Char chr) {
         super(chr);
-        if(chr.getId() != 0 && isHandlerOfJob(chr.getJob())) {
+        if (chr.getId() != 0 && isHandlerOfJob(chr.getJob())) {
             for (int id : addedSkills) {
                 if (!chr.hasSkill(id)) {
                     Skill skill = SkillData.getSkillDeepCopyById(id);
@@ -103,8 +103,6 @@ public class ThunderBreaker extends Noblesse {
     public boolean isHandlerOfJob(short id) {
         return JobConstants.isThunderBreaker(id);
     }
-
-
 
     // Buff related methods --------------------------------------------------------------------------------------------
 
@@ -151,7 +149,7 @@ public class ThunderBreaker extends Noblesse {
                 o1.nValue = si.getValue(x, slv);
                 o1.tStart = (int) System.currentTimeMillis();
                 o1.tTerm = si.getValue(time, slv);
-                tsm.putCharacterStatValue(IndieStatR, o1); //Indie
+                tsm.putCharacterStatValue(IndieStatR, o1); // Indie
                 break;
             case LINK_MASTERY:
                 o1.nOption = si.getValue(x, slv);
@@ -193,8 +191,6 @@ public class ThunderBreaker extends Noblesse {
         return super.isBuff(skillID) || Arrays.stream(buffs).anyMatch(b -> b == skillID);
     }
 
-
-
     // Attack related methods ------------------------------------------------------------------------------------------
 
     @Override
@@ -217,7 +213,7 @@ public class ThunderBreaker extends Noblesse {
                 incrementLightningElemental(tsm);
             }
         }
-        if(chr.hasSkill(LINK_MASTERY)) {
+        if (chr.hasSkill(LINK_MASTERY)) {
             if (hasHitMobs && skill != null) {
                 giveLinkMasteryBuff(skill.getSkillId(), tsm);
             }
@@ -229,12 +225,12 @@ public class ThunderBreaker extends Noblesse {
             case GALE:
             case TYPHOON:
                 int chargeStack = tsm.getOption(IgnoreTargetDEF).mOption;
-                if((tsm.getOptByCTSAndSkill(IndieDamR, GALE) == null) || (tsm.getOptByCTSAndSkill(IndieDamR, TYPHOON) == null)) {
+                if ((tsm.getOptByCTSAndSkill(IndieDamR, GALE) == null) || (tsm.getOptByCTSAndSkill(IndieDamR, TYPHOON) == null)) {
                     o1.nReason = skillID;
                     o1.nValue = chargeStack * si.getValue(y, slv);
                     o1.tStart = (int) System.currentTimeMillis();
                     o1.tTerm = si.getValue(time, slv);
-                    tsm.putCharacterStatValue(IndieDamR, o1); //Indie
+                    tsm.putCharacterStatValue(IndieDamR, o1); // Indie
                     tsm.sendSetStatPacket();
                 }
                 break;
@@ -264,9 +260,9 @@ public class ThunderBreaker extends Noblesse {
         SkillInfo pbInfo = SkillData.getSkillInfoById(PRIMAL_BOLT);
         byte slv = (byte) skill.getCurrentLevel();
         int amount = 1;
-        if(tsm.hasStat(IgnoreTargetDEF)) {
+        if (tsm.hasStat(IgnoreTargetDEF)) {
             amount = tsm.getOption(IgnoreTargetDEF).mOption;
-            if(amount < getMaxCharge()) {
+            if (amount < getMaxCharge()) {
                 amount++;
             }
         }
@@ -295,7 +291,7 @@ public class ThunderBreaker extends Noblesse {
     private Skill getLightningChargeSkill() {
         Skill skill = null;
         for (int lightningSkill : lightningBuffs) {
-            if(chr.hasSkill(lightningSkill)) {
+            if (chr.hasSkill(lightningSkill)) {
                 skill = chr.getSkill(lightningSkill);
             }
         }
@@ -304,7 +300,7 @@ public class ThunderBreaker extends Noblesse {
 
     private int getChargeProp() {
         Skill skill = getLightningChargeSkill();
-        if(skill != null) {
+        if (skill != null) {
             SkillInfo si = SkillData.getSkillInfoById(skill.getSkillId());
             byte slv = (byte) skill.getCurrentLevel();
             return si.getValue(prop, slv);
@@ -314,8 +310,8 @@ public class ThunderBreaker extends Noblesse {
 
     private int getMaxCharge() {
         int num = 0;
-        for(int skill : lightningBuffs) {
-            if(chr.hasSkill(skill)) {
+        for (int skill : lightningBuffs) {
+            if (chr.hasSkill(skill)) {
                 num++;
             }
         }
@@ -326,8 +322,6 @@ public class ThunderBreaker extends Noblesse {
     public int getFinalAttackSkill() {
         return 0;
     }
-
-
 
     // Skill related methods -------------------------------------------------------------------------------------------
 
@@ -369,8 +363,6 @@ public class ThunderBreaker extends Noblesse {
         }
         return -1;
     }
-
-
 
     // Hit related methods ---------------------------------------------------------------------------------------------
 

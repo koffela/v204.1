@@ -12,8 +12,7 @@ public enum QuestRewardType {
     ITEM(1),
     MONEY(2),
     POP(3),
-    BUFFITEM(4)
-    ;
+    BUFFITEM(4);
 
     private byte val;
 
@@ -26,21 +25,15 @@ public enum QuestRewardType {
     }
 
     public static QuestRewardType getQPRTByObj(Object o) {
-        return o instanceof QuestExpReward ? EXP :
-                o instanceof QuestItemReward ? ITEM :
-                o instanceof QuestMoneyReward ? MONEY :
-                o instanceof QuestPopReward ? POP :
-                o instanceof QuestBuffItemReward ? BUFFITEM : null;
+        return o instanceof QuestExpReward ? EXP : o instanceof QuestItemReward ? ITEM : o instanceof QuestMoneyReward ? MONEY : o instanceof QuestPopReward ? POP : o instanceof QuestBuffItemReward ? BUFFITEM : null;
     }
 
     public static QuestRewardType getQPRTByVal(byte val) {
-        return Arrays.stream(QuestRewardType.values())
-                .filter(qprt -> qprt.getVal() == val).findFirst().orElse(null);
+        return Arrays.stream(QuestRewardType.values()).filter(qprt -> qprt.getVal() == val).findFirst().orElse(null);
     }
 
-
     public QuestReward load(DataInputStream dis) throws IOException {
-        switch(this) {
+        switch (this) {
             case EXP:
                 return (QuestReward) new QuestExpReward().load(dis);
             case ITEM:

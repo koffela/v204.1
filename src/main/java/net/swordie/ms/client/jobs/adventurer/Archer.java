@@ -50,7 +50,7 @@ public class Archer extends Beginner {
     public static final int BOW_BOOSTER = 3101002;
     public static final int XBOW_BOOSTER = 3201002;
     public static final int QUIVER_CARTRIDGE = 3101009;
-    public static final int QUIVER_CARTRIDGE_ATOM = 3100010; //3100010;
+    public static final int QUIVER_CARTRIDGE_ATOM = 3100010; // 3100010;
 
     public static final int PHOENIX = 3111005;
     public static final int FREEZER = 3211005;
@@ -94,11 +94,10 @@ public class Archer extends Beginner {
     public static final int CONCENTRATION = 3121054;
     public static final int BULLSEYE_SHOT = 3221054;
 
-    //Final Attack
+    // Final Attack
     public static final int FINAL_ATTACK_BOW = 3100001;
     public static final int ADVANCED_FINAL_ATTACK_BOW = 3120008;
     public static final int FINAL_ATTACK_XBOW = 3200001;
-
 
     private QuiverCartridge quiverCartridge;
     private long lastArmorBreak = Long.MIN_VALUE;
@@ -107,7 +106,7 @@ public class Archer extends Beginner {
             MAPLE_RETURN,
     };
 
-    private int[] buffs = new int[]{
+    private int[] buffs = new int[] {
             BOW_BOOSTER,
             XBOW_BOOSTER,
             SOUL_ARROW_BOW,
@@ -135,7 +134,7 @@ public class Archer extends Beginner {
 
     public Archer(Char chr) {
         super(chr);
-        if(chr.getId() != 0 && isHandlerOfJob(chr.getJob())) {
+        if (chr.getId() != 0 && isHandlerOfJob(chr.getJob())) {
             for (int id : addedSkills) {
                 if (!chr.hasSkill(id)) {
                     Skill skill = SkillData.getSkillDeepCopyById(id);
@@ -150,8 +149,6 @@ public class Archer extends Beginner {
     public boolean isHandlerOfJob(short id) {
         return JobConstants.isAdventurerArcher(id);
     }
-
-
 
     // Buff related methods --------------------------------------------------------------------------------------------
 
@@ -190,10 +187,9 @@ public class Archer extends Beginner {
                 tsm.putCharacterStatValue(Booster, o1);
                 break;
             case QUIVER_CARTRIDGE:
-                if(quiverCartridge == null) {
+                if (quiverCartridge == null) {
                     quiverCartridge = new QuiverCartridge(chr);
-                } else
-                if(tsm.hasStat(QuiverCatridge)) {
+                } else if (tsm.hasStat(QuiverCatridge)) {
                     quiverCartridge.incType();
                 }
                 o1 = quiverCartridge.getOption();
@@ -261,7 +257,7 @@ public class Archer extends Beginner {
                 o2.rOption = skillID;
                 o2.tOption = si.getValue(time, slv);
 
-                //mOption is for the hyper passive
+                // mOption is for the hyper passive
                 if (chr.hasSkill(SHARP_EYES_BOW_IED_H) || chr.hasSkill(SHARP_EYES_XBOW_IED_H)) {
                     o2.mOption = si.getValue(ignoreMobpdpR, slv);
 
@@ -330,7 +326,7 @@ public class Archer extends Beginner {
                 o3.nOption = si.getValue(y, slv);
                 o3.rOption = skillID;
                 o3.tOption = si.getValue(time, slv);
-                tsm.putCharacterStatValue(Preparation, o3); //preparation = BD%
+                tsm.putCharacterStatValue(Preparation, o3); // preparation = BD%
                 break;
             case BULLSEYE_SHOT:
                 o1.nOption = si.getValue(x, slv);
@@ -366,8 +362,7 @@ public class Archer extends Beginner {
         if (quiverCartridge == null) {
             return;
         }
-        Skill skill = chr.hasSkill(ENCHANTED_QUIVER) ? chr.getSkill(ENCHANTED_QUIVER)
-                : chr.getSkill(QUIVER_CARTRIDGE);
+        Skill skill = chr.hasSkill(ENCHANTED_QUIVER) ? chr.getSkill(ENCHANTED_QUIVER) : chr.getSkill(QUIVER_CARTRIDGE);
         SkillInfo si = SkillData.getSkillInfoById(skill.getSkillId());
         for (MobAttackInfo mai : attackInfo.mobAttackInfo) {
             Mob mob = (Mob) chr.getField().getLifeByObjectID(mai.mobId);
@@ -378,10 +373,10 @@ public class Archer extends Beginner {
             int mobId = mai.mobId;
             switch (quiverCartridge.getType()) {
                 case 1: // Blood
-                    if(Util.succeedProp(si.getValue(w, slv))) {
+                    if (Util.succeedProp(si.getValue(w, slv))) {
                         quiverCartridge.decrementAmount();
                         int healrate = si.getValue(w, slv);
-                        chr.heal((int) (chr.getMaxHP() / ((double)100 / healrate)));
+                        chr.heal((int) (chr.getMaxHP() / ((double) 100 / healrate)));
                     }
                     break;
                 case 2: // Poison
@@ -389,17 +384,13 @@ public class Archer extends Beginner {
                     quiverCartridge.decrementAmount();
                     break;
                 case 3: // Magic
-                    int num = new Random().nextInt(130)+50;
-                    if(Util.succeedProp(si.getValue(u, slv))) {
+                    int num = new Random().nextInt(130) + 50;
+                    if (Util.succeedProp(si.getValue(u, slv))) {
                         quiverCartridge.decrementAmount();
                         int inc = ForceAtomEnum.BM_ARROW.getInc();
                         int type = ForceAtomEnum.BM_ARROW.getForceAtomType();
-                        ForceAtomInfo forceAtomInfo = new ForceAtomInfo(1, inc, 13, 12,
-                                num, 0, (int) System.currentTimeMillis(), 1, 0,
-                                new Position());
-                        chr.getField().broadcastPacket(FieldPacket.createForceAtom(false, 0, chr.getId(), type,
-                                true, mobId, QUIVER_CARTRIDGE_ATOM, forceAtomInfo, new Rect(), 0, 300,
-                                mob.getPosition(), 0, mob.getPosition()));
+                        ForceAtomInfo forceAtomInfo = new ForceAtomInfo(1, inc, 13, 12, num, 0, (int) System.currentTimeMillis(), 1, 0, new Position());
+                        chr.getField().broadcastPacket(FieldPacket.createForceAtom(false, 0, chr.getId(), type, true, mobId, QUIVER_CARTRIDGE_ATOM, forceAtomInfo, new Rect(), 0, 300, mob.getPosition(), 0, mob.getPosition()));
                     }
                     break;
             }
@@ -413,6 +404,7 @@ public class Archer extends Beginner {
         POISON(2),
         MAGIC(3),
         ;
+
         private byte val;
 
         QCType(int val) {
@@ -424,7 +416,7 @@ public class Archer extends Beginner {
         }
     }
 
-    public class QuiverCartridge{
+    public class QuiverCartridge {
 
         private int blood; // 1
         private int poison; // 2
@@ -441,27 +433,27 @@ public class Archer extends Beginner {
         }
 
         public void decrementAmount() {
-            if(chr.getTemporaryStatManager().hasStat(AdvancedQuiver)) {
+            if (chr.getTemporaryStatManager().hasStat(AdvancedQuiver)) {
                 return;
             }
-            switch(type) {
+            switch (type) {
                 case 1:
                     blood--;
-                    if(blood == 0) {
+                    if (blood == 0) {
                         blood = getMaxNumberOfArrows(QCType.BLOOD.getVal());
                         incType();
                     }
                     break;
                 case 2:
                     poison--;
-                    if(poison == 0) {
+                    if (poison == 0) {
                         poison = getMaxNumberOfArrows(QCType.POISON.getVal());
                         incType();
                     }
                     break;
                 case 3:
                     magic--;
-                    if(magic == 0) {
+                    if (magic == 0) {
                         magic = getMaxNumberOfArrows(QCType.MAGIC.getVal());
                         incType();
                     }
@@ -494,16 +486,14 @@ public class Archer extends Beginner {
         int num = 0;
         Skill firstSkill = chr.getSkill(QUIVER_CARTRIDGE);
         Skill secondSkill = chr.getSkill(ENCHANTED_QUIVER);
-        if(secondSkill != null && secondSkill.getCurrentLevel() > 0) {
+        if (secondSkill != null && secondSkill.getCurrentLevel() > 0) {
             num = 20;
 
-        } else if(firstSkill != null && firstSkill.getCurrentLevel() > 0) {
+        } else if (firstSkill != null && firstSkill.getCurrentLevel() > 0) {
             num = 10;
         }
         return type == 3 ? num * 2 : num; // Magic Arrow has 2x as many arrows
     }
-
-
 
     // Attack related methods ------------------------------------------------------------------------------------------
 
@@ -521,7 +511,7 @@ public class Archer extends Beginner {
             slv = skill.getCurrentLevel();
             skillID = skill.getSkillId();
         }
-        if(hasHitMobs) {
+        if (hasHitMobs) {
             quiverCartridge(chr.getTemporaryStatManager(), attackInfo, slv);
             incrementFocusedFury();
             incrementMortalBlow();
@@ -539,7 +529,7 @@ public class Archer extends Beginner {
                         if (mob == null) {
                             continue;
                         }
-                        if(!mob.isBoss()) {
+                        if (!mob.isBoss()) {
                             MobTemporaryStat mts = mob.getTemporaryStat();
                             o1.nOption = 1;
                             o1.rOption = skillID;
@@ -556,7 +546,7 @@ public class Archer extends Beginner {
                         if (mob == null) {
                             continue;
                         }
-                        if(!mob.isBoss()) {
+                        if (!mob.isBoss()) {
                             MobTemporaryStat mts = mob.getTemporaryStat();
                             o1.nOption = 1;
                             o1.rOption = skillID;
@@ -567,7 +557,7 @@ public class Archer extends Beginner {
                 }
                 break;
             case FLAME_SURGE:
-                for(MobAttackInfo mai : attackInfo.mobAttackInfo) {
+                for (MobAttackInfo mai : attackInfo.mobAttackInfo) {
                     AffectedArea aa = AffectedArea.getAffectedArea(chr, attackInfo);
                     Mob mob = (Mob) chr.getField().getLifeByObjectID(mai.mobId);
                     if (mob == null) {
@@ -581,8 +571,8 @@ public class Archer extends Beginner {
                     chr.getField().spawnAffectedArea(aa);
                 }
                 break;
-            case BINDING_SHOT: // TODO  HP Recovery
-                for(MobAttackInfo mai : attackInfo.mobAttackInfo) {
+            case BINDING_SHOT: // TODO HP Recovery
+                for (MobAttackInfo mai : attackInfo.mobAttackInfo) {
                     Mob mob = (Mob) chr.getField().getLifeByObjectID(mai.mobId);
                     if (mob == null) {
                         continue;
@@ -595,14 +585,14 @@ public class Archer extends Beginner {
                 }
                 break;
             case NET_TOSS:
-                for(MobAttackInfo mai : attackInfo.mobAttackInfo) {
-                    if(Util.succeedProp(si.getValue(prop, slv))) {
+                for (MobAttackInfo mai : attackInfo.mobAttackInfo) {
+                    if (Util.succeedProp(si.getValue(prop, slv))) {
                         Mob mob = (Mob) chr.getField().getLifeByObjectID(mai.mobId);
                         if (mob == null) {
                             continue;
                         }
                         MobTemporaryStat mts = mob.getTemporaryStat();
-                        if(mob.isBoss()) {
+                        if (mob.isBoss()) {
                             o1.nOption = si.getValue(x, slv);
                             o1.tOption = si.getValue(time, slv) / 2;
                         } else {
@@ -615,13 +605,13 @@ public class Archer extends Beginner {
                 }
                 break;
             case ARROW_ILLUSION:
-                for(MobAttackInfo mai : attackInfo.mobAttackInfo) {
-                    if(Util.succeedProp(si.getValue(prop, slv))) {
+                for (MobAttackInfo mai : attackInfo.mobAttackInfo) {
+                    if (Util.succeedProp(si.getValue(prop, slv))) {
                         Mob mob = (Mob) chr.getField().getLifeByObjectID(mai.mobId);
                         if (mob == null) {
                             continue;
                         }
-                        if(!mob.isBoss()) {
+                        if (!mob.isBoss()) {
                             MobTemporaryStat mts = mob.getTemporaryStat();
                             o1.nOption = 1;
                             o1.rOption = skillID;
@@ -654,7 +644,7 @@ public class Archer extends Beginner {
         Option o = new Option();
         Option o1 = new Option();
         int skillId = attackInfo.skillId;
-        if(!chr.hasSkill(ARMOR_BREAK) || !SkillConstants.isArmorPiercingSkill(skillId)) {
+        if (!chr.hasSkill(ARMOR_BREAK) || !SkillConstants.isArmorPiercingSkill(skillId)) {
             tsm.removeStatsBySkill(ARMOR_BREAK);
             return;
         }
@@ -664,7 +654,7 @@ public class Archer extends Beginner {
         byte slv = (byte) skill.getCurrentLevel();
 
         int pdr = 0;
-        for(MobAttackInfo mai : attackInfo.mobAttackInfo) {
+        for (MobAttackInfo mai : attackInfo.mobAttackInfo) {
             Mob mob = (Mob) chr.getField().getLifeByObjectID(mai.mobId);
             if (mob == null) {
                 continue;
@@ -673,8 +663,8 @@ public class Archer extends Beginner {
         }
 
         int finalDmgRate = si.getValue(x, slv);
-        if(lastArmorBreak + (si.getValue(y, slv) * 1000) < System.currentTimeMillis()) {
-            if(pdr > 0) {
+        if (lastArmorBreak + (si.getValue(y, slv) * 1000) < System.currentTimeMillis()) {
+            if (pdr > 0) {
                 if (tsm.getOptByCTSAndSkill(IndieIgnoreMobpdpR, ARMOR_BREAK) == null) {
                     o.nReason = ARMOR_BREAK;
                     o.nValue = si.getValue(z, slv);
@@ -698,7 +688,7 @@ public class Archer extends Beginner {
     }
 
     private void giveAggressiveResistanceBuff(AttackInfo ai) {
-        if(!chr.hasSkill(AGGRESSIVE_RESISTANCE)) {
+        if (!chr.hasSkill(AGGRESSIVE_RESISTANCE)) {
             return;
         }
         TemporaryStatManager tsm = chr.getTemporaryStatManager();
@@ -708,18 +698,17 @@ public class Archer extends Beginner {
         Option o = tsm.getOptByCTSAndSkill(DamAbsorbShield, AGGRESSIVE_RESISTANCE);
         Option o1 = new Option();
         long totalDamage = 0;
-        for(MobAttackInfo mai : ai.mobAttackInfo) {
-            for(long dmg : mai.damages) {
+        for (MobAttackInfo mai : ai.mobAttackInfo) {
+            for (long dmg : mai.damages) {
                 totalDamage += dmg;
             }
         }
-        if(o == null) {
+        if (o == null) {
             o = new Option();
             o.nOption = 0;
             o.rOption = AGGRESSIVE_RESISTANCE;
         }
-        o.nOption = (int) Math.min((int) totalDamage * (si.getValue(y, slv) / 100D) + o.nOption,
-                chr.getStat(Stat.mhp) / (si.getValue(z, slv) / 100D));
+        o.nOption = (int) Math.min((int) totalDamage * (si.getValue(y, slv) / 100D) + o.nOption, chr.getStat(Stat.mhp) / (si.getValue(z, slv) / 100D));
         o.tOption = si.getValue(time, slv);
         tsm.putCharacterStatValue(DamAbsorbShield, o);
         tsm.sendSetStatPacket();
@@ -745,8 +734,8 @@ public class Archer extends Beginner {
         Option o1 = new Option();
         Skill skill = chr.getSkill(MORTAL_BLOW_BOW);
         int amount = 1;
-        if(chr.hasSkill(MORTAL_BLOW_BOW)) {
-            if(tsm.hasStat(BowMasterMortalBlow)) {
+        if (chr.hasSkill(MORTAL_BLOW_BOW)) {
+            if (tsm.hasStat(BowMasterMortalBlow)) {
                 amount = tsm.getOption(BowMasterMortalBlow).nOption;
                 if (amount < 9) {
                     amount++;
@@ -762,7 +751,7 @@ public class Archer extends Beginner {
     }
 
     private void incrementFocusedFury() {
-        if(!chr.hasSkill(FOCUSED_FURY)) {
+        if (!chr.hasSkill(FOCUSED_FURY)) {
             return;
         }
         Skill skill = chr.getSkill(FOCUSED_FURY);
@@ -772,7 +761,7 @@ public class Archer extends Beginner {
         Option o2 = new Option();
         int amount = 0;
 
-        if(tsm.hasStat(BowMasterConcentration)) {
+        if (tsm.hasStat(BowMasterConcentration)) {
             amount = tsm.getOption(BowMasterConcentration).nOption;
             if (amount < 20) {
                 amount++;
@@ -783,7 +772,7 @@ public class Archer extends Beginner {
         o2.tOption = si.getValue(time, slv);
         tsm.putCharacterStatValue(BowMasterConcentration, o2);
         tsm.sendSetStatPacket();
-        if(amount < 20) {
+        if (amount < 20) {
             chr.write(UserPacket.effect(Effect.skillUse(skill.getSkillId(), slv, 0)));
             chr.getField().broadcastPacket(UserRemote.effect(chr.getId(), Effect.skillUse(skill.getSkillId(), slv, 0)));
         }
@@ -792,7 +781,7 @@ public class Archer extends Beginner {
     @Override
     public int getFinalAttackSkill() {
         Skill faSkill = getFinalAtkSkill();
-        if(faSkill != null) {
+        if (faSkill != null) {
             SkillInfo si = SkillData.getSkillInfoById(faSkill.getSkillId());
             byte slv = (byte) faSkill.getCurrentLevel();
             int proc = si.getValue(prop, slv);
@@ -805,19 +794,17 @@ public class Archer extends Beginner {
 
     private Skill getFinalAtkSkill() {
         Skill skill = null;
-        if(chr.hasSkill(FINAL_ATTACK_BOW)) {
+        if (chr.hasSkill(FINAL_ATTACK_BOW)) {
             skill = chr.getSkill(FINAL_ATTACK_BOW);
         }
-        if(chr.hasSkill(FINAL_ATTACK_XBOW)) {
+        if (chr.hasSkill(FINAL_ATTACK_XBOW)) {
             skill = chr.getSkill(FINAL_ATTACK_XBOW);
         }
-        if(chr.hasSkill(ADVANCED_FINAL_ATTACK_BOW)) {
+        if (chr.hasSkill(ADVANCED_FINAL_ATTACK_BOW)) {
             skill = chr.getSkill(ADVANCED_FINAL_ATTACK_BOW);
         }
         return skill;
     }
-
-
 
     // Skill related methods -------------------------------------------------------------------------------------------
 
@@ -828,14 +815,14 @@ public class Archer extends Beginner {
         Char chr = c.getChr();
         Skill skill = chr.getSkill(skillID);
         SkillInfo si = null;
-        if(skill != null) {
+        if (skill != null) {
             si = SkillData.getSkillInfoById(skillID);
         }
         if (isBuff(skillID)) {
             handleBuff(c, inPacket, skillID, slv);
         } else {
             Option o1 = new Option();
-            switch(skillID) {
+            switch (skillID) {
                 case MAPLE_RETURN:
                     o1.nValue = si.getValue(x, slv);
                     Field toField = chr.getOrCreateFieldByCurrentInstanceType(o1.nValue);
@@ -849,17 +836,15 @@ public class Archer extends Beginner {
         }
     }
 
-
-
     // Hit related methods ---------------------------------------------------------------------------------------------
 
     @Override
     public void handleHit(Client c, InPacket inPacket, HitInfo hitInfo) {
-        if(hitInfo.hpDamage == 0 && hitInfo.mpDamage == 0) {
+        if (hitInfo.hpDamage == 0 && hitInfo.mpDamage == 0) {
             // Dodged
-            if(chr.hasSkill(EVASION_BOOST) || chr.hasSkill(EVASION_BOOST_XBOW)) {
+            if (chr.hasSkill(EVASION_BOOST) || chr.hasSkill(EVASION_BOOST_XBOW)) {
                 Skill skill = chr.getSkill(EVASION_BOOST);
-                if(skill == null) {
+                if (skill == null) {
                     skill = chr.getSkill(EVASION_BOOST_XBOW);
                 }
                 byte slv = (byte) skill.getCurrentLevel();

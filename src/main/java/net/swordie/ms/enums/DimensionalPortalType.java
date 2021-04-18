@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 /**
  * @author Sjonnie
- * Created on 8/2/2018.
+ *         Created on 8/2/2018.
  */
 public enum DimensionalPortalType {
     AriantColiseum(0, 980010000, "Ariant Coliseum"),

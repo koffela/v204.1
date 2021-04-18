@@ -40,14 +40,14 @@ public class WildHunterInfo {
 
     public void encode(OutPacket outPacket) {
         outPacket.encodeByte(10 * (getIdx() + 1));
-        for(int mob : getCapturedMob()) {
+        for (int mob : getCapturedMob()) {
             outPacket.encodeInt(mob);
         }
     }
 
     public int getTemplateID() {
         int res = 0;
-        if(getRidingType() > 0 && getRidingType() < 10) { // 1~9 has jaguars
+        if (getRidingType() > 0 && getRidingType() < 10) { // 1~9 has jaguars
             res = 9304000 + (getRidingType() - 1);
         }
         return res;

@@ -9,6 +9,7 @@ import java.lang.annotation.RetentionPolicy;
 public @interface Command {
 
     String[] names();
+
     PrivateStatusIDFlag requiredType();
 
 }

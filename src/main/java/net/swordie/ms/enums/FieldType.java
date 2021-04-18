@@ -157,6 +157,7 @@ public enum FieldType {
     MAPLE_MUSIC_FESTIVAL(150),// not exists in KMST leak
     UNK_151(151),
     COUNT_OF_FIELDTYPE(152);
+
     private final int val;
 
     FieldType(int val) {

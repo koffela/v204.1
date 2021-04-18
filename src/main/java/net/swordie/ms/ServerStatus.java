@@ -10,7 +10,7 @@ public enum ServerStatus {
      */
     private byte value;
 
-    ServerStatus (int value) {
+    ServerStatus(int value) {
         this.value = (byte) value;
     }
 

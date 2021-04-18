@@ -31,7 +31,7 @@ public class AntiMacro {
         }
 
         public byte getVal() {
-            return (byte)val;
+            return (byte) val;
         }
     }
 
@@ -58,12 +58,12 @@ public class AntiMacro {
         }
 
         public byte getVal() {
-            return (byte)val;
+            return (byte) val;
         }
     }
 
     public static final String[] FONTS = {
-        "AmaticSC", "Audiowide", "Caveat", "CoveredByYourGrace", "Rajdhani", "Srisakdi"
+            "AmaticSC", "Audiowide", "Caveat", "CoveredByYourGrace", "Rajdhani", "Srisakdi"
     };
 
     private Font font;
@@ -101,13 +101,20 @@ public class AntiMacro {
 
     public static Color getRandomColor() {
         switch (Util.getRandom(6)) {
-            case 0: return Color.RED;
-            case 1: return Color.YELLOW;
-            case 2: return Color.CYAN;
-            case 3: return Color.GREEN;
-            case 4: return Color.ORANGE;
-            case 5: return Color.PINK;
-            default: return Color.WHITE;
+            case 0:
+                return Color.RED;
+            case 1:
+                return Color.YELLOW;
+            case 2:
+                return Color.CYAN;
+            case 3:
+                return Color.GREEN;
+            case 4:
+                return Color.ORANGE;
+            case 5:
+                return Color.PINK;
+            default:
+                return Color.WHITE;
         }
     }
 }

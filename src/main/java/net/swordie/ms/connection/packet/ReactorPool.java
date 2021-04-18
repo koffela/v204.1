@@ -11,9 +11,13 @@ public class ReactorPool {
 
     /**
      * Packet creator for CReactorPool::OnReactorChangeState.
-     * @param reactor The Reactor the change gets changed from
-     * @param delay the delay until the start of the change
-     * @param stateLength the total length of the change, in 10ths of a second
+     * 
+     * @param reactor
+     *            The Reactor the change gets changed from
+     * @param delay
+     *            the delay until the start of the change
+     * @param stateLength
+     *            the total length of the change, in 10ths of a second
      * @return the resulting OutPacket
      */
     public static OutPacket reactorChangeState(Reactor reactor, short delay, byte stateLength) {

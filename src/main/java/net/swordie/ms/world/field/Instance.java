@@ -52,7 +52,9 @@ public class Instance {
 
     /**
      * Makes a Char reenter in this instance.
-     * @param chr the Char that should enter this instance
+     * 
+     * @param chr
+     *            the Char that should enter this instance
      */
     public void reEnter(Char chr) {
         if (canReEnter(chr)) {
@@ -62,7 +64,9 @@ public class Instance {
 
     /**
      * Returns whether or not the given Char can re-enter this Instance.
-     * @param chr the Char to check
+     * 
+     * @param chr
+     *            the Char to check
      * @return whether or not the given Char can re-enter this Instance.
      */
     public boolean canReEnter(Char chr) {
@@ -71,8 +75,11 @@ public class Instance {
 
     /**
      * Sets up this Instance. Creates a List of Chars for this Instance, and warps them to the given Field.
-     * @param fieldId the Field's id to warp to
-     * @param portalId the Portal's id to warp to
+     * 
+     * @param fieldId
+     *            the Field's id to warp to
+     * @param portalId
+     *            the Portal's id to warp to
      */
     public void setup(int fieldId, int portalId) {
         Field checkField = FieldData.getFieldCopyById(fieldId);
@@ -95,9 +102,9 @@ public class Instance {
         setForcedReturn(checkField.getForcedReturn());
     }
 
-
     /**
      * Returns a List of eligible Chars for this Instance.
+     * 
      * @return list of eligible Chars
      */
     public List<Char> getChars() {
@@ -106,7 +113,9 @@ public class Instance {
 
     /**
      * Removes a Char from the eligible Char list.
-     * @param chr the Char to remove
+     * 
+     * @param chr
+     *            the Char to remove
      */
     public void removeChar(Char chr) {
         chars.remove(chr);
@@ -115,6 +124,7 @@ public class Instance {
 
     /**
      * Returns the Char of this Instance, if it is a SOLO instance. Null otherwise.
+     * 
      * @return Char of this instance
      */
     public Char getChr() {
@@ -123,6 +133,7 @@ public class Instance {
 
     /**
      * Returns the Party of this Instance, if it is a PARTY instance. Null otherwise.
+     * 
      * @return
      */
     public Party getParty() {
@@ -131,6 +142,7 @@ public class Instance {
 
     /**
      * Returns a List of active Fields in this Instance.
+     * 
      * @return List of active Fields
      */
     public Map<Integer, Field> getFields() {
@@ -147,6 +159,7 @@ public class Instance {
 
     /**
      * Returns the forced return Field of this Instance, for when a Char is forced out of this Instance.
+     * 
      * @return the forced return Field
      */
     public int getForcedReturn() {
@@ -155,6 +168,7 @@ public class Instance {
 
     /**
      * Returns the initial enter Field of this Instance.
+     * 
      * @return the initial enter Field of this Instance.
      */
     public int getEnterFieldId() {
@@ -163,6 +177,7 @@ public class Instance {
 
     /**
      * Returns the initial enter Portal of this Instance.
+     * 
      * @return the initial enter Portal of this Instance.
      */
     public int getEnterPortalId() {
@@ -171,6 +186,7 @@ public class Instance {
 
     /**
      * Returns the timer of the event that will warp everyone out of this Instance.
+     * 
      * @return warp out event timer
      */
     public ScheduledFuture getWarpOutTimer() {
@@ -179,8 +195,11 @@ public class Instance {
 
     /**
      * Adds a property to this Instance.
-     * @param key the property's key
-     * @param value the property's value
+     * 
+     * @param key
+     *            the property's key
+     * @param value
+     *            the property's value
      */
     public void addProperty(String key, Object value) {
         getProperties().put(key, value);
@@ -188,7 +207,9 @@ public class Instance {
 
     /**
      * Checks if this Instance has a property.
-     * @param key the key to check
+     * 
+     * @param key
+     *            the key to check
      * @return whether or not this Instance has the property
      */
     public boolean hasProperty(String key) {
@@ -197,7 +218,9 @@ public class Instance {
 
     /**
      * Gets the value of a property, or null if there is none.
-     * @param key the key of the property
+     * 
+     * @param key
+     *            the key of the property
      * @return the value of the property, or null if there is none
      */
     public Object getProperty(String key) {
@@ -206,6 +229,7 @@ public class Instance {
 
     /**
      * Returns whether or not this is a party's instance.
+     * 
      * @return whether or not this is a party's instance.
      */
     public boolean isParty() {
@@ -214,6 +238,7 @@ public class Instance {
 
     /**
      * Returns whether or not this is a solo instance.
+     * 
      * @return whether or not this is a solo instance.
      */
     public boolean isSolo() {
@@ -223,7 +248,9 @@ public class Instance {
     /**
      * Returns the Field according to the given field id. If there is currently no such Field, tries to make one and
      * add it to the active Field list.
-     * @param fieldID the field's id to get
+     * 
+     * @param fieldID
+     *            the field's id to get
      * @return the corresponding active Field
      */
     public Field getField(int fieldID) {
@@ -239,7 +266,9 @@ public class Instance {
 
     /**
      * Sets the forced return Field of this Instance.
-     * @param forcedReturn the forced return field's id
+     * 
+     * @param forcedReturn
+     *            the forced return field's id
      */
     public void setForcedReturn(int forcedReturn) {
         this.forcedReturn = forcedReturn;
@@ -247,7 +276,9 @@ public class Instance {
 
     /**
      * Sets the enter Field of this Instance
-     * @param enterFieldId the enter field's id
+     * 
+     * @param enterFieldId
+     *            the enter field's id
      */
     public void setEnterFieldId(int enterFieldId) {
         this.enterFieldId = enterFieldId;
@@ -255,7 +286,9 @@ public class Instance {
 
     /**
      * Sets the enter Portal of this Instance
-     * @param enterPortalId the enter portal's id
+     * 
+     * @param enterPortalId
+     *            the enter portal's id
      */
     public void setEnterPortalId(int enterPortalId) {
         this.enterPortalId = enterPortalId;
@@ -279,7 +312,7 @@ public class Instance {
             chr.setInstance(null);
             if (useFieldReturn) {
                 chr.warp(field.getForcedReturn());
-            } else if (portalId == -1){
+            } else if (portalId == -1) {
                 chr.warp(fieldId);
             } else {
                 chr.warp(fieldId, portalId);
@@ -288,6 +321,7 @@ public class Instance {
         stopEvents();
         fields.clear();
     }
+
     /**
      * Stops all events of this Instance, and each of the eligible Char's ScriptManager's events.
      */
@@ -303,7 +337,9 @@ public class Instance {
 
     /**
      * Sets the timeout of this Instance, after which every Char will be forced out. Creates a Clock for everyone.
-     * @param seconds the amount of seconds until every Char is forced out
+     * 
+     * @param seconds
+     *            the amount of seconds until every Char is forced out
      */
     public void setTimeout(int seconds) {
         Char chr = getChars().get(0);
@@ -315,8 +351,10 @@ public class Instance {
         warpOutTimeout = System.currentTimeMillis() + seconds * 1000;
         broadcast(FieldPacket.clock(ClockPacket.secondsClock(seconds)));
     }
+
     /**
      * Returns the amount of seconds until this Instance closes.
+     * 
      * @return the remaining time
      */
     public int getRemainingTime() {
@@ -325,7 +363,9 @@ public class Instance {
 
     /**
      * Broadcasts a Packet to everyone in this Instance.
-     * @param outPacket the Packet to send
+     * 
+     * @param outPacket
+     *            the Packet to send
      */
     public void broadcast(OutPacket outPacket) {
         for (Char chr : getChars()) {

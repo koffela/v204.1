@@ -58,7 +58,7 @@ public class ChosenSkill {
     public static void setChosenSkill(Char chr, int stolenSkillId, int impecSkillId) {
         int position = getPositionByImpecSkillId(impecSkillId);
 
-        if(chr.getChosenSkillByPosition(position) != null) {
+        if (chr.getChosenSkillByPosition(position) != null) {
             chr.removeChosenSkill(chr.getChosenSkillByPosition(position));
         }
 

@@ -23,10 +23,11 @@ public class OutPacket extends Packet {
     /**
      * Creates a new OutPacket with a given op. Immediately encodes the op.
      *
-     * @param op The opcode of this OutPacket.
+     * @param op
+     *            The opcode of this OutPacket.
      */
     public OutPacket(short op) {
-        super(new byte[]{});
+        super(new byte[] {});
         baos = PooledByteBufAllocator.DEFAULT.buffer();
         encodeShort(op);
         this.op = op;
@@ -35,7 +36,8 @@ public class OutPacket extends Packet {
     /**
      * Creates a new OutPacket with a given op. Immediately encodes the op.
      *
-     * @param op The opcode of this OutPacket.
+     * @param op
+     *            The opcode of this OutPacket.
      */
     public OutPacket(int op) {
         this((short) op);
@@ -45,14 +47,15 @@ public class OutPacket extends Packet {
      * Creates a new OutPacket, and initializes the data as empty.
      */
     public OutPacket() {
-        super(new byte[]{});
+        super(new byte[] {});
         baos = ByteBufAllocator.DEFAULT.buffer();
     }
 
     /**
      * Creates a new OutPacket with given data.
      *
-     * @param data The data this net.swordie.ms.connection.packet has to be initialized with.
+     * @param data
+     *            The data this net.swordie.ms.connection.packet has to be initialized with.
      */
     public OutPacket(byte[] data) {
         super(data);
@@ -63,7 +66,8 @@ public class OutPacket extends Packet {
     /**
      * Creates a new OutPacket with a given header. Immediately encodes the header's short value.
      *
-     * @param header The header of this OutPacket.
+     * @param header
+     *            The header of this OutPacket.
      */
     public OutPacket(OutHeader header) {
         this(header.getValue());
@@ -82,7 +86,8 @@ public class OutPacket extends Packet {
     /**
      * Encodes a single byte to this OutPacket.
      *
-     * @param b The int to encode as a byte. Will be downcast, so be careful.
+     * @param b
+     *            The int to encode as a byte. Will be downcast, so be careful.
      */
     public void encodeByte(int b) {
         encodeByte((byte) b);
@@ -91,7 +96,8 @@ public class OutPacket extends Packet {
     /**
      * Encodes a byte to this OutPacket.
      *
-     * @param b The byte to encode.
+     * @param b
+     *            The byte to encode.
      */
     public void encodeByte(byte b) {
         baos.writeByte(b);
@@ -101,7 +107,8 @@ public class OutPacket extends Packet {
      * Encodes a byte array to this OutPacket.
      * Named like this to prevent autocompletion of "by" to "byteArray" or similar names.
      *
-     * @param bArr The byte array to encode.
+     * @param bArr
+     *            The byte array to encode.
      */
     public void encodeArr(byte[] bArr) {
         baos.writeBytes(bArr);
@@ -110,7 +117,8 @@ public class OutPacket extends Packet {
     /**
      * Encodes a byte array to this OutPacket.
      *
-     * @param arr the byte array, in string format (may contain '|' and whitespace to seperate bytes)
+     * @param arr
+     *            the byte array, in string format (may contain '|' and whitespace to seperate bytes)
      */
     public void encodeArr(String arr) {
         encodeArr(Util.getByteArrayByString(arr));
@@ -119,7 +127,8 @@ public class OutPacket extends Packet {
     /**
      * Encodes a character to this OutPacket, UTF-8.
      *
-     * @param c The character to encode
+     * @param c
+     *            The character to encode
      */
     public void encodeChar(char c) {
         baos.writeByte(c);
@@ -128,7 +137,8 @@ public class OutPacket extends Packet {
     /**
      * Encodes a boolean to this OutPacket.
      *
-     * @param b The boolean to encode (0/1)
+     * @param b
+     *            The boolean to encode (0/1)
      */
     public void encodeByte(boolean b) {
         baos.writeBoolean(b);
@@ -137,7 +147,8 @@ public class OutPacket extends Packet {
     /**
      * Encodes a short to this OutPacket, in little endian.
      *
-     * @param s The short to encode.
+     * @param s
+     *            The short to encode.
      */
     public void encodeShort(short s) {
         baos.writeShortLE(s);
@@ -154,7 +165,8 @@ public class OutPacket extends Packet {
     /**
      * Encodes an integer to this OutPacket, in little endian.
      *
-     * @param i The integer to encode.
+     * @param i
+     *            The integer to encode.
      */
     public void encodeInt(int i) {
         baos.writeIntLE(i);
@@ -163,7 +175,8 @@ public class OutPacket extends Packet {
     /**
      * Encodes a long to this OutPacket, in little endian.
      *
-     * @param l The long to encode.
+     * @param l
+     *            The long to encode.
      */
     public void encodeLong(long l) {
         baos.writeLongLE(l);
@@ -173,7 +186,8 @@ public class OutPacket extends Packet {
      * Encodes a String to this OutPacket.
      * Structure: short(size) + char array of <code>s</code>.
      *
-     * @param s The String to encode.
+     * @param s
+     *            The String to encode.
      */
     public void encodeString(String s) {
         if (s == null) {
@@ -191,8 +205,10 @@ public class OutPacket extends Packet {
      * Writes a String as a character array to this OutPacket.
      * If <code>s.length()</code> is smaller than length, the open spots are filled in with zeros.
      *
-     * @param s      The String to encode.
-     * @param length The maximum length of the buffer.
+     * @param s
+     *            The String to encode.
+     * @param length
+     *            The maximum length of the buffer.
      */
     public void encodeString(String s, short length) {
         if (s == null) {
@@ -251,8 +267,7 @@ public class OutPacket extends Packet {
 
     @Override
     public String toString() {
-        return String.format("%s, %s/0x%s\t| %s", OutHeader.getOutHeaderByOp(op), op, Integer.toHexString(op).toUpperCase()
-                , Util.readableByteArray(Arrays.copyOfRange(getData(), 2, getData().length)));
+        return String.format("%s, %s/0x%s\t| %s", OutHeader.getOutHeaderByOp(op), op, Integer.toHexString(op).toUpperCase(), Util.readableByteArray(Arrays.copyOfRange(getData(), 2, getData().length)));
     }
 
     public void encodeShort(int value) {

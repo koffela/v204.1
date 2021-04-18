@@ -2,7 +2,7 @@ package net.swordie.ms.enums;
 
 /**
  * @author Sjonnie
- * Created on 9/1/2018.
+ *         Created on 9/1/2018.
  */
 public enum AllianceType {
     Req_Create(0),

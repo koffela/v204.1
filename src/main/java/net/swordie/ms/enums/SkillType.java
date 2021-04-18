@@ -2,7 +2,7 @@ package net.swordie.ms.enums;
 
 /**
  * @author Sjonnie
- * Created on 6/18/2018.
+ *         Created on 6/18/2018.
  */
 public enum SkillType {
     SKILL_TYPE_NONE(0),

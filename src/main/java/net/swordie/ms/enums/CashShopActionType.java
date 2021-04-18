@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 /**
  * @author Sjonnie
- * Created on 7/7/2018.
+ *         Created on 7/7/2018.
  */
 public enum CashShopActionType {
     ShowCategory(11),

@@ -29,7 +29,6 @@ public class Merchant extends Life {
     private EmployeeTrunk employeeTrunk;
     private int worldId;
 
-
     public Merchant(int templateId) {
         super(templateId);
         this.visitors = new ArrayList<Char>();
@@ -103,7 +102,6 @@ public class Merchant extends Life {
     public void setOpen(boolean o) {
         open = o;
     }
-
 
     public Boolean getShopHasPassword() {
         return shopHasPassword;
@@ -226,7 +224,7 @@ public class Merchant extends Life {
         long price = quantity * getItems().get(itemPos).price;
         MerchantItem itemToBuy = getItems().get(itemPos);
         Item itemCopy = itemToBuy.item.deepCopy();
-        if (customer.getMoney() < price || !customer.getInventoryByType(itemCopy.getInvType()).canPickUp(itemCopy) || !canAddMoney(price)) { //customer does not have enough mesos or cannot hold item, merchant can't hold that much mesos
+        if (customer.getMoney() < price || !customer.getInventoryByType(itemCopy.getInvType()).canPickUp(itemCopy) || !canAddMoney(price)) { // customer does not have enough mesos or cannot hold item, merchant can't hold that much mesos
             return;
         }
         EmployeeTrunk ownersEmployeeTrunk = getEmployeeTrunk();
@@ -279,7 +277,6 @@ public class Merchant extends Life {
     public void setWorldId(int worldId) {
         this.worldId = worldId;
     }
-
 
     public void closeMerchant() {
         setOpen(false);

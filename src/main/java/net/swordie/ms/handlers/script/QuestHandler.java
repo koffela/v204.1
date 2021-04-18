@@ -25,7 +25,6 @@ public class QuestHandler {
 
     private static final Logger log = Logger.getLogger(QuestHandler.class);
 
-
     @Handler(op = InHeader.USER_QUEST_REQUEST)
     public static void handleUserQuestRequest(Client c, InPacket inPacket) {
         Char chr = c.getChr();
@@ -48,7 +47,7 @@ public class QuestHandler {
                         position = inPacket.decodePosition();
                     }
                     break;
-                case QuestReq_ResignQuest: //Quest forfeit
+                case QuestReq_ResignQuest: // Quest forfeit
                     questID = inPacket.decodeInt();
                     chr.getQuestManager().removeQuest(questID);
                     break;

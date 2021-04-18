@@ -136,7 +136,9 @@ public class Foothold {
 
     /**
      * Gets the y value of this Foothold according to a given x value.
-     * @param x the x where the y should correspond to
+     * 
+     * @param x
+     *            the x where the y should correspond to
      * @return the y such that (x,y) lies on this Foothold
      */
     public int getYFromX(int x) {
@@ -150,6 +152,7 @@ public class Foothold {
 
     /**
      * Gets a random Position that is part of this Foothold.
+     * 
      * @return the randomly generated Position.
      */
     public Position getRandomPosition() {
@@ -159,6 +162,7 @@ public class Foothold {
 
     /**
      * Checks whether or not this Foothold is a wall (i.e., vertical)
+     * 
      * @return whether or not this Foothold is a wall
      */
     public boolean isWall() {

@@ -21,7 +21,7 @@ public class MatrixSlot {
         outPacket.encodeInt(getEquippedSkill());
         outPacket.encodeInt(getSlotID());
         outPacket.encodeInt(getEnhanceLevel());
-        outPacket.encodeByte(0);//unk
+        outPacket.encodeByte(0);// unk
     }
 
     public long getId() {

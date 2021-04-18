@@ -26,7 +26,7 @@ public enum FriendType {
     FriendReq_SetBlackList(17),
     FriendReq_DeleteBlackList(18),
     FriendReq_LoadFriendPointInfo(19),
-    //FriendReq_LoadFriendChatN(20),
+    // FriendReq_LoadFriendChatN(20),
     FriendReq_InviteEventBestFriend(20),
     FriendReq_AcceptEventBestFriend(21),
     FriendReq_RefuseEventBestFriend(22),

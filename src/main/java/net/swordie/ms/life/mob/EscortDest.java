@@ -1,6 +1,5 @@
 package net.swordie.ms.life.mob;
 
-
 import net.swordie.ms.util.Position;
 
 public class EscortDest {

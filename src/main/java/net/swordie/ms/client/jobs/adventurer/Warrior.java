@@ -45,7 +45,7 @@ public class Warrior extends Beginner {
 
     public static final int MAPLE_RETURN = 1281;
 
-    //Hero
+    // Hero
     public static final int WEAPON_BOOSTER_FIGHTER = 1101004;
     public static final int COMBO_ATTACK = 1101013;
     public static final int RAGE = 1101006;
@@ -66,7 +66,7 @@ public class Warrior extends Beginner {
     public static final int HEROS_WILL_HERO = 1121011;
     public static final int ADVANCED_COMBO = 1120003;
 
-    //Paladin
+    // Paladin
     public static final int CLOSE_COMBAT = 1201013;
     public static final int ELEMENTAL_CHARGE = 1200014;
     public static final int FLAME_CHARGE = 1201011;
@@ -86,7 +86,7 @@ public class Warrior extends Beginner {
     public static final int MAGIC_CRASH_PALLY = 1221014;
     public static final int HEROS_WILL_PALA = 1221012;
 
-    //Dark Knight
+    // Dark Knight
     public static final int SPEAR_SWEEP = 1301012;
     public static final int WEAPON_BOOSTER_SPEARMAN = 1301004;
     public static final int IRON_WILL = 1301006;
@@ -101,25 +101,24 @@ public class Warrior extends Beginner {
     public static final int FINAL_PACT_INFO = 1320016;
     public static final int FINAL_PACT = 1320019;
     public static final int MAGIC_CRASH_DRK = 1321014;
-    public static final int SACRIFICE = 1321015; //Resets summon
+    public static final int SACRIFICE = 1321015; // Resets summon
     public static final int HEROS_WILL_DRK = 1321010;
     public static final int GUNGNIR_DESCENT = 1321013;
 
-    //Hyper Skills
-    public static final int EPIC_ADVENTURE_HERO = 1121053; //Lv200
-    public static final int EPIC_ADVENTURE_PALA = 1221053; //Lv200
-    public static final int EPIC_ADVENTURE_DRK = 1321053; //Lv200
-    public static final int CRY_VALHALLA = 1121054; //Lv150
-    public static final int SACROSANCTITY = 1221054; //Lv150
-    public static final int DARK_THIRST = 1321054; //Lv150
-    public static final int SMITE_SHIELD = 1221052; //Lv170
+    // Hyper Skills
+    public static final int EPIC_ADVENTURE_HERO = 1121053; // Lv200
+    public static final int EPIC_ADVENTURE_PALA = 1221053; // Lv200
+    public static final int EPIC_ADVENTURE_DRK = 1321053; // Lv200
+    public static final int CRY_VALHALLA = 1121054; // Lv150
+    public static final int SACROSANCTITY = 1221054; // Lv150
+    public static final int DARK_THIRST = 1321054; // Lv150
+    public static final int SMITE_SHIELD = 1221052; // Lv170
 
-
-    private int[] addedSkills = new int[]{
+    private int[] addedSkills = new int[] {
             MAPLE_RETURN,
     };
 
-    private final int[] buffs = new int[]{
+    private final int[] buffs = new int[] {
             WEAPON_BOOSTER_FIGHTER, // Weapon Booster - Fighter
             COMBO_ATTACK, // Combo Attack
             RAGE, // Rage
@@ -177,7 +176,6 @@ public class Warrior extends Beginner {
     public boolean isHandlerOfJob(short id) {
         return JobConstants.isAdventurerWarrior(id);
     }
-
 
     // Buff related methods --------------------------------------------------------------------------------------------
     public void handleBuff(Client c, InPacket inPacket, int skillID, byte slv) {
@@ -300,7 +298,7 @@ public class Warrior extends Beginner {
                 }
                 break;
             case EVIL_EYE_SHOCK:
-                if (tsm.getOption(Beholder).nOption > 0 && tsm.getOption(Beholder).sOption > 0) //If evil eye and domination is active
+                if (tsm.getOption(Beholder).nOption > 0 && tsm.getOption(Beholder).sOption > 0) // If evil eye and domination is active
                 {
                     slv = (byte) chr.getSkill(EVIL_EYE).getCurrentLevel();
                     Option o = new Option();
@@ -309,7 +307,7 @@ public class Warrior extends Beginner {
                     o.tOption = tsm.getOption(Beholder).tOption;
                     o.sOption = tsm.getOption(Beholder).sOption;
                     o.ssOption = EVIL_EYE_SHOCK;
-                    //Remove after getting the options
+                    // Remove after getting the options
                     tsm.removeStatsBySkill(EVIL_EYE_OF_DOMINATION);
                     spawnEvilEye(EVIL_EYE, slv);
                     tsm.putCharacterStatValue(Beholder, o);
@@ -328,7 +326,6 @@ public class Warrior extends Beginner {
                     o3.tStart = (int) System.currentTimeMillis();
                     o3.tTerm = si.getValue(time, slv);
                     tsm.putCharacterStatValue(IndieBDR, o3);
-
 
                     tsm.removeStatsBySkill(EVIL_EYE_OF_DOMINATION);
                     tsm.removeStatsBySkill(EVIL_EYE_SHOCK);
@@ -362,7 +359,7 @@ public class Warrior extends Beginner {
                 tsm.putCharacterStatValue(IgnoreMobpdpR, o3);
                 break;
 
-            //Hypers
+            // Hypers
             case EPIC_ADVENTURE_DRK:
             case EPIC_ADVENTURE_HERO:
             case EPIC_ADVENTURE_PALA:
@@ -481,7 +478,7 @@ public class Warrior extends Beginner {
 
     private int getComboProp(Char chr) {
         Skill skill = null;
-        if (chr.hasSkill(1110013)) {    //Combo Synergy
+        if (chr.hasSkill(1110013)) {    // Combo Synergy
             skill = chr.getSkill(1110013);
         } else if (chr.hasSkill(COMBO_ATTACK)) {
             skill = chr.getSkill(COMBO_ATTACK);
@@ -534,7 +531,7 @@ public class Warrior extends Beginner {
                         continue;
                     }
 
-                    if (partyChrX >= rect.getLeft() && partyChrY >= rect.getTop()       // if  Party Members in Range
+                    if (partyChrX >= rect.getLeft() && partyChrY >= rect.getTop()       // if Party Members in Range
                             && partyChrX <= rect.getRight() && partyChrY <= rect.getBottom()) {
 
                         Option o4 = new Option();
@@ -628,7 +625,6 @@ public class Warrior extends Beginner {
         }
     }
 
-
     // Attack related methods ------------------------------------------------------------------------------------------
 
     @Override
@@ -648,7 +644,7 @@ public class Warrior extends Beginner {
 
         if (JobConstants.isHero(chr.getJob()) && !isComboIgnoreSkill(attackInfo.skillId)) {
             if (hasHitMobs) {
-                //Combo
+                // Combo
                 int comboProp = getComboProp(chr);
                 if (Util.succeedProp(comboProp)) {
                     addCombo(chr);
@@ -664,12 +660,12 @@ public class Warrior extends Beginner {
 
         if (JobConstants.isDarkKnight(chr.getJob())) {
             if (hasHitMobs) {
-                //Lord of Darkness
+                // Lord of Darkness
                 lordOfDarkness();
 
                 killCountFinalPactOnMob(attackInfo);
 
-                //Dark Thirst
+                // Dark Thirst
                 darkThirst(tsm);
             }
         }
@@ -944,7 +940,7 @@ public class Warrior extends Beginner {
                 }
                 break;
             case EVIL_EYE:
-                if (tsm.getOption(Beholder).ssOption > 0) //If can use EVIL_EYE_SHOCK
+                if (tsm.getOption(Beholder).ssOption > 0) // If can use EVIL_EYE_SHOCK
                 {
                     skill = chr.getSkill(EVIL_EYE_SHOCK);
                     si = SkillData.getSkillInfoById(skill.getSkillId());
@@ -963,7 +959,7 @@ public class Warrior extends Beginner {
                                 o1.tOption = si.getValue(time, slv);
                                 mts.addStatOptionsAndBroadcast(MobStat.Stun, o1);
                             }
-                            //TODO add removal of shock
+                            // TODO add removal of shock
                         }
                     }
                 }
@@ -998,7 +994,7 @@ public class Warrior extends Beginner {
         lastCharge = skillId;
         o.nOption = 1;
         o.rOption = 1200014;
-        o.tOption = (10 * chargeInfo.getValue(time, 1)); // elemental charge  // 10x actual duration
+        o.tOption = (10 * chargeInfo.getValue(time, 1)); // elemental charge // 10x actual duration
         o.mOption = amount;
         o.wOption = amount * chargeInfo.getValue(w, 1); // elemental charge
         o.uOption = amount * chargeInfo.getValue(u, 1);
@@ -1060,14 +1056,8 @@ public class Warrior extends Beginner {
     }
 
     public boolean isComboIgnoreSkill(int skillID) {
-        return skillID == SHOUT ||
-                skillID == SHOUT_DOWN ||
-                skillID == PANIC ||
-                skillID == COMBO_FURY ||
-                skillID == COMBO_FURY_DOWN ||
-                skillID == PUNCTURE;
+        return skillID == SHOUT || skillID == SHOUT_DOWN || skillID == PANIC || skillID == COMBO_FURY || skillID == COMBO_FURY_DOWN || skillID == PUNCTURE;
     }
-
 
     // Skill related methods -------------------------------------------------------------------------------------------
 
@@ -1138,10 +1128,7 @@ public class Warrior extends Beginner {
                         if (!chr.isLeft()) {
                             rect = rect.moveRight();
                         }
-                        List<PartyMember> eligblePartyMemberList = field.getPartyMembersInRect(chr, rect).stream().
-                                filter(pml -> pml.getChr().getId() != chr.getId() &&
-                                        pml.getChr().getHP() <= 0).
-                                collect(Collectors.toList());
+                        List<PartyMember> eligblePartyMemberList = field.getPartyMembersInRect(chr, rect).stream().filter(pml -> pml.getChr().getId() != chr.getId() && pml.getChr().getHP() <= 0).collect(Collectors.toList());
 
                         if (eligblePartyMemberList.size() > 0) {
                             Char randomPartyChr = Util.getRandomFromCollection(eligblePartyMemberList).getChr();
@@ -1223,19 +1210,18 @@ public class Warrior extends Beginner {
         return -1;
     }
 
-
     // Hit related methods ---------------------------------------------------------------------------------------------
 
     @Override
     public void handleHit(Client c, InPacket inPacket, HitInfo hitInfo) {
         TemporaryStatManager tsm = chr.getTemporaryStatManager();
 
-        //Paladin - Divine Shield
+        // Paladin - Divine Shield
         if (chr.hasSkill(DIVINE_SHIELD)) {
             Skill skill = chr.getSkill(DIVINE_SHIELD);
             SkillInfo si = SkillData.getSkillInfoById(DIVINE_SHIELD);
             int slv = skill.getCurrentLevel();
-            int shieldprop = 50;//      si.getValue(SkillStat.prop, slv);       //TODO should be prop in WzFiles, but it's actually 0
+            int shieldprop = 50;// si.getValue(SkillStat.prop, slv); //TODO should be prop in WzFiles, but it's actually 0
             Option o1 = new Option();
             Option o2 = new Option();
             int divShieldCoolDown = si.getValue(cooltime, slv);
@@ -1265,18 +1251,18 @@ public class Warrior extends Beginner {
             }
         }
 
-        //Hero - Combo Synergy
+        // Hero - Combo Synergy
         if (chr.hasSkill(1110013)) {
             SkillInfo csi = SkillData.getSkillInfoById(1110013);
             int slv = csi.getCurrentLevel();
-            int comboprop = 30; //csi.getValue(subProp, slv);
+            int comboprop = 30; // csi.getValue(subProp, slv);
             if (Util.succeedProp(comboprop)) {
                 addCombo(chr);
             }
         }
 
-        //Paladin - Shield Mastery
-        if (chr.hasSkill(1210001)) { //If Wearing a Shield
+        // Paladin - Shield Mastery
+        if (chr.hasSkill(1210001)) { // If Wearing a Shield
             if (hitInfo.hpDamage == 0 && hitInfo.mpDamage == 0) {
                 // Guarded
                 int mobID = hitInfo.mobID;
@@ -1298,7 +1284,7 @@ public class Warrior extends Beginner {
             }
         }
 
-        //Dark Knight - Revenge of the Evil Eye
+        // Dark Knight - Revenge of the Evil Eye
         if (chr.hasSkill(1320011)) {
             Skill skill = chr.getSkill(1320011);
             byte slv = (byte) skill.getCurrentLevel();
@@ -1354,7 +1340,6 @@ public class Warrior extends Beginner {
             o2.tOption = si.getValue(time, slv);
             tsm.putCharacterStatValue(NotDamaged, o2);
             tsm.sendSetStatPacket();
-
 
             chr.write(UserPacket.effect(Effect.showFinalPactEffect(FINAL_PACT, (byte) 1, 0, true))); // Manually broadcasting Effect packet, as FINAL PACT isn't actually ever called.
             chr.getField().broadcastPacket(UserRemote.effect(chr.getId(), Effect.showFinalPactEffect(FINAL_PACT, (byte) 1, 0, true)));
@@ -1432,11 +1417,9 @@ public class Warrior extends Beginner {
             stats.put(Stat.hp, 0);
             chr.getClient().write(WvsContext.statChanged(stats));
 
-            chr.write(UserLocal.openUIOnDead(true, chr.getBuffProtectorItem() != null,
-                    false, false, false,
-                    ReviveType.NORMAL.getVal(), 0));
+            chr.write(UserLocal.openUIOnDead(true, chr.getBuffProtectorItem() != null, false, false, false, ReviveType.NORMAL.getVal(), 0));
         }
-        killCount = 30; //Resetting
+        killCount = 30; // Resetting
     }
 
     @Override
@@ -1454,4 +1437,3 @@ public class Warrior extends Beginner {
         }
     }
 }
-

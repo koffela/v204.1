@@ -58,8 +58,13 @@ public enum MiniRoomType {
 
     private byte val;
 
-    MiniRoomType(int val) {this.val = (byte) val;}
-    public byte getVal() {return val;}
+    MiniRoomType(int val) {
+        this.val = (byte) val;
+    }
+
+    public byte getVal() {
+        return val;
+    }
 
     public static MiniRoomType getByVal(byte val) {
         return Arrays.stream(values()).filter(mrt -> mrt.getVal() == val).findAny().orElse(null);

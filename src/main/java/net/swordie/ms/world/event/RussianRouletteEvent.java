@@ -28,9 +28,9 @@ public class RussianRouletteEvent implements InGameEvent {
     private final int ROUND_LENGTH_SECONDS = 10;
 
     private final int[][] SECTIONS = { // these X-values are specific to fieldID 910030000
-            {-800, -254}, // left
-            {-327, 248},  // middle
-            {171, 800}    // right
+            { -800, -254 }, // left
+            { -327, 248 },  // middle
+            { 171, 800 }    // right
     };
 
     private boolean started = false;
@@ -70,8 +70,7 @@ public class RussianRouletteEvent implements InGameEvent {
         }
 
         started = true;
-        Server.getInstance().getWorldById(ServerConfig.WORLD_ID)
-                .broadcastPacket(WvsContext.broadcastMsg(BroadcastMsg.notice("Event registration has ended!")));
+        Server.getInstance().getWorldById(ServerConfig.WORLD_ID).broadcastPacket(WvsContext.broadcastMsg(BroadcastMsg.notice("Event registration has ended!")));
 
         if (channelInstance.getField(EVENT_MAP).getChars().size() > 0) {
             sendNotice("Get in position!", ROUND_LENGTH_SECONDS);
@@ -181,9 +180,7 @@ public class RussianRouletteEvent implements InGameEvent {
     }
 
     private void sendNotice(String msg, int seconds) {
-        channelInstance.getField(EVENT_MAP)
-                .broadcastPacket(WvsContext.weatherEffectNotice(WeatherEffNoticeType.Fireworks, msg,
-                        seconds * 1000));
+        channelInstance.getField(EVENT_MAP).broadcastPacket(WvsContext.weatherEffectNotice(WeatherEffNoticeType.Fireworks, msg, seconds * 1000));
     }
 
     private void broadcastClock(int seconds) {

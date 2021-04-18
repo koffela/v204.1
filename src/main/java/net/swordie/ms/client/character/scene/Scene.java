@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
-
 /**
  * Created by Asura on 28-8-2018.
  */
@@ -46,7 +45,7 @@ public class Scene {
     public void createScene() {
         for (EffectInfo ei : effectInfos) {
 
-            if(ei.getType() == null) {
+            if (ei.getType() == null) {
                 log.error(String.format("Unhandled scene Type"));
                 continue;
             }
@@ -55,32 +54,28 @@ public class Scene {
             String path = ei.getVisual() + "/0";
             switch (ei.getType()) {
                 case FieldEffect:
-//                    if(ei.getX() == 0 && ei.getY() == 0) {
-                        EventManager.addEvent(() ->
-                                chr.write(FieldPacket.fieldEffect(FieldEffect.getFieldEffectFromWz(
-                                        path,
-                                        0
-                                ))), delay, TimeUnit.MILLISECONDS);
-/*                    } else { // TODO  Still needs some work
-
-                        Position position = new Position(ei.getX(), ei.getY());
-                        EventManager.addEvent(() ->
-                                chr.write(UserLocal.inGameDirectionEvent(InGameDirectionEvent.effectPlay(
-                                        path,
-                                        ei.getDuration(),
-                                        position,
-                                        ei.getZ(),
-                                        0,
-                                        true,
-                                        0
-                                ))), delay, TimeUnit.MILLISECONDS); // Delay for getFieldEffFromWz doesn't work
-                    }
-*/
+                    // if(ei.getX() == 0 && ei.getY() == 0) {
+                    EventManager.addEvent(() -> chr.write(FieldPacket.fieldEffect(FieldEffect.getFieldEffectFromWz(path, 0))), delay, TimeUnit.MILLISECONDS);
+                    /*
+                     * } else { // TODO Still needs some work
+                     * Position position = new Position(ei.getX(), ei.getY());
+                     * EventManager.addEvent(() ->
+                     * chr.write(UserLocal.inGameDirectionEvent(InGameDirectionEvent.effectPlay(
+                     * path,
+                     * ei.getDuration(),
+                     * position,
+                     * ei.getZ(),
+                     * 0,
+                     * true,
+                     * 0
+                     * ))), delay, TimeUnit.MILLISECONDS); // Delay for getFieldEffFromWz doesn't work
+                     * }
+                     */
                     break;
 
                 case Warp:
                     Field toField = chr.getOrCreateFieldByCurrentInstanceType(ei.getField());
-                    if(delay > 0) {
+                    if (delay > 0) {
                         EventManager.addEvent(() -> chr.warp(toField), delay, TimeUnit.MILLISECONDS);
                     } else {
                         chr.warp(toField);
@@ -97,7 +92,6 @@ public class Scene {
             }
         }
     }
-
 
     public String getXmlPath() {
         return xmlPath;

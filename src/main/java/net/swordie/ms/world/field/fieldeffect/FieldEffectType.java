@@ -37,7 +37,6 @@ public enum FieldEffectType {
     SpineScreen(30),
     OffSpineScreen(31),
 
-
     ;
 
     private byte val;

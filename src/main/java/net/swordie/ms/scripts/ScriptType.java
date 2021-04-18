@@ -11,8 +11,7 @@ public enum ScriptType {
     Portal("portal"),
     Reactor("reactor"),
     Item("item"),
-    Quest("quest")
-    ;
+    Quest("quest");
 
     private String dir;
 

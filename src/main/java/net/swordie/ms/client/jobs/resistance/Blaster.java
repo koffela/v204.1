@@ -45,7 +45,7 @@ public class Blaster extends Citizen {
     public static final int DETONATE = 37001004;
     public static final int DETONATE_UP = 37000005;
 
-    //Revolving Cannon
+    // Revolving Cannon
     public static final int REVOLVING_CANNON_RELOAD = 37000010;
     public static final int REVOLVING_CANNON = 37001001;
     public static final int REVOLVING_CANNON_2 = 37100008;
@@ -55,7 +55,6 @@ public class Blaster extends Citizen {
     public static final int REVOLVING_CANNON_PLUS_II = 37110007;
     public static final int REVOLVING_CANNON_PLUS_III = 37120008;
 
-
     public static final int BUNKER_BUSTER_EXPLOSION_0 = 37110010;
     public static final int BUNKER_BUSTER_EXPLOSION_1 = 37100009;
     public static final int BUNKER_BUSTER_EXPLOSION_2 = 37000008;
@@ -64,13 +63,13 @@ public class Blaster extends Citizen {
     public static final int BUNKER_BUSTER_EXPLOSION_5 = 37000012;
     public static final int BUNKER_BUSTER_EXPLOSION_6 = 37000013;
 
-    //Blast Shield
+    // Blast Shield
     public static final int BLAST_SHIELD = 37000006;
     public static final int SHIELD_TRAINING = 37110008;
     public static final int SHIELD_TRAINING_II = 37120009;
     public static final int VITALITY_SHIELD = 37121005;
 
-    //Combo Training
+    // Combo Training
     public static final int COMBO_TRAINING = 37110009;
     public static final int COMBO_TRAINING_II = 37120012;
 
@@ -102,7 +101,7 @@ public class Blaster extends Citizen {
 
     public Blaster(Char chr) {
         super(chr);
-        if(chr.getId() != 0 && isHandlerOfJob(chr.getJob())) {
+        if (chr.getId() != 0 && isHandlerOfJob(chr.getJob())) {
             for (int id : addedSkills) {
                 if (!chr.hasSkill(id)) {
                     Skill skill = SkillData.getSkillDeepCopyById(id);
@@ -117,8 +116,6 @@ public class Blaster extends Citizen {
     public boolean isHandlerOfJob(short id) {
         return JobConstants.isBlaster(id);
     }
-
-
 
     // Buff related methods --------------------------------------------------------------------------------------------
 
@@ -175,8 +172,6 @@ public class Blaster extends Citizen {
         tsm.sendResetStatPacket();
     }
 
-
-
     // Attack related methods ------------------------------------------------------------------------------------------
 
     @Override
@@ -226,7 +221,7 @@ public class Blaster extends Citizen {
                 hmci.setRect(hmci.getPosition().getRectAround(hmc.getRects().get(0)));
                 hmci.setDelay((short) 5);
                 chr.getField().spawnAffectedArea(hmci);
-                //mobs deBuff
+                // mobs deBuff
                 skill = chr.getSkill(HAMMER_SMASH);
                 o1.nOption = hmc.getValue(x, skill.getCurrentLevel());
                 o1.rOption = HAMMER_SMASH;
@@ -262,14 +257,14 @@ public class Blaster extends Citizen {
             case REVOLVING_CANNON_3:
             case REVOLVING_CANNON_2:
             case REVOLVING_CANNON:
-                if(getAmmo() > 0) {
+                if (getAmmo() > 0) {
                     removeAmmo();
                 }
-                if(getGauge() < getMaxAmmo()) {
+                if (getGauge() < getMaxAmmo()) {
                     addGauge();
                 }
                 lastAttack = skillID;
-                //c.write(UserLocal.rwMultiChargeCancelRequest((byte)1, skillID));
+                // c.write(UserLocal.rwMultiChargeCancelRequest((byte)1, skillID));
                 break;
         }
         incrementComboTraining(skillID, tsm);
@@ -352,13 +347,13 @@ public class Blaster extends Citizen {
 
     public int getMaxAmmo() {
         int maxAmmo = 3;
-        if(chr.hasSkill(REVOLVING_CANNON_PLUS)) {
+        if (chr.hasSkill(REVOLVING_CANNON_PLUS)) {
             maxAmmo = 4;
         }
-        if(chr.hasSkill(REVOLVING_CANNON_PLUS_II)) {
+        if (chr.hasSkill(REVOLVING_CANNON_PLUS_II)) {
             maxAmmo = 5;
         }
-        if(chr.hasSkill(REVOLVING_CANNON_PLUS_III)) {
+        if (chr.hasSkill(REVOLVING_CANNON_PLUS_III)) {
             maxAmmo = 6;
         }
         return maxAmmo;
@@ -369,8 +364,8 @@ public class Blaster extends Citizen {
         TemporaryStatManager tsm = chr.getTemporaryStatManager();
         Option o = new Option();
         o.nOption = 1;
-        o.bOption = getMaxAmmo(); //ammo
-        o.cOption = getGauge(); //gauge
+        o.bOption = getMaxAmmo(); // ammo
+        o.cOption = getGauge(); // gauge
         tsm.putCharacterStatValue(RWCylinder, o);
         tsm.sendSetStatPacket();
     }
@@ -407,7 +402,7 @@ public class Blaster extends Citizen {
         o.rOption = chr.hasSkill(COMBO_TRAINING_II) ? COMBO_TRAINING_II : COMBO_TRAINING;
         o.tOption = 10;
         tsm.putCharacterStatValue(RWCombination, o);
-        if (amount >= chargeInfo.getValue(w, 1)) { //if combo higher than w value give attack speed, for both passives
+        if (amount >= chargeInfo.getValue(w, 1)) { // if combo higher than w value give attack speed, for both passives
             Option o1 = new Option();
             o1.nValue = -1;
             o1.rOption = COMBO_TRAINING;
@@ -417,7 +412,7 @@ public class Blaster extends Citizen {
         }
         chargeInfo = SkillData.getSkillInfoById(COMBO_TRAINING_II);
         Option o2 = new Option();
-        o2.nOption = chr.hasSkill(COMBO_TRAINING_II) ? (3 + (chr.getSkillLevel(COMBO_TRAINING_II) / 10)) * amount : chr.getSkillLevel(COMBO_TRAINING) / 3 * amount; //diff calculation depends if player has combo training 2
+        o2.nOption = chr.hasSkill(COMBO_TRAINING_II) ? (3 + (chr.getSkillLevel(COMBO_TRAINING_II) / 10)) * amount : chr.getSkillLevel(COMBO_TRAINING) / 3 * amount; // diff calculation depends if player has combo training 2
         o2.rOption = chargeInfo.getCurrentLevel();
         o2.tOption = 10;
         tsm.putCharacterStatValue(DamR, o2);
@@ -438,8 +433,6 @@ public class Blaster extends Citizen {
         return 0;
     }
 
-
-
     // Skill related methods -------------------------------------------------------------------------------------------
 
     @Override
@@ -449,7 +442,7 @@ public class Blaster extends Citizen {
         Char chr = c.getChr();
         Skill skill = chr.getSkill(skillID);
         SkillInfo si = null;
-        if(skill != null) {
+        if (skill != null) {
             si = SkillData.getSkillInfoById(skillID);
         }
         chr.chatMessage(ChatType.Mob, "SkillID: " + skillID);
@@ -457,7 +450,7 @@ public class Blaster extends Citizen {
             handleBuff(c, inPacket, skillID, slv);
         } else {
             Option o1 = new Option();
-            switch(skillID) {
+            switch (skillID) {
                 case SECRET_ASSEMBLY:
                     o1.nValue = si.getValue(x, slv);
                     Field toField = chr.getOrCreateFieldByCurrentInstanceType(o1.nValue);
@@ -484,8 +477,6 @@ public class Blaster extends Citizen {
             }
         }
     }
-
-
 
     // Hit related methods ---------------------------------------------------------------------------------------------
 
@@ -517,7 +508,7 @@ public class Blaster extends Citizen {
 
     public void decreaseShield() {
         TemporaryStatManager tsm = chr.getTemporaryStatManager();
-        if (!tsm.hasStat(RWBarrier)) { //function stops on vitality shield or shield value <=0
+        if (!tsm.hasStat(RWBarrier)) { // function stops on vitality shield or shield value <=0
             return;
         }
         Skill shieldSkill = getBlastShieldSkill();

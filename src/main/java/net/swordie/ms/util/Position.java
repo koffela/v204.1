@@ -11,7 +11,7 @@ public class Position {
         this.y = y;
     }
 
-    public Position(){
+    public Position() {
         x = 0;
         y = 0;
     }
@@ -44,7 +44,9 @@ public class Position {
     /**
      * Creates a Rect around this Position at its center.
      * Corners will be (pos.x + left, pos.y + top), (pos.x + right, pos.y + bottom)
-     * @param rect The Rect around this Position
+     * 
+     * @param rect
+     *            The Rect around this Position
      * @return The newly created Rect
      */
     public Rect getRectAround(Rect rect) {
@@ -55,11 +57,12 @@ public class Position {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         Position position = (Position) o;
-        return x == position.x &&
-                y == position.y;
+        return x == position.x && y == position.y;
     }
 
     @Override

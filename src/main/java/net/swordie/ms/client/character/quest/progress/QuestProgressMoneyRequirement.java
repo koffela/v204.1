@@ -21,7 +21,7 @@ public class QuestProgressMoneyRequirement extends QuestProgressRequirement {
     public QuestProgressMoneyRequirement() {
     }
 
-    public QuestProgressMoneyRequirement(int money){
+    public QuestProgressMoneyRequirement(int money) {
         this.money = money;
     }
 
@@ -45,6 +45,7 @@ public class QuestProgressMoneyRequirement extends QuestProgressRequirement {
     public void setMoney(int money) {
         this.money = money;
     }
+
     @Override
     public void write(DataOutputStream dos) throws IOException {
         dos.writeInt(getMoney());

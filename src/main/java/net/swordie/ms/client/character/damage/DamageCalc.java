@@ -17,7 +17,6 @@ import java.util.Map;
 import static net.swordie.ms.client.character.skills.temp.CharacterTemporaryStat.SetBaseDamage;
 import static net.swordie.ms.enums.BaseStat.*;
 
-
 /**
  * Created on 5/4/2018.
  */
@@ -156,10 +155,10 @@ public class DamageCalc {
                     case 58:
                         dmg = calcBaseDamage(stats.get(str), stats.get(dex), 0, stats.get(pad), jobConst + 1.7);
                         break;
-                        // TODO: Add GMS only WTs
-//                    case 21:
-//                        dmg = calcBaseDamage(stats.get(luk), stats.get(inte), 0, stats.get(pad), jobConst + 1.0);
-//                        break;
+                    // TODO: Add GMS only WTs
+                    // case 21:
+                    // dmg = calcBaseDamage(stats.get(luk), stats.get(inte), 0, stats.get(pad), jobConst + 1.0);
+                    // break;
                 }
             } else {
                 dmg = calcBaseDamage(stats.get(inte), stats.get(luk), 0, stats.get(mad), jobConst + 1.0);

@@ -19,5 +19,6 @@ public class MsgShopResult implements ShopResult {
     }
 
     @Override
-    public void encode(OutPacket outPacket) {}
+    public void encode(OutPacket outPacket) {
+    }
 }

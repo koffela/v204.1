@@ -23,7 +23,6 @@ public class OpenGate {
     private int duration; // seconds
     private ScheduledFuture openGateDuration;
 
-
     public OpenGate(Char chr, Position position, Party party, byte gateId, int duration) {
         this.chr = chr;
         this.position = position;
@@ -31,7 +30,6 @@ public class OpenGate {
         this.gateId = gateId;
         this.duration = duration;
     }
-
 
     public Char getChr() {
         return chr;
@@ -74,11 +72,8 @@ public class OpenGate {
     }
 
     public void spawnOpenGate(Field field) {
-        if(field.getOpenGates() != null) {
-            List<OpenGate> openGatesWithSameChr = field.getOpenGates()
-                    .stream()
-                    .filter(og -> og.getChr().getId() == getChr().getId())
-                    .collect(Collectors.toList());
+        if (field.getOpenGates() != null) {
+            List<OpenGate> openGatesWithSameChr = field.getOpenGates().stream().filter(og -> og.getChr().getId() == getChr().getId()).collect(Collectors.toList());
             if (openGatesWithSameChr != null && openGatesWithSameChr.size() >= 2) {
                 OpenGate openGate = openGatesWithSameChr.get(0);
                 openGate.despawnOpenGate(field);
@@ -88,7 +83,7 @@ public class OpenGate {
         field.broadcastPacket(FieldPacket.openGateCreated(this));
         field.addOpenGate(this);
 
-        if(openGateDuration != null && !openGateDuration.isDone()) {
+        if (openGateDuration != null && !openGateDuration.isDone()) {
             openGateDuration.cancel(true);
         }
         openGateDuration = EventManager.addEvent(() -> despawnOpenGate(field), getDuration(), TimeUnit.SECONDS);

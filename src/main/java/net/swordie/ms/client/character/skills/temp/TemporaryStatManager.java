@@ -58,11 +58,10 @@ public class TemporaryStatManager {
     private Map<BaseStat, Integer> baseStats = new HashMap<>();
     private List<OutPacket> toBroadcastAfterMigrate = new ArrayList<>();
 
-
-    public TemporaryStatManager(Char chr){
+    public TemporaryStatManager(Char chr) {
         this.chr = chr;
-        for(CharacterTemporaryStat cts : TSIndex.getAllCTS()) {
-            switch(cts) {
+        for (CharacterTemporaryStat cts : TSIndex.getAllCTS()) {
+            switch (cts) {
                 case PartyBooster:
                     twoStates.add(new PartyBooster());
                     break;
@@ -94,7 +93,7 @@ public class TemporaryStatManager {
         boolean indie = cts.isIndie();
         option.setTimeToMillis();
         SkillInfo skillinfo = SkillData.getSkillInfoById(indie ? option.nReason : option.rOption);
-        if(skillinfo != null && !skillinfo.isNotIncBuffDuration()) {
+        if (skillinfo != null && !skillinfo.isNotIncBuffDuration()) {
             int duration = (indie ? option.tTerm : option.tOption);
             long buffTimeR = getChr().getTotalStat(BaseStat.buffTimeR); // includes the 100% base
             if (indie) {
@@ -103,7 +102,7 @@ public class TemporaryStatManager {
                 option.tOption = (int) ((buffTimeR * duration) / 100);
             }
         }
-        if(cts == CombatOrders) {
+        if (cts == CombatOrders) {
             chr.setCombatOrders(option.nOption);
         }
         if (cts == IndieMaxDamageOver || cts == IndieMaxDamageOverR) {
@@ -114,7 +113,7 @@ public class TemporaryStatManager {
                 return;
             }
         }
-        if(!indie) {
+        if (!indie) {
             List<Option> optList = new ArrayList<>();
             optList.add(option);
             if (hasStat(cts)) {
@@ -138,12 +137,12 @@ public class TemporaryStatManager {
             }
         } else {
             List<Option> optList;
-            if(hasStat(cts)) {
+            if (hasStat(cts)) {
                 optList = getCurrentStats().get(cts);
             } else {
                 optList = new ArrayList<>();
             }
-            if(optList.contains(option)) {
+            if (optList.contains(option)) {
                 // remove old option of the same skill
                 Option oldOption = getOptByCTSAndSkill(cts, option.nReason);
                 for (Map.Entry<BaseStat, Integer> stats : BaseStat.getFromCTS(cts, oldOption).entrySet()) {
@@ -174,9 +173,9 @@ public class TemporaryStatManager {
 
     public Option getOptByCTSAndSkill(CharacterTemporaryStat cts, int skillID) {
         Option res = null;
-        if(getCurrentStats().containsKey(cts)) {
+        if (getCurrentStats().containsKey(cts)) {
             for (Option o : getCurrentStats().get(cts)) {
-                if(o.rOption == skillID || o.nReason == skillID) {
+                if (o.rOption == skillID || o.nReason == skillID) {
                     res = o;
                     break;
                 }
@@ -186,7 +185,7 @@ public class TemporaryStatManager {
     }
 
     public synchronized void removeStat(CharacterTemporaryStat cts, boolean fromSchedule) {
-        if(cts == CombatOrders) {
+        if (cts == CombatOrders) {
             chr.setCombatOrders(0);
         }
         Option opt = getOption(cts);
@@ -199,7 +198,7 @@ public class TemporaryStatManager {
         if (TSIndex.isTwoStat(cts)) {
             getTSBByTSIndex(TSIndex.getTSEFromCTS(cts)).reset();
         }
-        if(!fromSchedule && getSchedules().containsKey(cts)) {
+        if (!fromSchedule && getSchedules().containsKey(cts)) {
             getSchedules().get(cts).cancel(false);
         } else {
             getSchedules().remove(cts);
@@ -216,19 +215,19 @@ public class TemporaryStatManager {
         for (Map.Entry<BaseStat, Integer> stats : BaseStat.getFromCTS(cts, option).entrySet()) {
             removeBaseStat(stats.getKey(), stats.getValue());
         }
-        if(getCurrentStats().containsKey(cts)) {
-            if(option.summon != null) {
+        if (getCurrentStats().containsKey(cts)) {
+            if (option.summon != null) {
                 getChr().getField().broadcastPacket(Summoned.summonedRemoved(option.summon, LeaveType.ANIMATION));
                 option.summon = null;
             }
             getCurrentStats().get(cts).remove(option);
-            if(getCurrentStats().get(cts).size() == 0) {
+            if (getCurrentStats().get(cts).size() == 0) {
                 getCurrentStats().remove(cts);
             }
         }
         sendResetStatPacket();
         Tuple tuple = new Tuple(cts, option);
-        if(!fromSchedule && getIndieSchedules().containsKey(tuple)) {
+        if (!fromSchedule && getIndieSchedules().containsKey(tuple)) {
             getIndieSchedules().get(tuple).cancel(false);
         } else {
             getIndieSchedules().remove(tuple);
@@ -244,14 +243,14 @@ public class TemporaryStatManager {
     }
 
     public Option getOption(CharacterTemporaryStat cts) {
-        if(hasStat(cts)) {
+        if (hasStat(cts)) {
             return getCurrentStats().get(cts).get(0);
         }
         return new Option();
     }
 
     public List<Option> getOptions(CharacterTemporaryStat cts) {
-        if(hasStat(cts)) {
+        if (hasStat(cts)) {
             return getCurrentStats().get(cts);
         }
         return new ArrayList<>();
@@ -259,9 +258,9 @@ public class TemporaryStatManager {
 
     public int[] getMaskByCollection(Map<CharacterTemporaryStat, List<Option>> map) {
         int[] res = new int[CharacterTemporaryStat.length];
-        for(int i = 0; i < res.length; i++) {
-            for(CharacterTemporaryStat cts : map.keySet()) {
-                if(cts.getPos() == i) {
+        for (int i = 0; i < res.length; i++) {
+            for (CharacterTemporaryStat cts : map.keySet()) {
+                if (cts.getPos() == i) {
                     res[i] |= cts.getVal();
                 }
             }
@@ -283,13 +282,10 @@ public class TemporaryStatManager {
 
     public void encodeForLocal(OutPacket outPacket) {
         int[] mask = getNewMask();
-        for(int i = 0; i < getNewMask().length; i++) {
+        for (int i = 0; i < getNewMask().length; i++) {
             outPacket.encodeInt(mask[i]);
         }
-        List<CharacterTemporaryStat> orderedAndFilteredCtsList = new ArrayList<>(getNewStats().keySet()).stream()
-                .filter(cts -> cts.getOrder() != -1)
-                .sorted(Comparator.comparingInt(CharacterTemporaryStat::getOrder))
-                .collect(Collectors.toList());
+        List<CharacterTemporaryStat> orderedAndFilteredCtsList = new ArrayList<>(getNewStats().keySet()).stream().filter(cts -> cts.getOrder() != -1).sorted(Comparator.comparingInt(CharacterTemporaryStat::getOrder)).collect(Collectors.toList());
         for (CharacterTemporaryStat cts : orderedAndFilteredCtsList) {
             if (cts.getOrder() != -1) {
                 Option o = getOption(cts);
@@ -325,7 +321,7 @@ public class TemporaryStatManager {
         outPacket.encodeByte(getDefenseAtt());
         outPacket.encodeByte(getDefenseState());
         outPacket.encodeByte(getPvpDamage());
-        outPacket.encodeInt(0);//?
+        outPacket.encodeInt(0);// ?
         if (hasNewStat(Dice)) {
             for (int i = 0; i < getDiceInfo().length; i++) {
                 outPacket.encodeInt(diceInfo[i]);
@@ -350,7 +346,7 @@ public class TemporaryStatManager {
             outPacket.encodeByte(getOption(PinkbeanRollingGrade).nOption);
         }
         if (hasNewStat(Judgement)) {
-            outPacket.encodeInt(getOption(Judgement).xOption); // byte would  err38
+            outPacket.encodeInt(getOption(Judgement).xOption); // byte would err38
         }
         if (hasNewStat(StackBuff)) {
             outPacket.encodeByte(getOption(StackBuff).mOption);
@@ -557,7 +553,7 @@ public class TemporaryStatManager {
             outPacket.encodeInt(getOption(HolyMagicShell).xOption);
         }
         for (int i = 0; i < 7; i++) {
-            if(hasNewStat(TSIndex.getCTSFromTwoStatIndex(i))) {
+            if (hasNewStat(TSIndex.getCTSFromTwoStatIndex(i))) {
                 getTwoStates().get(i).encode(outPacket);
             }
         }
@@ -658,17 +654,12 @@ public class TemporaryStatManager {
         getNewStats().clear();
     }
 
-
-
     public void encodeForRemote(OutPacket outPacket, Map<CharacterTemporaryStat, List<Option>> collection) {
         int[] mask = getMaskByCollection(collection);
         for (int maskElem : mask) {
             outPacket.encodeInt(maskElem);
         }
-        List<CharacterTemporaryStat> orderedAndFilteredCtsList = new ArrayList<>(collection.keySet()).stream()
-                .filter(cts -> cts.getOrder() != -1)
-                .sorted(Comparator.comparingInt(CharacterTemporaryStat::getOrder))
-                .collect(Collectors.toList());
+        List<CharacterTemporaryStat> orderedAndFilteredCtsList = new ArrayList<>(collection.keySet()).stream().filter(cts -> cts.getOrder() != -1).sorted(Comparator.comparingInt(CharacterTemporaryStat::getOrder)).collect(Collectors.toList());
         for (CharacterTemporaryStat cts : orderedAndFilteredCtsList) {
             if (cts.getRemoteOrder() != -1) {
                 Option o = getOption(cts);
@@ -789,9 +780,9 @@ public class TemporaryStatManager {
         } else {
             new StopForceAtom().encode(outPacket);
         }
-        //outPacket.encodeInt(getViperEnergyCharge());
+        // outPacket.encodeInt(getViperEnergyCharge());
         for (int i = 0; i < 8; i++) {// 7=>8 v202 maybe more ts index ?
-            if(hasNewStat(TSIndex.getCTSFromTwoStatIndex(i))) {
+            if (hasNewStat(TSIndex.getCTSFromTwoStatIndex(i))) {
                 getTwoStates().get(i).encode(outPacket);
             }
         }
@@ -811,20 +802,18 @@ public class TemporaryStatManager {
     }
 
     private void encodeIndieTempStat(OutPacket outPacket) {
-        Map<CharacterTemporaryStat, List<Option>> stats = getCurrentStats().entrySet().stream()
-                .filter(stat -> stat.getKey().isIndie() && getNewStats().containsKey(stat.getKey()))
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+        Map<CharacterTemporaryStat, List<Option>> stats = getCurrentStats().entrySet().stream().filter(stat -> stat.getKey().isIndie() && getNewStats().containsKey(stat.getKey())).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 
         TreeMap<CharacterTemporaryStat, List<Option>> sortedStats = new TreeMap<>(stats);
-        for(Map.Entry<CharacterTemporaryStat, List<Option>> stat : sortedStats.entrySet()) {
+        for (Map.Entry<CharacterTemporaryStat, List<Option>> stat : sortedStats.entrySet()) {
             int curTime = (int) System.currentTimeMillis();
             List<Option> options = stat.getValue();
-            if(options == null) {
+            if (options == null) {
                 outPacket.encodeInt(0);
                 continue;
             }
             outPacket.encodeInt(options.size());
-            for(Option option : options) {
+            for (Option option : options) {
                 outPacket.encodeInt(option.nReason);
                 outPacket.encodeInt(option.nValue);
                 outPacket.encodeInt(option.nKey);
@@ -841,22 +830,19 @@ public class TemporaryStatManager {
     }
 
     public void encodeRemovedIndieTempStat(OutPacket outPacket) {
-        Map<CharacterTemporaryStat, List<Option>> stats = getRemovedStats().entrySet().stream()
-                .filter(stat -> stat.getKey().isIndie())
-                .sorted(Comparator.comparingInt(stat -> stat.getKey().getVal()))
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+        Map<CharacterTemporaryStat, List<Option>> stats = getRemovedStats().entrySet().stream().filter(stat -> stat.getKey().isIndie()).sorted(Comparator.comparingInt(stat -> stat.getKey().getVal())).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 
-        for(Map.Entry<CharacterTemporaryStat, List<Option>> stat : stats.entrySet()) {
+        for (Map.Entry<CharacterTemporaryStat, List<Option>> stat : stats.entrySet()) {
             int curTime = (int) System.currentTimeMillis();
             // encode remaining stats
             CharacterTemporaryStat key = stat.getKey();
             List<Option> options = getOptions(key);
-            if(options == null) {
+            if (options == null) {
                 outPacket.encodeInt(0);
                 continue;
             }
             outPacket.encodeInt(options.size());
-            for(Option option : options) {
+            for (Option option : options) {
                 outPacket.encodeInt(option.nReason);
                 outPacket.encodeInt(option.nValue);
                 outPacket.encodeInt(option.nKey); // nKey
@@ -930,37 +916,37 @@ public class TemporaryStatManager {
     }
 
     public void throwDice(int roll, int secondRoll) {
-        int[] array = {0, 0, 30, 20, 15, 20, 30, 20}; // Stats for Normal Rolls
-        int[] arrayDD = {0, 0, 40, 30, 25, 30, 40, 30}; // Stats for Double Down Rolls
-        for(int i = 0; i < diceOption.length; i++) {
+        int[] array = { 0, 0, 30, 20, 15, 20, 30, 20 }; // Stats for Normal Rolls
+        int[] arrayDD = { 0, 0, 40, 30, 25, 30, 40, 30 }; // Stats for Double Down Rolls
+        for (int i = 0; i < diceOption.length; i++) {
             diceOption[i] = 0;
         }
-        if(roll == secondRoll) {
+        if (roll == secondRoll) {
             diceOption[roll] = arrayDD[roll];
         } else {
             diceOption[roll] = array[roll];
             diceOption[secondRoll] = array[secondRoll];
         }
         int[] diceinfo = new int[] {
-                diceOption[3],  //nOption 3 (MHPR)
-                diceOption[3],  //nOption 3 (MMPR)
-                diceOption[4],  //nOption 4 (Cr)
+                diceOption[3],  // nOption 3 (MHPR)
+                diceOption[3],  // nOption 3 (MMPR)
+                diceOption[4],  // nOption 4 (Cr)
                 0,  // CritDamage Min
-                0,  // ???  ( CritDamage Max (?) )
+                0,  // ??? ( CritDamage Max (?) )
                 0,  // EVAR
                 0,  // AR
                 0,  // ER
-                diceOption[2],  //nOption 2 (PDDR)
-                diceOption[2],  //nOption 2 (MDDR)
+                diceOption[2],  // nOption 2 (PDDR)
+                diceOption[2],  // nOption 2 (MDDR)
                 0,  // PDR
                 0,  // MDR
-                diceOption[5],  //nOption 5 (PIDR)
+                diceOption[5],  // nOption 5 (PIDR)
                 0,  // PDamR
                 0,  // MDamR
                 0,  // PADR
                 0,  // MADR
-                diceOption[6], //nOption 6 (EXP)
-                diceOption[7], //nOption 7 (IED)
+                diceOption[6], // nOption 6 (EXP)
+                diceOption[7], // nOption 7 (IED)
                 0,  // ASRR
                 0,  // TERR
                 0,  // MesoRate
@@ -1015,7 +1001,7 @@ public class TemporaryStatManager {
     }
 
     public void sendResetStatPacket(boolean demount) {
-        if(getRemovedStats().containsKey(CharacterTemporaryStat.Reincarnation)) {
+        if (getRemovedStats().containsKey(CharacterTemporaryStat.Reincarnation)) {
             Warrior.finalPactEnd(chr);
         }
         getChr().getField().broadcastPacket(UserRemote.resetTemporaryStat(getChr()), getChr());
@@ -1090,7 +1076,7 @@ public class TemporaryStatManager {
     }
 
     public void addSoulMPFromMobDeath() {
-        if(hasStat(CharacterTemporaryStat.SoulMP)) {
+        if (hasStat(CharacterTemporaryStat.SoulMP)) {
             Option o = getOption(SoulMP);
             o.nOption = Math.min(ItemConstants.MAX_SOUL_CAPACITY, o.nOption + ItemConstants.MOB_DEATH_SOUL_MP_COUNT);
             putCharacterStatValue(SoulMP, o);
@@ -1098,8 +1084,7 @@ public class TemporaryStatManager {
                 Option o2 = new Option();
                 o2.rOption = ItemConstants.getSoulSkillFromSoulID(((Equip) chr.getEquippedItemByBodyPart(BodyPart.Weapon)).getSoulOptionId());
                 if (o2.rOption == 0) {
-                    chr.chatMessage(String.format("Unknown corresponding skill for soul socket id %d!",
-                            ((Equip) chr.getEquippedItemByBodyPart(BodyPart.Weapon)).getSoulOptionId()));
+                    chr.chatMessage(String.format("Unknown corresponding skill for soul socket id %d!", ((Equip) chr.getEquippedItemByBodyPart(BodyPart.Weapon)).getSoulOptionId()));
                 }
                 o2.nOption = ItemConstants.MAX_SOUL_CAPACITY;
                 o2.xOption = ItemConstants.MAX_SOUL_CAPACITY;

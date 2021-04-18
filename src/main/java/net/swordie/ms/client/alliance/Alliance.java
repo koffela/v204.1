@@ -10,7 +10,7 @@ import java.util.*;
 
 /**
  * @author Sjonnie
- * Created on 9/1/2018.
+ *         Created on 9/1/2018.
  */
 @Entity
 @Table(name = "alliances")

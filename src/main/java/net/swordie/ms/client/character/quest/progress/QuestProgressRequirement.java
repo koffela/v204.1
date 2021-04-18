@@ -23,6 +23,7 @@ public abstract class QuestProgressRequirement implements DatSerializable {
 
     /**
      * Returns whether this progress requirement has been completed by the player.
+     * 
      * @return Completeness.
      */
     public abstract boolean isComplete(Char chr);

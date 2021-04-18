@@ -21,7 +21,7 @@ public class EffectData {
         String sceneName = scene.getSceneName();
         String sceneNumber = scene.getSceneNumber();
 
-        Node sceneNameNode = XMLApi.getNodeByPath(xmlPath, sceneName); // Scene Name  Node
+        Node sceneNameNode = XMLApi.getNodeByPath(xmlPath, sceneName); // Scene Name Node
         if (sceneNameNode != null) {
             Node sceneNumberNode = XMLApi.getFirstChildByNameBF(sceneNameNode, sceneNumber); // Scene
 

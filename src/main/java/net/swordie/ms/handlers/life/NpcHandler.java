@@ -38,7 +38,6 @@ public class NpcHandler {
 
     private static final Logger log = Logger.getLogger(NpcHandler.class);
 
-
     @Handler(op = InHeader.USER_SELECT_NPC)
     public static void handleUserSelectNpc(Client c, InPacket inPacket) {
         Char chr = c.getChr();
@@ -93,25 +92,27 @@ public class NpcHandler {
             return;
         }
         // should rehandle it
-        /*if (qm.hasQuestInProgress(questID)) {
-            QuestInfo qi = QuestData.getQuestInfoById(questID);
-            String scriptName = qi.getSpeech().get(speech - 1);
-            if (scriptName == null || scriptName.equalsIgnoreCase("")) {
-                chr.chatMessage("Could not find that speech - quest id " + questID + ", speech " + speech);
-            }
-            if (scriptName.contains("NpcSpeech=")) {
-                if (scriptName.endsWith("/")) {
-                    scriptName = scriptName.substring(0, scriptName.length() - 1);
-                }
-                Quest quest = chr.getQuestManager().getQuests().get(questID);
-                if (quest != null) {
-                    quest.setQrValue(scriptName);
-                    chr.write(WvsContext.questRecordExMessage(questID, scriptName, scriptName));
-                }
-            } else {
-                chr.getScriptManager().startScript(questID, scriptName, ScriptType.Quest);
-            }
-        }*/
+        /*
+         * if (qm.hasQuestInProgress(questID)) {
+         * QuestInfo qi = QuestData.getQuestInfoById(questID);
+         * String scriptName = qi.getSpeech().get(speech - 1);
+         * if (scriptName == null || scriptName.equalsIgnoreCase("")) {
+         * chr.chatMessage("Could not find that speech - quest id " + questID + ", speech " + speech);
+         * }
+         * if (scriptName.contains("NpcSpeech=")) {
+         * if (scriptName.endsWith("/")) {
+         * scriptName = scriptName.substring(0, scriptName.length() - 1);
+         * }
+         * Quest quest = chr.getQuestManager().getQuests().get(questID);
+         * if (quest != null) {
+         * quest.setQrValue(scriptName);
+         * chr.write(WvsContext.questRecordExMessage(questID, scriptName, scriptName));
+         * }
+         * } else {
+         * chr.getScriptManager().startScript(questID, scriptName, ScriptType.Quest);
+         * }
+         * }
+         */
     }
 
     @Handler(op = InHeader.USER_SHOP_REQUEST)
@@ -139,8 +140,7 @@ public class NpcHandler {
                     return;
                 }
                 if (quantity < 0) {
-                    chr.getOffenseManager().addOffense(Offense.Type.Editing,
-                            "User tried buying negative quantity from NPC shop");
+                    chr.getOffenseManager().addOffense(Offense.Type.Editing, "User tried buying negative quantity from NPC shop");
                     chr.dispose();
                     return;
                 }
@@ -179,7 +179,7 @@ public class NpcHandler {
                     }
                     chr.deductMoney(cost);
                 }
-                if(buyLimit>0) {
+                if (buyLimit > 0) {
                     int amountBought = chr.getItemBoughtAmounts().getOrDefault(nsi.getId(), 0);
                     amountBought += quantity;
                     chr.addItemBoughtAmount(nsi.getId(), amountBought);
@@ -204,8 +204,7 @@ public class NpcHandler {
                 }
                 chr.deductMoney(cost);
                 item.addQuantity(ii.getSlotMax());
-                chr.write(WvsContext.inventoryOperation(true, false,
-                        InventoryOperation.UpdateQuantity, slot, (short) 0, 0, item));
+                chr.write(WvsContext.inventoryOperation(true, false, InventoryOperation.UpdateQuantity, slot, (short) 0, 0, item));
                 chr.write(ShopDlg.shopResult(new MsgShopResult(ShopResultType.Success)));
                 break;
             case SELL:
@@ -219,8 +218,7 @@ public class NpcHandler {
                     return;
                 }
                 if (quantity < 0) {
-                    chr.getOffenseManager().addOffense(Offense.Type.Editing,
-                            "User tried selling negative quantity to NPC shop");
+                    chr.getOffenseManager().addOffense(Offense.Type.Editing, "User tried selling negative quantity to NPC shop");
                     chr.dispose();
                     return;
                 }
@@ -311,7 +309,7 @@ public class NpcHandler {
                 }
                 break;
             case TrunkReq_SortItem:
-//                trunk.getItems().sort(Comparator.comparingInt(Item::getItemId));
+                // trunk.getItems().sort(Comparator.comparingInt(Item::getItemId));
                 chr.write(FieldPacket.trunkDlg(new TrunkUpdate(TrunkType.TrunkRes_SortItem, trunk)));
                 break;
             case TrunkReq_CloseDialog:
@@ -422,8 +420,7 @@ public class NpcHandler {
             if (inPacket.getUnreadAmount() > 0) {
                 keyPadState = inPacket.decodeByte(); // not always encoded?
             }
-            chr.getField().broadcastPacket(NpcPool.npcMove(objectID, oneTimeAction, chatIdx, duration, introNpc.isMove(),
-                    movementInfo, keyPadState));
+            chr.getField().broadcastPacket(NpcPool.npcMove(objectID, oneTimeAction, chatIdx, duration, introNpc.isMove(), movementInfo, keyPadState));
         } else {
             Life life = chr.getField().getLifeByObjectID(objectID);
             if (life instanceof Npc && ((Npc) life).isMove()) {
@@ -449,8 +446,7 @@ public class NpcHandler {
                         keyPadState = inPacket.decodeByte(); // not always encoded?
                     }
                 }
-                chr.getField().broadcastPacket(NpcPool.npcMove(objectID, oneTimeAction, chatIdx, duration, move,
-                        movementInfo, keyPadState));
+                chr.getField().broadcastPacket(NpcPool.npcMove(objectID, oneTimeAction, chatIdx, duration, move, movementInfo, keyPadState));
             }
         }
     }

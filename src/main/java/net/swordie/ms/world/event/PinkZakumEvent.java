@@ -51,15 +51,14 @@ public class PinkZakumEvent implements InGameEvent {
         winners.clear();
         channelInstance = Server.getInstance().getWorlds().get(0).getChannels().get(0);
         startTimer = EventManager.addEvent(this::start, InGameEventManager.REGISTRATION_DURATION_MINS, TimeUnit.MINUTES);
-        startTimeMillis = System.currentTimeMillis() + InGameEventManager.REGISTRATION_DURATION_MINS * 60* 1000;
+        startTimeMillis = System.currentTimeMillis() + InGameEventManager.REGISTRATION_DURATION_MINS * 60 * 1000;
         channelInstance.getField(LOBBY_MAP).setDropsDisabled(true); // to reduce lag
         sendNotice(LOBBY_MAP, "Get ready for an epic Pink Zakum showdown!", InGameEventManager.REGISTRATION_DURATION_MINS * 60);
     }
 
     private void start() {
         started = true;
-        Server.getInstance().getWorldById(ServerConfig.WORLD_ID)
-                .broadcastPacket(WvsContext.broadcastMsg(BroadcastMsg.notice("Event registration has ended!")));
+        Server.getInstance().getWorldById(ServerConfig.WORLD_ID).broadcastPacket(WvsContext.broadcastMsg(BroadcastMsg.notice("Event registration has ended!")));
 
         if (channelInstance.getField(LOBBY_MAP).getChars().size() > 0) {
             startTimeMillis = System.currentTimeMillis() + TIME_LIMIT_SECONDS * 1000;
@@ -96,7 +95,7 @@ public class PinkZakumEvent implements InGameEvent {
     public void win() {
         startTimer = EventManager.addEvent(this::endEvent, 5, TimeUnit.SECONDS);
 
-        for(Char c : channelInstance.getField(BATTLE_MAP).getChars()) {
+        for (Char c : channelInstance.getField(BATTLE_MAP).getChars()) {
             winners.put(c.getId(), false);
         }
     }
@@ -147,8 +146,7 @@ public class PinkZakumEvent implements InGameEvent {
     }
 
     private void sendNotice(int fieldId, String msg, int seconds) {
-        channelInstance.getField(fieldId).broadcastPacket(WvsContext
-                .weatherEffectNotice(WeatherEffNoticeType.PinkZakum, msg, seconds * 1000));
+        channelInstance.getField(fieldId).broadcastPacket(WvsContext.weatherEffectNotice(WeatherEffNoticeType.PinkZakum, msg, seconds * 1000));
     }
 
     private void broadcastClock(int fieldId, int seconds) {
@@ -168,13 +166,9 @@ public class PinkZakumEvent implements InGameEvent {
     @Override
     public void sendLobbyClock(Char c) {
         if (getTimeLeft() >= 2) {
-            String message = started
-                    ? "Kill the Zakum!"
-                    : "Get ready for an epic Pink Zakum showdown!";
+            String message = started ? "Kill the Zakum!" : "Get ready for an epic Pink Zakum showdown!";
 
-            int map = started
-                    ? BATTLE_MAP
-                    : LOBBY_MAP;
+            int map = started ? BATTLE_MAP : LOBBY_MAP;
 
             c.write(FieldPacket.clock(ClockPacket.secondsClock((int) getTimeLeft())));
             sendNotice(map, message, (int) getTimeLeft());
@@ -182,7 +176,7 @@ public class PinkZakumEvent implements InGameEvent {
     }
 
     private int getTimeLeft() {
-        return (int)(startTimeMillis - System.currentTimeMillis()) / 1000;
+        return (int) (startTimeMillis - System.currentTimeMillis()) / 1000;
     }
 
     @Override

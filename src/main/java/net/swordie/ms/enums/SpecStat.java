@@ -85,13 +85,11 @@ public enum SpecStat {
     repeatEffect,
     recipe,
     reqSkillLevel;
+
     public static SpecStat getSpecStatByName(String name) {
-        if("int".equalsIgnoreCase(name)) {
+        if ("int".equalsIgnoreCase(name)) {
             return inte;
         }
-        return  Arrays.stream(values()).filter(ss ->
-                ss.toString().equalsIgnoreCase(name.toLowerCase())).
-                findFirst().
-                orElse(null);
+        return Arrays.stream(values()).filter(ss -> ss.toString().equalsIgnoreCase(name.toLowerCase())).findFirst().orElse(null);
     }
 }

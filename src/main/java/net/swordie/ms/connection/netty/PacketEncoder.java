@@ -26,6 +26,7 @@ import io.netty.handler.codec.MessageToByteEncoder;
 import net.swordie.ms.connection.Packet;
 import org.apache.log4j.LogManager;
 import static net.swordie.ms.connection.crypto.AESCipher.nVersion;
+
 /**
  * Implementation of a Netty encoder pattern so that encryption of MapleStory
  * packets is possible. Follows steps using the special MapleAES as well as
@@ -44,13 +45,13 @@ public final class PacketEncoder extends MessageToByteEncoder<Packet> {
         NettyClient c = chc.channel().attr(NettyClient.CLIENT_KEY).get();
         AESCipher ac = chc.channel().attr(NettyClient.AES_CIPHER).get();
         if (c != null) {
-            if(!OutHeader.isSpamHeader(OutHeader.getOutHeaderByOp(outPacket.getHeader()))) {
+            if (!OutHeader.isSpamHeader(OutHeader.getOutHeaderByOp(outPacket.getHeader()))) {
                 log.debug("[Out]\t| " + outPacket);
             }
             int uSeqSend = c.getSendIV();
             short uDataLen = (short) (((data.length << 8) & 0xFF00) | (data.length >>> 8));
             short uRawSeq = (short) ((((uSeqSend >> 24) & 0xFF) | (((uSeqSend >> 16) << 8) & 0xFF00)) ^ uSeqBase);
-//            ShandaCrypto.encrypt(data); // pre-149
+            // ShandaCrypto.encrypt(data); // pre-149
 
             c.acquireEncoderState();
             try {
@@ -70,12 +71,12 @@ public final class PacketEncoder extends MessageToByteEncoder<Packet> {
             bb.writeShort(uRawSeq);
             bb.writeShort(uDataLen);
             bb.writeBytes(data);
-            
+
         } else {
             log.debug("[PacketEncoder] | Plain sending " + outPacket);
             bb.writeBytes(data);
         }
-//        outPacket.release();
-//        bb.release();
+        // outPacket.release();
+        // bb.release();
     }
 }

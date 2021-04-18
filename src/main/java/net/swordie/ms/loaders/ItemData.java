@@ -35,14 +35,15 @@ public class ItemData {
     private static final org.apache.log4j.Logger log = LogManager.getRootLogger();
     private static final boolean LOG_UNKS = false;
 
-
     /**
      * Creates a new Equip given an itemId.
      *
-     * @param itemId         The itemId of the wanted equip.
-     * @param randomizeStats whether or not to randomize the stats of the created object
+     * @param itemId
+     *            The itemId of the wanted equip.
+     * @param randomizeStats
+     *            whether or not to randomize the stats of the created object
      * @return A deep copy of the default values of the corresponding Equip, or null if there is no equip with itemId
-     * <code>itemId</code>.
+     *         <code>itemId</code>.
      */
     public static Equip getEquipDeepCopyFromID(int itemId, boolean randomizeStats) {
         Equip e = getEquipById(itemId);
@@ -216,9 +217,7 @@ public class ItemData {
                 dataOutputStream.writeBoolean(equip.isEquipTradeBlock());
                 dataOutputStream.writeBoolean(equip.isFixedPotential());
                 dataOutputStream.writeBoolean(equip.isNoPotential());
-                dataOutputStream.writeBoolean(equip.isBossReward()
-                        || Util.arrayContains(ItemConstants.NON_KMS_BOSS_SETS, equip.getSetItemID())
-                        || Util.arrayContains(ItemConstants.NON_KMS_BOSS_ITEMS, equip.getItemId()));
+                dataOutputStream.writeBoolean(equip.isBossReward() || Util.arrayContains(ItemConstants.NON_KMS_BOSS_SETS, equip.getSetItemID()) || Util.arrayContains(ItemConstants.NON_KMS_BOSS_ITEMS, equip.getItemId()));
                 dataOutputStream.writeBoolean(equip.isSuperiorEqp());
                 dataOutputStream.writeShort(equip.getiReduceReq());
                 dataOutputStream.writeBoolean(equip.isHasIUCMax());
@@ -247,8 +246,8 @@ public class ItemData {
 
     public static void loadEquipsFromWz() {
         String wzDir = ServerConstants.WZ_DIR + "/Character.wz";
-        String[] subMaps = new String[]{"Accessory", "Android", "Cap", "Cape", "Coat", "Dragon", "Face", "Glove",
-                "Longcoat", "Mechanic", "Pants", "PetEquip", "Ring", "Shield", "Shoes", "Totem", "Weapon", "MonsterBook"};
+        String[] subMaps = new String[] { "Accessory", "Android", "Cap", "Cape", "Coat", "Dragon", "Face", "Glove",
+                "Longcoat", "Mechanic", "Pants", "PetEquip", "Ring", "Shield", "Shoes", "Totem", "Weapon", "MonsterBook" };
         for (String subMap : subMaps) {
             File subDir = new File(String.format("%s/%s", wzDir, subMap));
             File[] files = subDir.listFiles();
@@ -502,7 +501,7 @@ public class ItemData {
             }
 
             size = dataInputStream.readShort();
-            for(int i = 0; i < size; i++) {
+            for (int i = 0; i < size; i++) {
                 itemInfo.getReqItemIds().add(dataInputStream.readInt());
             }
 
@@ -578,7 +577,7 @@ public class ItemData {
                 }
 
                 dataOutputStream.writeShort(ii.getReqItemIds().size());
-                for(int i: ii.getReqItemIds()) {
+                for (int i : ii.getReqItemIds()) {
                     dataOutputStream.writeInt(i);
                 }
 
@@ -869,7 +868,7 @@ public class ItemData {
 
     public static void loadItemsFromWZ() {
         String wzDir = ServerConstants.WZ_DIR + "/Item.wz";
-        String[] subMaps = new String[]{"Cash", "Consume", "Etc", "Install", "Special"}; // not pet
+        String[] subMaps = new String[] { "Cash", "Consume", "Etc", "Install", "Special" }; // not pet
         for (String subMap : subMaps) {
             File subDir = new File(String.format("%s/%s", wzDir, subMap));
             File[] files = subDir.listFiles();
@@ -1362,7 +1361,7 @@ public class ItemData {
                         if (XMLApi.getNamedAttribute(level, "value") != null) {
                             ssVal = Integer.parseInt(XMLApi.getNamedAttribute(level, "value"));
                         }
-                        if(ScrollStat.getScrollStatByString(ssName) != null) {
+                        if (ScrollStat.getScrollStatByString(ssName) != null) {
                             item.putScrollStat(ScrollStat.valueOf(ssName), ssVal);
                         } else {
                             log.info("non existent scroll stat" + ssName);
@@ -1387,7 +1386,7 @@ public class ItemData {
                                     SpecStat ss = SpecStat.getSpecStatByName(name);
                                     if (ss != null && value != null) {
                                         item.putSpecStat(ss, Integer.parseInt(value));
-                                    } else if (LOG_UNKS){
+                                    } else if (LOG_UNKS) {
                                         log.warn(String.format("Unhandled spec for id %d, name %s, value %s", id, name, value));
                                     }
                             }
@@ -1436,7 +1435,7 @@ public class ItemData {
     public static void loadMountItemsFromFile() {
         File file = new File(String.format("%s/mountsFromItem.txt", ServerConstants.RESOURCES_DIR));
         try (Scanner scanner = new Scanner(new FileInputStream(file))) {
-            while(scanner.hasNextLine()) {
+            while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 String[] lineSplit = line.split(" ");
                 int itemId = Integer.parseInt(lineSplit[0]);
@@ -1824,52 +1823,53 @@ public class ItemData {
             createFilteredOptions();
         }
     }
-    private static void createFilteredOptions(){
+
+    private static void createFilteredOptions() {
         Collection<ItemOption> data = getItemOptions().values();
-        filteredItemOptions = data.stream().filter(io ->
-                io.getId() % 1000 != 14 //Old Magic Def, now regular Def ; removed to not have duplicates
-                && io.getId() != 14 //Old Magic Def, now regular Def ; removed to not have duplicates
-                && io.getId() % 1000 != 54 //Old Magic Def%, now regular Def% ; removed to not have duplicates
-                && (io.getId() % 1000 != 7 || io.getId() == 41007) //Old Accuracy, now Max HP ; removed to not have duplicates (41007 = Decent Speed Infusion For Gloves)
-                && io.getId() != 7 //Old Accuracy, now Max HP ; removed to not have duplicates
-                && (io.getId() % 1000 != 47 || io.getId() == 12047) //Old Accuracy%, now Max HP% ; removed to not have duplicates (12047 = Bonus Weapons STR% Rare)
-                && io.getId() % 1000 != 8 //Old Avoid, now Max MP ; removed to not have duplicates
-                && io.getId() != 8 //Old Accuracy, now Max HP ; removed to not have duplicates
-                && (io.getId() % 1000 != 48 || io.getId() == 12048) //Old Avoid%, now Max MP% ; removed to not have duplicates (12048 = Bonus Weapons DEX% Rare)
-                && io.getId() != 40081 //Flat AllStat
-                && io.getId() % 1000 != 202 //Additional %HP Recovery ; removed to not have duplicates
-                && io.getId() % 1000 != 207 //Additional %MP Recovery ; removed to not have duplicates
-                && io.getId() != 10222 //Secondary Rare-Prime 20% Poison Chance - WeaponsEmblemSecondary
-                && io.getId() != 10227 //Secondary Rare-Prime 10% Stun Chance - WeaponsEmblemSecondary
-                && io.getId() != 10232 //Secondary Rare-Prime 20% Slow Chance - WeaponsEmblemSecondary
-                && io.getId() != 10237 //Secondary Rare-Prime 20% Blind Chance - WeaponsEmblemSecondary
-                && io.getId() != 10242 //Secondary Rare-Prime 10% Freeze Chance - WeaponsEmblemSecondary
-                && io.getId() != 10247 //Secondary Rare-Prime 10% Seal Chance - WeaponsEmblemSecondary
-                && io.getId() % 1000 != 801 //Old Damage Cap Increase, now AllStat/Ignore Enemy Defense/AllStat%/Abnormal Status Res
-                && io.getId() % 1000 != 802 //Old Damage Cap Increase, now AllStat%/ElementalResist
-                && io.getId() % 10000 != 2056 //Old CritRate/Magic Def%, now AllStat%/ElementalResist ; removed to not have duplicates
-                && io.getId() != 32661 //EXP Obtained
-                && io.getId() != 42661 //EXP Obtained
-                && io.getId() != 20396 //Duplicate "invincible for additional seconds"
-                && io.getId() != 40057 //Glove's Crit Damage Duplicate
-                && io.getId() != 42061 //Bonus - Glove's Crit Damage Duplicate
-                && io.getId() != 42062 //Bonus - Armor's 1% Crit Damage Duplicate
-                && io.getId() != 22056 //Bonus - Non-Weapon Crit Rate%
-                && io.getId() != 32052 //Bonus - Non-Weapon Attack%
-                && io.getId() != 32054 //Bonus - Non-Weapon MagicAttack%
-                && io.getId() != 32058 //Bonus - Non-Weapon Crit Rate%
-                && io.getId() != 32071 //Bonus - Non-Weapon Damage%
-                && io.getId() != 42052 //Bonus - Non-Weapon Attack%
-                && io.getId() != 42054 //Bonus - Non-Weapon MagicAttack%
-                && io.getId() != 42058 //Bonus - Non-Weapon Crit Rate%
-                && io.getId() != 42071 //Bonus - Non-Weapon Damage%
-                && !(io.getId() > 14 && io.getId() < 900) //Rare Junk Filter
-                && !(io.getId() > 20000 && io.getId() < 20014) //No Flat Stats Above Rare
-                && !(io.getId() > 30000 && io.getId() < 30014) //No Flat Stats Above Rare
-                && !(io.getId() > 40000 && io.getId() < 40014) //No Flat Stats Above Rare
+        filteredItemOptions = data.stream().filter(io -> io.getId() % 1000 != 14 // Old Magic Def, now regular Def ; removed to not have duplicates
+                && io.getId() != 14 // Old Magic Def, now regular Def ; removed to not have duplicates
+                && io.getId() % 1000 != 54 // Old Magic Def%, now regular Def% ; removed to not have duplicates
+                && (io.getId() % 1000 != 7 || io.getId() == 41007) // Old Accuracy, now Max HP ; removed to not have duplicates (41007 = Decent Speed Infusion For Gloves)
+                && io.getId() != 7 // Old Accuracy, now Max HP ; removed to not have duplicates
+                && (io.getId() % 1000 != 47 || io.getId() == 12047) // Old Accuracy%, now Max HP% ; removed to not have duplicates (12047 = Bonus Weapons STR% Rare)
+                && io.getId() % 1000 != 8 // Old Avoid, now Max MP ; removed to not have duplicates
+                && io.getId() != 8 // Old Accuracy, now Max HP ; removed to not have duplicates
+                && (io.getId() % 1000 != 48 || io.getId() == 12048) // Old Avoid%, now Max MP% ; removed to not have duplicates (12048 = Bonus Weapons DEX% Rare)
+                && io.getId() != 40081 // Flat AllStat
+                && io.getId() % 1000 != 202 // Additional %HP Recovery ; removed to not have duplicates
+                && io.getId() % 1000 != 207 // Additional %MP Recovery ; removed to not have duplicates
+                && io.getId() != 10222 // Secondary Rare-Prime 20% Poison Chance - WeaponsEmblemSecondary
+                && io.getId() != 10227 // Secondary Rare-Prime 10% Stun Chance - WeaponsEmblemSecondary
+                && io.getId() != 10232 // Secondary Rare-Prime 20% Slow Chance - WeaponsEmblemSecondary
+                && io.getId() != 10237 // Secondary Rare-Prime 20% Blind Chance - WeaponsEmblemSecondary
+                && io.getId() != 10242 // Secondary Rare-Prime 10% Freeze Chance - WeaponsEmblemSecondary
+                && io.getId() != 10247 // Secondary Rare-Prime 10% Seal Chance - WeaponsEmblemSecondary
+                && io.getId() % 1000 != 801 // Old Damage Cap Increase, now AllStat/Ignore Enemy Defense/AllStat%/Abnormal Status Res
+                && io.getId() % 1000 != 802 // Old Damage Cap Increase, now AllStat%/ElementalResist
+                && io.getId() % 10000 != 2056 // Old CritRate/Magic Def%, now AllStat%/ElementalResist ; removed to not have duplicates
+                && io.getId() != 32661 // EXP Obtained
+                && io.getId() != 42661 // EXP Obtained
+                && io.getId() != 20396 // Duplicate "invincible for additional seconds"
+                && io.getId() != 40057 // Glove's Crit Damage Duplicate
+                && io.getId() != 42061 // Bonus - Glove's Crit Damage Duplicate
+                && io.getId() != 42062 // Bonus - Armor's 1% Crit Damage Duplicate
+                && io.getId() != 22056 // Bonus - Non-Weapon Crit Rate%
+                && io.getId() != 32052 // Bonus - Non-Weapon Attack%
+                && io.getId() != 32054 // Bonus - Non-Weapon MagicAttack%
+                && io.getId() != 32058 // Bonus - Non-Weapon Crit Rate%
+                && io.getId() != 32071 // Bonus - Non-Weapon Damage%
+                && io.getId() != 42052 // Bonus - Non-Weapon Attack%
+                && io.getId() != 42054 // Bonus - Non-Weapon MagicAttack%
+                && io.getId() != 42058 // Bonus - Non-Weapon Crit Rate%
+                && io.getId() != 42071 // Bonus - Non-Weapon Damage%
+                && !(io.getId() > 14 && io.getId() < 900) // Rare Junk Filter
+                && !(io.getId() > 20000 && io.getId() < 20014) // No Flat Stats Above Rare
+                && !(io.getId() > 30000 && io.getId() < 30014) // No Flat Stats Above Rare
+                && !(io.getId() > 40000 && io.getId() < 40014) // No Flat Stats Above Rare
         ).collect(Collectors.toList());
 
     }
+
     private static void saveStartingItems(String dir) {
         File file = new File(String.format("%s/startingItems.dat", dir));
         try (DataOutputStream dos = new DataOutputStream(new FileOutputStream(file))) {
@@ -1901,7 +1901,6 @@ public class ItemData {
         }
         return startingItems;
     }
-
 
     @Loader(varName = "startingItems")
     public static void loadStartingItems(File file, boolean exists) {

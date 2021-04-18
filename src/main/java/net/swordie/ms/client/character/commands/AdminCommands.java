@@ -60,33 +60,30 @@ import static net.swordie.ms.enums.PrivateStatusIDFlag.*;
 import static net.swordie.ms.enums.ChatType.*;
 import static net.swordie.ms.enums.InventoryOperation.Add;
 
-
 /**
  * Created on 12/22/2017.
  */
 public class AdminCommands {
 
-
     static final org.apache.log4j.Logger log = LogManager.getRootLogger();
 
-    @Command(names = {"test"}, requiredType = ADMIN)
+    @Command(names = { "test" }, requiredType = ADMIN)
     public static class Test extends AdminCommand {
         public static void execute(Char chr, String[] args) {
             Effect effect = Effect.skillUse(Integer.valueOf(args[1]), (byte) 1, 0);
-            chr.getField().broadcastPacket(
-                    UserRemote.effect(chr.getId(), effect));
+            chr.getField().broadcastPacket(UserRemote.effect(chr.getId(), effect));
             chr.write(UserPacket.effect(effect));
         }
     }
 
-    @Command(names = {"forceevent"}, requiredType = GAME_MASTER)
+    @Command(names = { "forceevent" }, requiredType = GAME_MASTER)
     public static class ForceEvent extends AdminCommand {
         public static void execute(Char chr, String[] args) {
             InGameEventManager.getInstance().forceNextEvent();
         }
     }
 
-    @Command(names = {"packet"}, requiredType = ADMIN)
+    @Command(names = { "packet" }, requiredType = ADMIN)
     public static class TestPacket extends AdminCommand {
 
         public static void execute(Char chr, String[] args) {
@@ -107,7 +104,7 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"showinvinfo", "invinfo"}, requiredType = TESTER)
+    @Command(names = { "showinvinfo", "invinfo" }, requiredType = TESTER)
     public static class ShowInvInfo extends AdminCommand {
 
         public static void execute(Char chr, String[] args) {
@@ -118,29 +115,28 @@ public class AdminCommands {
                 for (Item item : chr.getInventoryByType(invType).getItems()) {
                     item.setInvType(invType);
                     String name = StringData.getItemStringById(item.getItemId());
-                    chr.chatMessage(Mob, String.format("%s, %d, %d, %d, %s", name, item.getItemId(), item.getId(),
-                            item.getBagIndex(), item.getInvType().toString()));
+                    chr.chatMessage(Mob, String.format("%s, %d, %d, %d, %s", name, item.getItemId(), item.getId(), item.getBagIndex(), item.getInvType().toString()));
                 }
             }
         }
     }
 
-    @Command(names = {"testcts", "cts"}, requiredType = ADMIN)
+    @Command(names = { "testcts", "cts" }, requiredType = ADMIN)
     public static class TestCTS extends AdminCommand {
 
         public static void execute(Char chr, String[] args) {
 
-//            WildHunterInfo wi = new WildHunterInfo();
-//            wi.setIdx((byte) 1);
-//            wi.setRidingType((byte) 1);
-//            chr.write(WvsContext.wildHunterInfo(wi));
-//            new TemporaryStatManager(null).encodeForLocal(null);
+            // WildHunterInfo wi = new WildHunterInfo();
+            // wi.setIdx((byte) 1);
+            // wi.setRidingType((byte) 1);
+            // chr.write(WvsContext.wildHunterInfo(wi));
+            // new TemporaryStatManager(null).encodeForLocal(null);
             CharacterTemporaryStat cts = CharacterTemporaryStat.Morph;
-//            CharacterTemporaryStat cts2 = CharacterTemporaryStat.Speed;
-//
+            // CharacterTemporaryStat cts2 = CharacterTemporaryStat.Speed;
+            //
             OutPacket outPacket = new OutPacket(OutHeader.TEMPORARY_STAT_SET);
 
-//            tsm.encodeForLocal(outPacket);
+            // tsm.encodeForLocal(outPacket);
             // Start encodeForLocal
             int[] mask = new int[CharacterTemporaryStat.length];
             mask[cts.getPos()] |= cts.getVal();
@@ -149,11 +145,11 @@ public class AdminCommands {
             }
             log.debug("[Out]\t| " + outPacket);
 
-            outPacket.encodeShort(1); // n                            //Short / Int
+            outPacket.encodeShort(1); // n //Short / Int
             outPacket.encodeInt(Kaiser.FINAL_TRANCE); // r
             outPacket.encodeInt(30000); // t
 
-            //outPacket.encodeInt(0);
+            // outPacket.encodeInt(0);
 
             short size = 0;
             outPacket.encodeShort(0);
@@ -166,36 +162,35 @@ public class AdminCommands {
             outPacket.encodeByte(0); // pvpDamage
             outPacket.encodeInt(0); // viperCharge
             // Start TSTS encode
-//            outPacket.encodeArr(new byte[Integer.parseInt(args[2])]);
-//            outPacket.encodeInt(1);
-//            outPacket.encodeInt(80001001);
-//            outPacket.encodeByte(1);
-//            outPacket.encodeByte(0);
-//            outPacket.encodeArr(new byte[Integer.parseInt(args[1])]);
-//            outPacket.encodeShort(1);
+            // outPacket.encodeArr(new byte[Integer.parseInt(args[2])]);
+            // outPacket.encodeInt(1);
+            // outPacket.encodeInt(80001001);
+            // outPacket.encodeByte(1);
+            // outPacket.encodeByte(0);
+            // outPacket.encodeArr(new byte[Integer.parseInt(args[1])]);
+            // outPacket.encodeShort(1);
             // End TSTS encode
-            // End  encodeForLocal
+            // End encodeForLocal
             outPacket.encodeInt(0); // indie?
             outPacket.encodeShort(0); // invalid value => "Failed to use the skill for an unknown reason"
             outPacket.encodeByte(0);
             outPacket.encodeByte(0);
             outPacket.encodeByte(0);
             outPacket.encodeByte(0); // movement enhancing
-//            outPacket.encodeArr(new byte[Integer.parseInt(args[1])]);
+            // outPacket.encodeArr(new byte[Integer.parseInt(args[1])]);
             chr.write(outPacket);
-
 
         }
     }
 
-    @Command(names = {"checkid", "getid", "charid"}, requiredType = TESTER)
+    @Command(names = { "checkid", "getid", "charid" }, requiredType = TESTER)
     public static class CheckID extends AdminCommand {
         public static void execute(Char chr, String[] args) {
             chr.chatMessage(SpeakerChannel, "your charID = " + chr.getId() + " \r\nYour accID = " + chr.getAccId());
         }
     }
 
-    @Command(names = {"hair"}, requiredType = TESTER)
+    @Command(names = { "hair" }, requiredType = TESTER)
     public static class hair extends AdminCommand {
         public static void execute(Char chr, String[] args) {
             AvatarLook hair1 = chr.getAvatarData().getAvatarLook();
@@ -206,285 +201,279 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"face"}, requiredType = TESTER)
+    @Command(names = { "face" }, requiredType = TESTER)
     public static class face extends AdminCommand {
         public static void execute(Char chr, String[] args) {
             AvatarLook face1 = chr.getAvatarData().getAvatarLook();
             int face = Integer.parseInt(args[1]);
             face1.setFace(face);
             chr.setStatAndSendPacket(Stat.face, face);
-            //     chr.changeChannelAndWarp(chr.getClient().getChannelInstance().getChannelId(), chr.getFieldID());
+            // chr.changeChannelAndWarp(chr.getClient().getChannelInstance().getChannelId(), chr.getFieldID());
         }
     }
 
-    @Command(names = {"getphantomstolenskills"}, requiredType = TESTER)
+    @Command(names = { "getphantomstolenskills" }, requiredType = TESTER)
     public static class GetPhantomStolenSkills extends AdminCommand {
 
         public static void execute(Char chr, String[] args) {
-            chr.getStolenSkills().stream().sorted(Comparator.comparing(StolenSkill::getPosition))
-                    .forEach(ss ->
-                            chr.chatMessage(GroupFriend, "[StolenSkills]  Skill ID: " + ss.getSkillid() + " on Position: " + ss.getPosition() + " with Current level: " + ss.getCurrentlv()));
+            chr.getStolenSkills().stream().sorted(Comparator.comparing(StolenSkill::getPosition)).forEach(ss -> chr.chatMessage(GroupFriend, "[StolenSkills]  Skill ID: " + ss.getSkillid() + " on Position: " + ss.getPosition() + " with Current level: " + ss.getCurrentlv()));
         }
     }
 
-    @Command(names = {"stealskilllist"}, requiredType = TESTER)
+    @Command(names = { "stealskilllist" }, requiredType = TESTER)
     public static class StealSkillList extends AdminCommand {
 
         public static void execute(Char chr, String[] args) {
             Set<Skill> skillSet = new HashSet<>();
 
-            //Warriors
-            int[] skillIds = new int[]{
-                    //Hero
-                    1101006, //Rage
-                    1101011, //Brandish
-                    1101012, //Combo Fury
-                    1101013, //Combo Attack
+            // Warriors
+            int[] skillIds = new int[] {
+                    // Hero
+                    1101006, // Rage
+                    1101011, // Brandish
+                    1101012, // Combo Fury
+                    1101013, // Combo Attack
 
-                    1111014, //Shout
-                    1111012, //Rush
-                    1111010, //Intrepid Slash
-                    1111008, //Shout
+                    1111014, // Shout
+                    1111012, // Rush
+                    1111010, // Intrepid Slash
+                    1111008, // Shout
 
-                    1121008, //Raging Blow
-                    1121016, //Magic Crash(Hero)
+                    1121008, // Raging Blow
+                    1121016, // Magic Crash(Hero)
 
-                    1121054, //Cry Valhalla
+                    1121054, // Cry Valhalla
 
-                    //Paladin
-                    1201011, //Flame Charge
-                    1201012, //Blizzard Charge
-                    1201013, //Close Combat
+                    // Paladin
+                    1201011, // Flame Charge
+                    1201012, // Blizzard Charge
+                    1201013, // Close Combat
 
-                    1211013, //Threaten
-                    1211014, //Parashock Guard
-                    1211012, //Rush
-                    1211011, //Combat order
-                    1211010, //HP Recovery
-                    1211008, //Lightning Charge
+                    1211013, // Threaten
+                    1211014, // Parashock Guard
+                    1211012, // Rush
+                    1211011, // Combat order
+                    1211010, // HP Recovery
+                    1211008, // Lightning Charge
 
-                    1221016, //Guardian
-                    1221014, //Magic Crash(Paladin)
-                    1221011, //Heaven's Hammer
-                    1221009, //Blast
+                    1221016, // Guardian
+                    1221014, // Magic Crash(Paladin)
+                    1221011, // Heaven's Hammer
+                    1221009, // Blast
 
-                    1221054, //Sacrosanctity
+                    1221054, // Sacrosanctity
 
-                    //Dark Knight
-                    1301007, //Hyper body
-                    1301006, //Iron will
-                    1301012, //Spear Sweep
-                    1301013, //Evil Eye
+                    // Dark Knight
+                    1301007, // Hyper body
+                    1301006, // Iron will
+                    1301012, // Spear Sweep
+                    1301013, // Evil Eye
 
-                    1311015, //Cross Surge
-                    1311011, //La Mancha Spear,
-                    1311012, //Rush
+                    1311015, // Cross Surge
+                    1311011, // La Mancha Spear,
+                    1311012, // Rush
 
-                    1321012, //Dark Impale
-                    1321013, //Gungnir's Descent
-                    1321014, //Magic Crash(Dark Knight)
+                    1321012, // Dark Impale
+                    1321013, // Gungnir's Descent
+                    1321014, // Magic Crash(Dark Knight)
 
-                    1321054, //Dark Thirst
+                    1321054, // Dark Thirst
 
+                    2001002, // Magic Guard
+                    // Mage FP
+                    2101010, // Ignite
+                    2101005, // Poison breath
+                    2101004, // Flame Orb
+                    2101001, // Meditation(FP)
 
-                    2001002, //Magic Guard
-                    //Mage FP
-                    2101010, //Ignite
-                    2101005, //Poison breath
-                    2101004, //Flame Orb
-                    2101001, //Meditation(FP)
+                    2111002, // Explosion
+                    2111003, // Poison mist
 
-                    2111002, //Explosion
-                    2111003, //Poison mist
+                    2121011, // Flame Haze
+                    2121007, // Meteor Shower
+                    2121006, // Paralyze
 
-                    2121011, //Flame Haze
-                    2121007, //Meteor Shower
-                    2121006, //Paralyze
+                    2121054, // Inferno Aura
 
-                    2121054, //Inferno Aura
+                    // MageIL
+                    2201008, // Cold Beam
+                    2201005, // Thunder Bolt
+                    2201001, // Meditation(IL)
 
-                    //MageIL
-                    2201008, //Cold Beam
-                    2201005, //Thunder Bolt
-                    2201001, //Meditation(IL)
+                    2211010, // Glacier Chain
 
-                    2211010, //Glacier Chain
+                    2221007, // Blizzard
+                    2221012, // Frozen Orb
+                    2221006, // Chain Lightning
 
-                    2221007, //Blizzard
-                    2221012, //Frozen Orb
-                    2221006, //Chain Lightning
+                    2221054, // Absolute Zero Aura
 
-                    2221054, //Absolute Zero Aura
+                    // Bishop
+                    2301004, // Bless
+                    2301005, // Holy Arrow
+                    2301002, // Heal
 
-                    //Bishop
-                    2301004, //Bless
-                    2301005, //Holy Arrow
-                    2301002, //Heal
+                    2311001, // Dispel
+                    2311003, // Holy Symbol
+                    2311004, // Shining Ray
+                    2311011, // Holy Fountain
+                    2311009, // Holy Magic Shell
 
-                    2311001, //Dispel
-                    2311003, //Holy Symbol
-                    2311004, //Shining Ray
-                    2311011, //Holy Fountain
-                    2311009, //Holy Magic Shell
+                    2321008, // Genesis
+                    2321007, // Angel Ray
+                    2321006, // Resurrection
+                    2321005, // Adv Blessing
 
-                    2321008, //Genesis
-                    2321007, //Angel Ray
-                    2321006, //Resurrection
-                    2321005, //Adv Blessing
+                    2321054, // Righteously Indignant
 
-                    2321054, //Righteously Indignant
+                    // Bowmaster
+                    3101008, // Covering Fire
+                    3101005, // Arrowbomb
 
+                    3111011, // Reckless Hunt: Bow
+                    3111010, // Hookshot
+                    3111003, // Flame Surge
+                    3111013, // Arrow Blaster
 
-                    //Bowmaster
-                    3101008, //Covering Fire
-                    3101005, //Arrowbomb
+                    3121004, // Hurricane
+                    3121015, // Arrow Stream
+                    3121002, // Sharp Eyes
+                    3121014, // Blinding Shot
 
-                    3111011, //Reckless Hunt: Bow
-                    3111010, //Hookshot
-                    3111003, //Flame Surge
-                    3111013, //Arrow Blaster
+                    3121054, // Concentration
 
-                    3121004, //Hurricane
-                    3121015, //Arrow Stream
-                    3121002, //Sharp Eyes
-                    3121014, //Blinding Shot
+                    // Marksman
+                    3201008, // Net Toss
 
-                    3121054, //Concentration
+                    3211008, // Dragon Breath
+                    3211009, // Explosive Bolt
+                    3211010, // Hookshot
+                    3211011, // Pain Killer
+                    3211012, // Reckless Hunt: XBow
 
-                    //Marksman
-                    3201008, //Net Toss
+                    3221007, // Snipe
+                    3221006, // Illusion Step
+                    3221002, // Sharp Eyes
+                    3221001, // Piercing Arrow
 
-                    3211008, //Dragon Breath
-                    3211009, //Explosive Bolt
-                    3211010, //Hookshot
-                    3211011, //Pain Killer
-                    3211012, //Reckless Hunt: XBow
+                    3221054, // BullsEye Shot
 
-                    3221007, //Snipe
-                    3221006, //Illusion Step
-                    3221002, //Sharp Eyes
-                    3221001, //Piercing Arrow
+                    4001003, // Dark Sight
+                    4001005, // Haste
+                    // Night Lord
+                    4101011, // Sin Mark
+                    4101010, // Gust Charm
+                    4101008, // Shuriken Burst
 
-                    3221054, //BullsEye Shot
+                    4111013, // Shade Splitter
+                    4111015, // Shade Splitter
+                    4111010, // Triple Throw
+                    4111003, // Shadow Web
 
+                    4121017, // Showdown
+                    4121016, // Sudden Raid (NL)
+                    4121015, // Frailty Curse
+                    4121013, // Quad Star
 
-                    4001003, //Dark Sight
-                    4001005, //Haste
-                    //Night Lord
-                    4101011, //Sin Mark
-                    4101010, //Gust Charm
-                    4101008, //Shuriken Burst
+                    4121054, // Bleed Dart
 
-                    4111013, //Shade Splitter
-                    4111015, //Shade Splitter
-                    4111010, //Triple Throw
-                    4111003, //Shadow Web
+                    // Shadower
+                    4201012, // Svg Blow
+                    4201011, // Meso Guard
+                    4201004, // Steal
 
-                    4121017, //Showdown
-                    4121016, //Sudden Raid (NL)
-                    4121015, //Frailty Curse
-                    4121013, //Quad Star
+                    4211011, // Midnight Carnival
+                    4211006, // Meso Explosion
+                    4211002, // Phase Dash
 
-                    4121054, //Bleed Dart
+                    4221014, // Assassinate
+                    4221010, // Sudden Raid(Shad)
+                    4221007, // Bstep
+                    4221006, // Smoke screen
 
-                    //Shadower
-                    4201012, //Svg Blow
-                    4201011, //Meso Guard
-                    4201004, //Steal
+                    4221054, // Flip of the Coin
 
-                    4211011, //Midnight Carnival
-                    4211006, //Meso Explosion
-                    4211002, //Phase Dash
+                    // Dual Blade
+                    4301003, // Self Haste
 
-                    4221014, //Assassinate
-                    4221010, //Sudden Raid(Shad)
-                    4221007, //Bstep
-                    4221006, //Smoke screen
+                    4311003, // Slash Storm
+                    4311002, // Fatal Blow
 
-                    4221054, //Flip of the Coin
+                    4321006, // Flying Assaulter
+                    4321004, // Upper Stab
+                    4321002, // FlashBang
 
-                    //Dual Blade
-                    4301003, //Self Haste
+                    4331011, // Blade Ascension
+                    4331006, // Chains of Hell
 
-                    4311003, //Slash Storm
-                    4311002, //Fatal Blow
+                    4341011, // Sudden Raid (DB)
+                    4341009, // Phantom Blow
+                    4341004, // Blade Fury
+                    4341002, // Final Cut
 
-                    4321006, //Flying Assaulter
-                    4321004, //Upper Stab
-                    4321002, //FlashBang
+                    4341054, // Blade Clone
 
-                    4331011, //Blade Ascension
-                    4331006, //Chains of Hell
+                    5001005, // Dash
+                    // Bucc
+                    5101004, // Corkscrew Blow
 
-                    4341011, //Sudden Raid (DB)
-                    4341009, //Phantom Blow
-                    4341004, //Blade Fury
-                    4341002, //Final Cut
+                    5111007, // Roll of the Dice
+                    5111006, // Shock wave
+                    5111009, // Spiral Assault
+                    5111015, // Static Thumper
+                    5111012, // Static Thumper
 
-                    4341054, //Blade Clone
+                    5121013, // Nautilus Strike
+                    5121010, // Time Leap
+                    5121009, // Speed Infusion
+                    5121020, // octopunch
+                    5121015, // Crossbones
 
+                    5121054, // Stimulating Conversation
 
-                    5001005, //Dash
-                    //Bucc
-                    5101004, //Corkscrew Blow
+                    // Corsair
+                    5201012, // Scurvy Summons
+                    5201011, // Wings
+                    5201006, // Recoil Shot
+                    5201001, // Rapid blast
 
-                    5111007, //Roll of the Dice
-                    5111006, //Shock wave
-                    5111009, //Spiral Assault
-                    5111015, //Static Thumper
-                    5111012, //Static Thumper
+                    5211007, // Roll of the Dice
+                    5211011, // All Aboard
+                    5211009, // Cross cut Blast
+                    5211010, // Blackboot bill
+                    5211014, // Octo Cannon
 
-                    5121013, //Nautilus Strike
-                    5121010, //Time Leap
-                    5121009, //Speed Infusion
-                    5121020, //octopunch
-                    5121015, //Crossbones
+                    5221018, // Jolly Roger
+                    5221015, // Parrotargetting
+                    5221016, // Brain scrambler
+                    5221013, // Nautilus Strike
+                    5221017, // Eigh-legs Easton
+                    5221022, // Broadside
 
-                    5121054, //Stimulating Conversation
+                    5221054, // Whaler's potion
 
-                    //Corsair
-                    5201012, //Scurvy Summons
-                    5201011, //Wings
-                    5201006, //Recoil Shot
-                    5201001, //Rapid blast
+                    // Cannon Master
+                    5011001, // Cannon Strike
 
-                    5211007, //Roll of the Dice
-                    5211011, //All Aboard
-                    5211009, //Cross cut Blast
-                    5211010, //Blackboot bill
-                    5211014, //Octo Cannon
+                    5301003, // Monkey Magic
+                    5301001, // Barrel Bomb
+                    5301000, // Scatter Shot
 
-                    5221018, //Jolly Roger
-                    5221015, //Parrotargetting
-                    5221016, //Brain scrambler
-                    5221013, //Nautilus Strike
-                    5221017, //Eigh-legs Easton
-                    5221022, //Broadside
+                    5311004, // Barrel Roulette
+                    5311003, // Cannon Jump
+                    5311005, // Luck of the Die
+                    5311010, // Monkey Fury
+                    5311002, // Monkey Wave
+                    5311000, // Cannon Spike
 
-                    5221054, //Whaler's potion
+                    5321012, // Cannon Barrage
+                    5321010, // Pirate Spirit
+                    5321004, // Monkey Militia
+                    5321003, // Anchor Aweigh
+                    5321001, // Nautilus Strike
+                    5321000, // Cannon Bazooka
 
-                    //Cannon Master
-                    5011001, //Cannon Strike
-
-                    5301003, //Monkey Magic
-                    5301001, //Barrel Bomb
-                    5301000, //Scatter Shot
-
-                    5311004, //Barrel Roulette
-                    5311003, //Cannon Jump
-                    5311005, //Luck of the Die
-                    5311010, //Monkey Fury
-                    5311002, //Monkey Wave
-                    5311000, //Cannon Spike
-
-                    5321012, //Cannon Barrage
-                    5321010, //Pirate Spirit
-                    5321004, //Monkey Militia
-                    5321003, //Anchor Aweigh
-                    5321001, //Nautilus Strike
-                    5321000, //Cannon Bazooka
-
-                    5321054, //BuckShot
+                    5321054, // BuckShot
             };
 
             for (int skillId : skillIds) {
@@ -499,17 +488,10 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"np", "nearestportal"}, requiredType = TESTER)
+    @Command(names = { "np", "nearestportal" }, requiredType = TESTER)
     public static class NP extends AdminCommand {
         public static void execute(Char chr, String[] args) {
-            Rect rect = new Rect(
-                    new Position(
-                            chr.getPosition().deepCopy().getX() - 30,
-                            chr.getPosition().deepCopy().getY() - 30),
-                    new Position(
-                            chr.getPosition().deepCopy().getX() + 30,
-                            chr.getPosition().deepCopy().getY() + 30)
-            );
+            Rect rect = new Rect(new Position(chr.getPosition().deepCopy().getX() - 30, chr.getPosition().deepCopy().getY() - 30), new Position(chr.getPosition().deepCopy().getX() + 30, chr.getPosition().deepCopy().getY() + 30));
             chr.chatMessage(Normal, "~~~~~~~~~~");
             chr.chatMessage(SpeakerChannel, "Current Map: " + NumberFormat.getNumberInstance(Locale.US).format(chr.getFieldID()));
             chr.chatMessage(SpeakerChannel, "Current ReturnMap: " + NumberFormat.getNumberInstance(Locale.US).format(chr.getField().getReturnMap()));
@@ -525,7 +507,7 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"stats"}, requiredType = TESTER)
+    @Command(names = { "stats" }, requiredType = TESTER)
     public static class Stats extends AdminCommand {
         public static void execute(Char chr, String[] args) {
             int strength = chr.getStat(Stat.str);
@@ -545,7 +527,7 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"spawn"}, requiredType = GAME_MASTER)
+    @Command(names = { "spawn" }, requiredType = GAME_MASTER)
     public static class Spawn extends AdminCommand {
         public static void execute(Char chr, String[] args) {
             int id = Integer.parseInt(args[1]);
@@ -582,7 +564,7 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"npc"}, requiredType = GAME_MASTER)
+    @Command(names = { "npc" }, requiredType = GAME_MASTER)
     public static class NPC extends AdminCommand {
         public static void execute(Char chr, String[] args) {
             int id = Integer.parseInt(args[1]);
@@ -607,54 +589,54 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"map"}, requiredType = NONE)
+    @Command(names = { "map" }, requiredType = NONE)
     public static class MapInfo extends AdminCommand {
         public static void execute(Char chr, String[] args) {
 
             String str = "";
 
-            for(Char c : chr.getField().getChars()) {
+            for (Char c : chr.getField().getChars()) {
                 str += c.getName();
-                if(chr.getField().getChars().indexOf(c) != chr.getField().getChars().size()) {
+                if (chr.getField().getChars().indexOf(c) != chr.getField().getChars().size()) {
                     str += ", ";
                 }
             }
 
-            chr.chatMessage(SystemNotice,str);
+            chr.chatMessage(SystemNotice, str);
 
         }
     }
 
-    @Command(names = {"forcechase"}, requiredType = GAME_MASTER)
+    @Command(names = { "forcechase" }, requiredType = GAME_MASTER)
     public static class ForceChase extends AdminCommand {
         public static void execute(Char chr, String[] args) {
 
-            for(Mob m : chr.getField().getMobs()) {
+            for (Mob m : chr.getField().getMobs()) {
                 log.debug(m.isUserControll());
             }
 
-            for(Mob m : chr.getField().getMobs()) {
-                //c.write(MobPool.damaged(mob.getObjectId(), dmg, mob.getTemplateId(), (byte) 1, (int) mob.getHp(), (int) mob.getMaxHp()));
-                //chr.getField().broadcastPacket(MobPool.damaged(m.getObjectId(),(long)2000,m.getTemplateId(),(byte)1,(int)m.getHp(),(int)m.getMaxHp()));
-                chr.getField().broadcastPacket(MobPool.forceChase(m.getObjectId(),false));
+            for (Mob m : chr.getField().getMobs()) {
+                // c.write(MobPool.damaged(mob.getObjectId(), dmg, mob.getTemplateId(), (byte) 1, (int) mob.getHp(), (int) mob.getMaxHp()));
+                // chr.getField().broadcastPacket(MobPool.damaged(m.getObjectId(),(long)2000,m.getTemplateId(),(byte)1,(int)m.getHp(),(int)m.getMaxHp()));
+                chr.getField().broadcastPacket(MobPool.forceChase(m.getObjectId(), false));
             }
 
         }
     }
 
-    @Command(names = {"setcontroller"}, requiredType = GAME_MASTER)
+    @Command(names = { "setcontroller" }, requiredType = GAME_MASTER)
     public static class SetController extends AdminCommand {
         public static void execute(Char chr, String[] args) {
 
             String chrName = args[1];
 
             Char newController = chr.getField().getCharByName(chrName);
-            if(newController == null) {
+            if (newController == null) {
                 chr.chatMessage("Character not found");
                 return;
             }
 
-            for(Mob m : chr.getField().getMobs()) {
+            for (Mob m : chr.getField().getMobs()) {
                 m.notifyControllerChange(newController);
                 chr.getField().putLifeController(m, newController);
             }
@@ -662,21 +644,21 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"mobcontroller"}, requiredType = GAME_MASTER)
+    @Command(names = { "mobcontroller" }, requiredType = GAME_MASTER)
     public static class MobController extends AdminCommand {
         public static void execute(Char chr, String[] args) {
 
             String chrName = args[1];
 
-            for(Mob m : chr.getField().getMobs()) {
-               Char controller = m.getField().getLifeToControllers().get(m);
-               chr.chatMessage(m.getObjectId() + " : " + controller.getName());
+            for (Mob m : chr.getField().getMobs()) {
+                Char controller = m.getField().getLifeToControllers().get(m);
+                chr.chatMessage(m.getObjectId() + " : " + controller.getName());
             }
 
         }
     }
 
-    @Command(names = {"testdrop"}, requiredType = TESTER)
+    @Command(names = { "testdrop" }, requiredType = TESTER)
     public static class TestDrop extends AdminCommand {
         public static void execute(Char chr, String[] args) {
             int id = Integer.parseInt(args[1]);
@@ -709,7 +691,7 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"proitem"}, requiredType = GAME_MASTER)
+    @Command(names = { "proitem" }, requiredType = GAME_MASTER)
     public static class ProItem extends AdminCommand {
         public static void execute(Char chr, String[] args) {
             if (args.length < 5) {
@@ -733,14 +715,12 @@ public class AdminCommands {
             equip.setBaseStat(EquipBaseStat.statR, flames);
 
             chr.addItemToInventory(InvType.EQUIP, equip, false);
-            chr.getClient().write(WvsContext.inventoryOperation(true, false,
-                    Add, (short) equip.getBagIndex(), (byte) 1,
-                    0, equip));
+            chr.getClient().write(WvsContext.inventoryOperation(true, false, Add, (short) equip.getBagIndex(), (byte) 1, 0, equip));
 
         }
     }
 
-    @Command(names = {"item"}, requiredType = GAME_MASTER)
+    @Command(names = { "item" }, requiredType = GAME_MASTER)
     public static class GetItem extends AdminCommand {
         public static void execute(Char chr, String[] args) {
             if (Util.isNumber(args[1])) {
@@ -787,8 +767,7 @@ public class AdminCommands {
                             continue;
                         }
                         chr.addItemToInventory(equip);
-                        chr.getClient().write(WvsContext.inventoryOperation(true, false,
-                                Add, (short) equip.getBagIndex(), (byte) -1, 0, equip));
+                        chr.getClient().write(WvsContext.inventoryOperation(true, false, Add, (short) equip.getBagIndex(), (byte) -1, 0, equip));
                         return;
                     }
                     item = ItemData.getItemDeepCopy(id);
@@ -797,15 +776,14 @@ public class AdminCommands {
                     }
                     item.setQuantity(quant);
                     chr.addItemToInventory(item);
-                    chr.getClient().write(WvsContext.inventoryOperation(true, false,
-                            Add, (short) item.getBagIndex(), (byte) -1, 0, item));
+                    chr.getClient().write(WvsContext.inventoryOperation(true, false, Add, (short) item.getBagIndex(), (byte) -1, 0, item));
                     return;
                 }
             }
         }
     }
 
-    @Command(names = {"done"}, requiredType = TESTER)
+    @Command(names = { "done" }, requiredType = TESTER)
     public static class Done extends AdminCommand {
         public static void execute(Char chr, String[] args) {
             int num = 30000;
@@ -823,18 +801,17 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"hypertp"}, requiredType = TESTER)
+    @Command(names = { "hypertp" }, requiredType = TESTER)
     public static class HyperTP extends AdminCommand {
         public static void execute(Char chr, String[] args) {
             int hyperTP = 5040004;
             Item hyperTP2 = ItemData.getItemDeepCopy(hyperTP);
             chr.addItemToInventory(hyperTP2.getInvType(), hyperTP2, false);
-            chr.getClient().write(WvsContext.inventoryOperation(true, false,
-                    Add, (short) hyperTP2.getBagIndex(), (byte) -1, 0, hyperTP2));
+            chr.getClient().write(WvsContext.inventoryOperation(true, false, Add, (short) hyperTP2.getBagIndex(), (byte) -1, 0, hyperTP2));
         }
     }
 
-    @Command(names = {"job"}, requiredType = TESTER)
+    @Command(names = { "job" }, requiredType = TESTER)
     public static class Job extends AdminCommand {
         public static void execute(Char chr, String[] args) {
             short id = Short.parseShort(args[1]);
@@ -848,7 +825,7 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"sp"}, requiredType = TESTER)
+    @Command(names = { "sp" }, requiredType = TESTER)
     public static class Sp extends AdminCommand {
         public static void execute(Char chr, String[] args) {
             int num = Integer.parseInt(args[1]);
@@ -861,7 +838,7 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"ap"}, requiredType = TESTER)
+    @Command(names = { "ap" }, requiredType = TESTER)
     public static class Ap extends AdminCommand {
         public static void execute(Char chr, String[] args) {
             int num = Integer.parseInt(args[1]);
@@ -871,7 +848,7 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"hp"}, requiredType = TESTER)
+    @Command(names = { "hp" }, requiredType = TESTER)
     public static class Hp extends AdminCommand {
         public static void execute(Char chr, String[] args) {
             int num = Integer.parseInt(args[1]);
@@ -882,7 +859,7 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"mp"}, requiredType = TESTER)
+    @Command(names = { "mp" }, requiredType = TESTER)
     public static class Mp extends AdminCommand {
         public static void execute(Char chr, String[] args) {
             int num = Integer.parseInt(args[1]);
@@ -893,7 +870,7 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"str", "setstr"}, requiredType = TESTER)
+    @Command(names = { "str", "setstr" }, requiredType = TESTER)
     public static class Str extends AdminCommand {
         public static void execute(Char chr, String[] args) {
             int num = Integer.parseInt(args[1]);
@@ -903,7 +880,7 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"dex", "setdex"}, requiredType = TESTER)
+    @Command(names = { "dex", "setdex" }, requiredType = TESTER)
     public static class Dex extends AdminCommand {
         public static void execute(Char chr, String[] args) {
             int num = Integer.parseInt(args[1]);
@@ -913,7 +890,7 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"int", "setint"}, requiredType = TESTER)
+    @Command(names = { "int", "setint" }, requiredType = TESTER)
     public static class SetInt extends AdminCommand {
         public static void execute(Char chr, String[] args) {
             int num = Integer.parseInt(args[1]);
@@ -923,7 +900,7 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"luk", "setluk"}, requiredType = TESTER)
+    @Command(names = { "luk", "setluk" }, requiredType = TESTER)
     public static class Luk extends AdminCommand {
         public static void execute(Char chr, String[] args) {
             int num = Integer.parseInt(args[1]);
@@ -933,7 +910,7 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"level", "setlevel", "lvl", "lv"}, requiredType = TESTER)
+    @Command(names = { "level", "setlevel", "lvl", "lv" }, requiredType = TESTER)
     public static class Level extends AdminCommand {
         public static void execute(Char chr, String[] args) {
             int num = Integer.parseInt(args[1]);
@@ -946,7 +923,7 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"leveluntil", "levelupuntil"}, requiredType = TESTER)
+    @Command(names = { "leveluntil", "levelupuntil" }, requiredType = TESTER)
     public static class LevelUntil extends AdminCommand {
         public static void execute(Char chr, String[] args) {
             int num = Integer.parseInt(args[1]);
@@ -964,7 +941,7 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"heal"}, requiredType = TESTER)
+    @Command(names = { "heal" }, requiredType = TESTER)
     public static class Heal extends AdminCommand {
         public static void execute(Char chr, String[] args) {
             chr.heal(30000);
@@ -975,7 +952,7 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"invincible"}, requiredType = TESTER)
+    @Command(names = { "invincible" }, requiredType = TESTER)
     public static class Invincible extends AdminCommand {
         public static void execute(Char chr, String[] args) {
             chr.setInvincible(!chr.isInvincible());
@@ -983,7 +960,7 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"whosthere"}, requiredType = TESTER)
+    @Command(names = { "whosthere" }, requiredType = TESTER)
     public static class whosthere extends AdminCommand {
         public static void execute(Char chr, String[] args) {
             StringBuilder builder = new StringBuilder("Players on Map: ").append(chr.getClient().getChannelInstance().getChars().size()).append(", ");
@@ -1002,11 +979,11 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"buff"}, requiredType = TESTER)
+    @Command(names = { "buff" }, requiredType = TESTER)
     public static class buff extends AdminCommand {
         public static void execute(Char chr, String[] args) {
 
-            //Holy Symbol
+            // Holy Symbol
             int HS = 150;
             TemporaryStatManager tsm = chr.getTemporaryStatManager();
             Option o1 = new Option();
@@ -1021,14 +998,14 @@ public class AdminCommands {
             o2.rOption = Archer.SHARP_EYES_BOW;
             o2.tOption = 1000;
 
-            //Magic Guard
+            // Magic Guard
             int MagicGuard = 100;
             Option o3 = new Option();
             o3.nOption = MagicGuard;
             o3.rOption = Magician.MAGIC_GUARD;
             o3.tOption = 1000;
 
-            //Haste
+            // Haste
             SkillInfo Haste = SkillData.getSkillInfoById(4001005);
             Option o5 = new Option();
             o5.nOption = Haste.getValue(speed, 20);
@@ -1040,7 +1017,7 @@ public class AdminCommands {
             tsm.putCharacterStatValue(Jump, o5);
             o5.rOption = Thief.HASTE;
 
-            //Maple Warrior
+            // Maple Warrior
             SkillInfo MW = SkillData.getSkillInfoById(2321000);
             Option o6 = new Option();
             o6.nValue = MW.getValue(x, 30);
@@ -1049,16 +1026,16 @@ public class AdminCommands {
             o6.tTerm = MW.getValue(time, 30);
             tsm.putCharacterStatValue(IndieStatR, o6);
 
-            //Meditation
-            //   SkillInfo Meditation = SkillData.getSkillInfoById(2201001);
-            //   Option o7 = new Option();
-            //   o7.nValue = Meditation.getValue(indieMad, 20);
-            //   o7.nReason = 2201001;
-            //   o7.tStart = (int) System.currentTimeMillis();
-            //   o7.tTerm = Meditation.getValue(time, 100);
-            //   tsm.putCharacterStatValue(IndieMAD, o7);
+            // Meditation
+            // SkillInfo Meditation = SkillData.getSkillInfoById(2201001);
+            // Option o7 = new Option();
+            // o7.nValue = Meditation.getValue(indieMad, 20);
+            // o7.nReason = 2201001;
+            // o7.tStart = (int) System.currentTimeMillis();
+            // o7.tTerm = Meditation.getValue(time, 100);
+            // tsm.putCharacterStatValue(IndieMAD, o7);
 
-            //Advanced Bless
+            // Advanced Bless
             SkillInfo AdvBless = SkillData.getSkillInfoById(2321005);
             Option o8 = new Option();
             o8.tOption = 1000;
@@ -1079,8 +1056,7 @@ public class AdminCommands {
             tsm.putCharacterStatValue(IndieMHP, o8);
             tsm.putCharacterStatValue(IndieMMP, o8);
 
-
-            //  Infinity
+            // Infinity
             SkillInfo Infinity = SkillData.getSkillInfoById(2321004);
             Option o9 = new Option();
             o9.tOption = 1000;
@@ -1098,12 +1074,10 @@ public class AdminCommands {
             chr.chatMessage(AdminChat, "Buffed successfully!");
             tsm.sendSetStatPacket();
 
-
         }
     }
 
-
-    @Command(names = {"morph"}, requiredType = TESTER)
+    @Command(names = { "morph" }, requiredType = TESTER)
     public static class Morph extends AdminCommand {
         public static void execute(Char chr, String[] args) {
             int morphID = Integer.parseInt(args[1]);
@@ -1119,7 +1093,7 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"mount"}, requiredType = TESTER)
+    @Command(names = { "mount" }, requiredType = TESTER)
     public static class Mount extends AdminCommand {
         public static void execute(Char chr, String[] args) {
             int mountID = Integer.parseInt(args[1]);
@@ -1135,7 +1109,7 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"testtempstat"}, requiredType = ADMIN)
+    @Command(names = { "testtempstat" }, requiredType = ADMIN)
     public static class TestTempStat extends AdminCommand {
         public static void execute(Char chr, String[] args) {
             List<Life> lifes = new ArrayList<>(chr.getField().getLifes().values());
@@ -1148,7 +1122,7 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"map"}, requiredType = TESTER)
+    @Command(names = { "map" }, requiredType = TESTER)
     public static class SetMap extends AdminCommand {
         public static void execute(Char chr, String[] args) {
             if (args.length > 1 && Util.isNumber(args[1])) {
@@ -1164,7 +1138,7 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"drop"}, requiredType = TESTER)
+    @Command(names = { "drop" }, requiredType = TESTER)
     public static class drop extends AdminCommand {
         public static void execute(Char chr, String[] args) {
             StringBuilder sb = new StringBuilder();
@@ -1174,8 +1148,7 @@ public class AdminCommands {
         }
     }
 
-
-    @Command(names = {"warp"}, requiredType = TESTER)
+    @Command(names = { "warp" }, requiredType = TESTER)
     public static class warp extends AdminCommand {
         public static void execute(Char chr, String[] args) {
             Char victim = chr.getWorld().getCharByName((args[1]));
@@ -1187,8 +1160,7 @@ public class AdminCommands {
         }
     }
 
-
-    @Command(names = {"warphere"}, requiredType = TESTER)
+    @Command(names = { "warphere" }, requiredType = TESTER)
     public static class warphere extends AdminCommand {
         public static void execute(Char chr, String[] args) {
             Char victim = chr.getWorld().getCharByName((args[1]));
@@ -1200,7 +1172,7 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"fame"}, requiredType = TESTER)
+    @Command(names = { "fame" }, requiredType = TESTER)
     public static class fame extends AdminCommand {
         public static void execute(Char chr, String[] args) {
             Char victim = chr.getClient().getChannelInstance().getCharByName(args[1]);
@@ -1209,19 +1181,19 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"find"}, requiredType = TESTER)
+    @Command(names = { "find" }, requiredType = TESTER)
     public static class findchar extends AdminCommand {
         public static void execute(Char chr, String[] args) {
             Char victim = chr.getWorld().getCharByName((args[1]));
             if (victim != null) {
-                chr.chatMessage(GameDesc,victim.getName() + " is in " + StringData.getMapStringById(victim.getFieldID()) + "   (Channel " + victim.getClient().getChannelInstance().getChannelId()+")");
+                chr.chatMessage(GameDesc, victim.getName() + " is in " + StringData.getMapStringById(victim.getFieldID()) + "   (Channel " + victim.getClient().getChannelInstance().getChannelId() + ")");
             } else {
-                chr.chatMessage(DarkBlue2,"Player is offline");
+                chr.chatMessage(DarkBlue2, "Player is offline");
             }
         }
     }
 
-    @Command(names = {"setportal"}, requiredType = TESTER)
+    @Command(names = { "setportal" }, requiredType = TESTER)
     public static class SetPortal extends AdminCommand {
         public static void execute(Char chr, String[] args) {
             int portalID = Integer.parseInt(args[1]);
@@ -1235,14 +1207,12 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"atom"}, requiredType = ADMIN)
+    @Command(names = { "atom" }, requiredType = ADMIN)
     public static class Atom extends AdminCommand {
         public static void execute(Char chr, String[] args) {
             int charID = chr.getId();
-            ForceAtomInfo forceAtomInfo1 = new ForceAtomInfo(142110011, ForceAtomEnum.KINESIS_ORB_REAL.getInc(), 3, 3, 0, 0, (int) System.currentTimeMillis(), 1,
-                    142110011, new Position());
-            ForceAtomInfo forceAtomInfo2 = new ForceAtomInfo(142110011, ForceAtomEnum.KINESIS_ORB_REAL.getInc(), 3, 3, 0, 0, (int) System.currentTimeMillis(), 1,
-                    142110011, new Position());
+            ForceAtomInfo forceAtomInfo1 = new ForceAtomInfo(142110011, ForceAtomEnum.KINESIS_ORB_REAL.getInc(), 3, 3, 0, 0, (int) System.currentTimeMillis(), 1, 142110011, new Position());
+            ForceAtomInfo forceAtomInfo2 = new ForceAtomInfo(142110011, ForceAtomEnum.KINESIS_ORB_REAL.getInc(), 3, 3, 0, 0, (int) System.currentTimeMillis(), 1, 142110011, new Position());
             List<ForceAtomInfo> fais = new ArrayList<>();
             fais.add(forceAtomInfo1);
             fais.add(forceAtomInfo2);
@@ -1256,7 +1226,7 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"getskill"}, requiredType = TESTER)
+    @Command(names = { "getskill" }, requiredType = TESTER)
     public static class GetSkill extends AdminCommand {
         public static void execute(Char chr, String[] args) {
             if (args.length < 4) {
@@ -1270,8 +1240,7 @@ public class AdminCommands {
         }
     }
 
-
-    @Command(names = {"maxskills"}, requiredType = TESTER)
+    @Command(names = { "maxskills" }, requiredType = TESTER)
     public static class MaxSkills extends AdminCommand {
         public static void execute(Char chr, String[] args) {
             List<Skill> list = new ArrayList<>();
@@ -1339,7 +1308,7 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"lookup", "search"}, requiredType = TESTER)
+    @Command(names = { "lookup", "search" }, requiredType = TESTER)
     public static class Lookup extends AdminCommand {
         public static void execute(Char chr, String[] args) {
             if (args.length < 3) {
@@ -1347,11 +1316,11 @@ public class AdminCommands {
                 chr.chatMessage(Notice2, "Possible lookup types are: item, skill, mob, npc, map");
                 return;
             }
-                StringBuilder query = new StringBuilder();
-                for (int i = 2; i < args.length; i++) {
-                    query.append(args[i].toLowerCase()).append(" ");
-                }
-                query = new StringBuilder(query.substring(0, query.length() - 1));
+            StringBuilder query = new StringBuilder();
+            for (int i = 2; i < args.length; i++) {
+                query.append(args[i].toLowerCase()).append(" ");
+            }
+            query = new StringBuilder(query.substring(0, query.length() - 1));
             chr.chatMessage("Query: " + query);
             boolean isNumber = Util.isNumber(query.toString());
             if ("skill".equalsIgnoreCase(args[1])) {
@@ -1471,22 +1440,22 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"mesos"}, requiredType = GAME_MASTER)
+    @Command(names = { "mesos" }, requiredType = GAME_MASTER)
     public static class Mesos extends AdminCommand {
         public static void execute(Char chr, String[] args) {
             long mesos = Long.parseLong(args[1]);
             chr.addMoney(mesos);
         }
     }
-    @Command(names = {"whereami"}, requiredType = GAME_MASTER)
+
+    @Command(names = { "whereami" }, requiredType = GAME_MASTER)
     public static class whereami extends AdminCommand {
         public static void execute(Char chr, String[] args) {
             chr.chatMessage(Notice2, "You are on map " + chr.getFieldID());
         }
     }
 
-
-    @Command(names = {"say"}, requiredType = GAME_MASTER)
+    @Command(names = { "say" }, requiredType = GAME_MASTER)
     public static class say extends AdminCommand {
         public static void execute(Char chr, String[] args) {
             StringBuilder sb = new StringBuilder();
@@ -1499,7 +1468,7 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"nx", "setnx"}, requiredType = TESTER)
+    @Command(names = { "nx", "setnx" }, requiredType = TESTER)
     public static class NxCommand extends AdminCommand {
         public static void execute(Char chr, String[] args) {
             int nx = Integer.parseInt(args[1]);
@@ -1507,7 +1476,7 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"dp", "setdp"}, requiredType = TESTER)
+    @Command(names = { "dp", "setdp" }, requiredType = TESTER)
     public static class DpCommand extends AdminCommand {
         public static void execute(Char chr, String[] args) {
             int dp = Integer.parseInt(args[1]);
@@ -1516,7 +1485,7 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"vp", "setvp"}, requiredType = TESTER)
+    @Command(names = { "vp", "setvp" }, requiredType = TESTER)
     public static class VpCommand extends AdminCommand {
         public static void execute(Char chr, String[] args) {
             int vp = Integer.parseInt(args[1]);
@@ -1525,8 +1494,7 @@ public class AdminCommands {
         }
     }
 
-
-    @Command(names = {"goto"}, requiredType = TESTER)
+    @Command(names = { "goto" }, requiredType = TESTER)
     public static class GoTo extends AdminCommand {
         public static void execute(Char chr, String[] args) {
 
@@ -1626,7 +1594,7 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"clearcache"}, requiredType = ADMIN)
+    @Command(names = { "clearcache" }, requiredType = ADMIN)
     public static class ClearCache extends AdminCommand {
         public static void execute(Char chr, String[] args) {
             chr.getScriptManager().dispose(false);
@@ -1635,7 +1603,7 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"savemap"}, requiredType = TESTER)
+    @Command(names = { "savemap" }, requiredType = TESTER)
     public static class SaveMap extends AdminCommand {
         private static HashMap<String, Integer> quickmaps = new HashMap<>();
 
@@ -1671,10 +1639,10 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"warriorequips"}, requiredType = TESTER)
+    @Command(names = { "warriorequips" }, requiredType = TESTER)
     public static class WarriorEquips extends AdminCommand {
         public static void execute(Char chr, String[] args) {
-            int[] warEquips = new int[]{
+            int[] warEquips = new int[] {
                     1302000,
                     1312000,
                     1322000,
@@ -1696,10 +1664,10 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"mageequips"}, requiredType = TESTER)
+    @Command(names = { "mageequips" }, requiredType = TESTER)
     public static class MageEquips extends AdminCommand {
         public static void execute(Char chr, String[] args) {
-            int[] mageEquips = new int[]{
+            int[] mageEquips = new int[] {
                     1382000,
                     1372000,
                     1552000,
@@ -1714,10 +1682,10 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"archerequips"}, requiredType = TESTER)
+    @Command(names = { "archerequips" }, requiredType = TESTER)
     public static class ArcherEquips extends AdminCommand {
         public static void execute(Char chr, String[] args) {
-            int[] archerEquips = new int[]{
+            int[] archerEquips = new int[] {
                     1452000,
                     1462000,
                     1522000,
@@ -1730,10 +1698,10 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"thiefequips"}, requiredType = TESTER)
+    @Command(names = { "thiefequips" }, requiredType = TESTER)
     public static class ThiefEquips extends AdminCommand {
         public static void execute(Char chr, String[] args) {
-            int[] thiefEquips = new int[]{
+            int[] thiefEquips = new int[] {
                     1472000,
                     1332000,
                     1342000,
@@ -1748,10 +1716,10 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"pirateequips"}, requiredType = TESTER)
+    @Command(names = { "pirateequips" }, requiredType = TESTER)
     public static class PirateEquips extends AdminCommand {
         public static void execute(Char chr, String[] args) {
-            int[] pirateEquips = new int[]{
+            int[] pirateEquips = new int[] {
                     1482000,
                     1353100,
                     1492000,
@@ -1767,7 +1735,7 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"clearinv"}, requiredType = TESTER)
+    @Command(names = { "clearinv" }, requiredType = TESTER)
     public static class ClearInv extends AdminCommand {
         public static void execute(Char chr, String[] args) {
             if (args.length < 2) {
@@ -1789,37 +1757,22 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"mobinfo"}, requiredType = TESTER)
+    @Command(names = { "mobinfo" }, requiredType = TESTER)
     public static class MobInfo extends AdminCommand {
 
         public static void execute(Char chr, String[] args) {
-            Rect rect = new Rect(
-                    chr.getPosition().deepCopy().getX() - 100,
-                    chr.getPosition().deepCopy().getY() - 100,
-                    chr.getPosition().deepCopy().getX() + 100,
-                    chr.getPosition().deepCopy().getY() + 100
-            );
+            Rect rect = new Rect(chr.getPosition().deepCopy().getX() - 100, chr.getPosition().deepCopy().getY() - 100, chr.getPosition().deepCopy().getX() + 100, chr.getPosition().deepCopy().getY() + 100);
             Mob mob = chr.getField().getMobs().stream().filter(m -> rect.hasPositionInside(m.getPosition())).findFirst().orElse(null);
             Char controller = chr.getField().getLifeToControllers().getOrDefault(mob, null);
             if (mob != null) {
-                chr.chatMessage(SpeakerChannel, String.format("Mob ID: %s | Template ID: %s | HP: %s/%s | MP: %s/%s | Left: %s | Controller: %s",
-                        NumberFormat.getNumberInstance(Locale.US).format(mob.getObjectId()),
-                        NumberFormat.getNumberInstance(Locale.US).format(mob.getTemplateId()),
-                        NumberFormat.getNumberInstance(Locale.US).format(mob.getHp()),
-                        NumberFormat.getNumberInstance(Locale.US).format(mob.getMaxHp()),
-                        NumberFormat.getNumberInstance(Locale.US).format(mob.getMp()),
-                        NumberFormat.getNumberInstance(Locale.US).format(mob.getMaxMp()),
-                        mob.isLeft(),
-                        controller == null ? "null" : chr.getName()
-                        )
-                );
+                chr.chatMessage(SpeakerChannel, String.format("Mob ID: %s | Template ID: %s | HP: %s/%s | MP: %s/%s | Left: %s | Controller: %s", NumberFormat.getNumberInstance(Locale.US).format(mob.getObjectId()), NumberFormat.getNumberInstance(Locale.US).format(mob.getTemplateId()), NumberFormat.getNumberInstance(Locale.US).format(mob.getHp()), NumberFormat.getNumberInstance(Locale.US).format(mob.getMaxHp()), NumberFormat.getNumberInstance(Locale.US).format(mob.getMp()), NumberFormat.getNumberInstance(Locale.US).format(mob.getMaxMp()), mob.isLeft(), controller == null ? "null" : chr.getName()));
             } else {
                 chr.chatMessage(SpeakerChannel, "Could not find mob.");
             }
         }
     }
 
-    @Command(names = {"completequest"}, requiredType = TESTER)
+    @Command(names = { "completequest" }, requiredType = TESTER)
     public static class CompleteQuest extends AdminCommand {
 
         public static void execute(Char chr, String[] args) {
@@ -1827,7 +1780,7 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"removequest"}, requiredType = TESTER)
+    @Command(names = { "removequest" }, requiredType = TESTER)
     public static class RemoveQuest extends AdminCommand {
 
         public static void execute(Char chr, String[] args) {
@@ -1835,7 +1788,7 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"sethonor, honor"}, requiredType = TESTER)
+    @Command(names = { "sethonor, honor" }, requiredType = TESTER)
     public static class SetHonor extends AdminCommand {
 
         public static void execute(Char chr, String[] args) {
@@ -1849,7 +1802,7 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"startquest"}, requiredType = TESTER)
+    @Command(names = { "startquest" }, requiredType = TESTER)
     public static class StartQuest extends AdminCommand {
 
         public static void execute(Char chr, String[] args) {
@@ -1866,20 +1819,20 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"cd", "bypassskillcd", "ignoreskillcd", "bypasskillcd"}, requiredType = TESTER)
+    @Command(names = { "cd", "bypassskillcd", "ignoreskillcd", "bypasskillcd" }, requiredType = TESTER)
     public static class BypassSkillCD extends AdminCommand {
 
         public static void execute(Char chr, String[] args) {
             chr.setSkillCDBypass(!chr.hasSkillCDBypass());
-            if(chr.hasSkillCDBypass()) {
+            if (chr.hasSkillCDBypass()) {
                 chr.getSkillCoolTimes().keySet().forEach(chr::resetSkillCoolTime);
             }
-            chr.chatMessage(Notice2, "Skill Cooldown bypass: "+ chr.hasSkillCDBypass());
+            chr.chatMessage(Notice2, "Skill Cooldown bypass: " + chr.hasSkillCDBypass());
             chr.dispose();
         }
     }
 
-    @Command(names = {"toggledamagecap"}, requiredType = TESTER)
+    @Command(names = { "toggledamagecap" }, requiredType = TESTER)
     public static class ToggleDamageCap extends AdminCommand {
 
         public static void execute(Char chr, String[] args) {
@@ -1893,7 +1846,7 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"slidenotice"}, requiredType = TESTER)
+    @Command(names = { "slidenotice" }, requiredType = TESTER)
     public static class slidenotice extends AdminCommand {
 
         public static void execute(Char chr, String[] args) {
@@ -1901,20 +1854,20 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"field"}, requiredType = TESTER)
+    @Command(names = { "field" }, requiredType = TESTER)
     public static class field extends AdminCommand {
         public static void execute(Char chr, String[] args) {
             StringBuilder sb = new StringBuilder();
             sb.append(StringUtil.joinStringFrom(args, 1));
             chr.write(FieldPacket.fieldEffect(FieldEffect.changeBGM(sb.toString(), 0, 0)));
-          //  chr.write(CField.fieldEffect(FieldEffect.playSound("Party1/Clear", 100)));
-          //  chr.write(CField.fieldEffect(FieldEffect.setFieldGrey(GreyFieldType.Background, true)));
-          // chr.write(CField.fieldEffect(FieldEffect.getFieldEffectFromWz("quest/party/clear", 0)));
+            // chr.write(CField.fieldEffect(FieldEffect.playSound("Party1/Clear", 100)));
+            // chr.write(CField.fieldEffect(FieldEffect.setFieldGrey(GreyFieldType.Background, true)));
+            // chr.write(CField.fieldEffect(FieldEffect.getFieldEffectFromWz("quest/party/clear", 0)));
 
         }
     }
 
-    @Command(names = {"damageskin"}, requiredType = TESTER)
+    @Command(names = { "damageskin" }, requiredType = TESTER)
     public static class damageskin extends AdminCommand {
         public static void execute(Char chr, String[] args) {
             int damageskin = Integer.parseInt(args[1]);
@@ -1923,20 +1876,18 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"smega"}, requiredType = TESTER)
+    @Command(names = { "smega" }, requiredType = TESTER)
     public static class smega extends AdminCommand {
         public static void execute(Char chr, String[] args) {
             StringBuilder sb = new StringBuilder();
             sb.append(StringUtil.joinStringFrom(args, 1));
             World world = chr.getClient().getWorld();
-            BroadcastMsg smega = BroadcastMsg.megaphone(String.format("%s%s : %s", "", chr.getName(), sb.toString()),(byte) chr.getClient().getChannelInstance().getChannelId(), true, chr);
+            BroadcastMsg smega = BroadcastMsg.megaphone(String.format("%s%s : %s", "", chr.getName(), sb.toString()), (byte) chr.getClient().getChannelInstance().getChannelId(), true, chr);
             world.broadcastPacket(WvsContext.broadcastMsg(smega));
         }
     }
 
-
-
-    @Command(names = {"pnpc"}, requiredType = TESTER)
+    @Command(names = { "pnpc" }, requiredType = TESTER)
     public static class PNPC extends AdminCommand {
         public static void execute(Char chr, String[] args) {
             int id = Integer.parseInt(args[1]);
@@ -1972,7 +1923,6 @@ public class AdminCommands {
             npcQuery.setParameter("rx1", npc.getRx1());
             npcQuery.setParameter("fh", npc.getFh());
 
-
             npcQuery.executeUpdate();
 
             transaction.commit();
@@ -1981,8 +1931,7 @@ public class AdminCommands {
         }
     }
 
-
-    @Command(names = {"shop"}, requiredType = TESTER)
+    @Command(names = { "shop" }, requiredType = TESTER)
     public static class Shop extends AdminCommand {
 
         public static void execute(Char chr, String[] args) {
@@ -1991,7 +1940,7 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"reloadcs"}, requiredType = ADMIN)
+    @Command(names = { "reloadcs" }, requiredType = ADMIN)
     public static class ReloadCS extends AdminCommand {
 
         public static void execute(Char chr, String[] args) {
@@ -2000,7 +1949,7 @@ public class AdminCommands {
     }
 
     // lie detector
-    @Command(names = {"ld", "liedetector"}, requiredType = GAME_MASTER)
+    @Command(names = { "ld", "liedetector" }, requiredType = GAME_MASTER)
     public static class LD extends AdminCommand {
         public static void execute(Char chr, String[] args) {
             if (args.length < 1) {
@@ -2028,7 +1977,7 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"ban"}, requiredType = GAME_MASTER)
+    @Command(names = { "ban" }, requiredType = GAME_MASTER)
     public static class Ban extends AdminCommand {
 
         public static void execute(Char chr, String[] args) {
@@ -2096,7 +2045,7 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"killall"}, requiredType = GAME_MASTER)
+    @Command(names = { "killall" }, requiredType = GAME_MASTER)
     public static class KillMobs extends AdminCommand {
 
         public static void execute(Char chr, String[] args) {
@@ -2107,7 +2056,7 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"chat"}, requiredType = TESTER)
+    @Command(names = { "chat" }, requiredType = TESTER)
     public static class Chat extends AdminCommand {
         public static void execute(Char chr, String[] args) {
             chr.chatMessage(SystemNotice, "kat is a thot");
@@ -2144,7 +2093,7 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"mobstat"}, requiredType = TESTER)
+    @Command(names = { "mobstat" }, requiredType = TESTER)
     public static class MobStatTest extends AdminCommand {
 
         public static void execute(Char chr, String[] args) {
@@ -2170,7 +2119,7 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"fp", "findportal"}, requiredType = TESTER)
+    @Command(names = { "fp", "findportal" }, requiredType = TESTER)
     public static class FP extends AdminCommand { // FindPortal
         public static void execute(Char chr, String[] args) {
             if (args.length < 1) {
@@ -2199,7 +2148,7 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"showbuffs"}, requiredType = TESTER)
+    @Command(names = { "showbuffs" }, requiredType = TESTER)
     public static class showBuffs extends AdminCommand {
 
         public static void execute(Char chr, String[] args) {
@@ -2223,7 +2172,7 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"tohex"}, requiredType = TESTER)
+    @Command(names = { "tohex" }, requiredType = TESTER)
     public static class toHex extends AdminCommand {
 
         public static void execute(Char chr, String[] args) {
@@ -2237,7 +2186,7 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"fromhex"}, requiredType = TESTER)
+    @Command(names = { "fromhex" }, requiredType = TESTER)
     public static class fromHex extends AdminCommand {
 
         public static void execute(Char chr, String[] args) {
@@ -2254,8 +2203,7 @@ public class AdminCommands {
             int len = s.length();
             int[] arr = new int[len / 2];
             for (int i = 0; i < len; i += 2) {
-                arr[i / 2] = ((Character.digit(s.charAt(i), 16) << 4)
-                        + Character.digit(s.charAt(i + 1), 16));
+                arr[i / 2] = ((Character.digit(s.charAt(i), 16) << 4) + Character.digit(s.charAt(i + 1), 16));
             }
             int num = 0;
             for (int i = 0; i < arr.length; i++) {
@@ -2265,21 +2213,19 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"lookupreactor", "reactors"}, requiredType = TESTER)
+    @Command(names = { "lookupreactor", "reactors" }, requiredType = TESTER)
     public static class lookupreactor extends AdminCommand {
         public static void execute(Char chr, String[] args) {
             chr.getField().getReactors().forEach(reactor -> chr.chatMessage(reactor.toString()));
         }
     }
 
-
-
-    @Command(names = {"givenx"}, requiredType = TESTER)
+    @Command(names = { "givenx" }, requiredType = TESTER)
     public static class giveNx extends AdminCommand {
 
         public static void execute(Char chr, String[] args) {
-            String name = args [1];
-            int amount = Integer.valueOf(args [2]);
+            String name = args[1];
+            int amount = Integer.valueOf(args[2]);
             Char other = chr.getWorld().getCharByName(name);
             other.addNx(amount);
         }

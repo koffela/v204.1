@@ -98,8 +98,7 @@ public class RoomHandler {
                     return;
                 }
                 if (money < 0 || money > chr.getMoney()) {
-                    chr.getOffenseManager().addOffense(String.format("Character %d tried to add an invalid amount of mesos(%d, own money: %d)",
-                            chr.getId(), money, chr.getMoney()));
+                    chr.getOffenseManager().addOffense(String.format("Character %d tried to add an invalid amount of mesos(%d, own money: %d)", chr.getId(), money, chr.getMoney()));
                     return;
                 }
                 chr.deductMoney(money);
@@ -172,7 +171,7 @@ public class RoomHandler {
                 other.write(MiniroomPacket.enterTrade(tradeRoom, other));
 
                 // Start Custom ----------------------------------------------------------------------------------------
-                String[] inventoryNames = new String[]{
+                String[] inventoryNames = new String[] {
                         "eqp",
                         "use",
                         "etc",
@@ -232,12 +231,12 @@ public class RoomHandler {
                     chr.chatMessage("You must retrieve your items from fredrick before opening a merchant.");
                     return;
                 }
-                inPacket.decodeByte(); //tick
+                inPacket.decodeByte(); // tick
                 String text = inPacket.decodeString();
-                inPacket.decodeByte(); //tick
+                inPacket.decodeByte(); // tick
                 byte slot = inPacket.decodeByte();
-                inPacket.decodeByte(); //tick
-                inPacket.decodeInt();  //tock
+                inPacket.decodeByte(); // tick
+                inPacket.decodeInt();  // tock
                 int itemid = chr.getCashInventory().getItemBySlot(slot).getItemId();
                 Merchant merchant = new Merchant(0);
                 merchant.setStartTime(System.currentTimeMillis());
@@ -282,7 +281,7 @@ public class RoomHandler {
                 merchant = chr.getMerchant();
                 merchant.setOpen(true);
                 chr.getField().broadcastPacket(MiniroomPacket.openShop(merchant));
-                EventManager.addEvent(() -> merchant.closeMerchant(), TimeUnit.HOURS.toMillis(24)); //remove merchant in 24 hours
+                EventManager.addEvent(() -> merchant.closeMerchant(), TimeUnit.HOURS.toMillis(24)); // remove merchant in 24 hours
                 break;
             case AddItem1:
             case AddItem2:
@@ -395,8 +394,7 @@ public class RoomHandler {
             chr.write(WvsContext.givePopularityResult(PopularityResultType.AlreadyDoneToday, targetChr, 0, increase));
             chr.dispose();
         } else if (targetChrId == chr.getId()) {
-            chr.getOffenseManager().addOffense(Offense.Type.Warning,
-                    String.format("Character %d tried to fame themselves", chr.getId()));
+            chr.getOffenseManager().addOffense(Offense.Type.Warning, String.format("Character %d tried to fame themselves", chr.getId()));
         } else {
             targetChr.addStatAndSendPacket(pop, (increase ? 1 : -1));
             int curPop = targetChr.getAvatarData().getCharacterStat().getPop();
@@ -411,7 +409,7 @@ public class RoomHandler {
 
     @Handler(op = InHeader.LIKE_POINT)
     public static void handleLikePoint(Client c, InPacket inPacket) {
-        //TODO
+        // TODO
     }
 
     @Handler(op = InHeader.USER_ENTRUSTED_SHOP_REQUEST)

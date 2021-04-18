@@ -167,9 +167,7 @@ public class CashItemInfo {
     }
 
     public List<Integer> getOptions() {
-        return !(item instanceof Equip)
-                ? new ArrayList<>(Arrays.asList(0, 0, 0))
-                : ((Equip) item).getOptions().subList(0, 3); // take the first 3 options
+        return !(item instanceof Equip) ? new ArrayList<>(Arrays.asList(0, 0, 0)) : ((Equip) item).getOptions().subList(0, 3); // take the first 3 options
     }
 
     public long getId() {
@@ -190,8 +188,10 @@ public class CashItemInfo {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         CashItemInfo that = (CashItemInfo) o;
         return getItem().equals(that.getItem());
     }
@@ -212,8 +212,10 @@ public class CashItemInfo {
     /**
      * Creates a CashItemInfo from a given cash Item. If the Item is not a cash Item, returns null.
      *
-     * @param chr  the chr to which the items belongs to
-     * @param item the item from which the CashItemInfo should be created from
+     * @param chr
+     *            the chr to which the items belongs to
+     * @param item
+     *            the item from which the CashItemInfo should be created from
      * @return corresponding CashItemInfo
      */
     public static CashItemInfo fromItem(Char chr, Item item) {

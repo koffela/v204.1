@@ -27,7 +27,6 @@ public class ScriptHandler {
 
     private static final Logger log = Logger.getLogger(ScriptHandler.class);
 
-
     @Handler(op = InHeader.USER_SCRIPT_MESSAGE_ANSWER)
     public static void handleUserScriptMessageAnswer(Client c, InPacket inPacket) {
         Char chr = c.getChr();
@@ -35,9 +34,7 @@ public class ScriptHandler {
         byte lastType = inPacket.decodeByte();
         NpcMessageType nmt = smi.getNpcScriptInfo().getMessageType();
         if (nmt == null) {
-            nmt = lastType < NpcMessageType.values().length ?
-                    Arrays.stream(NpcMessageType.values()).filter(n -> n.getVal() == lastType).findAny().orElse(NpcMessageType.None) :
-                    NpcMessageType.None;
+            nmt = lastType < NpcMessageType.values().length ? Arrays.stream(NpcMessageType.values()).filter(n -> n.getVal() == lastType).findAny().orElse(NpcMessageType.None) : NpcMessageType.None;
         }
         if (nmt != NpcMessageType.Monologue && nmt != NpcMessageType.PlayMovieClip) {
             byte action = inPacket.decodeByte();
@@ -55,7 +52,8 @@ public class ScriptHandler {
                     answerVal = inPacket.decodeInt();
                 }
                 if (answerType == InGameDirectionAsk.PATTERN_INPUT_REQUEST) {
-                    if (success) chr.getScriptManager().setPatternInputCount(0);
+                    if (success)
+                        chr.getScriptManager().setPatternInputCount(0);
                     chr.getScriptManager().handleAction(nmt, (byte) (success ? 1 : 0), answerType.getVal());
                 } else {
                     chr.getScriptManager().setAnswerVal(answerVal);
@@ -78,9 +76,7 @@ public class ScriptHandler {
             }
             if (nmt == NpcMessageType.AskText && action != 0) {
                 chr.getScriptManager().handleAction(nmt, action, ans);
-            } else if ((nmt != NpcMessageType.AskNumber && nmt != NpcMessageType.AskMenu &&
-                    nmt != NpcMessageType.AskAvatar && nmt != NpcMessageType.AskAvatarZero &&
-                    nmt != NpcMessageType.AskSlideMenu) || hasAnswer) {
+            } else if ((nmt != NpcMessageType.AskNumber && nmt != NpcMessageType.AskMenu && nmt != NpcMessageType.AskAvatar && nmt != NpcMessageType.AskAvatarZero && nmt != NpcMessageType.AskSlideMenu) || hasAnswer) {
                 // else -> User pressed escape in a selection (choice) screen
                 chr.getScriptManager().handleAction(nmt, action, answer);
             } else {
@@ -88,7 +84,7 @@ public class ScriptHandler {
                 chr.getScriptManager().dispose(false);
             }
         } else {
-            chr.getScriptManager().handleAction(nmt, (byte) 1, 1); // Doesn't use  response nor answer
+            chr.getScriptManager().handleAction(nmt, (byte) 1, 1); // Doesn't use response nor answer
         }
     }
 
@@ -154,8 +150,7 @@ public class ScriptHandler {
         }
         RandomPortal.Type type = randomPortal.getAppearType();
         String script = type.getScript();
-        chr.getScriptManager().startScript(randomPortal.getAppearType().ordinal(), randomPortal.getObjectId(),
-                script, ScriptType.Portal);
+        chr.getScriptManager().startScript(randomPortal.getAppearType().ordinal(), randomPortal.getObjectId(), script, ScriptType.Portal);
         chr.dispose();
     }
 
@@ -184,22 +179,22 @@ public class ScriptHandler {
         switch (tab) {
             case 0: // Chapter 1
                 itemMap.put(ItemData.getItemDeepCopy(3700031), 1);  // Apprentice Hunter
-                itemMap.put(ItemData.getItemDeepCopy(4310029), 10); // Crusader Coins  x10
+                itemMap.put(ItemData.getItemDeepCopy(4310029), 10); // Crusader Coins x10
                 break;
             case 1: // Chapter 2
                 itemMap.put(ItemData.getItemDeepCopy(3700032), 1);  // Capable Hunter
-                itemMap.put(ItemData.getItemDeepCopy(4001832), 100);// Spell Traces  x100
-                itemMap.put(ItemData.getItemDeepCopy(4310029), 15); // Crusader Coins  x15
+                itemMap.put(ItemData.getItemDeepCopy(4001832), 100);// Spell Traces x100
+                itemMap.put(ItemData.getItemDeepCopy(4310029), 15); // Crusader Coins x15
                 break;
             case 2: // Chapter 3
                 itemMap.put(ItemData.getItemDeepCopy(3700033), 1);  // Veteran Hunter
                 itemMap.put(ItemData.getItemDeepCopy(2430668), 1);  // Silent Crusade Mastery Book
-                itemMap.put(ItemData.getItemDeepCopy(4310029), 20); // Crusader Coins  x20
+                itemMap.put(ItemData.getItemDeepCopy(4310029), 20); // Crusader Coins x20
                 break;
             case 3: // Chapter 4
                 itemMap.put(ItemData.getItemDeepCopy(3700034), 1);  // Superior Hunter
-                itemMap.put(ItemData.getItemDeepCopy(4001832), 500);// Spell Traces  x500
-                itemMap.put(ItemData.getItemDeepCopy(4310029), 30); // Crusader Coins  x30
+                itemMap.put(ItemData.getItemDeepCopy(4001832), 500);// Spell Traces x500
+                itemMap.put(ItemData.getItemDeepCopy(4310029), 30); // Crusader Coins x30
                 break;
         }
 

@@ -32,9 +32,9 @@ public class Beginner extends Job {
     public static final int THREE_SNAILS = 1000;
 
     private int[] addedSkills = new int[] {
-        RECOVERY,
-        NIMBLE_FEET,
-        THREE_SNAILS
+            RECOVERY,
+            NIMBLE_FEET,
+            THREE_SNAILS
     };
 
     public Beginner(Char chr) {
@@ -57,8 +57,6 @@ public class Beginner extends Job {
     public void handleAttack(Client c, AttackInfo attackInfo) {
         super.handleAttack(c, attackInfo);
     }
-
-
 
     public void handleBuff(Client c, InPacket inPacket, int skillID, byte slv) {
         Char chr = c.getChr();
@@ -131,10 +129,9 @@ public class Beginner extends Job {
         return super.isBuff(skillID) || Arrays.stream(buffs).anyMatch(b -> b == skillID);
     }
 
-    private int[] buffs = new int[]{
+    private int[] buffs = new int[] {
             NIMBLE_FEET,
     };
-
 
     @Override
     public void setCharCreationStats(Char chr) {

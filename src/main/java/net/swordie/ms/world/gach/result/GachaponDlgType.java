@@ -7,6 +7,7 @@ public enum GachaponDlgType {// or TicketEffect but nvm
     CHAIR(3),
     MOUNT(4),
     SPECIAL(5);// or you can call it powergach
+
     private final int type;
 
     private GachaponDlgType(final int type) {

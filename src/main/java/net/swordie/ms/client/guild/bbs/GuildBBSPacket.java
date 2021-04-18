@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * @author Sjonnie
- * Created on 8/12/2018.
+ *         Created on 8/12/2018.
  */
 public class GuildBBSPacket implements Encodable {
 

@@ -73,6 +73,7 @@ public class Item implements Serializable, Encodable {
             return Arrays.stream(Type.values()).filter(type -> type.getVal() == id).findFirst().orElse(null);
         }
     }
+
     public long getId() {
         return id;
     }
@@ -108,8 +109,7 @@ public class Item implements Serializable, Encodable {
     public Item() {
     }
 
-    public Item(int itemId, int bagIndex, long cashItemSerialNumber, FileTime dateExpire, InvType invType,
-                boolean isCash, Type type) {
+    public Item(int itemId, int bagIndex, long cashItemSerialNumber, FileTime dateExpire, InvType invType, boolean isCash, Type type) {
         this.itemId = itemId;
         this.bagIndex = bagIndex;
         this.cashItemSerialNumber = cashItemSerialNumber;
@@ -180,8 +180,7 @@ public class Item implements Serializable, Encodable {
             outPacket.encodeShort(getQuantity()); // nQuantity
             outPacket.encodeString(getOwner()); // sOwner
             outPacket.encodeShort(0); // flag
-            if (ItemConstants.isThrowingStar(getItemId()) || ItemConstants.isBullet(getItemId()) ||
-                    ItemConstants.isFamiliar(getItemId()) || getItemId() == 4001886) {
+            if (ItemConstants.isThrowingStar(getItemId()) || ItemConstants.isBullet(getItemId()) || ItemConstants.isFamiliar(getItemId()) || getItemId() == 4001886) {
                 outPacket.encodeLong(getId());
             }
             outPacket.encodeInt(0);// unk
@@ -222,24 +221,26 @@ public class Item implements Serializable, Encodable {
 
     @Override
     public String toString() {
-        return "Id: " + getId() + ", ItemId: " + getItemId() + ", Qty: " + getQuantity() + ", InvType: " + getInvType()
-                + ", BagIndex: " + getBagIndex();
+        return "Id: " + getId() + ", ItemId: " + getItemId() + ", Qty: " + getQuantity() + ", InvType: " + getInvType() + ", BagIndex: " + getBagIndex();
     }
 
     /**
      * Sends a packet to the given Char to show that this Item has updated.
-     * @param chr The Char to give the update to
+     * 
+     * @param chr
+     *            The Char to give the update to
      */
     public void updateToChar(Char chr) {
-        short bagIndex = (short) (getInvType() == EQUIPPED ? - getBagIndex() : getBagIndex());
-        chr.write(WvsContext.inventoryOperation(true, false, Add,
-                bagIndex, (short) 0, 0, this));
+        short bagIndex = (short) (getInvType() == EQUIPPED ? -getBagIndex() : getBagIndex());
+        chr.write(WvsContext.inventoryOperation(true, false, Add, bagIndex, (short) 0, 0, this));
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         Item item = (Item) o;
         return id == item.id && item.id == item.itemId;
     }

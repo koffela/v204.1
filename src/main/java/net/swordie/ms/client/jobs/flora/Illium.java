@@ -9,7 +9,7 @@ import net.swordie.ms.constants.JobConstants;
  */
 public class Illium extends Job {
 
-    private int[] buffs = new int[]{};
+    private int[] buffs = new int[] {};
 
     public Illium(Char chr) {
         super(chr);

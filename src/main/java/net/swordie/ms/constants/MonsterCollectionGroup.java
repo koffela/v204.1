@@ -4,14 +4,13 @@ import java.util.*;
 
 /**
  * @author Sjonnie
- * Created on 7/22/2018.
+ *         Created on 7/22/2018.
  */
 public class MonsterCollectionGroup {
     private Map<Integer, Integer> mobs = new HashMap<>();
     private boolean rewardClaimed;
     private int reward;
     private int rewardQuantity;
-
 
     public MonsterCollectionGroup() {
     }

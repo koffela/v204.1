@@ -39,30 +39,29 @@ import static net.swordie.ms.client.character.skills.temp.CharacterTemporaryStat
  */
 public class Mihile extends Job {
 
-    public static final int ROYAL_GUARD = 51001006; //Special Buff/Attack
+    public static final int ROYAL_GUARD = 51001006; // Special Buff/Attack
     public static final int ROYAL_GUARD_2 = 51001007;
     public static final int ROYAL_GUARD_3 = 51001008;
     public static final int ROYAL_GUARD_4 = 51001009;
     public static final int ROYAL_GUARD_5 = 51001010;
 
-    public static final int SWORD_BOOSTER = 51101003; //Buff
-    public static final int RALLY = 51101004; //Buff
+    public static final int SWORD_BOOSTER = 51101003; // Buff
+    public static final int RALLY = 51101004; // Buff
 
-    public static final int ENDURING_SPIRIT = 51111004; //Buff
-    public static final int SOUL_LINK = 51111008; //Special Buff (ON/OFF)
-    public static final int MAGIC_CRASH = 51111005; //Special Skill (Debuff Mobs)
-    public static final int ADVANCED_ROYAL_GUARD = 51110009; //Upgrade on Royal Guard
+    public static final int ENDURING_SPIRIT = 51111004; // Buff
+    public static final int SOUL_LINK = 51111008; // Special Buff (ON/OFF)
+    public static final int MAGIC_CRASH = 51111005; // Special Skill (Debuff Mobs)
+    public static final int ADVANCED_ROYAL_GUARD = 51110009; // Upgrade on Royal Guard
 
-    public static final int ROILING_SOUL = 51121006; //Buff (ON/OFF)
-    public static final int FOUR_POINT_ASSAULT = 51121007; //Special Attack (Accuracy Debuff)
-    public static final int RADIANT_CROSS = 51121009; //Special Attack (Accuracy Debuff)    Creates an Area of Effect
-    public static final int RADIANT_CROSS_AA = 51120057; //Area of Effect,  After Radiant Cross
-    public static final int CALL_OF_CYGNUS_MIHILE = 51121005; //Buff
+    public static final int ROILING_SOUL = 51121006; // Buff (ON/OFF)
+    public static final int FOUR_POINT_ASSAULT = 51121007; // Special Attack (Accuracy Debuff)
+    public static final int RADIANT_CROSS = 51121009; // Special Attack (Accuracy Debuff) Creates an Area of Effect
+    public static final int RADIANT_CROSS_AA = 51120057; // Area of Effect, After Radiant Cross
+    public static final int CALL_OF_CYGNUS_MIHILE = 51121005; // Buff
 
-    //Final Attack
+    // Final Attack
     public static final int FINAL_ATTACK_MIHILE = 51100002;
     public static final int ADVANCED_FINAL_ATTACK_MIHILE = 51120002;
-
 
     public static final int CHARGING_LIGHT = 51121052;
     public static final int QUEEN_OF_TOMORROW = 51121053;
@@ -96,8 +95,6 @@ public class Mihile extends Job {
         return id == JobConstants.JobEnum.NAMELESS_WARDEN.getJobId() || JobConstants.isMihile(id);
     }
 
-
-
     // Buff related methods --------------------------------------------------------------------------------------------
 
     public void handleBuff(Client c, InPacket inPacket, int skillID, byte slv) {
@@ -109,7 +106,7 @@ public class Mihile extends Job {
         Option o3 = new Option();
         Option o4 = new Option();
         switch (skillID) {
-            case ROYAL_GUARD:   //BuffStat 'ShieldAttack'  has something to do with this skill
+            case ROYAL_GUARD:   // BuffStat 'ShieldAttack' has something to do with this skill
             case ROYAL_GUARD_2:
             case ROYAL_GUARD_3:
             case ROYAL_GUARD_4:
@@ -132,7 +129,7 @@ public class Mihile extends Job {
                 o1.tTerm = si.getValue(time, slv);
                 tsm.putCharacterStatValue(IndiePAD, o1);
                 break;
-            case ENDURING_SPIRIT: // PDDR(DEF%) = x  |  AsrR & TerR = y & z
+            case ENDURING_SPIRIT: // PDDR(DEF%) = x | AsrR & TerR = y & z
                 o1.nValue = si.getValue(x, slv);
                 o1.nReason = skillID;
                 o1.tStart = (int) System.currentTimeMillis();
@@ -148,7 +145,7 @@ public class Mihile extends Job {
                 tsm.putCharacterStatValue(TerR, o3);
                 break;
             case SOUL_LINK: // (ON/OFF)
-                if(tsm.hasStatBySkillId(SOUL_LINK)) {
+                if (tsm.hasStatBySkillId(SOUL_LINK)) {
                     tsm.removeStatsBySkill(SOUL_LINK);
                     tsm.sendResetStatPacket();
                 } else {
@@ -160,12 +157,12 @@ public class Mihile extends Job {
                     o2.rOption = SOUL_LINK;
                     tsm.putCharacterStatValue(IndieDamR, o2);
                 }
-                if(soulLinkBuffsTimer != null && !soulLinkBuffsTimer.isDone()) {
+                if (soulLinkBuffsTimer != null && !soulLinkBuffsTimer.isDone()) {
                     soulLinkBuffsTimer.cancel(true);
                 }
                 giveSoulLinkBuffs();
 
-                if(soulLinkHPRegenTimer != null && !soulLinkHPRegenTimer.isDone()) {
+                if (soulLinkHPRegenTimer != null && !soulLinkHPRegenTimer.isDone()) {
                     soulLinkHPRegenTimer.cancel(true);
                 }
                 soulLinkHPRegen();
@@ -228,15 +225,15 @@ public class Mihile extends Job {
         return super.isBuff(skillID) || Arrays.stream(buffs).anyMatch(b -> b == skillID);
     }
 
-    private void giveRoyalGuardBuff(TemporaryStatManager tsm) { //TempStat  Shield Attack is Effect
+    private void giveRoyalGuardBuff(TemporaryStatManager tsm) { // TempStat Shield Attack is Effect
         Option o = new Option();
         Option o1 = new Option();
         Option o2 = new Option();
         SkillInfo rgi = SkillData.getSkillInfoById(ROYAL_GUARD);
         int amount = 1;
-        if(tsm.hasStat(RoyalGuardState)) {
+        if (tsm.hasStat(RoyalGuardState)) {
             amount = tsm.getOption(RoyalGuardState).xOption;
-            if(amount < royalGuardMaxCounter()) {
+            if (amount < royalGuardMaxCounter()) {
                 amount++;
             }
         }
@@ -261,10 +258,10 @@ public class Mihile extends Job {
 
     private int royalGuardMaxCounter() {
         int num = 3;
-        if(chr.hasSkill(ROYAL_GUARD)) {
+        if (chr.hasSkill(ROYAL_GUARD)) {
             num = 3;
         }
-        if(chr.hasSkill(ADVANCED_ROYAL_GUARD)) {
+        if (chr.hasSkill(ADVANCED_ROYAL_GUARD)) {
             num = 5;
         }
         return num;
@@ -275,19 +272,19 @@ public class Mihile extends Job {
         TemporaryStatManager tsm = chr.getTemporaryStatManager();
         SkillInfo si = SkillData.getSkillInfoById(ROYAL_GUARD);
         byte slv = (byte) si.getCurrentLevel();
-        if(tsm.getOption(RoyalGuardState).xOption == 1) {
+        if (tsm.getOption(RoyalGuardState).xOption == 1) {
             pad = 10;
         }
-        if(tsm.getOption(RoyalGuardState).xOption == 2) {
+        if (tsm.getOption(RoyalGuardState).xOption == 2) {
             pad = 15;
         }
-        if(tsm.getOption(RoyalGuardState).xOption == 3) {
+        if (tsm.getOption(RoyalGuardState).xOption == 3) {
             pad = 20;
         }
-        if(tsm.getOption(RoyalGuardState).xOption == 4) {
+        if (tsm.getOption(RoyalGuardState).xOption == 4) {
             pad = 25;
         }
-        if(tsm.getOption(RoyalGuardState).xOption == 5) {
+        if (tsm.getOption(RoyalGuardState).xOption == 5) {
             pad = 35;
         }
         return pad;
@@ -295,20 +292,19 @@ public class Mihile extends Job {
 
     private void giveSoulLinkBuffs() {
         TemporaryStatManager tsm = chr.getTemporaryStatManager();
-        if(chr != null && chr.hasSkill(SOUL_LINK) && tsm.hasStat(MichaelSoulLink)) {
+        if (chr != null && chr.hasSkill(SOUL_LINK) && tsm.hasStat(MichaelSoulLink)) {
             Skill skill = chr.getSkill(SOUL_LINK);
             SkillInfo si = SkillData.getSkillInfoById(skill.getSkillId());
             byte slv = (byte) skill.getCurrentLevel();
             Rect rect = chr.getPosition().getRectAround(si.getRects().get(0));
-            if(!chr.isLeft()) {
+            if (!chr.isLeft()) {
                 rect = rect.moveRight();
             }
             Party party = chr.getParty();
             int partySize = 0;
 
-
             // Party Member's buffs
-            if(party != null) {
+            if (party != null) {
 
                 for (PartyMember partyMember : party.getOnlineMembers()) {
                     Char partyChr = partyMember.getChr();
@@ -316,11 +312,11 @@ public class Mihile extends Job {
                     int partyChrX = partyChr.getPosition().getX();
                     int partyChrY = partyChr.getPosition().getY();
 
-                    if(partyChr.getId() == chr.getId() || JobConstants.isMihile(partyChr.getJob())) {   // Mihile doesn't get the PartyMember's Buffs
+                    if (partyChr.getId() == chr.getId() || JobConstants.isMihile(partyChr.getJob())) {   // Mihile doesn't get the PartyMember's Buffs
                         continue;
                     }
 
-                    if (partyChrX >= rect.getLeft() && partyChrY >= rect.getTop()       // if  Party Members in Range
+                    if (partyChrX >= rect.getLeft() && partyChrY >= rect.getTop()       // if Party Members in Range
                             && partyChrX <= rect.getRight() && partyChrY <= rect.getBottom()) {
 
                         Option o1 = new Option();
@@ -334,7 +330,7 @@ public class Mihile extends Job {
                         o1.cOption = chr.getId(); // Owner of Soul Link (Mihile's chr Id)
                         partyTSM.putCharacterStatValue(MichaelSoulLink, o1);
 
-                        if(chr.getSkill(ROYAL_GUARD) != null && tsm.hasStatBySkillId(ROYAL_GUARD) && !partyTSM.hasStatBySkillId(ROYAL_GUARD)) {
+                        if (chr.getSkill(ROYAL_GUARD) != null && tsm.hasStatBySkillId(ROYAL_GUARD) && !partyTSM.hasStatBySkillId(ROYAL_GUARD)) {
                             o2.nReason = ROYAL_GUARD;
                             o2.nValue = (int) (getRoyalGuardAttPower(chr) * ((double) si.getValue(x, slv) / 100));
                             o2.tStart = (int) System.currentTimeMillis();
@@ -342,7 +338,7 @@ public class Mihile extends Job {
                             partyTSM.putCharacterStatValue(IndiePAD, o2);
                             partyTSM.putCharacterStatValue(IndieMAD, o2);
                         }
-                        if(chr.getSkill(ENDURING_SPIRIT) != null && tsm.hasStatBySkillId(ENDURING_SPIRIT) && !partyTSM.hasStatBySkillId(ENDURING_SPIRIT)) {
+                        if (chr.getSkill(ENDURING_SPIRIT) != null && tsm.hasStatBySkillId(ENDURING_SPIRIT) && !partyTSM.hasStatBySkillId(ENDURING_SPIRIT)) {
                             Skill enduringSpirit = chr.getSkill(ENDURING_SPIRIT);
                             SkillInfo esInfo = SkillData.getSkillInfoById(enduringSpirit.getSkillId());
                             byte esLevel = (byte) enduringSpirit.getCurrentLevel();
@@ -365,7 +361,7 @@ public class Mihile extends Job {
                         partyTSM.sendSetStatPacket();
                         partySize++;
 
-                    } else {    // if  Party Members outside Range
+                    } else {    // if Party Members outside Range
                         partyTSM.removeStatsBySkill(SOUL_LINK);
                         partyTSM.removeStatsBySkill(ROYAL_GUARD);
                         partyTSM.removeStatsBySkill(ENDURING_SPIRIT);
@@ -384,7 +380,7 @@ public class Mihile extends Job {
 
             soulLinkBuffsTimer = EventManager.addEvent(this::giveSoulLinkBuffs, 1, TimeUnit.SECONDS);
         }
-        tsm.removeStatsBySkill(SOUL_LINK+100);
+        tsm.removeStatsBySkill(SOUL_LINK + 100);
         tsm.sendResetStatPacket();
     }
 
@@ -399,8 +395,6 @@ public class Mihile extends Job {
             soulLinkHPRegenTimer = EventManager.addEvent(this::soulLinkHPRegen, delay, TimeUnit.SECONDS);
         }
     }
-
-
 
     // Attack related methods ------------------------------------------------------------------------------------------
 
@@ -451,7 +445,7 @@ public class Mihile extends Job {
                         mts.addStatOptionsAndBroadcast(MobStat.ACC, o1);
                     }
                 }
-                if(chr.hasSkill(RADIANT_CROSS_AA)) {
+                if (chr.hasSkill(RADIANT_CROSS_AA)) {
                     Field field = chr.getField();
                     SkillInfo rca = SkillData.getSkillInfoById(RADIANT_CROSS_AA);
                     AffectedArea aa = AffectedArea.getAffectedArea(chr, attackInfo);
@@ -459,12 +453,12 @@ public class Mihile extends Job {
                     aa.setSkillID(RADIANT_CROSS_AA);
                     aa.setPosition(chr.getPosition());
                     Rect rect = aa.getPosition().getRectAround(si.getRects().get(0));
-                    if(!chr.isLeft()) {
+                    if (!chr.isLeft()) {
                         rect = rect.horizontalFlipAround(chr.getPosition().getX());
                     }
                     aa.setRect(rect);
                     aa.setFlip(!attackInfo.left);
-                    aa.setDelay((short) 7); //spawn delay
+                    aa.setDelay((short) 7); // spawn delay
                     field.spawnAffectedAreaAndRemoveOld(aa);
                 }
                 break;
@@ -506,12 +500,12 @@ public class Mihile extends Job {
     @Override
     public int getFinalAttackSkill() {
         Skill skill = getFinalAtkSkill();
-        if(skill != null) {
+        if (skill != null) {
             SkillInfo si = SkillData.getSkillInfoById(skill.getSkillId());
             byte slv = (byte) skill.getCurrentLevel();
             int proc = si.getValue(prop, slv);
 
-            if(Util.succeedProp(proc)) {
+            if (Util.succeedProp(proc)) {
                 return skill.getSkillId();
             }
         }
@@ -520,16 +514,14 @@ public class Mihile extends Job {
 
     private Skill getFinalAtkSkill() {
         Skill skill = null;
-        if(chr.hasSkill(FINAL_ATTACK_MIHILE)) {
+        if (chr.hasSkill(FINAL_ATTACK_MIHILE)) {
             skill = chr.getSkill(FINAL_ATTACK_MIHILE);
         }
-        if(chr.hasSkill(ADVANCED_FINAL_ATTACK_MIHILE)) {
+        if (chr.hasSkill(ADVANCED_FINAL_ATTACK_MIHILE)) {
             skill = chr.getSkill(ADVANCED_FINAL_ATTACK_MIHILE);
         }
         return skill;
     }
-
-
 
     // Skill related methods -------------------------------------------------------------------------------------------
 
@@ -553,14 +545,14 @@ public class Mihile extends Job {
             switch (skillID) {
                 case MAGIC_CRASH:
                     Rect rect = chr.getPosition().getRectAround(si.getRects().get(0));
-                    if(!chr.isLeft()) {
+                    if (!chr.isLeft()) {
                         rect = rect.moveRight();
                     }
-                    for(Life life : chr.getField().getLifesInRect(rect)) {
-                        if(life instanceof Mob && ((Mob) life).getHp() > 0) {
+                    for (Life life : chr.getField().getLifesInRect(rect)) {
+                        if (life instanceof Mob && ((Mob) life).getHp() > 0) {
                             Mob mob = (Mob) life;
                             MobTemporaryStat mts = mob.getTemporaryStat();
-                            if(Util.succeedProp(si.getValue(prop, slv))) {
+                            if (Util.succeedProp(si.getValue(prop, slv))) {
                                 mts.removeBuffs();
                                 o1.nOption = 1;
                                 o1.rOption = skillID;
@@ -574,8 +566,6 @@ public class Mihile extends Job {
         }
     }
 
-
-
     // Hit related methods ---------------------------------------------------------------------------------------------
 
     @Override
@@ -587,7 +577,7 @@ public class Mihile extends Job {
         }
         super.handleHit(c, inPacket, hitInfo);
     }
-    
+
     // Character creation related methods ---------------------------------------------------------------------------------------------
     @Override
     public void setCharCreationStats(Char chr) {

@@ -76,7 +76,9 @@ public class MatrixSkill implements Serializable {
         this.state = state;
     }
 
-    public boolean isActive() { return state == MatrixStateType.ACTIVE; }
+    public boolean isActive() {
+        return state == MatrixStateType.ACTIVE;
+    }
 
     public int getCoreID() {
         return coreID;
@@ -150,14 +152,20 @@ public class MatrixSkill implements Serializable {
         this.expirationDate = expirationDate;
     }
 
-    public int getSlot() { return slot; }
+    public int getSlot() {
+        return slot;
+    }
 
-    public void setSlot(int slot) { this.slot = slot; }
+    public void setSlot(int slot) {
+        this.slot = slot;
+    }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         MatrixSkill skill = (MatrixSkill) o;
         return id == skill.id && coreID == skill.coreID && skillID == skill.skillID && skillID2 == skill.skillID2 && skillID3 == skill.skillID3;
     }

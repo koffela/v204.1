@@ -32,21 +32,21 @@ import static net.swordie.ms.client.character.skills.temp.CharacterTemporaryStat
  * Created by MechAviv on 3/10/2019.
  */
 public class Jett extends Job {
-    public static final int GALACTIC_MIGHT = 5081023; //Buff
+    public static final int GALACTIC_MIGHT = 5081023; // Buff
 
-    public static final int BOUNTY_CHASER = 5701013; //Buff
-    public static final int STARLINE_TWO = 5701010; //Special Attack (Stun Debuff)
+    public static final int BOUNTY_CHASER = 5701013; // Buff
+    public static final int STARLINE_TWO = 5701010; // Special Attack (Stun Debuff)
 
-    public static final int TURRET_DEPLOYMENT = 5711001; //Summon
-    public static final int SLIPSTREAM_SUIT = 5711024; //Buff
+    public static final int TURRET_DEPLOYMENT = 5711001; // Summon
+    public static final int SLIPSTREAM_SUIT = 5711024; // Buff
 
-    public static final int HIGH_GRAVITY = 5721066; //Buff
-    public static final int MAPLE_WARRIOR = 5721000; //Buff
+    public static final int HIGH_GRAVITY = 5721066; // Buff
+    public static final int MAPLE_WARRIOR = 5721000; // Buff
     public static final int HEROS_WILL = 5721002;
 
     private int[] addedSkills = new int[] {};
 
-    private int[] buffs = new int[]{
+    private int[] buffs = new int[] {
             GALACTIC_MIGHT,
             BOUNTY_CHASER,
             TURRET_DEPLOYMENT,
@@ -57,7 +57,7 @@ public class Jett extends Job {
 
     public Jett(Char chr) {
         super(chr);
-        if(chr.getId() != 0 && isHandlerOfJob(chr.getJob())) {
+        if (chr.getId() != 0 && isHandlerOfJob(chr.getJob())) {
             for (int id : addedSkills) {
                 if (!chr.hasSkill(id)) {
                     Skill skill = SkillData.getSkillDeepCopyById(id);
@@ -149,7 +149,7 @@ public class Jett extends Job {
                 o3.tTerm = si.getValue(time, slv);
                 tsm.putCharacterStatValue(IndieCr, o3);
                 break;
-            case TURRET_DEPLOYMENT: //Stationary, Attacks
+            case TURRET_DEPLOYMENT: // Stationary, Attacks
                 summon = Summon.getSummonBy(c.getChr(), skillID, slv);
                 field = c.getChr().getField();
                 summon.setFlyMob(false);
@@ -184,17 +184,18 @@ public class Jett extends Job {
         Option o2 = new Option();
         Option o3 = new Option();
 
-        if(hasHitMobs) { }
+        if (hasHitMobs) {
+        }
 
         switch (attackInfo.skillId) {
             case STARLINE_TWO:
-                for(MobAttackInfo mai : attackInfo.mobAttackInfo) {
+                for (MobAttackInfo mai : attackInfo.mobAttackInfo) {
                     if (Util.succeedProp(si.getValue(hcProp, slv))) {
                         Mob mob = (Mob) chr.getField().getLifeByObjectID(mai.mobId);
                         if (mob == null) {
                             continue;
                         }
-                        if(!mob.isBoss()) {
+                        if (!mob.isBoss()) {
                             MobTemporaryStat mts = mob.getTemporaryStat();
                             o1.nOption = 1;
                             o1.rOption = skill.getSkillId();

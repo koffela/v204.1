@@ -9,7 +9,7 @@ import java.io.IOException;
  */
 public interface DatSerializable {
 
-    void write(DataOutputStream dos) throws IOException ;
+    void write(DataOutputStream dos) throws IOException;
 
-    DatSerializable load(DataInputStream dis) throws IOException ;
+    DatSerializable load(DataInputStream dis) throws IOException;
 }

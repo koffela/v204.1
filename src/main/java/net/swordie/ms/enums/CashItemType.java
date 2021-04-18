@@ -4,12 +4,12 @@ import java.util.*;
 
 /**
  * @author Sjonnie
- * Created on 7/4/2018.
+ *         Created on 7/4/2018.
  */
 public enum CashItemType {
     Req_WebShopOrderGetList(0),
     Req_LoadLocker(1),
-//    Req_LoadWish(2),
+    // Req_LoadWish(2),
     Req_Buy(2),
     Req_Gift(3),
     Req_SetWish(4),
@@ -85,7 +85,6 @@ public enum CashItemType {
     Req_TradeLogForAuction(76),
     Req_MoveToLockerFromAuction(77),
     Req_NexonStarCouponUse(78),
-
 
     Res_CharacterSaleSuccess(0),
     Res_CharacterSaleFail(1),
@@ -218,7 +217,6 @@ public enum CashItemType {
     Res_LockerTransfer_Failed(131),
     Res_MovoCashItemToLockerFromAuction_Done(132),
     Res_MovoCashItemToLockerFromAuction_Failed(133),
-
 
     FailReason_Unknown(0),
     FailReason_Timeout(1),

@@ -23,11 +23,12 @@ import net.swordie.ms.connection.InPacket;
  * Represents a net.swordie.ms.connection.packet handler for a received MapleStory net.swordie.ms.connection.packet.
  * 
  * @author Zygon
- * @param <E> specific type of NettyClient -> more than likely the inheritance
+ * @param <E>
+ *            specific type of NettyClient -> more than likely the inheritance
  */
 public interface PacketHandler<E extends NettyClient> {
-    
+
     boolean validateState(E c);
-    
+
     void handle(E c, InPacket r);
 }

@@ -40,9 +40,11 @@ public class VCore {
     public static boolean isBoostNode(int coreID) {
         return getCore(coreID).getType() == BOOST;
     }
+
     public static boolean isSpecialNode(int coreID) {
         return getCore(coreID).getType() == SPECIAL;
     }
+
     public static boolean isExpNode(int coreID) {
         return getCore(coreID).getType() == EXP;
     }
@@ -117,8 +119,7 @@ public class VCore {
     public static List<VCoreData> getClassNodes() {
         List<VCoreData> coreData = new ArrayList<>();
         for (VCoreData core : getSkillNodes()) {
-            if (core.getJobs().contains("warrior") || core.getJobs().contains("magician") || core.getJobs().contains("archer")
-                    || core.getJobs().contains("rogue") ||core.getJobs().contains("pirate")) {
+            if (core.getJobs().contains("warrior") || core.getJobs().contains("magician") || core.getJobs().contains("archer") || core.getJobs().contains("rogue") || core.getJobs().contains("pirate")) {
                 coreData.add(core);
             }
         }
@@ -128,8 +129,7 @@ public class VCore {
     public static List<VCoreData> getJobNodes() {
         List<VCoreData> coreData = new ArrayList<>();
         for (VCoreData core : getSkillNodes()) {
-            if (!core.getJobs().contains("all") && !core.getJobs().contains("none") && !core.getJobs().contains("warrior") && !core.getJobs().contains("magician")
-                    && !core.getJobs().contains("archer") && !core.getJobs().contains("rogue") && !core.getJobs().contains("pirate")) {
+            if (!core.getJobs().contains("all") && !core.getJobs().contains("none") && !core.getJobs().contains("warrior") && !core.getJobs().contains("magician") && !core.getJobs().contains("archer") && !core.getJobs().contains("rogue") && !core.getJobs().contains("pirate")) {
                 coreData.add(core);
             }
         }
@@ -154,7 +154,7 @@ public class VCore {
             coreData.setCoreID(Integer.parseInt(XMLApi.getNamedAttribute(coreNode, "name")));
             for (Node core : XMLApi.getAllChildren(coreNode)) {
                 String name = XMLApi.getNamedAttribute(core, "name");
-                String value =  XMLApi.getNamedAttribute(core, "value");
+                String value = XMLApi.getNamedAttribute(core, "value");
                 switch (name) {
                     case "type":
                         coreData.setType(Byte.parseByte(value));
@@ -173,7 +173,7 @@ public class VCore {
                         break;
                     case "connectSkill":
                         for (Node connectedSkill : XMLApi.getAllChildren(core)) {
-                            String skillID =  XMLApi.getNamedAttribute(connectedSkill, "value");
+                            String skillID = XMLApi.getNamedAttribute(connectedSkill, "value");
                             if (Util.isNumber(skillID)) {
                                 coreData.addConnectedSkill(Integer.parseInt(skillID));
                             }
@@ -191,7 +191,7 @@ public class VCore {
                                 case "cond":
                                     for (Node cond : XMLApi.getAllChildren(opt)) {
                                         String condName = XMLApi.getNamedAttribute(cond, "name");
-                                        String condValue =  XMLApi.getNamedAttribute(cond, "value");
+                                        String condValue = XMLApi.getNamedAttribute(cond, "value");
                                         switch (condName) {
                                             case "type":
                                                 coreOption.setCondType(condValue);
@@ -217,7 +217,7 @@ public class VCore {
                                 case "effect":
                                     for (Node effect : XMLApi.getAllChildren(opt)) {
                                         String effName = XMLApi.getNamedAttribute(effect, "name");
-                                        String effValue =  XMLApi.getNamedAttribute(effect, "value");
+                                        String effValue = XMLApi.getNamedAttribute(effect, "value");
                                         switch (effName) {
                                             case "type":
                                                 coreOption.setEffectType(effValue);
@@ -363,7 +363,6 @@ public class VCore {
                     data.loadFromDat(dis);
                     vcore.put(data.getCoreID(), data);
                 }
-
 
                 // Enforcement Data
                 for (int i = 0; i < 4; i++) {

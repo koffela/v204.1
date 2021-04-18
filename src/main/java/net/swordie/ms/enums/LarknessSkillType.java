@@ -20,9 +20,10 @@ public enum LarknessSkillType {
         this.type = type;
     }
 
-    public int getType(){
+    public int getType() {
         return type;
     }
+
     public static LarknessSkillType getByVal(int val) {
         return Util.findWithPred(Arrays.asList(values()), stat -> stat.getType() == val);
     }

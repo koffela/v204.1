@@ -16,6 +16,7 @@ public enum AssistType {
     Bodyguard(9),
     Jaguar(10),
     ;
+
     private byte val;
 
     AssistType(int val) {

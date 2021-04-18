@@ -8,7 +8,7 @@ import net.swordie.ms.util.Position;
 
 /**
  * @author Sjonnie
- * Created on 8/19/2018.
+ *         Created on 8/19/2018.
  */
 public class FieldAttackObj extends Life implements Encodable {
 

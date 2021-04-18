@@ -56,10 +56,9 @@ public class Zero extends Job {
     public static final int BURST_STEP = 100001266;
     public static final int BURST_LEAP = 100001269;
 
-
-    public static final int DIVINE_FORCE = 100001263; //Aura (Unlimited Duration)
-    public static final int DIVINE_SPEED = 100001264; //Aura (Unlimited Duration)
-    public static final int RHINNES_PROTECTION = 100001268; //Buff
+    public static final int DIVINE_FORCE = 100001263; // Aura (Unlimited Duration)
+    public static final int DIVINE_SPEED = 100001264; // Aura (Unlimited Duration)
+    public static final int RHINNES_PROTECTION = 100001268; // Buff
 
     public static final int TIME_HOLDING = 100001274;
     public static final int TIME_HOLDING_2 = 100001281;
@@ -70,17 +69,17 @@ public class Zero extends Job {
     public static final int DOUBLE_TIME_ALPHA = 100000276;
     public static final int DOUBLE_TIME_BETA = 100000277;
 
-    public static final int AIR_RIOT = 101000101; //Special Attack (Stun Debuff)
-    public static final int THROWING_WEAPON = 101100100; //Special Attack (Throw Sword)
-    public static final int ADVANCED_THROWING_WEAPON = 101100101; //Special Attack (Throw Sword)
+    public static final int AIR_RIOT = 101000101; // Special Attack (Stun Debuff)
+    public static final int THROWING_WEAPON = 101100100; // Special Attack (Throw Sword)
+    public static final int ADVANCED_THROWING_WEAPON = 101100101; // Special Attack (Throw Sword)
     public static final int STORM_BREAK = 101120202;
     public static final int STORM_BREAK_INIT = 101120203;
     public static final int ADV_EARTH_BREAK = 101120104;
     public static final int ADV_STORM_BREAK = 101120204;
-    public static final int ADV_EARTH_BREAK_SHOCK_INIT = 101120105; //Attack to initialise the Shockwave
-    public static final int ADV_STORM_BREAK_SHOCK_INIT = 101120205; //Attack to initialise the Shockwave
-    public static final int ADV_EARTH_BREAK_SHOCKWAVE = 101120106; //Tile Skill
-    public static final int ADV_STORM_BREAK_SHOCKWAVE = 101120206; //Tile Skill
+    public static final int ADV_EARTH_BREAK_SHOCK_INIT = 101120105; // Attack to initialise the Shockwave
+    public static final int ADV_STORM_BREAK_SHOCK_INIT = 101120205; // Attack to initialise the Shockwave
+    public static final int ADV_EARTH_BREAK_SHOCKWAVE = 101120106; // Tile Skill
+    public static final int ADV_STORM_BREAK_SHOCKWAVE = 101120206; // Tile Skill
     public static final int DIVINE_LEER = 101120207;
     public static final int CRITICAL_BIND = 101120110;
     public static final int IMMUNE_BARRIER = 101120109;
@@ -108,57 +107,57 @@ public class Zero extends Job {
     private int doubleTimePrevSkill = 0;
 
     public static int getAlphaOrBetaSkill(int skillID) {
-        switch(skillID) {
-            case 101001200: //Moon Strike
-            case 101000200: //Piercing Thrust
-            case 101000201: //Shadow Strike
-            case 101000202: //Shadow Strike
+        switch (skillID) {
+            case 101001200: // Moon Strike
+            case 101000200: // Piercing Thrust
+            case 101000201: // Shadow Strike
+            case 101000202: // Shadow Strike
 
-            case 101101200: //Flash Assault
-            case 101100200: //Spin Cutter
-            case 101100201: //Adv Spin Cutter
-            case 101100202: //Adv Blade Ring
+            case 101101200: // Flash Assault
+            case 101100200: // Spin Cutter
+            case 101100201: // Adv Spin Cutter
+            case 101100202: // Adv Blade Ring
 
-            case 101110200: //Grand Rolling Cross
-            case 101110201: //Grand Rolling Cross
-            case 101111200: //Rolling Cross
-            case 101110202: //Rolling Assault
-            case 101110203: //Advanced Rolling Assault
-            case 101110204: //Advanced Rolling Assault
+            case 101110200: // Grand Rolling Cross
+            case 101110201: // Grand Rolling Cross
+            case 101111200: // Rolling Cross
+            case 101110202: // Rolling Assault
+            case 101110203: // Advanced Rolling Assault
+            case 101110204: // Advanced Rolling Assault
 
-            case 101120200: //Wind Cutter
-            case 101120201: //Wind Striker
-            case 101120202: //Storm Break
-            case 101120203: //Storm Break
-            case 101120204: //Advanced Storm Break
-            case 101120205: //Severe Storm Break (Tile)
-            case 101120206: //Severe Storm Break
-            case 101121101: //Hurricane Wind
-            case 101121200: //Wind Cutter:
-                return 1; //Alpha skills
+            case 101120200: // Wind Cutter
+            case 101120201: // Wind Striker
+            case 101120202: // Storm Break
+            case 101120203: // Storm Break
+            case 101120204: // Advanced Storm Break
+            case 101120205: // Severe Storm Break (Tile)
+            case 101120206: // Severe Storm Break
+            case 101121101: // Hurricane Wind
+            case 101121200: // Wind Cutter:
+                return 1; // Alpha skills
 
-            case 101001100: //Rising Slash
-            case 101000100: //Air Raid
-            case 101000101: //Air Riot
-            case 101000102: //Air Riot
+            case 101001100: // Rising Slash
+            case 101000100: // Air Raid
+            case 101000101: // Air Riot
+            case 101000102: // Air Riot
 
-            case 101101100: //Flash Cut
-            case 101100100: //Throwing Weapon
-            case 101100101: //Adv. Throwing Weapon
+            case 101101100: // Flash Cut
+            case 101100100: // Throwing Weapon
+            case 101100101: // Adv. Throwing Weapon
 
-            case 101111100: //Spin Driver
-            case 101110101: //Wheel Wind
-            case 101110102: //Adv Wheel Wind
-            case 101110104: //Adv Blade Tempest
+            case 101111100: // Spin Driver
+            case 101110101: // Wheel Wind
+            case 101110102: // Adv Wheel Wind
+            case 101110104: // Adv Blade Tempest
 
-            case 101121100: //Giga Crash
-            case 101120100: //Falling Star
-            case 101120101: //Falling Star
-            case 101120102: //Earth Break
-            case 101120103: //Groundbreaker
-            case 101120104: //Adv Earth Break
-            case 101120105: //Mega Groundbreaker (Tile)
-                return 2; //Beta skills
+            case 101121100: // Giga Crash
+            case 101120100: // Falling Star
+            case 101120101: // Falling Star
+            case 101120102: // Earth Break
+            case 101120103: // Groundbreaker
+            case 101120104: // Adv Earth Break
+            case 101120105: // Mega Groundbreaker (Tile)
+                return 2; // Beta skills
 
         }
         return skillID; // no original skill linked with this one
@@ -166,7 +165,7 @@ public class Zero extends Job {
 
     public Zero(Char chr) {
         super(chr);
-        if(chr.getId() != 0 && isHandlerOfJob(chr.getJob())) {
+        if (chr.getId() != 0 && isHandlerOfJob(chr.getJob())) {
             for (int id : addedSkills) {
                 if (!chr.hasSkill(id)) {
                     Skill skill = SkillData.getSkillDeepCopyById(id);
@@ -198,7 +197,7 @@ public class Zero extends Job {
         if (level > 100 && (level % 10) % 3 == 0) {
             sp = 6; // double sp on levels ending in 3/6/9
             if (level == 110) {
-                chr.getQuestManager().completeQuest(QuestConstants.ZERO_WEAPON_WINDOW_QUEST); //enables weapon button
+                chr.getQuestManager().completeQuest(QuestConstants.ZERO_WEAPON_WINDOW_QUEST); // enables weapon button
                 Quest q = QuestData.createQuestFromId(QuestConstants.ZERO_SET_QUEST);
                 q.setQrValue(String.valueOf(0));
                 chr.getQuestManager().addQuest(q);
@@ -260,8 +259,6 @@ public class Zero extends Job {
         chr.write(WvsContext.statChanged(stats));
     }
 
-
-
     // Buff related methods --------------------------------------------------------------------------------------------
 
     public void handleBuff(Client c, InPacket inPacket, int skillID, byte slv) {
@@ -276,39 +273,39 @@ public class Zero extends Job {
         Option o7 = new Option();
         switch (skillID) {
             case DIVINE_FORCE:
-                if(tsm.hasStatBySkillId(skillID)) {
+                if (tsm.hasStatBySkillId(skillID)) {
                     tsm.removeStatsBySkill(skillID);
                 } else {
                     o1.nReason = skillID;
                     o1.nValue = si.getValue(indieAsrR, slv);
                     o1.tStart = (int) System.currentTimeMillis();
                     o1.tTerm = 0;
-                    tsm.putCharacterStatValue(IndieAsrR, o1); //Indie
+                    tsm.putCharacterStatValue(IndieAsrR, o1); // Indie
                     o2.nReason = skillID;
                     o2.nValue = si.getValue(indieMad, slv);
                     o2.tStart = (int) System.currentTimeMillis();
                     o2.tTerm = 0;
-                    tsm.putCharacterStatValue(IndieMAD, o2); //Indie
+                    tsm.putCharacterStatValue(IndieMAD, o2); // Indie
                     o3.nReason = skillID;
                     o3.nValue = si.getValue(indiePad, slv);
                     o3.tStart = (int) System.currentTimeMillis();
                     o3.tTerm = 0;
-                    tsm.putCharacterStatValue(IndiePAD, o3); //Indie
+                    tsm.putCharacterStatValue(IndiePAD, o3); // Indie
                     o4.nReason = skillID;
                     o4.nValue = si.getValue(indieMdd, slv);
                     o4.tStart = (int) System.currentTimeMillis();
                     o4.tTerm = 0;
-                    tsm.putCharacterStatValue(IndieMDD, o4); //Indie
+                    tsm.putCharacterStatValue(IndieMDD, o4); // Indie
                     o5.nReason = skillID;
                     o5.nValue = si.getValue(indiePdd, slv);
                     o5.tStart = (int) System.currentTimeMillis();
                     o5.tTerm = 0;
-                    tsm.putCharacterStatValue(IndiePDD, o5); //Indie
+                    tsm.putCharacterStatValue(IndiePDD, o5); // Indie
                     o6.nReason = skillID;
                     o6.nValue = si.getValue(indieTerR, slv);
                     o6.tStart = (int) System.currentTimeMillis();
                     o6.tTerm = 0;
-                    tsm.putCharacterStatValue(IndieTerR, o6); //Indie
+                    tsm.putCharacterStatValue(IndieTerR, o6); // Indie
                     o7.nOption = 1;
                     o7.rOption = skillID;
                     o7.tOption = 0;
@@ -316,34 +313,34 @@ public class Zero extends Job {
                 }
                 break;
             case DIVINE_SPEED:
-                if(tsm.hasStatBySkillId(skillID)) {
+                if (tsm.hasStatBySkillId(skillID)) {
                     tsm.removeStatsBySkill(skillID);
                 } else {
                     o1.nReason = skillID;
                     o1.nValue = si.getValue(indieAcc, slv);
                     o1.tStart = (int) System.currentTimeMillis();
                     o1.tTerm = si.getValue(time, slv);
-                    tsm.putCharacterStatValue(IndieACC, o1); //Indie
+                    tsm.putCharacterStatValue(IndieACC, o1); // Indie
                     o2.nReason = skillID;
                     o2.nValue = si.getValue(indieBooster, slv);
                     o2.tStart = (int) System.currentTimeMillis();
                     o2.tTerm = si.getValue(time, slv);
-                    tsm.putCharacterStatValue(IndieBooster, o2); //Indie
+                    tsm.putCharacterStatValue(IndieBooster, o2); // Indie
                     o3.nReason = skillID;
                     o3.nValue = si.getValue(indieEva, slv);
                     o3.tStart = (int) System.currentTimeMillis();
                     o3.tTerm = si.getValue(time, slv);
-                    tsm.putCharacterStatValue(IndieEVA, o3); //Indie
+                    tsm.putCharacterStatValue(IndieEVA, o3); // Indie
                     o4.nReason = skillID;
                     o4.nValue = si.getValue(indieJump, slv);
                     o4.tStart = (int) System.currentTimeMillis();
                     o4.tTerm = si.getValue(time, slv);
-                    tsm.putCharacterStatValue(IndieJump, o4); //Indie
+                    tsm.putCharacterStatValue(IndieJump, o4); // Indie
                     o5.nReason = skillID;
                     o5.nValue = si.getValue(indieSpeed, slv);
                     o5.tStart = (int) System.currentTimeMillis();
                     o5.tTerm = si.getValue(time, slv);
-                    tsm.putCharacterStatValue(IndieSpeed, o5); //Indie
+                    tsm.putCharacterStatValue(IndieSpeed, o5); // Indie
                     o6.nOption = 1;
                     o6.rOption = skillID;
                     o6.tOption = 0;
@@ -355,7 +352,7 @@ public class Zero extends Job {
                 o1.nValue = si.getValue(x, slv);
                 o1.tStart = (int) System.currentTimeMillis();
                 o1.tTerm = si.getValue(time, slv);
-                tsm.putCharacterStatValue(IndieStatR, o1); //Indie
+                tsm.putCharacterStatValue(IndieStatR, o1); // Indie
                 break;
 
             case TIME_HOLDING:
@@ -364,7 +361,7 @@ public class Zero extends Job {
                 o1.tOption = si.getValue(time, slv);
                 tsm.putCharacterStatValue(NotDamaged, o1);
 
-                if(chr.getStat(Stat.level) >= 200) {
+                if (chr.getStat(Stat.level) >= 200) {
                     o2.nOption = si.getValue(y, slv);
                     o2.rOption = TIME_HOLDING_2;
                     o2.tOption = si.getValue(x, slv);
@@ -393,12 +390,12 @@ public class Zero extends Job {
                 o1.nValue = 4;
                 o1.tStart = (int) System.currentTimeMillis();
                 o1.tTerm = 2400;
-                tsm.putCharacterStatValue(IndiePADR, o1); //Indie
+                tsm.putCharacterStatValue(IndiePADR, o1); // Indie
                 o2.nReason = skillID;
                 o2.nValue = 4;
                 o2.tStart = (int) System.currentTimeMillis();
                 o2.tTerm = 2400;
-                tsm.putCharacterStatValue(IndieMADR, o2); //Indie
+                tsm.putCharacterStatValue(IndieMADR, o2); // Indie
                 break;
         }
         tsm.sendSetStatPacket();
@@ -407,8 +404,6 @@ public class Zero extends Job {
     public boolean isBuff(int skillID) {
         return super.isBuff(skillID) || Arrays.stream(buffs).anyMatch(b -> b == skillID);
     }
-
-
 
     // Attack related methods ------------------------------------------------------------------------------------------
 
@@ -427,16 +422,16 @@ public class Zero extends Job {
             skillID = skill.getSkillId();
         }
 
-        if(getAlphaOrBetaSkill(skillID) == 1) {
-            if(hasHitMobs) {
+        if (getAlphaOrBetaSkill(skillID) == 1) {
+            if (hasHitMobs) {
                 incrementDoubleTimeAlpha(skillID);
             }
 
             applyDivineLeerOnMob(attackInfo, skillID);
         }
 
-        if(getAlphaOrBetaSkill(skillID) == 2) {
-            if(hasHitMobs) {
+        if (getAlphaOrBetaSkill(skillID) == 2) {
+            if (hasHitMobs) {
                 incrementDoubleTimeBeta(skillID);
             }
 
@@ -518,7 +513,7 @@ public class Zero extends Job {
                 mts.addStatOptionsAndBroadcast(MobStat.Freeze, o);
                 o1.nOption = si.getValue(SkillStat.x, slv);
                 o1.rOption = skillID;
-                o1.tOption = 4;//   si.getValue(time, slv);
+                o1.tOption = 4;// si.getValue(time, slv);
                 mts.addStatOptionsAndBroadcast(MobStat.AddDamParty, o1);
             }
         }
@@ -610,8 +605,6 @@ public class Zero extends Job {
         return 0;
     }
 
-
-
     // Skill related methods -------------------------------------------------------------------------------------------
 
     @Override
@@ -620,7 +613,7 @@ public class Zero extends Job {
         Char chr = c.getChr();
         Skill skill = chr.getSkill(skillID);
         SkillInfo si = null;
-        if(skill != null) {
+        if (skill != null) {
             si = SkillData.getSkillInfoById(skillID);
         }
         chr.chatMessage(ChatType.Mob, "SkillID: " + skillID);
@@ -630,7 +623,7 @@ public class Zero extends Job {
             Option o1 = new Option();
             Option o2 = new Option();
             Option o3 = new Option();
-            switch(skillID) {
+            switch (skillID) {
                 case THROWING_WEAPON:
                 case ADVANCED_THROWING_WEAPON:
                     Summon summon = Summon.getSummonBy(chr, skillID, slv);
@@ -655,33 +648,31 @@ public class Zero extends Job {
         }
     }
 
-
-
     // Hit related methods ---------------------------------------------------------------------------------------------
 
     @Override
     public void handleHit(Client c, InPacket inPacket, HitInfo hitInfo) {
         TemporaryStatManager tsm = chr.getTemporaryStatManager();
         Skill immuneBarrier = chr.getSkill(IMMUNE_BARRIER);
-        if(immuneBarrier == null) {
+        if (immuneBarrier == null) {
             return;
         }
         byte slv = (byte) immuneBarrier.getCurrentLevel();
         SkillInfo si = SkillData.getSkillInfoById(IMMUNE_BARRIER);
-        if(Util.succeedProp(si.getValue(prop, slv))) {
+        if (Util.succeedProp(si.getValue(prop, slv))) {
             Option o = new Option(IMMUNE_BARRIER, slv);
             int max = (int) (chr.getStat(Stat.mhp) * (si.getValue(x, slv) / 100D));
             o.nOption = max;
             o.xOption = max;
             chr.getTemporaryStatManager().putCharacterStatValue(ImmuneBarrier, o);
         }
-        if(tsm.hasStat(ImmuneBarrier)) {
+        if (tsm.hasStat(ImmuneBarrier)) {
             Option o = tsm.getOption(ImmuneBarrier);
             int maxSoakDamage = o.nOption;
             int newDamage = hitInfo.hpDamage - maxSoakDamage < 0 ? 0 : hitInfo.hpDamage - maxSoakDamage;
             o.nOption = maxSoakDamage - (hitInfo.hpDamage - newDamage); // update soak value
             hitInfo.hpDamage = newDamage;
-            o.tOption = si.getValue(time, slv); //added duration
+            o.tOption = si.getValue(time, slv); // added duration
             tsm.putCharacterStatValue(ImmuneBarrier, o);
             tsm.sendSetStatPacket();
         }

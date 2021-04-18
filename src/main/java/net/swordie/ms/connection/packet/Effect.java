@@ -1,6 +1,5 @@
 package net.swordie.ms.connection.packet;
 
-
 import net.swordie.ms.client.character.Char;
 import net.swordie.ms.client.jobs.adventurer.Thief;
 import net.swordie.ms.client.jobs.adventurer.Warrior;
@@ -74,12 +73,12 @@ public class Effect {
                     outPacket.encodeInt(0);
                     outPacket.encodeInt(0);
                     outPacket.encodeInt(0);
-                } else if(getArg1() == BattleMage.DARK_SHOCK) {
+                } else if (getArg1() == BattleMage.DARK_SHOCK) {
                     outPacket.encodeInt(getArg2()); // char lvl
                     outPacket.encodeByte(getArg3()); // slv
-                    outPacket.encodePositionInt(new Position(getArg4(), getArg5())); // Origin Position -  arg4 = x, arg5 = y
-                    outPacket.encodePositionInt(new Position(getArg6(), getArg7())); // Destination Position -  arg6 = x, arg7 = y
-                } else if (getArg1() == 80002206|| getArg1() == 80000257 || getArg1() == 80000260 || getArg1() == 80002599) {
+                    outPacket.encodePositionInt(new Position(getArg4(), getArg5())); // Origin Position - arg4 = x, arg5 = y
+                    outPacket.encodePositionInt(new Position(getArg6(), getArg7())); // Destination Position - arg6 = x, arg7 = y
+                } else if (getArg1() == 80002206 || getArg1() == 80000257 || getArg1() == 80000260 || getArg1() == 80002599) {
                     outPacket.encodeInt(0);
                     outPacket.encodeInt(0);
                     outPacket.encodeInt(0);
@@ -95,13 +94,14 @@ public class Effect {
                     outPacket.encodeInt(item.getLeft()); // Item ID
                     outPacket.encodeInt(item.getRight()); // Quantity
                 }
-                if (getList().size() <= 0) outPacket.encodeString("");
+                if (getList().size() <= 0)
+                    outPacket.encodeString("");
                 break;
             case TextEffect:
                 outPacket.encodeString(getString());
                 outPacket.encodeInt(getArg1()); // letter delay
                 outPacket.encodeInt(getArg2()); // box duration
-                outPacket.encodeInt(getArg3()); // Positioning on Client  ( 4 = middle )
+                outPacket.encodeInt(getArg3()); // Positioning on Client ( 4 = middle )
 
                 outPacket.encodeInt(getArg4()); // xPos
                 outPacket.encodeInt(getArg5()); // yPos
@@ -156,20 +156,20 @@ public class Effect {
                 outPacket.encodeInt(getArg1()); // Number on Arrow
                 break;
             case JewelCraft:
-                outPacket.encodeByte(getArg1()); // Result  0,2 = Success,     5 = Unk error,      Other = Fail
+                outPacket.encodeByte(getArg1()); // Result 0,2 = Success, 5 = Unk error, Other = Fail
                 outPacket.encodeInt(getArg2()); // Item ID
                 break;
             case AswanSiegeAttack:
-                outPacket.encodeByte(getArg1()); // 0 = Red Colour,     1 = Orange Colour
+                outPacket.encodeByte(getArg1()); // 0 = Red Colour, 1 = Orange Colour
                 break;
             case BlindEffect:
-                outPacket.encodeByte(getArg1()); //  true/false
+                outPacket.encodeByte(getArg1()); // true/false
                 break;
             case ItemMaker:
-                outPacket.encodeInt(getArg1());  // success or failure      0 = Success,  1 = Failure
+                outPacket.encodeInt(getArg1());  // success or failure 0 = Success, 1 = Failure
                 break;
             case IncDecHPEffect:
-                outPacket.encodeByte(getArg1()); // amount being healed     0 = Miss
+                outPacket.encodeByte(getArg1()); // amount being healed 0 = Miss
                 break;
             case AvatarOriented:
                 outPacket.encodeString(getString());
@@ -268,14 +268,14 @@ public class Effect {
         } else if (SkillConstants.isSuperNovaSkill(skillID)) {
             outPacket.encodeInt(getArg7()); // ptStartX
             outPacket.encodeInt(getArg8()); // ptStartY
-        } else if (skillID == 37110004|| skillID == 37111000 || skillID == 37111003 || skillID == 37110001 || skillID == 37101001 || skillID == 37100002 || skillID == 37000010 || skillID == 37000985) {
+        } else if (skillID == 37110004 || skillID == 37111000 || skillID == 37111003 || skillID == 37110001 || skillID == 37101001 || skillID == 37100002 || skillID == 37000010 || skillID == 37000985) {
             outPacket.encodeInt(getArg5());// unk
         } else if (skillID == 400041019) {
             outPacket.encodeInt(getArg7()); // ptStartX
             outPacket.encodeInt(getArg8()); // ptStartY
         } else if (skillID == 400041009) {
             outPacket.encodeInt(getArg5());// unk
-        } else if (skillID == 400041011|| skillID == 400041012 || skillID == 400041013 || skillID == 400041014 || skillID == 400041015) {
+        } else if (skillID == 400041011 || skillID == 400041012 || skillID == 400041013 || skillID == 400041014 || skillID == 400041015) {
             outPacket.encodeInt(getArg5());// unk
         } else if (skillID == 400041036) {
             outPacket.encodeInt(0);
@@ -286,7 +286,7 @@ public class Effect {
             outPacket.encodeInt(0);
             outPacket.encodeInt(0);
             outPacket.encodeInt(0);
-        } else if (skillID == 80002393|| skillID == 80002394 || skillID == 80002395 || skillID == 80002421) {
+        } else if (skillID == 80002393 || skillID == 80002394 || skillID == 80002395 || skillID == 80002421) {
             outPacket.encodeInt(getArg5());// unk
         } else if (skillID == 80001132) {
             outPacket.encodeByte(getArg5());// 0 = sucessfuly catch 1 = failed too high hp 2 = cannot be captured
@@ -297,10 +297,7 @@ public class Effect {
         }
     }
 
-
-    public static Effect createFieldTextEffect(String msg, int letterDelay, int showTime, int clientPosition,
-                                               Position boxPos, int align, int lineSpace, int type,
-                                               int enterType, int leaveType) {
+    public static Effect createFieldTextEffect(String msg, int letterDelay, int showTime, int clientPosition, Position boxPos, int align, int lineSpace, int type, int enterType, int leaveType) {
         Effect effect = new Effect();
         effect.setUserEffectType(TextEffect);
 
@@ -319,9 +316,7 @@ public class Effect {
         return effect;
     }
 
-    public static Effect createFieldTextEffect(String msg, int letterDelay, int showTime, int clientPosition,
-                                               Position boxPos, int align, int lineSpace, TextEffectType type,
-                                               int enterType, int leaveType) {
+    public static Effect createFieldTextEffect(String msg, int letterDelay, int showTime, int clientPosition, Position boxPos, int align, int lineSpace, TextEffectType type, int enterType, int leaveType) {
         Effect effect = new Effect();
         effect.setUserEffectType(TextEffect);
 
@@ -347,7 +342,7 @@ public class Effect {
         return effect;
     }
 
-    public static Effect fieldItemConsumed(int expGained) { // [exp]EXP+  effect from looting ExpOrbs
+    public static Effect fieldItemConsumed(int expGained) { // [exp]EXP+ effect from looting ExpOrbs
         Effect effect = new Effect();
         effect.setUserEffectType(FieldExpItemConsumed);
 
@@ -361,13 +356,13 @@ public class Effect {
         effect.setUserEffectType(SkillMode);
 
         effect.setArg1(skillID);
-        effect.setArg2(mode); //rotate
-        effect.setArg3(modeStatus); //skip frame
+        effect.setArg2(mode); // rotate
+        effect.setArg3(modeStatus); // skip frame
 
         return effect;
     }
 
-    public static Effect robbinsBombEffect(boolean reset, int bombCount, byte number) { //Displays bomb with [bombCount] on the Bomb, above user,   Unsure what '[int] number' does
+    public static Effect robbinsBombEffect(boolean reset, int bombCount, byte number) { // Displays bomb with [bombCount] on the Bomb, above user, Unsure what '[int] number' does
         Effect effect = new Effect();
         effect.setUserEffectType(RobbinsBomb);
 
@@ -378,7 +373,7 @@ public class Effect {
         return effect;
     }
 
-    public static Effect lefMonsterNumberEffect(int count) { //Displays arrow pointing towards the user, with [count] on the arrow,  Maximum count is 5
+    public static Effect lefMonsterNumberEffect(int count) { // Displays arrow pointing towards the user, with [count] on the arrow, Maximum count is 5
         Effect effect = new Effect();
         effect.setUserEffectType(LeftMonsterNumber);
 
@@ -387,7 +382,7 @@ public class Effect {
         return effect;
     }
 
-    public static Effect petBuffEffect() { //Displays the PetBuff Effect onto the user
+    public static Effect petBuffEffect() { // Displays the PetBuff Effect onto the user
         Effect effect = new Effect();
         effect.setUserEffectType(PetBuff);
 
@@ -398,13 +393,13 @@ public class Effect {
         Effect effect = new Effect();
         effect.setUserEffectType(JewelCraft);
 
-        effect.setArg1(result); // 0, 2  = Success/Smile,       5 = Request denied due to unk error,        Everything else = Fail/Frown
+        effect.setArg1(result); // 0, 2 = Success/Smile, 5 = Request denied due to unk error, Everything else = Fail/Frown
         effect.setArg2(itemID);
 
         return effect;
     }
 
-    public static Effect azwanSpearEffect(byte colour) { // 0 = red,    1 = orange
+    public static Effect azwanSpearEffect(byte colour) { // 0 = red, 1 = orange
         Effect effect = new Effect();
         effect.setUserEffectType(AswanSiegeAttack);
 
@@ -440,56 +435,56 @@ public class Effect {
         Effect effect = new Effect();
         effect.setUserEffectType(ItemMaker);
 
-        effect.setArg1(success ? 0 : 1); // 0 = Success,    1 = Failure
+        effect.setArg1(success ? 0 : 1); // 0 = Success, 1 = Failure
 
         return effect;
     }
 
-    public static Effect itemLevelUpEffect() { //displays the Equipment Level Up effect
+    public static Effect itemLevelUpEffect() { // displays the Equipment Level Up effect
         Effect effect = new Effect();
         effect.setUserEffectType(ItemLevelUp);
 
         return effect;
     }
 
-    public static Effect questCompleteEffect() { //displays the Quest Complete effect
+    public static Effect questCompleteEffect() { // displays the Quest Complete effect
         Effect effect = new Effect();
         effect.setUserEffectType(QuestComplete);
 
         return effect;
     }
 
-    public static Effect incDecHPEffect(byte amount) { //displays the HP healing  effect
+    public static Effect incDecHPEffect(byte amount) { // displays the HP healing effect
         Effect effect = new Effect();
         effect.setUserEffectType(ItemLevelUp);
 
-        effect.setArg1(amount); // amount shown being healed,  0 = miss
+        effect.setArg1(amount); // amount shown being healed, 0 = miss
 
         return effect;
     }
 
-    public static Effect changeJobEffect() { //displays the JobAdvancement Effect
+    public static Effect changeJobEffect() { // displays the JobAdvancement Effect
         Effect effect = new Effect();
         effect.setUserEffectType(JobChanged);
 
         return effect;
     }
 
-    public static Effect buffItemEffect() { //displays the Buff Item Effect
+    public static Effect buffItemEffect() { // displays the Buff Item Effect
         Effect effect = new Effect();
         effect.setUserEffectType(BuffItemEffect);
 
         return effect;
     }
 
-    public static Effect resistDamageEffect() { //displays the "Resist" Hit
+    public static Effect resistDamageEffect() { // displays the "Resist" Hit
         Effect effect = new Effect();
         effect.setUserEffectType(Resist);
 
         return effect;
     }
 
-    public static Effect levelUpEffect() { //displays the Level Up  Effect
+    public static Effect levelUpEffect() { // displays the Level Up Effect
         Effect effect = new Effect();
         effect.setUserEffectType(LevelUp);
 
@@ -532,7 +527,7 @@ public class Effect {
 
         effect.setUserEffectType(SkillAffected_Select);
         effect.setArg1(select);
-        effect.setArg2(-1); // root Select  -  (?)
+        effect.setArg2(-1); // root Select - (?)
         effect.setArg3(skillID);
         effect.setArg4(slv);
         effect.setArg5(special ? 1 : 0);
@@ -673,10 +668,10 @@ public class Effect {
 
     public static Effect avatarOriented(String effectPath) {
         Effect effect = new Effect();
-        
+
         effect.setUserEffectType(AvatarOriented);
         effect.setString(effectPath);
-        
+
         return effect;
     }
 
@@ -747,9 +742,13 @@ public class Effect {
         return string;
     }
 
-    public void setList(List<Tuple<Integer, Integer>> list) { this.list = list; }
+    public void setList(List<Tuple<Integer, Integer>> list) {
+        this.list = list;
+    }
 
-    public List<Tuple<Integer, Integer>> getList() { return list; }
+    public List<Tuple<Integer, Integer>> getList() {
+        return list;
+    }
 
     public int getArg1() {
         return arg1;

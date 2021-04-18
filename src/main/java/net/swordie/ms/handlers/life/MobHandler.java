@@ -59,7 +59,6 @@ public class MobHandler {
 
     private static final Logger log = Logger.getLogger(MobHandler.class);
 
-
     @Handler(op = InHeader.MOB_APPLY_CTRL)
     public static void handleMobApplyCtrl(Client c, InPacket inPacket) {
         Char chr = c.getChr();
@@ -81,7 +80,7 @@ public class MobHandler {
         MobSkillAttackInfo msai = new MobSkillAttackInfo();
         Mob mob = (Mob) life;
         Char controller = field.getLifeToControllers().get(mob);
-        //byte idk0 = inPacket.decodeByte(); // check if the templateID / 10000 == 250 or 251. No idea for what it's used
+        // byte idk0 = inPacket.decodeByte(); // check if the templateID / 10000 == 250 or 251. No idea for what it's used
         short moveID = inPacket.decodeShort();
         msai.actionAndDirMask = inPacket.decodeByte();
         byte action = inPacket.decodeByte();
@@ -92,21 +91,16 @@ public class MobHandler {
         int slv = 0;
         msai.targetInfo = inPacket.decodeLong();
         int afterAttack = -1;
-        //c.getChr().chatMessage("" + msai.action);
+        // c.getChr().chatMessage("" + msai.action);
         boolean didSkill = action != -1;
         if (didSkill && mob.hasSkillDelayExpired() && !mob.isInAttack()) {
             List<MobSkill> skillList = mob.getSkills();
             if (Util.succeedProp(GameConstants.MOB_SKILL_CHANCE)) {
                 MobSkill mobSkill;
-                mobSkill = skillList.stream()
-                        .filter(ms -> ms.getSkillSN() == skillSN
-                                /*&& mob.hasSkillOffCooldown(ms.getSkillID(), ms.getLevel())*/)
-                        .findFirst()
-                        .orElse(null);
+                mobSkill = skillList.stream().filter(ms -> ms.getSkillSN() == skillSN
+                /* && mob.hasSkillOffCooldown(ms.getSkillID(), ms.getLevel()) */).findFirst().orElse(null);
                 if (mobSkill == null) {
-                    skillList = skillList.stream()
-                            .filter(ms -> mob.hasSkillOffCooldown(ms.getSkillID(), ms.getLevel()))
-                            .collect(Collectors.toList());
+                    skillList = skillList.stream().filter(ms -> mob.hasSkillOffCooldown(ms.getSkillID(), ms.getLevel())).collect(Collectors.toList());
                     if (skillList.size() > 0) {
                         mobSkill = skillList.get(Randomizer.nextInt(skillList.size()));
                     }
@@ -120,8 +114,7 @@ public class MobHandler {
                     long curTime = System.currentTimeMillis();
                     long interval = msi.getSkillStatIntValue(MobSkillStat.interval) * 1000;
                     long nextUseableTime = curTime + interval;
-                    c.getChr().chatMessage(ChatType.Mob, String.format("Mob" + mob + " did skill with ID %d (%s), level = %d",
-                            mobSkill.getSkillID(), MobSkillID.getMobSkillIDByVal(mobSkill.getSkillID()), mobSkill.getLevel()));
+                    c.getChr().chatMessage(ChatType.Mob, String.format("Mob" + mob + " did skill with ID %d (%s), level = %d", mobSkill.getSkillID(), MobSkillID.getMobSkillIDByVal(mobSkill.getSkillID()), mobSkill.getLevel()));
                     mob.putSkillCooldown(skillID, slv, nextUseableTime);
                     if (mobSkill.getSkillAfter() > 0) {
                         List<Rect> rects = new ArrayList<Rect>();
@@ -211,7 +204,6 @@ public class MobHandler {
 
     }
 
-
     @Handler(op = InHeader.USER_BAN_MAP_BY_MOB)
     public static void handleBanMapByMob(Client c, InPacket inPacket) {
         Field field = c.getChr().getField();
@@ -270,8 +262,7 @@ public class MobHandler {
         Mob mob = (Mob) c.getChr().getField().getLifeByObjectID(mobId);
         if (mob != null) {
             MobTemporaryStat mts = mob.getTemporaryStat();
-            if ((mts.hasCurrentMobStat(MobStat.Explosion) && mts.getCurrentOptionsByMobStat(MobStat.Explosion).wOption == chr.getId()) ||
-                    (mts.hasCurrentMobStat(MobStat.SoulExplosion) && mts.getCurrentOptionsByMobStat(MobStat.SoulExplosion).wOption == chr.getId())) {
+            if ((mts.hasCurrentMobStat(MobStat.Explosion) && mts.getCurrentOptionsByMobStat(MobStat.Explosion).wOption == chr.getId()) || (mts.hasCurrentMobStat(MobStat.SoulExplosion) && mts.getCurrentOptionsByMobStat(MobStat.SoulExplosion).wOption == chr.getId())) {
                 c.write(UserLocal.explosionAttack(skillId, mob.getPosition(), mobId, 1));
                 mts.removeMobStat(MobStat.Explosion, true);
                 mts.removeMobStat(MobStat.SoulExplosion, true);
@@ -312,7 +303,7 @@ public class MobHandler {
         c.write(outPacket);
     }
 
-    @Handler(ops = {InHeader.MOB_SELF_DESTRUCT, InHeader.MOB_SELF_DESTRUCT_COLLISION_GROUP})
+    @Handler(ops = { InHeader.MOB_SELF_DESTRUCT, InHeader.MOB_SELF_DESTRUCT_COLLISION_GROUP })
     public static void handleMobSelfDestruct(Char chr, InPacket inPacket) {
         int mobID = inPacket.decodeInt();
         Field field = chr.getField();
@@ -347,8 +338,8 @@ public class MobHandler {
                 mob.addEscortDest(-1616, 233, -1);
                 mob.addEscortDest(1898, 233, 0);
                 mob.escortFullPath(-1);
-                //      chr.write(CField.removeBlowWeather());
-                //      chr.write(CField.blowWeather(5120118, "I'm glad you're here, " + chr.getName() + "! Please get rid of these pesky things."));
+                // chr.write(CField.removeBlowWeather());
+                // chr.write(CField.blowWeather(5120118, "I'm glad you're here, " + chr.getName() + "! Please get rid of these pesky things."));
             }
         }
     }
@@ -367,22 +358,22 @@ public class MobHandler {
         switch (tab) {
             case 0: // Chapter 1
                 itemMap.put(ItemData.getItemDeepCopy(3700031), 1);  // Apprentice Hunter
-                itemMap.put(ItemData.getItemDeepCopy(4310029), 10); // Crusader Coins  x10
+                itemMap.put(ItemData.getItemDeepCopy(4310029), 10); // Crusader Coins x10
                 break;
             case 1: // Chapter 2
                 itemMap.put(ItemData.getItemDeepCopy(3700032), 1);  // Capable Hunter
-                itemMap.put(ItemData.getItemDeepCopy(4001832), 100);// Spell Traces  x100
-                itemMap.put(ItemData.getItemDeepCopy(4310029), 15); // Crusader Coins  x15
+                itemMap.put(ItemData.getItemDeepCopy(4001832), 100);// Spell Traces x100
+                itemMap.put(ItemData.getItemDeepCopy(4310029), 15); // Crusader Coins x15
                 break;
             case 2: // Chapter 3
                 itemMap.put(ItemData.getItemDeepCopy(3700033), 1);  // Veteran Hunter
                 itemMap.put(ItemData.getItemDeepCopy(2430668), 1);  // Silent Crusade Mastery Book
-                itemMap.put(ItemData.getItemDeepCopy(4310029), 20); // Crusader Coins  x20
+                itemMap.put(ItemData.getItemDeepCopy(4310029), 20); // Crusader Coins x20
                 break;
             case 3: // Chapter 4
                 itemMap.put(ItemData.getItemDeepCopy(3700034), 1);  // Superior Hunter
-                itemMap.put(ItemData.getItemDeepCopy(4001832), 500);// Spell Traces  x500
-                itemMap.put(ItemData.getItemDeepCopy(4310029), 30); // Crusader Coins  x30
+                itemMap.put(ItemData.getItemDeepCopy(4001832), 500);// Spell Traces x500
+                itemMap.put(ItemData.getItemDeepCopy(4310029), 30); // Crusader Coins x30
                 break;
         }
 

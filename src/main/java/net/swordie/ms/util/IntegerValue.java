@@ -28,13 +28,16 @@ public interface IntegerValue {
 
     /**
      * Gets the value associated with this integer value.
+     * 
      * @return the value.
      */
     int getValue();
 
     /**
      * Sets the value associated with this integer value.
-     * @param val the value.
+     * 
+     * @param val
+     *            the value.
      */
     void setValue(int val);
 }

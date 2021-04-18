@@ -23,7 +23,7 @@ public class RemoveFriendResult implements FriendResult {
     @Override
     public void encode(OutPacket outPacket) {
         outPacket.encodeByte(friend.isAccount());
-        if(friend.isAccount()) {
+        if (friend.isAccount()) {
             outPacket.encodeInt(friend.getFriendAccountID());
         } else {
             outPacket.encodeInt(friend.getFriendID());

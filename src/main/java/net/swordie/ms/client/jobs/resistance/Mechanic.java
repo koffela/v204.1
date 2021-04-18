@@ -50,28 +50,28 @@ public class Mechanic extends Citizen {
     public static final int MECHANIC_DASH = 30001068;
     public static final int HIDDEN_PEACE = 30000227;
 
-    public static final int HUMANOID_MECH = 35001002; //Mech Suit
-    public static final int TANK_MECH = 35111003; //Tank Mech Suit
+    public static final int HUMANOID_MECH = 35001002; // Mech Suit
+    public static final int TANK_MECH = 35111003; // Tank Mech Suit
 
-    public static final int MECHANIC_RAGE = 35101006; //Buff
-    public static final int PERFECT_ARMOR = 35101007; //Buff (ON/OFF)
-    public static final int OPEN_PORTAL_GX9 = 35101005; //Special Skill
-    public static final int ROBO_LAUNCHER_RM7 = 35101012; //Summon
+    public static final int MECHANIC_RAGE = 35101006; // Buff
+    public static final int PERFECT_ARMOR = 35101007; // Buff (ON/OFF)
+    public static final int OPEN_PORTAL_GX9 = 35101005; // Special Skill
+    public static final int ROBO_LAUNCHER_RM7 = 35101012; // Summon
     public static final int HOMING_BEACON = 35101002;
 
-    public static final int ROCK_N_SHOCK = 35111002; //Special Summon
-    public static final int ROLL_OF_THE_DICE = 35111013; //Special Buff
-    public static final int SUPPORT_UNIT_HEX = 35111008; //Summon
+    public static final int ROCK_N_SHOCK = 35111002; // Special Summon
+    public static final int ROLL_OF_THE_DICE = 35111013; // Special Buff
+    public static final int SUPPORT_UNIT_HEX = 35111008; // Summon
     public static final int ADV_HOMING_BEACON = 35110017;
 
     public static final int ROBOT_MASTERY = 35120001;
-    public static final int BOTS_N_TOTS = 35121009; //Special Summon
+    public static final int BOTS_N_TOTS = 35121009; // Special Summon
     public static final int BOTS_N_TOTS_SUB_SUMMON = 35121011; // Summon that spawn from the main BotsNtots
-    public static final int MAPLE_WARRIOR_MECH = 35121007; //Buff
+    public static final int MAPLE_WARRIOR_MECH = 35121007; // Buff
     public static final int ENHANCED_SUPPORT_UNIT = 35120002;
     public static final int HEROS_WILL_MECH = 35121008;
     public static final int HOMING_BEACON_RESEARCH = 35120017;
-    public static final int ROLL_OF_THE_DICE_DD = 35120014; //Special Buff
+    public static final int ROLL_OF_THE_DICE_DD = 35120014; // Special Buff
     public static final int GIANT_ROBOT_SG_88 = 35121003;
 
     public static final int FOR_LIBERTY_MECH = 35121053;
@@ -94,11 +94,11 @@ public class Mechanic extends Citizen {
             MAPLE_WARRIOR_MECH,
             ROLL_OF_THE_DICE_DD,
 
-            SUPPORT_UNIT_HEX, //Summon
+            SUPPORT_UNIT_HEX, // Summon
             ENHANCED_SUPPORT_UNIT,
-            ROBO_LAUNCHER_RM7, //Summon
-            BOTS_N_TOTS, //Summon
-            FULL_SPREAD, //Summon
+            ROBO_LAUNCHER_RM7, // Summon
+            BOTS_N_TOTS, // Summon
+            FULL_SPREAD, // Summon
             FOR_LIBERTY_MECH,
     };
 
@@ -114,7 +114,7 @@ public class Mechanic extends Citizen {
 
     public Mechanic(Char chr) {
         super(chr);
-        if(chr.getId() != 0 && isHandlerOfJob(chr.getJob())) {
+        if (chr.getId() != 0 && isHandlerOfJob(chr.getJob())) {
             for (int id : addedSkills) {
                 if (!chr.hasSkill(id)) {
                     Skill skill = SkillData.getSkillDeepCopyById(id);
@@ -129,8 +129,6 @@ public class Mechanic extends Citizen {
     public boolean isHandlerOfJob(short id) {
         return JobConstants.isMechanic(id);
     }
-
-
 
     // Buff related methods --------------------------------------------------------------------------------------------
 
@@ -171,7 +169,7 @@ public class Mechanic extends Citizen {
                 tsm.sendSetStatPacket();
 
                 tsb.setNOption(MECH_VEHICLE);
-                tsb.setROption(skillID+100);
+                tsb.setROption(skillID + 100);
                 tsm.putCharacterStatValue(RideVehicle, tsb.getOption());
                 break;
             case TANK_MECH:
@@ -191,7 +189,7 @@ public class Mechanic extends Citizen {
                 tsm.putCharacterStatValue(Booster, o1);
                 break;
             case PERFECT_ARMOR:
-                if(tsm.hasStatBySkillId(skillID)) {
+                if (tsm.hasStatBySkillId(skillID)) {
                     tsm.removeStatsBySkill(skillID);
                 } else {
                     o1.nOption = si.getValue(x, slv);
@@ -200,12 +198,12 @@ public class Mechanic extends Citizen {
                 }
                 break;
             case ROLL_OF_THE_DICE:
-                int random = new Random().nextInt(6)+1;
+                int random = new Random().nextInt(6) + 1;
 
-                chr.write(UserPacket.effect(Effect.avatarOriented("Skill/"+ (skillID/10000) +".img/skill/"+ skillID +"/affected/" + random)));
-                chr.getField().broadcastPacket(UserRemote.effect(chr.getId(), Effect.avatarOriented("Skill/"+ (skillID/10000) +".img/skill/"+ skillID +"/affected/" + random)));
+                chr.write(UserPacket.effect(Effect.avatarOriented("Skill/" + (skillID / 10000) + ".img/skill/" + skillID + "/affected/" + random)));
+                chr.getField().broadcastPacket(UserRemote.effect(chr.getId(), Effect.avatarOriented("Skill/" + (skillID / 10000) + ".img/skill/" + skillID + "/affected/" + random)));
 
-                if(random < 2) {
+                if (random < 2) {
                     return;
                 }
 
@@ -217,15 +215,15 @@ public class Mechanic extends Citizen {
                 tsm.putCharacterStatValue(Dice, o1);
                 break;
             case ROLL_OF_THE_DICE_DD:
-                random = new Random().nextInt(6)+1;
-                int randomDD = new Random().nextInt(6)+1;
+                random = new Random().nextInt(6) + 1;
+                int randomDD = new Random().nextInt(6) + 1;
 
-                chr.write(UserPacket.effect(Effect.avatarOriented("Skill/"+ (skillID/10000) +".img/skill/"+ skillID +"/affected/" + random)));
-                chr.write(UserPacket.effect(Effect.avatarOriented("Skill/"+ (skillID/10000) +".img/skill/"+ skillID +"/specialAffected/" + randomDD)));
-                chr.getField().broadcastPacket(UserRemote.effect(chr.getId(), Effect.avatarOriented("Skill/"+ (skillID/10000) +".img/skill/"+ skillID +"/affected/" + random)));
-                chr.getField().broadcastPacket(UserRemote.effect(chr.getId(), Effect.avatarOriented("Skill/"+ (skillID/10000) +".img/skill/"+ skillID +"/specialAffected/" + randomDD)));
+                chr.write(UserPacket.effect(Effect.avatarOriented("Skill/" + (skillID / 10000) + ".img/skill/" + skillID + "/affected/" + random)));
+                chr.write(UserPacket.effect(Effect.avatarOriented("Skill/" + (skillID / 10000) + ".img/skill/" + skillID + "/specialAffected/" + randomDD)));
+                chr.getField().broadcastPacket(UserRemote.effect(chr.getId(), Effect.avatarOriented("Skill/" + (skillID / 10000) + ".img/skill/" + skillID + "/affected/" + random)));
+                chr.getField().broadcastPacket(UserRemote.effect(chr.getId(), Effect.avatarOriented("Skill/" + (skillID / 10000) + ".img/skill/" + skillID + "/specialAffected/" + randomDD)));
 
-                if(random < 2 && randomDD < 2) {
+                if (random < 2 && randomDD < 2) {
                     return;
                 }
 
@@ -260,7 +258,7 @@ public class Mechanic extends Citizen {
                 summon.setAttackActive(false);
                 field.spawnSummon(summon);
 
-                if(supportUnitTimer != null && !supportUnitTimer.isDone()) {
+                if (supportUnitTimer != null && !supportUnitTimer.isDone()) {
                     supportUnitTimer.cancel(true);
                 }
                 applySupportUnitDebuffOnMob(skillID);
@@ -281,7 +279,7 @@ public class Mechanic extends Citizen {
                 summon.setAttackActive(false);
                 field.spawnSummon(summon);
 
-                if(botsNTotsTimer != null && !botsNTotsTimer.isDone()) {
+                if (botsNTotsTimer != null && !botsNTotsTimer.isDone()) {
                     botsNTotsTimer.cancel(true);
                 }
                 botsNTotsTimer = EventManager.addEvent(() -> spawnBotsNTotsSubSummons(summon), 3, TimeUnit.SECONDS);
@@ -326,7 +324,7 @@ public class Mechanic extends Citizen {
         TemporaryStatManager tsm = chr.getTemporaryStatManager();
         Position position = summon.getPosition();
 
-        if((tsm.getOptByCTSAndSkill(IndieEmpty, BOTS_N_TOTS) != null) && chr.hasSkill(BOTS_N_TOTS)) {
+        if ((tsm.getOptByCTSAndSkill(IndieEmpty, BOTS_N_TOTS) != null) && chr.hasSkill(BOTS_N_TOTS)) {
             Skill skill = chr.getSkill(BOTS_N_TOTS);
             byte slv = (byte) skill.getCurrentLevel();
             Summon subSummon = Summon.getSummonBy(chr, BOTS_N_TOTS_SUB_SUMMON, slv);
@@ -340,8 +338,6 @@ public class Mechanic extends Citizen {
             botsNTotsTimer = EventManager.addEvent(() -> spawnBotsNTotsSubSummons(summon), 3, TimeUnit.SECONDS);
         }
     }
-
-
 
     // Attack related methods ------------------------------------------------------------------------------------------
 
@@ -376,29 +372,24 @@ public class Mechanic extends Citizen {
         super.handleAttack(c, attackInfo);
     }
 
-
     private void createHumanoidMechRocketForceAtom() { // Humanoid Rockets are spread around
         Field field = chr.getField();
         SkillInfo si = SkillData.getSkillInfoById((chr.hasSkill(ADV_HOMING_BEACON) ? ADV_HOMING_BEACON : HOMING_BEACON));
         byte slv = (byte) getHomingBeaconSkill().getCurrentLevel();
         Rect rect = chr.getPosition().getRectAround(si.getRects().get(0));
-        if(!chr.isLeft()) {
+        if (!chr.isLeft()) {
             rect = rect.moveRight();
         }
         List<Mob> mobs = field.getMobsInRect(rect);
-        if(mobs.size() <= 0) {
+        if (mobs.size() <= 0) {
             return;
         }
-        for(int i = 0; i < getHomingBeaconBulletCount(); i++) {
+        for (int i = 0; i < getHomingBeaconBulletCount(); i++) {
             Mob mob = Util.getRandomFromCollection(mobs);
             int inc = getHomingBeaconForceAtomEnum().getInc();
             int type = getHomingBeaconForceAtomEnum().getForceAtomType();
-            ForceAtomInfo forceAtomInfo = new ForceAtomInfo(1, inc, 30, 25,
-                    0, 200 + (i * 2), (int) System.currentTimeMillis(), 1, 0,
-                    new Position());
-            field.broadcastPacket(FieldPacket.createForceAtom(false, 0, chr.getId(), type,
-                    true, mob.getObjectId(), HOMING_BEACON, forceAtomInfo, rect, 90, 30,
-                    mob.getPosition(), 0, mob.getPosition()));
+            ForceAtomInfo forceAtomInfo = new ForceAtomInfo(1, inc, 30, 25, 0, 200 + (i * 2), (int) System.currentTimeMillis(), 1, 0, new Position());
+            field.broadcastPacket(FieldPacket.createForceAtom(false, 0, chr.getId(), type, true, mob.getObjectId(), HOMING_BEACON, forceAtomInfo, rect, 90, 30, mob.getPosition(), 0, mob.getPosition()));
         }
 
     }
@@ -408,27 +399,22 @@ public class Mechanic extends Citizen {
         SkillInfo si = SkillData.getSkillInfoById((chr.hasSkill(ADV_HOMING_BEACON) ? ADV_HOMING_BEACON : HOMING_BEACON));
         byte slv = (byte) getHomingBeaconSkill().getCurrentLevel();
         Rect rect = chr.getPosition().getRectAround(si.getRects().get(0));
-        if(!chr.isLeft()) {
+        if (!chr.isLeft()) {
             rect = rect.moveRight();
         }
-        if(field.getMobsInRect(rect).size() <= 0) {
+        if (field.getMobsInRect(rect).size() <= 0) {
             return;
         }
         Mob mob = Util.getRandomFromCollection(field.getMobsInRect(rect));
-        if(field.getBossMobsInRect(rect).size() > 0) {
+        if (field.getBossMobsInRect(rect).size() > 0) {
             mob = Util.getRandomFromCollection(field.getBossMobsInRect(rect));
         }
 
-
-        for(int i = 0; i < getHomingBeaconBulletCount(); i++) {
+        for (int i = 0; i < getHomingBeaconBulletCount(); i++) {
             int inc = getHomingBeaconForceAtomEnum().getInc();
             int type = getHomingBeaconForceAtomEnum().getForceAtomType();
-            ForceAtomInfo forceAtomInfo = new ForceAtomInfo(1, inc, 30, 25,
-                    0, 200, (int) System.currentTimeMillis(), 1, 0,
-                    new Position());
-            field.broadcastPacket(FieldPacket.createForceAtom(false, 0, chr.getId(), type,
-                    true, mob.getObjectId(), HOMING_BEACON, forceAtomInfo, rect, 90, 30,
-                    mob.getPosition(), 0, mob.getPosition()));
+            ForceAtomInfo forceAtomInfo = new ForceAtomInfo(1, inc, 30, 25, 0, 200, (int) System.currentTimeMillis(), 1, 0, new Position());
+            field.broadcastPacket(FieldPacket.createForceAtom(false, 0, chr.getId(), type, true, mob.getObjectId(), HOMING_BEACON, forceAtomInfo, rect, 90, 30, mob.getPosition(), 0, mob.getPosition()));
         }
     }
 
@@ -446,8 +432,8 @@ public class Mechanic extends Citizen {
 
     private Skill getHomingBeaconSkill() {
         Skill skill = null;
-        for(int skillId : homingBeacon) {
-            if(chr.hasSkill(skillId)) {
+        for (int skillId : homingBeacon) {
+            if (chr.hasSkill(skillId)) {
                 skill = chr.getSkill(skillId);
             }
         }
@@ -458,15 +444,15 @@ public class Mechanic extends Citizen {
     private int getHomingBeaconBulletCount() {
         TemporaryStatManager tsm = chr.getTemporaryStatManager();
         int forceAtomCount = 0;
-        for(int skillId : homingBeacon) {
-            if(chr.hasSkill(skillId)) {
+        for (int skillId : homingBeacon) {
+            if (chr.hasSkill(skillId)) {
                 Skill skill = chr.getSkill(skillId);
                 SkillInfo si = SkillData.getSkillInfoById(skillId);
                 byte slv = (byte) skill.getCurrentLevel();
                 forceAtomCount += si.getValue(bulletCount, slv);
             }
         }
-        if(tsm.getOptByCTSAndSkill(BombTime, FULL_SPREAD) != null) {
+        if (tsm.getOptByCTSAndSkill(BombTime, FULL_SPREAD) != null) {
             forceAtomCount += chr.hasSkill(FULL_SPREAD) ? SkillData.getSkillInfoById(FULL_SPREAD).getValue(x, chr.getSkill(FULL_SPREAD).getCurrentLevel()) : 0;
         }
         return forceAtomCount;
@@ -474,7 +460,7 @@ public class Mechanic extends Citizen {
 
     private void applySupportUnitDebuffOnMob(int skillId) {
         TemporaryStatManager tsm = chr.getTemporaryStatManager();
-        if(!chr.hasSkill(SUPPORT_UNIT_HEX) || tsm.getOptByCTSAndSkill(IndieEmpty, skillId) == null) {
+        if (!chr.hasSkill(SUPPORT_UNIT_HEX) || tsm.getOptByCTSAndSkill(IndieEmpty, skillId) == null) {
             return;
         }
         Skill skill = chr.getSkill(skillId);
@@ -484,7 +470,7 @@ public class Mechanic extends Citizen {
 
         Option o = new Option();
         Field field = chr.getField();
-        for(Mob mob : field.getMobs()) {
+        for (Mob mob : field.getMobs()) {
             MobTemporaryStat mts = mob.getTemporaryStat();
             o.nOption = -suhInfo.getValue(w, chr.getSkill(SUPPORT_UNIT_HEX).getCurrentLevel()); // enhancement doesn't contain the debuff info
             o.rOption = skill.getSkillId();
@@ -500,8 +486,6 @@ public class Mechanic extends Citizen {
     public int getFinalAttackSkill() {
         return 0;
     }
-
-
 
     // Skill related methods -------------------------------------------------------------------------------------------
 
@@ -543,9 +527,9 @@ public class Mechanic extends Citizen {
                     }
                     openGate.spawnOpenGate(field);
                     break;
-                case HOMING_BEACON: //4
+                case HOMING_BEACON: // 4
                 case ADV_HOMING_BEACON: // 4thJob upgrade +5 -> 9
-                    if(tsm.hasStat(Mechanic) && tsm.getOption(Mechanic).nOption <= 0) {
+                    if (tsm.hasStat(Mechanic) && tsm.getOption(Mechanic).nOption <= 0) {
                         createHumanoidMechRocketForceAtom();
                     } else if (tsm.hasStat(Mechanic) && tsm.getOption(Mechanic).nOption == 1) {
                         createTankMechRocketForceAtom();
@@ -586,8 +570,6 @@ public class Mechanic extends Citizen {
             }
         }
     }
-
-
 
     // Hit related methods ---------------------------------------------------------------------------------------------
 

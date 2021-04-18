@@ -80,7 +80,9 @@ public enum ObtacleAtomEnum {
         this.hitBox = hitBox;
     }
 
-    public int getType() {return type;}
+    public int getType() {
+        return type;
+    }
 
     public void setType(int type) {
         this.type = type;
@@ -94,4 +96,3 @@ public enum ObtacleAtomEnum {
         this.hitBox = hitBox;
     }
 }
-

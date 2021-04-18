@@ -12,6 +12,7 @@ import net.swordie.ms.util.Position;
  */
 public interface Movement {
     void encode(OutPacket outPacket);
+
     Position getPosition();
 
     byte getCommand();

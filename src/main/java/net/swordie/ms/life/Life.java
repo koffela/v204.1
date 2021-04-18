@@ -338,7 +338,7 @@ public class Life extends Observable {
 
     public Npc createNpcFromLife() {
         Npc npc = null;
-        if("n".equalsIgnoreCase(getLifeType())) {
+        if ("n".equalsIgnoreCase(getLifeType())) {
             npc = NpcData.getNpcDeepCopyById(getTemplateId());
             npc.setObjectId(getObjectId());
             npc.setLifeType(getLifeType());
@@ -382,7 +382,7 @@ public class Life extends Observable {
     }
 
     public Position getHomePosition() {
-        if(homePosition == null && getPosition() != null) {
+        if (homePosition == null && getPosition() != null) {
             homePosition = getPosition().deepCopy();
         }
         return homePosition;

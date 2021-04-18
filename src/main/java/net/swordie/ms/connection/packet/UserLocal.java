@@ -43,7 +43,7 @@ public class UserLocal {
         return outPacket;
     }
 
-    public static OutPacket videoByScript(String videoPath, boolean isMuted){
+    public static OutPacket videoByScript(String videoPath, boolean isMuted) {
         OutPacket outPacket = new OutPacket(OutHeader.VIDEO_BY_SCRIPT);
 
         outPacket.encodeString(videoPath);
@@ -52,7 +52,7 @@ public class UserLocal {
         return outPacket;
     }
 
-    public static OutPacket videoByScript(String videoPath){
+    public static OutPacket videoByScript(String videoPath) {
         OutPacket outPacket = new OutPacket(OutHeader.VIDEO_BY_SCRIPT_2);
 
         outPacket.encodeString(videoPath);
@@ -157,16 +157,16 @@ public class UserLocal {
         OutPacket outPacket = new OutPacket(OutHeader.CHANGE_STEAL_MEMORY_RESULT);
         StealMemoryType smType = StealMemoryType.getByVal(type);
 
-        outPacket.encodeByte(1); //Set Excl Request
-        outPacket.encodeByte(smType.getVal());    //Type
+        outPacket.encodeByte(1); // Set Excl Request
+        outPacket.encodeByte(smType.getVal());    // Type
 
         switch (smType) {
             case STEAL_SKILL:
-                outPacket.encodeInt(stealManagerJobID); //jobId  1~5 | 1 = 1stJob , 2 = 2ndJob ... ..
-                outPacket.encodeInt(position); //impecMemSkillID // nPOS  0,1,2,3
-                outPacket.encodeInt(skillid); //skill
-                outPacket.encodeInt(stealSkillLv);   //StealSkill Lv
-                outPacket.encodeInt(stealSkillMaxLv);   //StealSkill Max Lv
+                outPacket.encodeInt(stealManagerJobID); // jobId 1~5 | 1 = 1stJob , 2 = 2ndJob ... ..
+                outPacket.encodeInt(position); // impecMemSkillID // nPOS 0,1,2,3
+                outPacket.encodeInt(skillid); // skill
+                outPacket.encodeInt(stealSkillLv);   // StealSkill Lv
+                outPacket.encodeInt(stealSkillMaxLv);   // StealSkill Max Lv
                 break;
             case NO_TARGETS:
             case FAILED_UNK_REASON:
@@ -189,21 +189,21 @@ public class UserLocal {
     public static OutPacket resultSetStealSkill(boolean set, int impecMemSkilLID, int skillId) {
         OutPacket outPacket = new OutPacket(OutHeader.RESULT_SET_STEAL_SKILL);
 
-        outPacket.encodeByte(1); //Set Excl Request
-        outPacket.encodeByte(set); //bSet
-        outPacket.encodeInt(impecMemSkilLID); //impecMemSkilLID
-        if(set) {
-            outPacket.encodeInt(skillId); //skill Id
+        outPacket.encodeByte(1); // Set Excl Request
+        outPacket.encodeByte(set); // bSet
+        outPacket.encodeInt(impecMemSkilLID); // impecMemSkilLID
+        if (set) {
+            outPacket.encodeInt(skillId); // skill Id
         }
         return outPacket;
     }
 
     public static OutPacket resultStealSkillList(Set<Skill> targetSkillsList, int phantomStealResult, int targetChrId, int targetJobId) {
         OutPacket outPacket = new OutPacket(OutHeader.RESULT_STEAL_SKILL_LIST);
-        outPacket.encodeByte(0); //Set Excl Request
+        outPacket.encodeByte(0); // Set Excl Request
         outPacket.encodeInt(targetChrId);
-        outPacket.encodeInt(phantomStealResult); //   Gets a check  if == 4,   else:   nPhantomStealWrongResult
-        if(phantomStealResult == 4) {
+        outPacket.encodeInt(phantomStealResult); // Gets a check if == 4, else: nPhantomStealWrongResult
+        if (phantomStealResult == 4) {
             outPacket.encodeInt(targetJobId);
             outPacket.encodeInt(targetSkillsList.size());
 
@@ -255,7 +255,7 @@ public class UserLocal {
         OutPacket outPacket = new OutPacket(OutHeader.USER_RAND_AREA_ATTACK_REQUEST);
 
         outPacket.encodeInt(skillID);
-        outPacket.encodeInt(1); //# of mobs to attack
+        outPacket.encodeInt(1); // # of mobs to attack
 
         outPacket.encodePositionInt(mob.getPosition());
         outPacket.encodeInt(mob.getObjectId());
@@ -269,7 +269,7 @@ public class UserLocal {
         outPacket.encodeInt(pet.getOwnerID());
         outPacket.encodeInt(pet.getIdx());
         outPacket.encodeByte(active);
-        if(active) {
+        if (active) {
             outPacket.encodeByte(true); // init
             pet.encode(outPacket);
         } else {
@@ -284,20 +284,20 @@ public class UserLocal {
         outPacket.encodeByte(MessageType.STYLISH_KILL_MESSAGE.getVal());
         StylishKillType smType = StylishKillType.getByVal(type);
 
-        outPacket.encodeByte(type); //1 for Combo   |  0 for MultiKill
+        outPacket.encodeByte(type); // 1 for Combo | 0 for MultiKill
 
         switch (smType) {
-            case COMBO: //Combo Kill Message
-                outPacket.encodeInt(comboCount); //count
-                outPacket.encodeInt(mobID); //mobID
+            case COMBO: // Combo Kill Message
+                outPacket.encodeInt(comboCount); // count
+                outPacket.encodeInt(mobID); // mobID
                 outPacket.encodeInt(4);
                 outPacket.encodeInt(0);
                 break;
 
-            case MULTI_KILL: //MultiKill Pop-up
-                outPacket.encodeLong(comboCount); //nBonus
+            case MULTI_KILL: // MultiKill Pop-up
+                outPacket.encodeLong(comboCount); // nBonus
                 outPacket.encodeInt(0);
-                outPacket.encodeInt(mobID); //count
+                outPacket.encodeInt(mobID); // count
                 outPacket.encodeInt(4);
                 break;
         }
@@ -323,8 +323,7 @@ public class UserLocal {
         return outPacket;
     }
 
-    public static OutPacket openUIOnDead(boolean onDeadRevive, boolean onDeadProtectForBuff, boolean onDeadProtectExpMaplePoint,
-                                         boolean onDeadProtectBuffMaplePoint, boolean anniversary, int reviveType, int protectType) {
+    public static OutPacket openUIOnDead(boolean onDeadRevive, boolean onDeadProtectForBuff, boolean onDeadProtectExpMaplePoint, boolean onDeadProtectBuffMaplePoint, boolean anniversary, int reviveType, int protectType) {
         OutPacket outPacket = new OutPacket(OutHeader.OPEN_UI_DEAD);
 
         int reviveMask = 0;
@@ -441,9 +440,9 @@ public class UserLocal {
     public static OutPacket setInGameDirectionMode(boolean lockUI, boolean blackFrame, boolean forceMouseOver, boolean showUI) {
         OutPacket outPacket = new OutPacket(OutHeader.SET_IN_GAME_DIRECTION_MODE);
 
-        outPacket.encodeByte(lockUI); // Locks User's UI        - Is 'showUI' in IDA
+        outPacket.encodeByte(lockUI); // Locks User's UI - Is 'showUI' in IDA
         outPacket.encodeByte(blackFrame); // Usually 1 in gms? (@aviv)
-        if(lockUI) {
+        if (lockUI) {
             outPacket.encodeByte(forceMouseOver);
             outPacket.encodeByte(showUI);
         }

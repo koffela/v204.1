@@ -1875,38 +1875,9 @@ public enum OutHeader {
     UNK2041(2041),
     UNK2042(2042),
     UNK2043(2043),
-    NO(2044)
-    ;
+    NO(2044);
 
-
-    private static List<OutHeader> spam = Arrays.asList(
-            ALIVE_REQ,
-            PRIVATE_SERVER_PACKET,
-            MOB_CONTROL_ACK,
-            CHAT_MSG,
-            MOB_HP_INDICATOR,
-            STAT_CHANGED,
-            MOB_CHANGE_CONTROLLER,
-            MOB_MOVE,
-            REMOTE_MOVE,
-            REMOTE_EMOTION,
-            EXCL_REQUEST,
-            NPC_MOVE,
-            DROP_LEAVE_FIELD,
-            TEMPORARY_STAT_RESET,
-            PET_MOVE,
-            NPC_ENTER_FIELD,
-            NPC_CHANGE_CONTROLLER,
-            MOB_ENTER_FIELD,
-            RESULT_INSTANCE_TABLE,
-            CREATE_OBTACLE,
-            DROP_ENTER_FIELD,
-            MOB_LEAVE_FIELD,
-            MESSAGE,
-            TEMPORARY_STAT_SET,
-            ANDROID_MOVE,
-            DRAGON_MOVE
-    );
+    private static List<OutHeader> spam = Arrays.asList(ALIVE_REQ, PRIVATE_SERVER_PACKET, MOB_CONTROL_ACK, CHAT_MSG, MOB_HP_INDICATOR, STAT_CHANGED, MOB_CHANGE_CONTROLLER, MOB_MOVE, REMOTE_MOVE, REMOTE_EMOTION, EXCL_REQUEST, NPC_MOVE, DROP_LEAVE_FIELD, TEMPORARY_STAT_RESET, PET_MOVE, NPC_ENTER_FIELD, NPC_CHANGE_CONTROLLER, MOB_ENTER_FIELD, RESULT_INSTANCE_TABLE, CREATE_OBTACLE, DROP_ENTER_FIELD, MOB_LEAVE_FIELD, MESSAGE, TEMPORARY_STAT_SET, ANDROID_MOVE, DRAGON_MOVE);
 
     private short value;
 

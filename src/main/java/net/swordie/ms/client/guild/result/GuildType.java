@@ -57,7 +57,6 @@ public enum GuildType {
     Req_CreateNewAlliance_Block(47),
     Req_ChatN_FindGuildIDByCID(48),
 
-
     Res_LoadGuild_Done(48),
     Res_FindGuild_Done(49),
     Res_CheckGuildName_Available(51),

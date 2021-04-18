@@ -8,7 +8,7 @@ import java.util.*;
 
 /**
  * @author Sjonnie
- * Created on 8/10/2018.
+ *         Created on 8/10/2018.
  */
 public class TradeRoom {
     private Map<Char, List<Tuple<Integer, Item>>> offeredItems = new HashMap<>(); // wow
@@ -59,7 +59,7 @@ public class TradeRoom {
     }
 
     public void restoreItems() {
-        Char[] chars = new Char[]{getChr(), getOther()};
+        Char[] chars = new Char[] { getChr(), getOther() };
         for (Char chr : chars) {
             for (Tuple<Integer, Item> entry : getOfferedItems().get(chr)) {
                 chr.addItemToInventory(entry.getRight());

@@ -30,7 +30,6 @@ public class QuestMoneyReward implements QuestReward {
         this.money = money;
     }
 
-
     @Override
     public void giveReward(Char chr) {
         chr.addMoney(money);

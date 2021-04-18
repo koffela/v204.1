@@ -227,7 +227,9 @@ public class Npc extends Life {
         return new Rect((x + npcRect.getLeft()), (y + npcRect.getTop()), (x + npcRect.getRight()), (y + npcRect.getBottom()));
     }
 
-    public Rect getDC() { return npcRect; }
+    public Rect getDC() {
+        return npcRect;
+    }
 
     public void setDC(Rect npcRect) {
         this.npcRect = npcRect;

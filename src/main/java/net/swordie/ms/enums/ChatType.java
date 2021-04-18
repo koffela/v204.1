@@ -46,6 +46,7 @@ public enum ChatType {
     PieSpeaker(38),
     BlackOnWhite(39),
     ;
+
     private short val;
 
     ChatType(short val) {

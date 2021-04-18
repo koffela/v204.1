@@ -10,7 +10,7 @@ import java.util.Objects;
 
 /**
  * @author Sjonnie
- * Created on 9/30/2018.
+ *         Created on 9/30/2018.
  */
 @Entity
 @Table(name = "monster_collection_explorations")
@@ -76,8 +76,10 @@ public class MonsterCollectionExploration {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         MonsterCollectionExploration that = (MonsterCollectionExploration) o;
         return collectionKey == that.collectionKey;
     }
@@ -89,12 +91,6 @@ public class MonsterCollectionExploration {
 
     public String getValue(boolean active) {
         LocalDateTime ldt = getEndDate().toLocalDateTime().minusHours(2); // so it's the same for the client
-        return String.format("mobKey=%s;end=%s%s%s%s%s;state=%d", getMonsterKey(),
-                Util.leftPaddedString(4, '0', String.valueOf(ldt.getYear())),
-                Util.leftPaddedString(2, '0', String.valueOf(ldt.getMonthValue())),
-                Util.leftPaddedString(2, '0', String.valueOf(ldt.getDayOfMonth())),
-                Util.leftPaddedString(2, '0', String.valueOf(ldt.getHour())),
-                Util.leftPaddedString(2, '0', String.valueOf(ldt.getMinute())),
-                active ? 1 : 0);
+        return String.format("mobKey=%s;end=%s%s%s%s%s;state=%d", getMonsterKey(), Util.leftPaddedString(4, '0', String.valueOf(ldt.getYear())), Util.leftPaddedString(2, '0', String.valueOf(ldt.getMonthValue())), Util.leftPaddedString(2, '0', String.valueOf(ldt.getDayOfMonth())), Util.leftPaddedString(2, '0', String.valueOf(ldt.getHour())), Util.leftPaddedString(2, '0', String.valueOf(ldt.getMinute())), active ? 1 : 0);
     }
 }

@@ -34,7 +34,7 @@ public class TemporaryStatBase {
     }
 
     public int getExpireTerm() {
-        if(isDynamicTermSet()) {
+        if (isDynamicTermSet()) {
             return 1000 * expireTerm;
         }
         return Integer.MAX_VALUE;
@@ -62,7 +62,7 @@ public class TemporaryStatBase {
 
     public boolean hasExpired(long time) {
         boolean result = false;
-        if(isDynamicTermSet()) {
+        if (isDynamicTermSet()) {
             result = getExpireTerm() > time - getLastUpdated().getLongValue();
         }
         return result;
@@ -91,7 +91,7 @@ public class TemporaryStatBase {
         outPacket.encodeInt(getOption().rOption);
         outPacket.encodeByte(isDynamicTermSet());
         outPacket.encodeInt(getExpireTerm());
-        if(isDynamicTermSet()) {
+        if (isDynamicTermSet()) {
             outPacket.encodeShort(getExpireTerm());
         }
     }

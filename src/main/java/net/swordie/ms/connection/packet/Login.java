@@ -27,7 +27,7 @@ public class Login {
     public static OutPacket sendConnect(int siv, int riv, boolean login) {
         OutPacket oPacket = new OutPacket();
         int length = 2 + (2 + ServerConstants.MINOR_VERSION.length()) + 4 + 4 + 1 + (login ? 4 : 1);
-        //int length = 14 + ServerConstants.MINOR_VERSION.length();
+        // int length = 14 + ServerConstants.MINOR_VERSION.length();
         oPacket.encodeShort((short) length);
         oPacket.encodeShort(ServerConstants.VERSION);
         oPacket.encodeString(ServerConstants.MINOR_VERSION);
@@ -61,7 +61,7 @@ public class Login {
 
     public static OutPacket setHotFix(ArrayList<Byte> encryptedHotFixLen, byte[] dataWzHash, byte[] hotFix) {
         OutPacket outPacket = new OutPacket(OutHeader.SET_HOT_FIX.getValue());
-        for(Byte lenByte : encryptedHotFixLen)  {
+        for (Byte lenByte : encryptedHotFixLen) {
             outPacket.encodeByte(lenByte);
         }
         outPacket.encodeArr(dataWzHash);
@@ -86,12 +86,12 @@ public class Login {
             outPacket.encodeInt(0);
             outPacket.encodeString(user.getName());
             outPacket.encodeInt(user.getId());
-            //outPacket.encodeByte(account.getGender());
+            // outPacket.encodeByte(account.getGender());
             outPacket.encodeByte(user.getMsg2());// nGradeCode
             outPacket.encodeInt(user.getPrivateStatusIDFlag().getFlag());
             outPacket.encodeInt(user.getAge());// nVIPGrade
             outPacket.encodeByte(!user.hasCensoredNxLoginID());
-            if(user.hasCensoredNxLoginID()) {
+            if (user.hasCensoredNxLoginID()) {
                 outPacket.encodeString(user.getCensoredNxLoginID());
             }
             outPacket.encodeString(user.getName());
@@ -192,7 +192,7 @@ public class Login {
         outPacket.encodeLong(0);
         outPacket.encodeInt(28);
         outPacket.encodeLong(0);
-        outPacket.encodeString(""); //v25 = CInPacket::DecodeStr(iPacket_1, &nAge);
+        outPacket.encodeString(""); // v25 = CInPacket::DecodeStr(iPacket_1, &nAge);
         JobConstants.encode(outPacket, user.isManagerAccount());
         outPacket.encodeByte(0);
         outPacket.encodeInt(-1);
@@ -237,7 +237,7 @@ public class Login {
         outPacket.encodeByte(burningEventBlock); // bBurningEventBlock
         int reserved = 0;
         outPacket.encodeInt(reserved); // Reserved size
-        outPacket.encodeFT(FileTime.fromType(FileTime.Type.ZERO_TIME)); //Reserved timestamp
+        outPacket.encodeFT(FileTime.fromType(FileTime.Type.ZERO_TIME)); // Reserved timestamp
         for (int i = 0; i < reserved; i++) {
             // not really interested in this
             FileTime ft = FileTime.fromType(FileTime.Type.ZERO_TIME);
@@ -259,11 +259,13 @@ public class Login {
         for (Char chr : chars) {
             chr.getAvatarData().encode(outPacket);
             outPacket.encodeByte(false); // family stuff, deprecated (v61 = &v2->m_abOnFamily.a[v59];)
-            /*boolean hasRanking = chr.getRanking() != null && !JobConstants.isGmJob(chr.getJob());
-            outPacket.encodeByte(hasRanking);
-            if (hasRanking) {
-                chr.getRanking().encode(outPacket);
-            }*/
+            /*
+             * boolean hasRanking = chr.getRanking() != null && !JobConstants.isGmJob(chr.getJob());
+             * outPacket.encodeByte(hasRanking);
+             * if (hasRanking) {
+             * chr.getRanking().encode(outPacket);
+             * }
+             */
         }
         outPacket.encodeByte(user.getPicStatus().getVal()); // bLoginOpt
         outPacket.encodeByte(false); // bQuerySSNOnCreateNewCharacter
@@ -316,11 +318,11 @@ public class Login {
         outPacket.encodeByte(errorCode);
 
         if (loginType == LoginType.Success) {
-            byte[] server = new byte[]{8, 31, 99, ((byte) 141)};
+            byte[] server = new byte[] { 8, 31, 99, ((byte) 141) };
             outPacket.encodeArr(server);
             outPacket.encodeShort(port);
 
-            byte[] chatServer = new byte[]{0, 0, 0, 0};
+            byte[] chatServer = new byte[] { 0, 0, 0, 0 };
             // chat stuff
             outPacket.encodeArr(chatServer);
             outPacket.encodeShort(0);// chat port
@@ -376,7 +378,7 @@ public class Login {
         outPacket.encodeShort(OutHeader.OPEN_WEBSITE.getValue());
         outPacket.encodeShort(OutHeader.CHECK_CLIENT.getValue());
         outPacket.encodeShort(0);// 30581
-        //outPacket.encodeShort(OutHeader.INIT_OPCODE_ENCRYPTION.getValue());
+        // outPacket.encodeShort(OutHeader.INIT_OPCODE_ENCRYPTION.getValue());
         // In Packets headers
         outPacket.encodeShort(InHeader.MIGRATE_IN.getValue());
         outPacket.encodeShort(InHeader.CLIENT_ERROR.getValue());

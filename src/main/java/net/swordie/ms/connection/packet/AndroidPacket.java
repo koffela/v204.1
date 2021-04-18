@@ -7,7 +7,7 @@ import net.swordie.ms.life.movement.MovementInfo;
 
 /**
  * @author Sjonnie
- * Created on 2/12/2019.
+ *         Created on 2/12/2019.
  */
 public class AndroidPacket {
 

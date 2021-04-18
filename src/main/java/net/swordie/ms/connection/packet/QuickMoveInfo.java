@@ -6,7 +6,7 @@ import net.swordie.ms.util.FileTime;
 
 /**
  * @author Sjonnie
- * Created on 7/12/2018.
+ *         Created on 7/12/2018.
  */
 public class QuickMoveInfo {
     private int qmiID;

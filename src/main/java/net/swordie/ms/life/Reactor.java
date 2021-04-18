@@ -131,7 +131,7 @@ public class Reactor extends Life {
         setHitCount(getHitCount() + 1);
     }
 
-    public void die(boolean drops) { //idk sorry
+    public void die(boolean drops) { // idk sorry
         getField().removeLife(this);
         if (drops) {
             dropDrops();
@@ -149,7 +149,6 @@ public class Reactor extends Life {
             }
         }
         Set<DropInfo> dropInfoSet = ReactorData.getReactorInfoByID(getTemplateId()).getDrops();
-        getField().drop(dropInfoSet, getField().getFootholdById(fhID), getPosition(), ownerID, 100,
-                100, false);
+        getField().drop(dropInfoSet, getField().getFootholdById(fhID), getPosition(), ownerID, 100, 100, false);
     }
 }

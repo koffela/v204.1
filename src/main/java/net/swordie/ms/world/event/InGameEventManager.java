@@ -47,9 +47,7 @@ public class InGameEventManager {
     }
 
     private void doEvent() {
-        InGameEvent event = events.entrySet().stream()
-                .filter(e -> e.getValue().getEventType() != previousEvent)
-                .findFirst().get().getValue();
+        InGameEvent event = events.entrySet().stream().filter(e -> e.getValue().getEventType() != previousEvent).findFirst().get().getValue();
 
         previousEvent = event.getEventType();
 
@@ -58,14 +56,12 @@ public class InGameEventManager {
             reminderTimer = EventManager.addFixedRateEvent(this::sendReminder, 30, 60, TimeUnit.SECONDS);
         }
 
-        Server.getInstance().getWorldById(ServerConfig.WORLD_ID)
-                .broadcastPacket(WvsContext.broadcastMsg(BroadcastMsg.notice(event.getEventName() + " event registration has started! Registration will close in " + REGISTRATION_DURATION_MINS + " minutes.")));
+        Server.getInstance().getWorldById(ServerConfig.WORLD_ID).broadcastPacket(WvsContext.broadcastMsg(BroadcastMsg.notice(event.getEventName() + " event registration has started! Registration will close in " + REGISTRATION_DURATION_MINS + " minutes.")));
         event.doEvent();
     }
 
     private void sendReminder() {
-        Server.getInstance().getWorldById(ServerConfig.WORLD_ID)
-                .broadcastPacket(WvsContext.broadcastMsg(BroadcastMsg.notice(getActiveEvent().getEventName() + " event registration is currently open and will begin soon!")));
+        Server.getInstance().getWorldById(ServerConfig.WORLD_ID).broadcastPacket(WvsContext.broadcastMsg(BroadcastMsg.notice(getActiveEvent().getEventName() + " event registration is currently open and will begin soon!")));
         remindersSent += 1;
         if (remindersSent >= 4) // = 5 minutes
             reminderTimer.cancel(true);

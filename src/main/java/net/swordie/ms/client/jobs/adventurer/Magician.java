@@ -49,13 +49,12 @@ import static net.swordie.ms.client.character.skills.temp.CharacterTemporaryStat
  * Created on 12/14/2017.
  */
 public class Magician extends Beginner {
-    //Common
+    // Common
     public static final int MAPLE_RETURN = 1281;
     public static final int TELEPORT = 2001009;
     public static final int MAGIC_GUARD = 2001002;
 
-
-    //Mage FP
+    // Mage FP
     public static final int MP_EATER_FP = 2100000;
     public static final int POISON_BREATH = 2101005;
     public static final int MAGIC_BOOSTER_FP = 2101008;
@@ -81,8 +80,7 @@ public class Magician extends Beginner {
     public static final int ARCANE_AIM_FP = 2120010;
     public static final int HEROS_WILL_FP = 2121008;
 
-
-    //Mage IL
+    // Mage IL
     public static final int CHILLING_STEP = 2201009;
     public static final int COLD_BEAM = 2201008;
     public static final int FREEZING_CRUSH = 2200011;
@@ -109,7 +107,7 @@ public class Magician extends Beginner {
     public static final int HEROS_WILL_IL = 2221008;
     public static final int LIGHTNING_ORB = 2221052;
 
-    //Bishop
+    // Bishop
     public static final int HEAL = 2301002;
     public static final int MAGIC_BOOSTER_BISH = 2301008;
     public static final int BLESSED_ENSEMBLE = 2300009;
@@ -134,7 +132,7 @@ public class Magician extends Beginner {
     public static final int RESURRECTION = 2321006;
     public static final int HEROS_WILL_BISH = 2321009;
 
-    //Hypers
+    // Hypers
     public static final int EPIC_ADVENTURE_FP = 2121053;
     public static final int EPIC_ADVENTURE_IL = 2221053;
     public static final int EPIC_ADVENTURE_BISH = 2321053;
@@ -145,12 +143,11 @@ public class Magician extends Beginner {
     public static final int MEGIDDO_FLAME = 2121052;
     public static final int MEGIDDO_FLAME_ATOM = 2121055;
 
-
-    private int[] addedSkills = new int[]{
+    private int[] addedSkills = new int[] {
             MAPLE_RETURN,
     };
 
-    private final int[] buffs = new int[]{
+    private final int[] buffs = new int[] {
             MAGIC_GUARD,
             IGNITE,
             MAGIC_BOOSTER_FP,
@@ -220,8 +217,6 @@ public class Magician extends Beginner {
     public boolean isHandlerOfJob(short id) {
         return JobConstants.isAdventurerMage(id);
     }
-
-
 
     // Buff related methods --------------------------------------------------------------------------------------------
 
@@ -324,7 +319,7 @@ public class Magician extends Beginner {
                 o2.tOption = si.getValue(time, slv);
                 tsm.putCharacterStatValue(Stance, o2);
                 infinityStack = 0;
-                if(infinityTimer != null && !infinityTimer.isDone()) {
+                if (infinityTimer != null && !infinityTimer.isDone()) {
                     infinityTimer.cancel(true);
                 }
                 infinity();
@@ -390,19 +385,16 @@ public class Magician extends Beginner {
                 break;
             case RESURRECTION:
                 Party party = chr.getParty();
-                if(party == null) {
+                if (party == null) {
                     chr.resetSkillCoolTime(skillID);
                 }
-                if(party != null) {
+                if (party != null) {
                     field = chr.getField();
                     Rect rect = chr.getPosition().getRectAround(si.getRects().get(0));
-                    if(!chr.isLeft()) {
+                    if (!chr.isLeft()) {
                         rect = rect.moveRight();
                     }
-                    List<PartyMember> eligblePartyMemberList = field.getPartyMembersInRect(chr, rect).stream().
-                            filter(pml -> pml.getChr().getId() != chr.getId() &&
-                                    pml.getChr().getHP() <= 0).
-                            collect(Collectors.toList());
+                    List<PartyMember> eligblePartyMemberList = field.getPartyMembersInRect(chr, rect).stream().filter(pml -> pml.getChr().getId() != chr.getId() && pml.getChr().getHP() <= 0).collect(Collectors.toList());
                     for (PartyMember partyMember : eligblePartyMemberList) {
                         Char partyChr = partyMember.getChr();
                         partyChr.healHPMP();
@@ -533,7 +525,7 @@ public class Magician extends Beginner {
 
     private void changeBlessedCount() {
         TemporaryStatManager tsm = chr.getTemporaryStatManager();
-        if(getBlessedSkill() == null) {
+        if (getBlessedSkill() == null) {
             return;
         }
         Skill skill = getBlessedSkill();
@@ -543,15 +535,15 @@ public class Magician extends Beginner {
         Option o2 = new Option();
         int amount = 0;
 
-        if(chr.getParty() != null) { // Should be increasing by Given Party Buffs
-            for(PartyMember pm : chr.getParty().getOnlineMembers()) {
-                if(chr.getFieldID() == pm.getChr().getFieldID()) {
+        if (chr.getParty() != null) { // Should be increasing by Given Party Buffs
+            for (PartyMember pm : chr.getParty().getOnlineMembers()) {
+                if (chr.getFieldID() == pm.getChr().getFieldID()) {
                     amount++;
                 }
             }
         }
 
-        if(amount > 1) { // amount = 2  ->  1 count on Icon
+        if (amount > 1) { // amount = 2 -> 1 count on Icon
             o1.nOption = amount;
             o1.rOption = BLESSED_ENSEMBLE;
             tsm.putCharacterStatValue(BlessEnsenble, o1);
@@ -569,10 +561,10 @@ public class Magician extends Beginner {
 
     private Skill getBlessedSkill() {
         Skill skill = null;
-        if(chr.hasSkill(BLESSED_ENSEMBLE)) {
+        if (chr.hasSkill(BLESSED_ENSEMBLE)) {
             skill = chr.getSkill(BLESSED_ENSEMBLE);
         }
-        if(chr.hasSkill(BLESSED_HARMONY)) {
+        if (chr.hasSkill(BLESSED_HARMONY)) {
             skill = chr.getSkill(BLESSED_HARMONY);
         }
         return skill;
@@ -589,7 +581,7 @@ public class Magician extends Beginner {
     }
 
     public static void infestViralSlime(Char chr, Mob mob) {
-        if(viralSlimeList.size() < 10) {
+        if (viralSlimeList.size() < 10) {
             summonViralSlime(chr, chr.getSkill(VIRAL_SLIME), mob.getPosition());
             summonViralSlime(chr, chr.getSkill(VIRAL_SLIME), mob.getPosition());
         }
@@ -610,17 +602,17 @@ public class Magician extends Beginner {
                 break;
             case HOLY_MAGIC_SHELL:
                 rate = si.getValue(z, slv);
-                healrate = (int) (maxHP / ((double)100 / rate));
+                healrate = (int) (maxHP / ((double) 100 / rate));
                 break;
             case ANGEL_RAY:
                 rate = si.getValue(hp, slv);
-                healrate = (int) (maxHP / ((double)100 / rate));
+                healrate = (int) (maxHP / ((double) 100 / rate));
                 break;
             case INFINITY_BISH:
 
                 break;
         }
-        if(tsm.hasStat(VengeanceOfAngel)) {
+        if (tsm.hasStat(VengeanceOfAngel)) {
             SkillInfo hsi = SkillData.getSkillInfoById(RIGHTEOUSLY_INDIGNANT);
             healrate = (int) (healrate / ((double) 100 / (hsi.getValue(hp, 1))));
         }
@@ -629,14 +621,14 @@ public class Magician extends Beginner {
 
     public static int getHolyMagicShellMaxGuards(Char chr) {
         int num = 9;
-        if(chr.hasSkill(2320043)) { //Extra 2 Guards  Hyper Skill
+        if (chr.hasSkill(2320043)) { // Extra 2 Guards Hyper Skill
             num = 11;
         }
         return num;
     }
 
     private void infinity() {
-        if(!chr.hasSkill(getInfinitySkill())) {
+        if (!chr.hasSkill(getInfinitySkill())) {
             return;
         }
         TemporaryStatManager tsm = chr.getTemporaryStatManager();
@@ -645,16 +637,16 @@ public class Magician extends Beginner {
         byte slv = (byte) skill.getCurrentLevel();
         SkillInfo si = SkillData.getSkillInfoById(skill.getSkillId());
         infinityStack++;
-        if(tsm.hasStat(Infinity)) {
+        if (tsm.hasStat(Infinity)) {
             o1.nValue = infinityStack * si.getValue(damage, slv);
-            o1.nReason = getInfinitySkill()+100; //To make the buff icon hidden
+            o1.nReason = getInfinitySkill() + 100; // To make the buff icon hidden
             o1.tStart = (int) System.currentTimeMillis();
             tsm.putCharacterStatValue(IndieMADR, o1);
             tsm.sendSetStatPacket();
             chr.heal((int) (chr.getMaxHP() / ((double) 100 / si.getValue(y, slv))));
             infinityTimer = EventManager.addEvent(this::infinity, 4, TimeUnit.SECONDS);
         } else {
-            tsm.removeStatsBySkill(getInfinitySkill()+100);
+            tsm.removeStatsBySkill(getInfinitySkill() + 100);
             tsm.sendResetStatPacket();
             infinityStack = 0;
         }
@@ -662,19 +654,17 @@ public class Magician extends Beginner {
 
     private int getInfinitySkill() {
         int skill = 0;
-        if(chr.hasSkill(INFINITY_FP)) {
+        if (chr.hasSkill(INFINITY_FP)) {
             skill = INFINITY_FP;
         }
-        if(chr.hasSkill(INFINITY_IL)) {
+        if (chr.hasSkill(INFINITY_IL)) {
             skill = INFINITY_IL;
         }
-        if(chr.hasSkill(INFINITY_BISH)) {
+        if (chr.hasSkill(INFINITY_BISH)) {
             skill = INFINITY_BISH;
         }
         return skill;
     }
-
-
 
     // Attack related methods ------------------------------------------------------------------------------------------
 
@@ -696,24 +686,24 @@ public class Magician extends Beginner {
         if (hasHitMobs) {
             incrementArcaneAim();
         }
-        //Ignite
+        // Ignite
         applyIgniteOnMob(attackInfo, tsm);
         if (JobConstants.isFirePoison(chr.getJob())) {
-            if(hasHitMobs) {
-                //Megiddo Flame Recreation
-                if(attackInfo.skillId == MEGIDDO_FLAME_ATOM) {
+            if (hasHitMobs) {
+                // Megiddo Flame Recreation
+                if (attackInfo.skillId == MEGIDDO_FLAME_ATOM) {
                     recreateMegiddoFlameForceAtom(skillID, slv, attackInfo);
                 }
             }
         }
         if (JobConstants.isIceLightning(chr.getJob())) {
-            if(hasHitMobs) {
-                //Freezing Crush / Frozen Clutch
+            if (hasHitMobs) {
+                // Freezing Crush / Frozen Clutch
                 applyFreezingCrushOnMob(attackInfo, skillID);
             }
         }
         if (JobConstants.isCleric(chr.getJob())) {
-            if(hasHitMobs) {
+            if (hasHitMobs) {
 
             }
         }
@@ -750,7 +740,7 @@ public class Magician extends Beginner {
                         if (mob == null) {
                             continue;
                         }
-                        if(!mob.isBoss()) {
+                        if (!mob.isBoss()) {
                             MobTemporaryStat mts = mob.getTemporaryStat();
                             o1.nOption = 1;
                             o1.rOption = skill.getSkillId();
@@ -772,12 +762,12 @@ public class Magician extends Beginner {
                         o1.nOption = 1;
                         o1.rOption = skill.getSkillId();
                         o1.tOption = si.getValue(time, slv);
-                        mts.addStatOptions(MobStat.Showdown, o1); //Untouchable (physical dmg) Mob Stat
+                        mts.addStatOptions(MobStat.Showdown, o1); // Untouchable (physical dmg) Mob Stat
                         o1.nOption = 1;
                         o1.rOption = skill.getSkillId();
                         o1.tOption = si.getValue(time, slv);
                         mts.addStatOptions(MobStat.Speed, o1);
-                        fpBurnedInfo(mob, skill); //Global Burned Info Handler to regulate Fervent Drain/Element Drain
+                        fpBurnedInfo(mob, skill); // Global Burned Info Handler to regulate Fervent Drain/Element Drain
                     }
                     AffectedArea aa2 = AffectedArea.getAffectedArea(chr, attackInfo);
                     aa2.setMobOrigin((byte) 0);
@@ -803,7 +793,7 @@ public class Magician extends Beginner {
                     if (mob == null) {
                         continue;
                     }
-                    if(!mob.isBoss()) {
+                    if (!mob.isBoss()) {
                         MobTemporaryStat mts = mob.getTemporaryStat();
                         o1.nOption = 1;
                         o1.rOption = skillID;
@@ -837,7 +827,7 @@ public class Magician extends Beginner {
                         if (mob == null) {
                             continue;
                         }
-                        if(!mob.isBoss()) {
+                        if (!mob.isBoss()) {
                             MobTemporaryStat mts = mob.getTemporaryStat();
                             o1.nOption = 1;
                             o1.rOption = skillID;
@@ -869,7 +859,7 @@ public class Magician extends Beginner {
             case HEAVENS_DOOR:
                 Party party = chr.getParty();
                 if (party != null) {
-                    for(PartyMember partyMember : party.getOnlineMembers()) {
+                    for (PartyMember partyMember : party.getOnlineMembers()) {
                         Char partyChr = partyMember.getChr();
                         TemporaryStatManager partyTSM = partyChr.getTemporaryStatManager();
                         o1.nOption = 1;
@@ -877,7 +867,7 @@ public class Magician extends Beginner {
                         o1.tOption = 0;
                         partyTSM.putCharacterStatValue(ReviveOnce, o1);
                         partyTSM.sendSetStatPacket();
-                        if(partyChr != chr) {
+                        if (partyChr != chr) {
                             chr.getField().broadcastPacket(UserRemote.effect(partyChr.getId(), Effect.skillAffected(skillID, slv, 0)), partyChr);
                             partyChr.write(UserPacket.effect(Effect.skillAffected(skillID, slv, 0)));
                         }
@@ -934,19 +924,15 @@ public class Magician extends Beginner {
             rect = rect.moveRight();
         }
         List<Mob> lifes = field.getMobsInRect(rect);
-        if(lifes.size() <= 0) {
+        if (lifes.size() <= 0) {
             return;
         }
         Mob life = Util.getRandomFromCollection(lifes);
         int mobID2 = (life).getObjectId();
         int inc = ForceAtomEnum.DA_ORB.getInc();
         int type = ForceAtomEnum.DA_ORB.getForceAtomType();
-        ForceAtomInfo forceAtomInfo = new ForceAtomInfo(1, inc, 20, 40,
-                0, 500, (int) System.currentTimeMillis(), 1, 0,
-                new Position(0, -100));
-        chr.getField().broadcastPacket(FieldPacket.createForceAtom(false, 0, chr.getId(), type,
-                true, mobID2, MEGIDDO_FLAME_ATOM, forceAtomInfo, new Rect(), 0, 300,
-                life.getPosition(), MEGIDDO_FLAME_ATOM, life.getPosition()));
+        ForceAtomInfo forceAtomInfo = new ForceAtomInfo(1, inc, 20, 40, 0, 500, (int) System.currentTimeMillis(), 1, 0, new Position(0, -100));
+        chr.getField().broadcastPacket(FieldPacket.createForceAtom(false, 0, chr.getId(), type, true, mobID2, MEGIDDO_FLAME_ATOM, forceAtomInfo, new Rect(), 0, 300, life.getPosition(), MEGIDDO_FLAME_ATOM, life.getPosition()));
     }
 
     private void recreateMegiddoFlameForceAtom(int skillID, byte slv, AttackInfo attackInfo) {
@@ -963,12 +949,8 @@ public class Magician extends Beginner {
 
                 int inc = ForceAtomEnum.DA_ORB_RECREATION.getInc();
                 int type = ForceAtomEnum.DA_ORB_RECREATION.getForceAtomType();
-                ForceAtomInfo forceAtomInfo = new ForceAtomInfo(1, inc, 30, 5,
-                        anglenum, 0, (int) System.currentTimeMillis(), 1, 0,
-                        new Position(0, 0));
-                chr.getField().broadcastPacket(FieldPacket.createForceAtom(true, chr.getId(), mobID, type,
-                        true, mobID, MEGIDDO_FLAME_ATOM, forceAtomInfo, new Rect(), 0, 300,
-                        mob.getPosition(), MEGIDDO_FLAME_ATOM, mob.getPosition()));
+                ForceAtomInfo forceAtomInfo = new ForceAtomInfo(1, inc, 30, 5, anglenum, 0, (int) System.currentTimeMillis(), 1, 0, new Position(0, 0));
+                chr.getField().broadcastPacket(FieldPacket.createForceAtom(true, chr.getId(), mobID, type, true, mobID, MEGIDDO_FLAME_ATOM, forceAtomInfo, new Rect(), 0, 300, mob.getPosition(), MEGIDDO_FLAME_ATOM, mob.getPosition()));
             }
         }
     }
@@ -1049,7 +1031,7 @@ public class Magician extends Beginner {
         }
     }
 
-    //Elemental/Fervent Drain - FP
+    // Elemental/Fervent Drain - FP
     public int getFerventDrainStack() {
         return ferventDrainStack;
     }
@@ -1084,7 +1066,7 @@ public class Magician extends Beginner {
     }
 
     private void updateElementDrain() {
-        if(!chr.hasSkill(ELEMENTAL_DRAIN)) {
+        if (!chr.hasSkill(ELEMENTAL_DRAIN)) {
             return;
         }
         Skill skill = chr.getSkill(getElementalDrainSkill());
@@ -1098,10 +1080,10 @@ public class Magician extends Beginner {
         o.rOption = ELEMENTAL_DRAIN;
         tsm.putCharacterStatValue(DotBasedBuff, o);
 
-        o1.nOption = ( (getFerventDrainStack() > 5 ? 5 : getFerventDrainStack()) * edi.getValue(x, slv) );
+        o1.nOption = ((getFerventDrainStack() > 5 ? 5 : getFerventDrainStack()) * edi.getValue(x, slv));
         o1.rOption = ELEMENTAL_DRAIN;
         tsm.putCharacterStatValue(DamR, o1);
-        if(getFerventDrainStack() <= 0) {
+        if (getFerventDrainStack() <= 0) {
             tsm.removeStatsBySkill(ELEMENTAL_DRAIN);
             tsm.sendResetStatPacket();
         } else {
@@ -1110,7 +1092,7 @@ public class Magician extends Beginner {
     }
 
     private void applyFreezingCrushOnMob(AttackInfo attackInfo, int skillID) {
-        if(!SkillConstants.isIceSkill(skillID)){
+        if (!SkillConstants.isIceSkill(skillID)) {
             return;
         }
         Option o1 = new Option();
@@ -1121,7 +1103,7 @@ public class Magician extends Beginner {
             }
             MobTemporaryStat mts = mob.getTemporaryStat();
             int counter = 1;
-            if(mts.hasCurrentMobStat(MobStat.Speed)) {
+            if (mts.hasCurrentMobStat(MobStat.Speed)) {
                 counter = mts.getCurrentOptionsByMobStat(MobStat.Speed).mOption;
                 if (counter < 5) {
                     counter++;
@@ -1129,7 +1111,7 @@ public class Magician extends Beginner {
             }
             o1.nOption = 20;
             o1.rOption = skillID;
-            o1.tOption = 15; //No Duration given
+            o1.tOption = 15; // No Duration given
             o1.mOption = counter;
             mts.addStatOptionsAndBroadcast(MobStat.Speed, o1);
         }
@@ -1137,29 +1119,26 @@ public class Magician extends Beginner {
 
     @Override
     public int getFinalAttackSkill() {
-        if(JobConstants.isFirePoison(chr.getJob())) {
+        if (JobConstants.isFirePoison(chr.getJob())) {
             SkillInfo si = SkillData.getSkillInfoById(METEOR_SHOWER_FA);
-            if(chr.getSkill(METEOR_SHOWER) != null) {
+            if (chr.getSkill(METEOR_SHOWER) != null) {
                 byte slv = (byte) chr.getSkill(METEOR_SHOWER).getCurrentLevel();
-                if(Util.succeedProp(si.getValue(prop, slv))) {
+                if (Util.succeedProp(si.getValue(prop, slv))) {
                     return METEOR_SHOWER_FA;
                 }
             }
 
-        }
-        else if(JobConstants.isIceLightning(chr.getJob())) {
+        } else if (JobConstants.isIceLightning(chr.getJob())) {
             SkillInfo si = SkillData.getSkillInfoById(BLIZZARD_FA);
-            if(chr.getSkill(BLIZZARD) != null) {
+            if (chr.getSkill(BLIZZARD) != null) {
                 byte slv = (byte) chr.getSkill(BLIZZARD).getCurrentLevel();
-                if(Util.succeedProp(si.getValue(prop, slv))) {
+                if (Util.succeedProp(si.getValue(prop, slv))) {
                     return BLIZZARD_FA;
                 }
             }
         }
         return 0;
     }
-
-
 
     // Skill related methods -------------------------------------------------------------------------------------------
 
@@ -1233,8 +1212,7 @@ public class Magician extends Beginner {
                     break;
                 case HEAL:
                     chr.heal(changeBishopHealingBuffs(HEAL));
-                    rect = new Rect(inPacket.decodeShort(), inPacket.decodeShort(),
-                            inPacket.decodeShort(), inPacket.decodeShort());
+                    rect = new Rect(inPacket.decodeShort(), inPacket.decodeShort(), inPacket.decodeShort(), inPacket.decodeShort());
                     for (Life life : chr.getField().getLifesInRect(rect)) {
                         if (life instanceof Mob && ((Mob) life).getHp() > 0) {
                             Mob mob = (Mob) life;
@@ -1255,7 +1233,7 @@ public class Magician extends Beginner {
                     int y = townField.getPortalByName("tp").getY();
                     Position townPosition = new Position(x, y); // Grabs the Portal Co-ordinates for the TownPortalPoint
                     int duration = si.getValue(time, slv);
-                    if(chr.getTownPortal() != null) {
+                    if (chr.getTownPortal() != null) {
                         TownPortal townPortal = chr.getTownPortal();
                         townPortal.despawnTownPortal();
                     }
@@ -1293,14 +1271,12 @@ public class Magician extends Beginner {
         }
     }
 
-
-
     // Hit related methods ---------------------------------------------------------------------------------------------
 
     @Override
     public void handleHit(Client c, InPacket inPacket, HitInfo hitInfo) {
         TemporaryStatManager tsm = chr.getTemporaryStatManager();
-        if(tsm.hasStat(MagicGuard)) {
+        if (tsm.hasStat(MagicGuard)) {
             Skill skill = chr.getSkill(MAGIC_GUARD);
             SkillInfo si = SkillData.getSkillInfoById(MAGIC_GUARD);
             int dmgPerc = si.getValue(x, skill.getCurrentLevel());
@@ -1317,14 +1293,14 @@ public class Magician extends Beginner {
         TemporaryStatManager tsm = chr.getTemporaryStatManager();
 
         // Elemental Adaptation - FP
-        if(chr.hasSkill(ELEMENTAL_ADAPTATION_FP) && tsm.getOptByCTSAndSkill(AntiMagicShell, ELEMENTAL_ADAPTATION_FP) != null) {
+        if (chr.hasSkill(ELEMENTAL_ADAPTATION_FP) && tsm.getOptByCTSAndSkill(AntiMagicShell, ELEMENTAL_ADAPTATION_FP) != null) {
             deductEleAdaptationFP();
             tsm.removeAllDebuffs();
         }
 
         // Elemental Adaptation - IL
-        if(chr.hasSkill(ELEMENTAL_ADAPTATION_IL) && tsm.getOptByCTSAndSkill(AntiMagicShell, ELEMENTAL_ADAPTATION_IL) != null) {
-            if(tsm.getOption(AntiMagicShell).bOption == 0) {
+        if (chr.hasSkill(ELEMENTAL_ADAPTATION_IL) && tsm.getOptByCTSAndSkill(AntiMagicShell, ELEMENTAL_ADAPTATION_IL) != null) {
+            if (tsm.getOption(AntiMagicShell).bOption == 0) {
                 Skill skill = chr.getSkill(ELEMENTAL_ADAPTATION_IL);
                 SkillInfo si = SkillData.getSkillInfoById(skill.getSkillId());
                 byte slv = (byte) skill.getCurrentLevel();
@@ -1345,7 +1321,7 @@ public class Magician extends Beginner {
         }
 
         // Divine Protection - Bishop
-        if(chr.hasSkill(DIVINE_PROTECTION) && tsm.getOptByCTSAndSkill(AntiMagicShell, DIVINE_PROTECTION) != null) {
+        if (chr.hasSkill(DIVINE_PROTECTION) && tsm.getOptByCTSAndSkill(AntiMagicShell, DIVINE_PROTECTION) != null) {
             tsm.removeStatsBySkill(DIVINE_PROTECTION);
             tsm.sendResetStatPacket();
             tsm.removeAllDebuffs();
@@ -1354,7 +1330,7 @@ public class Magician extends Beginner {
 
     // Elemental Adaptation - FP
     private void deductEleAdaptationFP() {
-        if(!chr.hasSkill(ELEMENTAL_ADAPTATION_FP)) {
+        if (!chr.hasSkill(ELEMENTAL_ADAPTATION_FP)) {
             return;
         }
         TemporaryStatManager tsm = chr.getTemporaryStatManager();
@@ -1365,8 +1341,8 @@ public class Magician extends Beginner {
         int proc = si.getValue(prop, slv);
 
         int stack = tsm.getOption(AntiMagicShell).nOption;
-        if(stack > 0) {
-            if(Util.succeedProp(proc)) {
+        if (stack > 0) {
+            if (Util.succeedProp(proc)) {
                 stack--;
 
                 o.nOption = stack;
@@ -1406,4 +1382,3 @@ public class Magician extends Beginner {
         }
     }
 }
-

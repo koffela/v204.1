@@ -17,9 +17,13 @@ public enum SceneType {
 
     private int val;
 
-    SceneType(int val) {this.val = val;}
+    SceneType(int val) {
+        this.val = val;
+    }
 
-    public int getVal() {return val;}
+    public int getVal() {
+        return val;
+    }
 
     public static SceneType getByVal(int val) {
         return Util.findWithPred(values(), st -> st.getVal() == val);

@@ -14,7 +14,7 @@ public class DragonPool {
         Char owner = dragon.getOwner();
         outPacket.encodeInt(owner.getId());
         outPacket.encodePositionInt(dragon.getPosition());
-        outPacket.encodeByte(dragon.getMoveAction()); //Move Action
+        outPacket.encodeByte(dragon.getMoveAction()); // Move Action
         outPacket.encodeShort(owner.getFoothold());
         outPacket.encodeShort(owner.getJob());
 

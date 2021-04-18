@@ -75,7 +75,7 @@ public class LoginHandler {
             try {
                 byte[] hotFix = Files.readAllBytes(dataWz.toPath());
                 byte[] dataWzHash = Util.sha1Hash(hotFix);
-                if (dataWzHash == null)  {
+                if (dataWzHash == null) {
                     log.error("Data.wz hashing has failed.");
                     incorrectHotFix = true;
                     client.write(Login.setHotFix(incorrectHotFix));
@@ -83,7 +83,7 @@ public class LoginHandler {
                 }
                 // Only care about the first 4 bytes of the hash
                 dataWzHash = Arrays.copyOfRange(dataWzHash, 0, 4);
-                if (Arrays.equals(dataWzHash, appliedHotFix))  {
+                if (Arrays.equals(dataWzHash, appliedHotFix)) {
                     incorrectHotFix = false;
                     client.write(Login.setHotFix(incorrectHotFix));
                     return;
@@ -143,8 +143,7 @@ public class LoginHandler {
                 } else if (user.getBanExpireDate() != null && !user.getBanExpireDate().isExpired()) {
                     success = false;
                     result = LoginType.Blocked;
-                    String banMsg = String.format("You have been banned. \nReason: %s. \nExpire date: %s",
-                            user.getBanReason(), user.getBanExpireDate().toLocalDateTime());
+                    String banMsg = String.format("You have been banned. \nReason: %s. \nExpire date: %s", user.getBanReason(), user.getBanExpireDate().toLocalDateTime());
                     c.write(WvsContext.broadcastMsg(BroadcastMsg.popUpMessage(banMsg)));
                 } else {
                     if (!hashed) {
@@ -167,7 +166,7 @@ public class LoginHandler {
         c.write(Login.checkPasswordResult(success, result, user));
     }
 
-    @Handler(ops = {InHeader.WORLD_LIST_REQUEST, InHeader.LOGOUT_WORLD, InHeader.WORLD_LIST_REQUEST, InHeader.WORLD_INFO_REQUEST})
+    @Handler(ops = { InHeader.WORLD_LIST_REQUEST, InHeader.LOGOUT_WORLD, InHeader.WORLD_LIST_REQUEST, InHeader.WORLD_INFO_REQUEST })
     public static void handleWorldListRequest(Client c, InPacket packet) {
         c.write(MapLoadable.setMapTaggedObjectVisible());
         for (World world : Server.getInstance().getWorlds()) {
@@ -201,7 +200,8 @@ public class LoginHandler {
 
         // String accountName = ApiFactory.getFactory().getAccountByToken(c, token);
         String accountName = token;
-        final User user = User.getFromDBByName(accountName);;
+        final User user = User.getFromDBByName(accountName);
+        ;
         World world = Server.getInstance().getWorldById(worldId);
         if (user != null && world != null && world.getChannelById(channel) != null) {
             if (Server.getInstance().isUserLoggedIn(user)) {
@@ -210,7 +210,7 @@ public class LoginHandler {
                 String banMsg = String.format("You have been banned. \nReason: %s. \nExpire date: %s", user.getBanReason(), user.getBanExpireDate().toLocalDateTime());
                 c.write(WvsContext.broadcastMsg(BroadcastMsg.popUpMessage(banMsg)));
                 c.write(Login.checkPasswordResult(false, LoginType.Blocked, user));
-            }  else {
+            } else {
                 c.setUser(user);
                 Account account = user.getAccountByWorldId(worldId);
                 if (account == null) {
@@ -219,14 +219,14 @@ public class LoginHandler {
                     user.addAccount(account);
                     DatabaseManager.saveToDB(user); // add to user's list of accounts
                 }
-                //Server.getInstance().addAccount(account);
+                // Server.getInstance().addAccount(account);
                 c.setAccount(account);
                 c.setMachineID(machineID);
                 DatabaseManager.saveToDB(account);
                 byte code = 0; // success code
                 c.setWorldId(worldId);
                 c.setChannel(channel);
-                //c.write(Login.checkPasswordResult(true, LoginType.Success, account));
+                // c.write(Login.checkPasswordResult(true, LoginType.Success, account));
                 c.write(Login.sendAccountInfo(c.getUser()));
                 c.write(Login.selectWorldResult(c.getUser(), c.getAccount(), code, Server.getInstance().getWorldById(worldId).isReboot() ? "reboot" : "normal", true));
             }
@@ -267,16 +267,14 @@ public class LoginHandler {
         byte skin = inPacket.decodeByte();
 
         byte itemLength = inPacket.decodeByte();
-        int[] items = new int[itemLength]; //face, hair, markings, skin, overall, top, bottom, cape, boots, weapon
+        int[] items = new int[itemLength]; // face, hair, markings, skin, overall, top, bottom, cape, boots, weapon
         for (int i = 0; i < itemLength; i++) {
             items[i] = inPacket.decodeInt();
         }
         int face = items[0];
         int hair = items[1];
         CharNameResult code = null;
-        if (!ItemData.isStartingItems(items) || skin > ItemConstants.MAX_SKIN || skin < 0
-                || face < ItemConstants.MIN_FACE || face > ItemConstants.MAX_FACE
-                || hair < ItemConstants.MIN_HAIR || hair > ItemConstants.MAX_HAIR) {
+        if (!ItemData.isStartingItems(items) || skin > ItemConstants.MAX_SKIN || skin < 0 || face < ItemConstants.MIN_FACE || face > ItemConstants.MAX_FACE || hair < ItemConstants.MIN_HAIR || hair > ItemConstants.MAX_HAIR) {
             c.getUser().getOffenseManager().addOffense("Tried to add items unavailable on char creation.");
             code = CharNameResult.Unavailable_CashItem;
         }
@@ -311,8 +309,7 @@ public class LoginHandler {
         for (int i : chr.getAvatarData().getAvatarLook().getHairEquips()) {
             Equip equip = ItemData.getEquipDeepCopyFromID(i, false);
             if (equip != null && equip.getItemId() >= 1000000) {
-                equip.setBagIndex(ItemConstants.getBodyPartFromItem(
-                        equip.getItemId(), chr.getAvatarData().getAvatarLook().getGender()));
+                equip.setBagIndex(ItemConstants.getBodyPartFromItem(equip.getItemId(), chr.getAvatarData().getAvatarLook().getGender()));
                 chr.addItemToInventory(EQUIPPED, equip, true);
             }
         }
@@ -322,8 +319,7 @@ public class LoginHandler {
         chr.addItemToInventory(EQUIPPED, codex, true);
         if (curSelectedRace == 15) { // Zero hack for adding 2nd weapon (removing it in hairequips for zero look)
             Equip equip = ItemData.getEquipDeepCopyFromID(1562000, false);
-            equip.setBagIndex(ItemConstants.getBodyPartFromItem(
-                    equip.getItemId(), chr.getAvatarData().getAvatarLook().getGender()));
+            equip.setBagIndex(ItemConstants.getBodyPartFromItem(equip.getItemId(), chr.getAvatarData().getAvatarLook().getGender()));
             chr.addItemToInventory(EQUIPPED, equip, true);
         }
         DatabaseManager.saveToDB(acc);
@@ -430,7 +426,6 @@ public class LoginHandler {
         }
     }
 
-
     @Handler(op = InHeader.CHANGE_PIC_REQUEST)
     public static void handleChangePicRequest(Client c, InPacket inPacket) {
         String currentPic = inPacket.decodeString();
@@ -464,10 +459,10 @@ public class LoginHandler {
             inPacket.decodeInt();
         }
         String pic = inPacket.decodeString();
-//        int userId = inPacket.decodeInt();
+        // int userId = inPacket.decodeInt();
         // after this: 2 strings indicating pc info. Not interested in that rn
-        //if (BCrypt.checkpw(pic, c.getAccount().getPic())) {
-        if(c.getUser().getPic().equals(pic)) {
+        // if (BCrypt.checkpw(pic, c.getAccount().getPic())) {
+        if (c.getUser().getPic().equals(pic)) {
             success = true;
         } else {
             c.write(Login.selectCharacterResult(LoginType.IncorrectPassword, (byte) 0, 0, 0));
@@ -483,7 +478,7 @@ public class LoginHandler {
     }
 
     @Handler(op = InHeader.WVS_CRASH_CALLBACK)
-    public static void handleWvsCrashCallback(Client c, InPacket inPacket){
+    public static void handleWvsCrashCallback(Client c, InPacket inPacket) {
         if (c != null && c.getChr() != null) {
             c.getChr().setChangingChannel(false);
             c.getChr().logout();

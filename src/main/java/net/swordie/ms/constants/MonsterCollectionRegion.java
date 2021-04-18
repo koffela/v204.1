@@ -7,7 +7,7 @@ import java.util.*;
 
 /**
  * @author Sjonnie
- * Created on 7/22/2018.
+ *         Created on 7/22/2018.
  */
 public class MonsterCollectionRegion {
     private Map<Integer, MonsterCollectionSession> monsterCollectionSessions = new HashMap<>();
@@ -33,8 +33,7 @@ public class MonsterCollectionRegion {
     }
 
     public boolean hasMob(int templateID, MonsterCollectionMobInfo mcmi) {
-        return monsterCollectionSessions.containsKey(mcmi.getSession()) &&
-                monsterCollectionSessions.get(mcmi.getSession()).hasMob(templateID, mcmi);
+        return monsterCollectionSessions.containsKey(mcmi.getSession()) && monsterCollectionSessions.get(mcmi.getSession()).hasMob(templateID, mcmi);
     }
 
     public void sendCompleteInfo(Char chr, int regionKey) {

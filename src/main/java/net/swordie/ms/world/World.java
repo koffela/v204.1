@@ -17,7 +17,7 @@ import java.util.*;
  * Created on 11/2/2017.
  */
 public class World {
-    //WORLDITEM struct
+    // WORLDITEM struct
 
     private int worldId, worldState, worldEventEXP_WSE, worldEventDrop_WSE, boomUpEventNotice;
     private boolean starplanet;
@@ -32,8 +32,7 @@ public class World {
     private boolean reboot;
     private ArrayList<Merchant> merchants = new ArrayList<Merchant>();
 
-    public World(int worldId, String name, int worldState, String worldEventDescription, int worldEventEXP_WSE,
-                 int worldEventDrop_WSE, int boomUpEventNotice, int amountOfChannels, boolean starplanet, boolean reboot) {
+    public World(int worldId, String name, int worldState, String worldEventDescription, int worldEventEXP_WSE, int worldEventDrop_WSE, int boomUpEventNotice, int amountOfChannels, boolean starplanet, boolean reboot) {
         this.worldId = worldId;
         this.name = name;
         this.worldState = worldState;
@@ -159,14 +158,10 @@ public class World {
         Collection<Guild> guilds = getGuilds().values();
         Set<Guild> res = new HashSet<>(guilds);
         for (Guild g : guilds) {
-            //calculate average level of guild members
+            // calculate average level of guild members
             int averageLevel = g.getAverageMemberLevel();
-            if (levMin != 0 && levMin > g.getReqLevel() + 1 //getReqLevel is automatically set to 0
-                    || levMax != 0 && levMax < g.getReqLevel()
-                    || sizeMin != 0 && sizeMin > g.getMembers().size()
-                    || sizeMax != 0 && sizeMax < g.getMembers().size()
-                    || avgLevMin != 0 && avgLevMin > averageLevel
-                    || avgLevMax != 0 && avgLevMax < averageLevel) {
+            if (levMin != 0 && levMin > g.getReqLevel() + 1 // getReqLevel is automatically set to 0
+                    || levMax != 0 && levMax < g.getReqLevel() || sizeMin != 0 && sizeMin > g.getMembers().size() || sizeMax != 0 && sizeMax < g.getMembers().size() || avgLevMin != 0 && avgLevMin > averageLevel || avgLevMax != 0 && avgLevMax < averageLevel) {
                 res.remove(g);
             }
         }
@@ -180,16 +175,11 @@ public class World {
             if (searchType == 1) {
                 String guildName = g.getName();
                 String leaderName = g.getGuildLeader().getName();
-                if ((exactWord && !guildName.equals(searchTerm) && !leaderName.equals(searchTerm)
-                || (!exactWord && !guildName.contains(searchTerm) && !leaderName.contains(searchTerm)))) {
-                        res.remove(g);
+                if ((exactWord && !guildName.equals(searchTerm) && !leaderName.equals(searchTerm) || (!exactWord && !guildName.contains(searchTerm) && !leaderName.contains(searchTerm)))) {
+                    res.remove(g);
                 }
             } else {
-                String name = searchType == 2
-                        ? g.getName()
-                        : searchType == 3
-                        ? g.getGuildLeader().getName()
-                        : "";
+                String name = searchType == 2 ? g.getName() : searchType == 3 ? g.getGuildLeader().getName() : "";
                 if ((exactWord && !name.equals(searchTerm)) || (!exactWord && !name.contains(searchTerm))) {
                     res.remove(g);
                 }
@@ -331,7 +321,7 @@ public class World {
         }
     }
 
-    public Map<Integer, Client> getConnectedChatClients(){
+    public Map<Integer, Client> getConnectedChatClients() {
         return connectedChatClients;
     }
 

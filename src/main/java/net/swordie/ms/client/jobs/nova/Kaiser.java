@@ -42,49 +42,48 @@ import static net.swordie.ms.client.character.skills.temp.CharacterTemporaryStat
 public class Kaiser extends Job {
 
     public static final int VERTICAL_GRAPPLE = 60001218;
-    public static final int TRANSFIGURATION = 60000219; //Morph Gauge (SmashStack)
+    public static final int TRANSFIGURATION = 60000219; // Morph Gauge (SmashStack)
     public static final int DRAGON_LINK = 60001225;
 
     public static final int TEMPEST_BLADES_THREE = 61101002;
     public static final int TEMPEST_BLADES_THREE_FF = 61110211;
-    public static final int BLAZE_ON = 61101004; //Buff
+    public static final int BLAZE_ON = 61101004; // Buff
 
-    public static final int FINAL_FORM_THIRD = 61111008; //Buff 3rd Job
-    public static final int STONE_DRAGON = 61111002; //Summon (Speed Debuff)
-    public static final int STONE_DRAGON_FINAL_FORM = 61111220; //Summon (Speed Debuff)
-    public static final int CURSEBITE = 61111003; //Buff
+    public static final int FINAL_FORM_THIRD = 61111008; // Buff 3rd Job
+    public static final int STONE_DRAGON = 61111002; // Summon (Speed Debuff)
+    public static final int STONE_DRAGON_FINAL_FORM = 61111220; // Summon (Speed Debuff)
+    public static final int CURSEBITE = 61111003; // Buff
 
-    public static final int FINAL_FORM_FOURTH = 61120008; //Buff 4rd Job
+    public static final int FINAL_FORM_FOURTH = 61120008; // Buff 4rd Job
     public static final int TEMPEST_BLADES_FIVE = 61120007;
     public static final int TEMPEST_BLADES_FIVE_FF = 61121217;
-    public static final int GRAND_ARMOR = 61121009; //Buff
-    public static final int NOVA_WARRIOR_KAISER = 61121014; //Buff
+    public static final int GRAND_ARMOR = 61121009; // Buff
+    public static final int NOVA_WARRIOR_KAISER = 61121014; // Buff
     public static final int NOVA_TEMPERANCE_KAISER = 61121015;
 
     public static final int FINAL_TRANCE = 61121053;
     public static final int KAISERS_MAJESTY = 61121054;
 
-
-    //Attacking Skills
-    public static final int DRAGON_SLASH_1 = 61001000; //First Swing
-    public static final int DRAGON_SLASH_2 = 61001004; //2nd Swing
-    public static final int DRAGON_SLASH_3 = 61001005; //Last Swing
-    public static final int DRAGON_SLASH_1_FINAL_FORM = 61120219; //Swing Final Form
+    // Attacking Skills
+    public static final int DRAGON_SLASH_1 = 61001000; // First Swing
+    public static final int DRAGON_SLASH_2 = 61001004; // 2nd Swing
+    public static final int DRAGON_SLASH_3 = 61001005; // Last Swing
+    public static final int DRAGON_SLASH_1_FINAL_FORM = 61120219; // Swing Final Form
 
     public static final int FLAME_SURGE = 61001101;
     public static final int FLAME_SURGE_FINAL_FORM = 61111215;
 
     public static final int IMPACT_WAVE = 61101100;
     public static final int IMPACT_WAVE_FINAL_FORM = 61111216;
-    public static final int PIERCING_BLAZE = 61101101; //Special Attack (Stun Debuff)
+    public static final int PIERCING_BLAZE = 61101101; // Special Attack (Stun Debuff)
     public static final int PIERCING_BLAZE_FINAL_FORM = 61111217;
 
-    public static final int WING_BEAT = 61111100; //Special Attack (Speed Debuff)
+    public static final int WING_BEAT = 61111100; // Special Attack (Speed Debuff)
     public static final int WING_BEAT_FINAL_FORM = 61111111;
-    public static final int PRESSURE_CHAIN = 61111101; //Special Attack (Stun Debuff)
+    public static final int PRESSURE_CHAIN = 61111101; // Special Attack (Stun Debuff)
     public static final int PRESSURE_CHAIN_FINAL_FORM = 61111219;
 
-    public static final int GIGA_WAVE = 61121100; //Special Attack (Speed Debuff)
+    public static final int GIGA_WAVE = 61121100; // Special Attack (Speed Debuff)
     public static final int GIGA_WAVE_FINAL_FORM = 61121201;
     public static final int INFERNO_BREATH = 61121105;
     public static final int INFERNO_BREATH_FINAL_FORM = 61121222;
@@ -93,10 +92,9 @@ public class Kaiser extends Job {
     public static final int BLADE_BURST = 61121104;
     public static final int BLADE_BURST_FINAL_FORM = 61121221;
 
-
-    //Realign Skills
-    public static final int REALIGN_ATTACKER_MODE = 60001217; //Unlimited Duration
-    public static final int REALIGN_DEFENDER_MODE = 60001216; //Unlimited Duration
+    // Realign Skills
+    public static final int REALIGN_ATTACKER_MODE = 60001217; // Unlimited Duration
+    public static final int REALIGN_DEFENDER_MODE = 60001216; // Unlimited Duration
 
     public static final int REALIGN_ATTACKER_MODE_I = 61100008;
     public static final int REALIGN_DEFENDER_MODE_I = 61100005;
@@ -107,7 +105,7 @@ public class Kaiser extends Job {
     public static final int REALIGN_ATTACKER_MODE_III = 61120013;
     public static final int REALIGN_DEFENDER_MODE_III = 61120010;
 
-    private final int[] addedSkills = new int[]{
+    private final int[] addedSkills = new int[] {
             REALIGN_ATTACKER_MODE,
             REALIGN_DEFENDER_MODE,
             VERTICAL_GRAPPLE,
@@ -115,7 +113,7 @@ public class Kaiser extends Job {
             DRAGON_LINK,
     };
 
-    private final int[] buffs = new int[]{
+    private final int[] buffs = new int[] {
             REALIGN_ATTACKER_MODE,
             REALIGN_DEFENDER_MODE,
             TEMPEST_BLADES_THREE,
@@ -159,7 +157,6 @@ public class Kaiser extends Job {
         cs.setJob(6000);
         cs.setPosMap(940001000);
     }
-
 
     // Buff related methods --------------------------------------------------------------------------------------------
 
@@ -212,7 +209,7 @@ public class Kaiser extends Job {
                 tsm.putCharacterStatValue(TerR, o2);
                 break;
             case GRAND_ARMOR:
-                // w = party dmg taken  v = self dmg taken
+                // w = party dmg taken v = self dmg taken
                 o1.nOption = si.getValue(v, slv);
                 o1.rOption = skillID;
                 o1.tOption = si.getValue(time, slv);
@@ -240,7 +237,7 @@ public class Kaiser extends Job {
                 tsm.setStopForceAtom(stopForceAtom);
                 tsm.putCharacterStatValue(StopForceAtomInfo, o1);
                 break;
-            case TEMPEST_BLADES_THREE_FF: //Final Form
+            case TEMPEST_BLADES_THREE_FF: // Final Form
                 if (tsm.getOption(StopForceAtomInfo).nOption != 3 && tsm.hasStat(StopForceAtomInfo)) {
                     tsm.removeStat(StopForceAtomInfo, true);
                     tsm.sendResetStatPacket();
@@ -270,7 +267,7 @@ public class Kaiser extends Job {
                 tsm.setStopForceAtom(stopForceAtom);
                 tsm.putCharacterStatValue(StopForceAtomInfo, o1);
                 break;
-            case TEMPEST_BLADES_FIVE_FF: //Final Form
+            case TEMPEST_BLADES_FIVE_FF: // Final Form
                 if (tsm.getOption(StopForceAtomInfo).nOption != 4 && tsm.hasStat(StopForceAtomInfo)) {
                     tsm.removeStat(StopForceAtomInfo, true);
                     tsm.sendResetStatPacket();
@@ -392,7 +389,7 @@ public class Kaiser extends Job {
         Option o1 = new Option();
         Option o2 = new Option();
         Option o3 = new Option();
-        int[] realignattacks = new int[]{
+        int[] realignattacks = new int[] {
                 REALIGN_ATTACKER_MODE,
                 REALIGN_ATTACKER_MODE_I,
                 REALIGN_ATTACKER_MODE_II,
@@ -428,7 +425,7 @@ public class Kaiser extends Job {
         Option o1 = new Option();
         Option o2 = new Option();
         Option o3 = new Option();
-        int[] realigndefends = new int[]{
+        int[] realigndefends = new int[] {
                 REALIGN_DEFENDER_MODE,
                 REALIGN_DEFENDER_MODE_I,
                 REALIGN_DEFENDER_MODE_II,
@@ -476,7 +473,6 @@ public class Kaiser extends Job {
         }
         return skill;
     }
-
 
     // Attack related methods ------------------------------------------------------------------------------------------
 
@@ -659,9 +655,7 @@ public class Kaiser extends Job {
             case INFERNO_BREATH_FINAL_FORM:
                 SkillInfo rca = SkillData.getSkillInfoById(INFERNO_BREATH);
                 for (MobAttackInfo mai : attackInfo.mobAttackInfo) {
-                    if (chr.getField().getAffectedAreas().stream()
-                            .filter(aa -> aa.getSkillID() == INFERNO_BREATH && aa.getCharID() == chr.getId())
-                            .collect(Collectors.toList()).size() > 3) {
+                    if (chr.getField().getAffectedAreas().stream().filter(aa -> aa.getSkillID() == INFERNO_BREATH && aa.getCharID() == chr.getId()).collect(Collectors.toList()).size() > 3) {
                         continue; // to limit the amount of AAs
                     }
 
@@ -679,7 +673,7 @@ public class Kaiser extends Job {
                         rect = rect.moveRight();
                     }
                     aa.setRect(aa.getPosition().getRectAround(rect));
-                    aa.setDelay((short) 7); //spawn delay
+                    aa.setDelay((short) 7); // spawn delay
                     chr.getField().spawnAffectedArea(aa);
                 }
                 break;
@@ -732,7 +726,7 @@ public class Kaiser extends Job {
         o4.nValue = (stage * gaugeInfo.getValue(actionSpeed, 1));
         o4.tStart = (int) System.currentTimeMillis();
         o4.tTerm = 0;
-        tsm.putCharacterStatValue(IndieBooster, o4); //Indie
+        tsm.putCharacterStatValue(IndieBooster, o4); // Indie
         tsm.sendSetStatPacket();
     }
 
@@ -765,7 +759,6 @@ public class Kaiser extends Job {
         return 0;
     }
 
-
     // Skill related methods -------------------------------------------------------------------------------------------
 
     @Override
@@ -792,7 +785,6 @@ public class Kaiser extends Job {
             }
         }
     }
-
 
     // Hit related methods ---------------------------------------------------------------------------------------------
 

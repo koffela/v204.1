@@ -34,7 +34,8 @@ public class Trunk {
     @JoinColumn(name = "trunkid")
     private List<CashItemInfo> locker = new ArrayList<>();
 
-    public Trunk(){}
+    public Trunk() {
+    }
 
     public Trunk(byte slotCount) {
         this.slotCount = slotCount;
@@ -60,14 +61,14 @@ public class Trunk {
         outPacket.encodeByte(getSlotCount());
         long mask = DBChar.All.get();
         outPacket.encodeLong(mask);
-        if((mask & 2) != 0) {
+        if ((mask & 2) != 0) {
             outPacket.encodeLong(getMoney());
         }
-        for(int i = 1; i <= 5; i++) {
+        for (int i = 1; i <= 5; i++) {
             InvType curInvType = InvType.getInvTypeByVal(i);
             List<Item> items = getItems().stream().filter(it -> it.getInvType() == curInvType).collect(Collectors.toList());
             outPacket.encodeByte(items.size());
-            for(Item item : items) {
+            for (Item item : items) {
                 item.encode(outPacket);
             }
         }
@@ -95,17 +96,15 @@ public class Trunk {
     }
 
     public void addMoney(long reqMoney) {
-        if(canAddMoney(reqMoney)) {
+        if (canAddMoney(reqMoney)) {
             setMoney(getMoney() + reqMoney);
         }
     }
 
     public void addItem(Item item, short quantity) {
         Item curItem = getItemByItemID(item.getItemId());
-        if(curItem == null || curItem.getInvType() == InvType.EQUIP) {
-            Item newItem = ItemConstants.isEquip(item.getItemId())
-                    ? ((Equip) item).deepCopy()
-                    : ItemData.getItemDeepCopy(item.getItemId());
+        if (curItem == null || curItem.getInvType() == InvType.EQUIP) {
+            Item newItem = ItemConstants.isEquip(item.getItemId()) ? ((Equip) item).deepCopy() : ItemData.getItemDeepCopy(item.getItemId());
             newItem.setQuantity(quantity);
             getItems().add(newItem);
         } else {
@@ -155,5 +154,7 @@ public class Trunk {
         return getLocker().size() >= GameConstants.MAX_LOCKER_SIZE;
     }
 
-    public void addSlots(byte amount) {setSlotCount((byte) (getSlotCount() + amount));}
+    public void addSlots(byte amount) {
+        setSlotCount((byte) (getSlotCount() + amount));
+    }
 }

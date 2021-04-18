@@ -99,7 +99,7 @@ public class MigrationHandler {
             }
         }
         // Init New Encryption
-        byte[] aKey = new byte[] {0x4d, 0x40, 0x50, 0x6c, 0x65, 0x53, 0x74, 0x6f, 0x72, 0x79, 0x4d, 0x61, 0x50, 0x4c, 0x65, 0x21, 0x4d, 0x40, 0x50, 0x6c, 0x65, 0x53, 0x74, 0x6f};
+        byte[] aKey = new byte[] { 0x4d, 0x40, 0x50, 0x6c, 0x65, 0x53, 0x74, 0x6f, 0x72, 0x79, 0x4d, 0x61, 0x50, 0x4c, 0x65, 0x21, 0x4d, 0x40, 0x50, 0x6c, 0x65, 0x53, 0x74, 0x6f };
         List<Integer> aUsed = new ArrayList<>();
         String sOpcode = "";
         for (int i = InHeader.B_E_G_I_N__U_S_E_R.getValue(); i < InHeader.NO.getValue(); i++) {
@@ -129,7 +129,7 @@ public class MigrationHandler {
             e.printStackTrace();
         }
         // blessing has to be split up, as adding skills before SetField is send will crash the client
-        c.write(WvsContext.updateEventNameTag(new int[]{11}));
+        c.write(WvsContext.updateEventNameTag(new int[] { 11 }));
         chr.initBlessingSkillNames();
         chr.warp(field, true);
         chr.initBlessingSkills();
@@ -155,17 +155,16 @@ public class MigrationHandler {
         c.write(WvsContext.setMaplePoints(acc.getNxCredit()));
     }
 
-
     @Handler(op = InHeader.USER_TRANSFER_FIELD_REQUEST)
     public static void handleUserTransferFieldRequest(Client c, InPacket inPacket) {
         Char chr = c.getChr();
         if (inPacket.getUnreadAmount() == 0) {
             // Coming back from the cash shop
-//            chr.warp(chr.getOrCreateFieldByCurrentInstanceType(chr.getFieldID()));
+            // chr.warp(chr.getOrCreateFieldByCurrentInstanceType(chr.getFieldID()));
             c.getChannelInstance().addClientInTransfer(c.getChannel(), chr.getId(), c);
             c.write(ClientSocket.migrateCommand(true, (short) c.getChannelInstance().getPort()));
             return;
-    }
+        }
         byte fieldKey = inPacket.decodeByte();
         int targetField = inPacket.decodeInt();
         if (targetField == 106020100 || targetField == 106020400) {
@@ -207,9 +206,7 @@ public class MigrationHandler {
             byte tarfield = inPacket.decodeByte(); // ?
             byte reviveType = inPacket.decodeByte();
 
-            int returnMap = chr.getField().getReturnMap() == 999999999
-                    ? chr.getPreviousFieldID()
-                    : chr.getField().getReturnMap();
+            int returnMap = chr.getField().getReturnMap() == 999999999 ? chr.getPreviousFieldID() : chr.getField().getReturnMap();
 
             switch (reviveType) {
                 // so far only got 0?
@@ -275,7 +272,6 @@ public class MigrationHandler {
         }
     }
 
-
     @Handler(op = InHeader.USER_TRANSFER_CHANNEL_REQUEST)
     public static void handleUserTransferChannelRequest(Client c, InPacket inPacket) {
         Char chr = c.getChr();
@@ -291,8 +287,7 @@ public class MigrationHandler {
         }
 
         Field field = chr.getField();
-        if ((field.getFieldLimit() & FieldOption.MigrateLimit.getVal()) > 0 ||
-                channelId < 1 || channelId > c.getWorld().getChannels().size()) {
+        if ((field.getFieldLimit() & FieldOption.MigrateLimit.getVal()) > 0 || channelId < 1 || channelId > c.getWorld().getChannels().size()) {
             chr.dispose();
             return;
         }
@@ -346,13 +341,13 @@ public class MigrationHandler {
 
         MapTransferType mapTransferType = MapTransferType.getByVal(mtType);
         switch (mapTransferType) {
-            case DeleteListRecv: //Delete request that's received
+            case DeleteListRecv: // Delete request that's received
                 int targetFieldID = inPacket.decodeInt();
                 HyperTPRock.removeFieldId(chr, targetFieldID);
                 chr.write(WvsContext.mapTransferResult(MapTransferType.DeleteListSend, itemType, chr.getHyperRockFields()));
                 break;
 
-            case RegisterListRecv: //Register request that's received
+            case RegisterListRecv: // Register request that's received
                 targetFieldID = chr.getFieldID();
                 Field field = chr.getField();
                 if (field == null || (field.getFieldLimit() & FieldOption.TeleportItemLimit.getVal()) > 0) {
@@ -369,10 +364,7 @@ public class MigrationHandler {
     @Handler(op = InHeader.USER_FIELD_TRANSFER_REQUEST)
     public static void handleUserFieldTransferRequest(Char chr, InPacket inPacket) {
         Field field = chr.getField();
-        if ((field.getFieldLimit() & FieldOption.TeleportItemLimit.getVal()) > 0
-                || (field.getFieldLimit() & FieldOption.MigrateLimit.getVal()) > 0
-                || (field.getFieldLimit() & FieldOption.PortalScrollLimit.getVal()) > 0
-                || !field.isChannelField()) {
+        if ((field.getFieldLimit() & FieldOption.TeleportItemLimit.getVal()) > 0 || (field.getFieldLimit() & FieldOption.MigrateLimit.getVal()) > 0 || (field.getFieldLimit() & FieldOption.PortalScrollLimit.getVal()) > 0 || !field.isChannelField()) {
             chr.chatMessage("You may not warp to that map.");
             chr.dispose();
             return;
@@ -521,7 +513,7 @@ public class MigrationHandler {
             return;
         }
         String script = "GolluxOutReqeust";
-        int npcId = 9010000; //admin npc
+        int npcId = 9010000; // admin npc
         chr.getScriptManager().startScript(npcId, npcId, script, ScriptType.Npc);
     }
 

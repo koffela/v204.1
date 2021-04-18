@@ -22,7 +22,6 @@ public class GachaponDlg {
             outPacket.encodeString(message);
         }
 
-
         outPacket.encodeShort(items.size());// length (just for testing).
         for (Tuple<Item, Short> i : items) {
             Item item = i.getLeft();
@@ -40,7 +39,10 @@ public class GachaponDlg {
         return outPacket;
     }
 
-    public static OutPacket gachResult(GachaponResult result) { return gachResult(result, null, (short) 0); }
+    public static OutPacket gachResult(GachaponResult result) {
+        return gachResult(result, null, (short) 0);
+    }
+
     public static OutPacket gachResult(GachaponResult result, Item item, short quantity) {
         OutPacket outPacket = new OutPacket(OutHeader.GACH_RESULT);
         outPacket.encodeByte(result.getValue());

@@ -76,6 +76,7 @@ public class JobManager {
     public JobConstants.JobEnum getJobEnum() {
         return JobConstants.getJobEnumById(getId());
     }
+
     public void setDefaultCharStatValues(CharacterStat characterStat) {
         characterStat.setLevel(1);
         characterStat.setStr(12);
@@ -89,28 +90,28 @@ public class JobManager {
     }
 
     public static void handleAtt(Client c, AttackInfo attackInfo) {
-        for(Class clazz : jobClasses) {
+        for (Class clazz : jobClasses) {
             Job job = null;
             try {
                 job = (Job) clazz.newInstance();
             } catch (InstantiationException | IllegalAccessException e) {
                 e.printStackTrace();
             }
-            if(job != null && job.isHandlerOfJob(c.getChr().getJob())) {
+            if (job != null && job.isHandlerOfJob(c.getChr().getJob())) {
                 job.handleAttack(c, attackInfo);
             }
         }
     }
 
     public static void handleSkill(Client c, InPacket inPacket) {
-        for(Class clazz : jobClasses) {
+        for (Class clazz : jobClasses) {
             Job job = null;
             try {
                 job = (Job) clazz.newInstance();
             } catch (InstantiationException | IllegalAccessException e) {
                 e.printStackTrace();
             }
-            if(job != null && job.isHandlerOfJob(c.getChr().getJob())) {
+            if (job != null && job.isHandlerOfJob(c.getChr().getJob())) {
                 inPacket.decodeInt(); // crc
                 int skillID = inPacket.decodeInt();
                 byte slv = inPacket.decodeByte();
@@ -129,13 +130,13 @@ public class JobManager {
 
     public static Job getJobById(short id, Char chr) {
         Job job = null;
-        for(Class clazz : jobClasses) {
+        for (Class clazz : jobClasses) {
             try {
                 job = (Job) clazz.getConstructor(Char.class).newInstance(chr);
             } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
                 e.printStackTrace();
             }
-            if(job != null && job.isHandlerOfJob(id)) {
+            if (job != null && job.isHandlerOfJob(id)) {
                 return job;
             }
         }

@@ -2,6 +2,7 @@ package net.swordie.ms.enums;
 
 /**
  * Created on 12/12/2017.
+ * 
  * @author Sjonnie
  */
 public enum LoginType {
@@ -100,6 +101,7 @@ public enum LoginType {
     ProcFail(-1),
 
     ;
+
     private byte value;
 
     LoginType(int value) {

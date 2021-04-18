@@ -16,7 +16,7 @@ public class SWParser {
 
     public SWEntity parse(File file) {
         // Reinventing the wheel, but it works. Antlr is overrated Kappa
-        if(!file.exists()) {
+        if (!file.exists()) {
             return null;
         }
         String curName = null;
@@ -24,16 +24,16 @@ public class SWParser {
         Stack<SWEntity> entityStack = new Stack<>();
         SWEntity entity = new SWEntity();
         try (Scanner s = new Scanner(file)) {
-            while(s.hasNext()) {
+            while (s.hasNext()) {
                 String word = s.next();
-                if(word.startsWith("//")) {
+                if (word.startsWith("//")) {
                     s.nextLine();
-                } else if(word.contains(OPEN_SCOPE)){
+                } else if (word.contains(OPEN_SCOPE)) {
                     nameStack.push(curName);
                     entityStack.push(entity);
                     curName = word.replace(OPEN_SCOPE, "");
                     entity = new SWEntity();
-                } else if(word.equalsIgnoreCase(CLOSE_SCOPE)) {
+                } else if (word.equalsIgnoreCase(CLOSE_SCOPE)) {
                     String name = nameStack.pop();
                     SWEntity ent = entityStack.pop();
                     ent.putEntity(curName, entity.deepCopy());
@@ -43,11 +43,11 @@ public class SWParser {
                     String property = null;
                     StringBuilder value = new StringBuilder();
                     boolean stop = false;
-                    while(!word.equalsIgnoreCase(END_VAR) && !stop) {
-                        if(property == null) {
+                    while (!word.equalsIgnoreCase(END_VAR) && !stop) {
+                        if (property == null) {
                             property = word;
                         } else {
-                            if(word.contains(END_VAR)) {
+                            if (word.contains(END_VAR)) {
                                 stop = true;
                                 word = word.replace(END_VAR, "");
                             } else {
@@ -55,7 +55,7 @@ public class SWParser {
                             }
                             value.append(word);
                         }
-                        if(!stop) {
+                        if (!stop) {
                             word = s.next();
                         }
                     }

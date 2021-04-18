@@ -34,7 +34,6 @@ public class InventoryHandler {
 
     private static final Logger log = Logger.getLogger(InventoryHandler.class);
 
-
     @Handler(op = InHeader.USER_CHANGE_SLOT_POSITION_REQUEST)
     public static void handleUserChangeSlotPositionRequest(Client c, InPacket inPacket) {
         Char chr = c.getChr();
@@ -43,8 +42,8 @@ public class InventoryHandler {
         short oldPos = inPacket.decodeShort();
         short newPos = inPacket.decodeShort();
         short quantity = inPacket.decodeShort();
-//        log.debug("Equipped old: " + chr.getEquippedInventory());
-//        log.debug("Equip old: " + chr.getEquipInventory());
+        // log.debug("Equipped old: " + chr.getEquippedInventory());
+        // log.debug("Equip old: " + chr.getEquipInventory());
         InvType invTypeFrom = invType == EQUIP ? oldPos < 0 ? EQUIPPED : EQUIP : invType;
         InvType invTypeTo = invType == EQUIP ? newPos < 0 ? EQUIPPED : EQUIP : invType;
         Item item = chr.getInventoryByType(invTypeFrom).getItemBySlot(oldPos);
@@ -68,8 +67,7 @@ public class InventoryHandler {
 
             boolean fullDrop;
             Drop drop;
-            if (!item.getInvType().isStackable() || quantity >= item.getQuantity() ||
-                    ItemConstants.isThrowingStar(item.getItemId()) || ItemConstants.isBullet(item.getItemId())) {
+            if (!item.getInvType().isStackable() || quantity >= item.getQuantity() || ItemConstants.isThrowingStar(item.getItemId()) || ItemConstants.isBullet(item.getItemId())) {
                 // Whole item is dropped (equip/stackable items with all their quantity)
                 fullDrop = true;
                 chr.getInventoryByType(invTypeFrom).removeItem(item);
@@ -89,16 +87,14 @@ public class InventoryHandler {
             chr.getField().drop(drop, chr.getPosition(), new Position(x, fh.getYFromX(x)));
             drop.setCanBePickedUpByPet(false);
             if (fullDrop) {
-                c.write(WvsContext.inventoryOperation(true, false, Remove,
-                        oldPos, newPos, 0, item));
+                c.write(WvsContext.inventoryOperation(true, false, Remove, oldPos, newPos, 0, item));
             } else {
-                c.write(WvsContext.inventoryOperation(true, false, UpdateQuantity,
-                        oldPos, newPos, 0, item));
+                c.write(WvsContext.inventoryOperation(true, false, UpdateQuantity, oldPos, newPos, 0, item));
             }
         } else {
             Item swapItem = chr.getInventoryByType(invTypeTo).getItemBySlot(newPos);
             if (swapItem != null) {
-//                log.debug("SwapItem before: " + swapItem);
+                // log.debug("SwapItem before: " + swapItem);
             }
             item.setBagIndex(newPos);
             int beforeSizeOn = chr.getEquippedInventory().getItems().size();
@@ -117,25 +113,22 @@ public class InventoryHandler {
             }
             if (swapItem != null) {
                 swapItem.setBagIndex(oldPos);
-//                log.debug("SwapItem after: " + swapItem);
+                // log.debug("SwapItem after: " + swapItem);
             }
             int afterSizeOn = chr.getEquippedInventory().getItems().size();
             int afterSize = chr.getEquipInventory().getItems().size();
             if (afterSize + afterSizeOn != beforeSize + beforeSizeOn) {
                 throw new RuntimeException("Data duplication!");
             }
-            c.write(WvsContext.inventoryOperation(true, false, Move, oldPos, newPos,
-                    0, item));
+            c.write(WvsContext.inventoryOperation(true, false, Move, oldPos, newPos, 0, item));
             item.updateToChar(chr);
-//            log.debug("Item before: " + itemBefore);
-//            log.debug("Item before: " + item);
+            // log.debug("Item before: " + itemBefore);
+            // log.debug("Item before: " + item);
         }
-//        log.debug("Equipped after: " + chr.getEquippedInventory());
-//        log.debug("Equip after: " + chr.getEquipInventory());
+        // log.debug("Equipped after: " + chr.getEquippedInventory());
+        // log.debug("Equip after: " + chr.getEquipInventory());
         chr.setBulletIDForAttack(chr.calculateBulletIDForAttack(1));
-        if (newPos < 0
-                && -newPos >= BodyPart.APBase.getVal() && -newPos < BodyPart.APEnd.getVal()
-                && chr.getAndroid() != null) {
+        if (newPos < 0 && -newPos >= BodyPart.APBase.getVal() && -newPos < BodyPart.APEnd.getVal() && chr.getAndroid() != null) {
             // update android look
             chr.getField().broadcastPacket(AndroidPacket.modified(chr.getAndroid()));
         }
@@ -154,8 +147,7 @@ public class InventoryHandler {
             if (firstSlot < item.getBagIndex()) {
                 short oldPos = (short) item.getBagIndex();
                 item.setBagIndex(firstSlot);
-                chr.write(WvsContext.inventoryOperation(true, false, InventoryOperation.Move,
-                        oldPos, (short) item.getBagIndex(), 0, item));
+                chr.write(WvsContext.inventoryOperation(true, false, InventoryOperation.Move, oldPos, (short) item.getBagIndex(), 0, item));
             }
 
         }
@@ -173,16 +165,14 @@ public class InventoryHandler {
         items.sort(Comparator.comparingInt(Item::getItemId));
         for (Item item : items) {
             if (item.getBagIndex() != items.indexOf(item) + 1) {
-                chr.write(WvsContext.inventoryOperation(true, false, Remove,
-                        (short) item.getBagIndex(), (short) 0, -1, item));
+                chr.write(WvsContext.inventoryOperation(true, false, Remove, (short) item.getBagIndex(), (short) 0, -1, item));
             }
         }
         for (Item item : items) {
             int index = items.indexOf(item) + 1;
             if (item.getBagIndex() != index) {
                 item.setBagIndex(index);
-                chr.write(WvsContext.inventoryOperation(true, false, Add,
-                        (short) item.getBagIndex(), (short) 0, -1, item));
+                chr.write(WvsContext.inventoryOperation(true, false, Add, (short) item.getBagIndex(), (short) 0, -1, item));
             }
         }
         c.write(WvsContext.sortItemResult(invType.getVal()));

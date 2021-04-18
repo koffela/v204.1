@@ -25,11 +25,11 @@ public class BuyShopResult implements ShopResult {
     @Override
     public void encode(OutPacket outPacket) {
         outPacket.encodeByte(repurchaseItem != 0);
-        if(repurchaseItem != 0) {
+        if (repurchaseItem != 0) {
             outPacket.encodeInt(repurchaseItem);
         } else {
             outPacket.encodeByte(someUpdateItem != 0);
-            if(someUpdateItem != 0) {
+            if (someUpdateItem != 0) {
                 outPacket.encodeInt(someUpdateItem);
             }
             outPacket.encodeInt(starCoinUpdate);

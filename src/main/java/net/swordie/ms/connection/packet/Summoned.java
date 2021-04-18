@@ -47,9 +47,9 @@ public class Summoned {
     public static OutPacket summonBeholderRevengeAttack(Summon summon, int mob) {
         OutPacket outPacket = new OutPacket(OutHeader.SUMMONED_BEHOLDER_REVENGE_ATTACK);
 
-        outPacket.encodeInt(summon.getChr().getId());//char ID
-        outPacket.encodeInt(summon.getObjectId());//summon
-        outPacket.encodeInt(mob);//mob
+        outPacket.encodeInt(summon.getChr().getId());// char ID
+        outPacket.encodeInt(summon.getObjectId());// summon
+        outPacket.encodeInt(mob);// mob
 
         return outPacket;
     }
@@ -76,17 +76,17 @@ public class Summoned {
         outPacket.encodeInt(summon.getBulletID());
         AvatarLook al = summon.getAvatarLook();
         outPacket.encodeByte(al != null);
-        if(al != null) {
+        if (al != null) {
             al.encode(outPacket);
         }
-        if(summon.getSkillID() == 35111002) { // Tesla Coil
+        if (summon.getSkillID() == 35111002) { // Tesla Coil
             outPacket.encodeByte(summon.getTeslaCoilState());
-            for(Position pos : summon.getTeslaCoilPositions()) {
+            for (Position pos : summon.getTeslaCoilPositions()) {
                 outPacket.encodePosition(pos);
             }
         }
-        if(summon.getSkillID() == 42111003) { // Kishin Shoukan
-            for(Position pos : summon.getKishinPositions()) {
+        if (summon.getSkillID() == 42111003) { // Kishin Shoukan
+            for (Position pos : summon.getKishinPositions()) {
                 outPacket.encodePosition(pos);
             }
         }

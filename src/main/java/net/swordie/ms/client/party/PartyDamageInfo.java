@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
  * Helper class for calculating party damage/exp distribution
  *
  * @author Sjonnie
- * Created on 6/20/2018.
+ *         Created on 6/20/2018.
  */
 public class PartyDamageInfo {
 
@@ -28,8 +28,11 @@ public class PartyDamageInfo {
 
     /**
      * Adds a char's damage info for a mob kill
-     * @param chr the Char itself
-     * @param percDamage the percentage damage done compared to the total mob's health
+     * 
+     * @param chr
+     *            the Char itself
+     * @param percDamage
+     *            the percentage damage done compared to the total mob's health
      */
     public void addDamageInfo(Char chr, double percDamage) {
         damageDone.put(chr, percDamage);
@@ -46,8 +49,7 @@ public class PartyDamageInfo {
         Set<Char> eligibleMembers = possibleMembers.stream().filter(this::isEligible).collect(Collectors.toSet());
         double expRate = GameConstants.getPartyExpRateByAttackersAndLeechers(attackers, eligibleMembers.size());
         for (Char chr : eligibleMembers) {
-            long exp = (long) (totalExp * (0.2 * damageDone.getOrDefault(chr, 0D)
-                                + 0.8 * chr.getLevel() / chr.getParty().getAvgPartyLevel(chr)));
+            long exp = (long) (totalExp * (0.2 * damageDone.getOrDefault(chr, 0D) + 0.8 * chr.getLevel() / chr.getParty().getAvgPartyLevel(chr)));
             double perc = (double) exp / totalExp;
             exp *= expRate;
             ExpIncreaseInfo eii = new ExpIncreaseInfo();
@@ -70,8 +72,7 @@ public class PartyDamageInfo {
         boolean eligible = (damageDone.keySet().contains(chr) || isWithinMobLevel(chr)) && chr.getField() == mob.getField();
         if (!eligible) {
             for (Char attacker : damageDone.keySet()) {
-                eligible |= isWithinMobLevel(chr) || (isWithinMobLevel(attacker) && isWithinAttackerLvl(attacker, chr))
-                        && chr.getField() == attacker.getField();
+                eligible |= isWithinMobLevel(chr) || (isWithinMobLevel(attacker) && isWithinAttackerLvl(attacker, chr)) && chr.getField() == attacker.getField();
                 if (eligible) {
                     break;
                 }

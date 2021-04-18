@@ -27,70 +27,74 @@ public class OffenseManager {
 
     /**
      * Creates a new offense that was detected by the system (i.e., not manual)
-     * @param type the type of offense
-     * @param msg the description of the offense
+     * 
+     * @param type
+     *            the type of offense
+     * @param msg
+     *            the description of the offense
      */
     public void addOffense(Offense.Type type, String msg) {
-        addOffense(getDefaultOffsense()
-                .withMsg(msg)
-                .withType(type)
-        );
+        addOffense(getDefaultOffsense().withMsg(msg).withType(type));
     }
 
     /**
      * Creates a new offense that was detected by the system (i.e., not manual)
-     * @param type the type of offense
-     * @param msg the description of the offense
-     * @param expected expected value
-     * @param actual actual value
+     * 
+     * @param type
+     *            the type of offense
+     * @param msg
+     *            the description of the offense
+     * @param expected
+     *            expected value
+     * @param actual
+     *            actual value
      */
     public void addOffense(Offense.Type type, String msg, int expected, int actual) {
         msg += String.format(" (expected %d, got %d)", expected, actual);
-        addOffense(getDefaultOffsense()
-                .withMsg(msg)
-                .withType(type)
-        );
+        addOffense(getDefaultOffsense().withMsg(msg).withType(type));
     }
 
     /**
      * Adds an offense seen by a game master.
-     * @param type the type of offense
-     * @param msg the description of the offense
-     * @param issuerCharID the game master's char id
+     * 
+     * @param type
+     *            the type of offense
+     * @param msg
+     *            the description of the offense
+     * @param issuerCharID
+     *            the game master's char id
      */
     public void addOffense(Offense.Type type, String msg, int issuerCharID) {
-        addOffense(getDefaultOffsense()
-                .withMsg(msg)
-                .withType(type)
-                .withIssuerID(issuerCharID)
-        );
+        addOffense(getDefaultOffsense().withMsg(msg).withType(type).withIssuerID(issuerCharID));
     }
 
     /**
      * Adds an offense seen by a game master, with type Manual.
-     * @param msg the description of the offense
-     * @param issuerCharID the game master's char id
+     * 
+     * @param msg
+     *            the description of the offense
+     * @param issuerCharID
+     *            the game master's char id
      */
     public void addOffense(String msg, int issuerCharID) {
-        addOffense(getDefaultOffsense()
-                .withMsg(msg)
-                .withIssuerID(issuerCharID)
-        );
+        addOffense(getDefaultOffsense().withMsg(msg).withIssuerID(issuerCharID));
     }
 
     /**
      * Adds an offense found by the system with type Editing.
-     * @param msg the description of the offense
+     * 
+     * @param msg
+     *            the description of the offense
      */
     public void addOffense(String msg) {
-        addOffense(getDefaultOffsense()
-                .withMsg(msg)
-                .withType(Offense.Type.Editing));
+        addOffense(getDefaultOffsense().withMsg(msg).withType(Offense.Type.Editing));
     }
 
     /**
      * Adds an offense found by the system with type Editing.
-     * @param msg the description of the offense
+     * 
+     * @param msg
+     *            the description of the offense
      */
     public void addOffense(String msg, int expected, int actual) {
         msg += String.format(" (expected %d, got %d)", expected, actual);

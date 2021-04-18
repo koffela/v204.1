@@ -61,8 +61,6 @@ public class Drop extends Life {
         return item;
     }
 
-
-
     public void setItem(Item item) {
         this.item = item;
         setDropType(DropType.Item);
@@ -107,7 +105,7 @@ public class Drop extends Life {
 
     public byte getItemGrade() {
         byte res = 0;
-        if(getItem() != null && getItem() instanceof Equip) {
+        if (getItem() != null && getItem() instanceof Equip) {
             res = (byte) ((Equip) getItem()).getGrade();
         }
         return res;
@@ -120,9 +118,7 @@ public class Drop extends Life {
         if (item != null) {
             ii = ItemData.getItemInfoByID(item.getItemId());
         }
-        boolean canSpawn = isMoney()
-                || (item != null && ItemConstants.isEquip(item.getItemId()))
-                || (ii != null && onlyChar.hasAnyQuestsInProgress(ii.getQuestIDs()));
+        boolean canSpawn = isMoney() || (item != null && ItemConstants.isEquip(item.getItemId())) || (ii != null && onlyChar.hasAnyQuestsInProgress(ii.getQuestIDs()));
         if (canSpawn) {
             onlyChar.write(DropPool.dropEnterField(this, getPosition(), getOwnerID(), canBePickedUpBy(onlyChar)));
         }
@@ -138,9 +134,7 @@ public class Drop extends Life {
 
     public boolean canBePickedUpBy(Char chr) {
         int owner = getOwnerID();
-        return owner == chr.getId() ||
-                (chr.getParty() != null && chr.getParty().hasPartyMember(owner))
-                || owner == 0;
+        return owner == chr.getId() || (chr.getParty() != null && chr.getParty().hasPartyMember(owner)) || owner == 0;
     }
 
     public boolean canBePickedUpByPet() {

@@ -14,7 +14,8 @@ import java.util.List;
 @Table(name = "extendsp")
 public class ExtendSP {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "extendSP_id")
@@ -26,7 +27,7 @@ public class ExtendSP {
 
     public ExtendSP(int subJobs) {
         spSet = new ArrayList<>();
-        for(int i = 1; i <= subJobs; i++) {
+        for (int i = 1; i <= subJobs; i++) {
             spSet.add(new SPSet((byte) i, 0));
         }
     }
@@ -45,7 +46,7 @@ public class ExtendSP {
 
     public void encode(OutPacket outPacket) {
         outPacket.encodeByte(getSpSet().size());
-        for(SPSet spSet : getSpSet()) {
+        for (SPSet spSet : getSpSet()) {
             outPacket.encodeByte(spSet.getJobLevel());
             outPacket.encodeInt(spSet.getSp());
         }
@@ -65,7 +66,7 @@ public class ExtendSP {
 
     public int getSpByJobLevel(byte jobLevel) {
         SPSet spSet = Util.findWithPred(getSpSet(), sps -> sps.getJobLevel() == jobLevel);
-        if(spSet != null) {
+        if (spSet != null) {
             return spSet.getSp();
         }
         return -1;

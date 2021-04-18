@@ -13,7 +13,8 @@ import javax.persistence.*;
 @Table(name = "avatardata")
 public class AvatarData {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @JoinColumn(name = "characterStat")
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
@@ -48,7 +49,7 @@ public class AvatarData {
         outPacket.encodeLong(0);
         // end sub_96B160
         avatarLook.encode(outPacket);
-        if(JobConstants.isZero(getCharacterStat().getJob())) {
+        if (JobConstants.isZero(getCharacterStat().getJob())) {
             zeroAvatarLook.encode(outPacket);
         }
     }

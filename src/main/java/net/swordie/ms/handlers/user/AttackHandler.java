@@ -37,15 +37,13 @@ public class AttackHandler {
 
     private static final Logger log = Logger.getLogger(AttackHandler.class);
 
-
     // No handler, gets called from other handlers
     private static void handleAttack(Client c, AttackInfo attackInfo) {
         Char chr = c.getChr();
         chr.dbgChatMsg(attackInfo.skillId + "");
         int skillID = attackInfo.skillId;
         Field field = chr.getField();
-        if ((field.getFieldLimit() & FieldOption.SkillLimit.getVal()) > 0 ||
-                (field.getFieldLimit() & FieldOption.MoveSkillOnly.getVal()) > 0) {
+        if ((field.getFieldLimit() & FieldOption.SkillLimit.getVal()) > 0 || (field.getFieldLimit() & FieldOption.MoveSkillOnly.getVal()) > 0) {
             chr.dispose();
             return;
         }
@@ -67,14 +65,11 @@ public class AttackHandler {
                 if (r != null) {
                     Rect rectAround = chr.getRectAround(r);
                     for (PartyMember pm : chr.getParty().getOnlineMembers()) {
-                        if (pm.getChr() != null && pm.getChr().getField() == chr.getField()
-                                && rectAround.hasPositionInside(pm.getChr().getPosition())) {
+                        if (pm.getChr() != null && pm.getChr().getField() == chr.getField() && rectAround.hasPositionInside(pm.getChr().getPosition())) {
                             Char ptChr = pm.getChr();
                             Effect effect = Effect.skillAffected(skillID, slv, 0);
                             if (ptChr != chr) {  // Caster shouldn't get the Affected Skill Effect
-                                chr.getField().broadcastPacket(
-                                        UserRemote.effect(ptChr.getId(), effect)
-                                        , ptChr);
+                                chr.getField().broadcastPacket(UserRemote.effect(ptChr.getId(), effect), ptChr);
                                 ptChr.write(UserPacket.effect(effect));
                                 sourceJobHandler.handleAttack(c, attackInfo);
                             }
@@ -116,7 +111,7 @@ public class AttackHandler {
                         InGameEvent event = InGameEventManager.getInstance().getActiveEvent();
 
                         if (event instanceof PinkZakumEvent)
-                            ((PinkZakumEvent)event).win();
+                            ((PinkZakumEvent) event).win();
                     }
 
                     if ((mob.getTemplateId() >= 8810202 && mob.getTemplateId() <= 8810209)) {
@@ -135,11 +130,10 @@ public class AttackHandler {
                         handleBalrogHPBar(field, chr, totalDamage, true);
                     }
 
-
                 }
                 if (mob != null && mob.getHp() < 0) {
                     mob.onKilledByChar(chr);
-                    // MultiKill +1,  per killed mob
+                    // MultiKill +1, per killed mob
                     multiKillMessage++;
                     mobexp = mob.getForcedMobStat().getExp();
                 }
@@ -261,7 +255,6 @@ public class AttackHandler {
         handleAttack(c, ai);
     }
 
-
     @Handler(op = InHeader.SUMMONED_ATTACK)
     public static void handleSummonedAttack(Client c, InPacket inPacket) {
         Char chr = c.getChr();
@@ -280,9 +273,9 @@ public class AttackHandler {
         ai.hits = (byte) (mask & 0xF);
         ai.mobCount = (mask >>> 4) & 0xF;
         inPacket.decodeByte(); // hardcoded 0
-        if(ai.skillId == Mechanic.ROCK_N_SHOCK) {
-            for (int i = 0; i < 3; i++){
-                inPacket.decodeInt(); //rock n shock life ids, not needed
+        if (ai.skillId == Mechanic.ROCK_N_SHOCK) {
+            for (int i = 0; i < 3; i++) {
+                inPacket.decodeInt(); // rock n shock life ids, not needed
             }
         }
         ai.attackAction = inPacket.decodeShort();
@@ -312,7 +305,7 @@ public class AttackHandler {
             }
             mai.damages = damages;
             mai.mobUpDownYRange = inPacket.decodeInt();
-//            inPacket.decodeInt(); // crc
+            // inPacket.decodeInt(); // crc
             // Begin PACKETMAKER::MakeAttackInfoPacket
             byte type = inPacket.decodeByte();
             String currentAnimationName = "";
@@ -349,7 +342,8 @@ public class AttackHandler {
         inPacket.decodeByte();
         inPacket.decodeByte();
         int count = inPacket.decodeInt();
-        if (count > 0) log.info("[User Attack] Unknown 1 count > 0 packet:" + inPacket.toString());
+        if (count > 0)
+            log.info("[User Attack] Unknown 1 count > 0 packet:" + inPacket.toString());
         for (int i = 0; i < count; i++) {
             inPacket.decodeInt();
         }
@@ -445,8 +439,8 @@ public class AttackHandler {
         }
     }
 
-    @Handler(ops = {InHeader.USER_MELEE_ATTACK, InHeader.USER_SHOOT_ATTACK, InHeader.USER_MAGIC_ATTACK,
-            InHeader.USER_NON_TARGET_FORCE_ATOM_ATTACK, InHeader.USER_AREA_DOT_ATTACK})
+    @Handler(ops = { InHeader.USER_MELEE_ATTACK, InHeader.USER_SHOOT_ATTACK, InHeader.USER_MAGIC_ATTACK,
+            InHeader.USER_NON_TARGET_FORCE_ATOM_ATTACK, InHeader.USER_AREA_DOT_ATTACK })
     public static void handleAttack(Char chr, InPacket inPacket, InHeader header) {
         AttackInfo ai = new AttackInfo();
         switch (header) {
@@ -566,12 +560,14 @@ public class AttackHandler {
         if (header == InHeader.USER_NON_TARGET_FORCE_ATOM_ATTACK) {
             inPacket.decodeInt(); // hardcoded 0
         }
-        /*if ( v1756 )
-          {
-            COutPacket::Encode2(&a, v1747);
-            if ( v674 || is_noconsume_usebullet_melee_attack(v669) )
-              COutPacket::Encode4(&a, v1748);
-          }*/
+        /*
+         * if ( v1756 )
+         * {
+         * COutPacket::Encode2(&a, v1747);
+         * if ( v674 || is_noconsume_usebullet_melee_attack(v669) )
+         * COutPacket::Encode4(&a, v1748);
+         * }
+         */
 
         if (SkillConstants.isNoConsumeBullet(skillID) && header == InHeader.USER_MELEE_ATTACK) {
             inPacket.decodeShort();
@@ -750,7 +746,7 @@ public class AttackHandler {
                 ai.grenadePos.setX(inPacket.decodeShort());
                 ai.grenadePos.setY(inPacket.decodeShort());
             }
-            if (/*skillID == 23121002 ||*/ skillID == 80001914) { // first skill is Spikes Royale, not needed?
+            if (/* skillID == 23121002 || */ skillID == 80001914) { // first skill is Spikes Royale, not needed?
                 ai.fh = inPacket.decodeByte();
             }
         }

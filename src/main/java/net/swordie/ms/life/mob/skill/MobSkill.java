@@ -273,12 +273,12 @@ public class MobSkill {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         MobSkill mobSkill = (MobSkill) o;
-        return skillSN == mobSkill.skillSN &&
-                skillID == mobSkill.skillID &&
-                level == mobSkill.level;
+        return skillSN == mobSkill.skillSN && skillID == mobSkill.skillID && level == mobSkill.level;
     }
 
     @Override
@@ -443,9 +443,7 @@ public class MobSkill {
                     rect = new Rect(msi.getLt(), msi.getRb());
                     spawnPos = rect.getRandomPositionInside();
                 }
-                Set<Mob> spawnedMobs = field.getMobs().stream()
-                        .filter(m -> m.getMobSpawnerId() == mob.getObjectId())
-                        .collect(Collectors.toSet());
+                Set<Mob> spawnedMobs = field.getMobs().stream().filter(m -> m.getMobSpawnerId() == mob.getObjectId()).collect(Collectors.toSet());
                 for (int mobId : msi.getInts()) {
                     long spawnedSize = spawnedMobs.stream().filter(m -> m.getTemplateId() == mobId).count();
                     int maxSpawned = msi.getSkillStatIntValue(limit);
@@ -459,8 +457,7 @@ public class MobSkill {
                 }
                 break;
             case CastingBar:
-                field.broadcastPacket(MobPool.castingBarSkillStart(1,
-                        msi.getSkillStatIntValue(castingTime), false, false));
+                field.broadcastPacket(MobPool.castingBarSkillStart(1, msi.getSkillStatIntValue(castingTime), false, false));
                 break;
             case BounceAttack:
                 if (slv == 6 || slv == 13) { // these are different lotus attacks that gotta be handled differently, or will cause runtime error
@@ -481,7 +478,7 @@ public class MobSkill {
                 break;
             case Toos:
                 for (Char character : mob.getField().getChars()) {
-                    character.write(UserPacket.tossedByMobSkill(character.getId(), mob, msi,  -1400));
+                    character.write(UserPacket.tossedByMobSkill(character.getId(), mob, msi, -1400));
                 }
                 break;
             case Unk:
@@ -492,6 +489,7 @@ public class MobSkill {
                 break;
         }
     }
+
     public void applyEffect(Char chr) {
         short skill = (short) getSkillID();
         if (skill == 0) {
@@ -505,8 +503,7 @@ public class MobSkill {
         o.slv = level;
         o.tOption = msi.getSkillStatIntValue(time);
         TemporaryStatManager tsm = chr.getTemporaryStatManager();
-        boolean appliedDisease = Util.succeedProp(msi.getSkillStatIntValue(prop))
-                && Util.succeedProp(100 - chr.getTotalStat(BaseStat.asr));
+        boolean appliedDisease = Util.succeedProp(msi.getSkillStatIntValue(prop)) && Util.succeedProp(100 - chr.getTotalStat(BaseStat.asr));
         switch (msID) {
             case Seal:
             case Darkness:

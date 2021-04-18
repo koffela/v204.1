@@ -6,7 +6,7 @@ import net.swordie.ms.life.FieldAttackObj;
 
 /**
  * @author Sjonnie
- * Created on 8/19/2018.
+ *         Created on 8/19/2018.
  */
 public class FieldAttackObjPool {
 

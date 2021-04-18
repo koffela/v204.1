@@ -1,16 +1,15 @@
 package net.swordie.ms.api.data;
 
 /**
- *  Class to hold information received from the MapleEllinel account server after being authenticated. Holds general info about the user account.
- *
- *  Created by MechAviv on 1/18/2019.
+ * Class to hold information received from the MapleEllinel account server after being authenticated. Holds general info about the user account.
+ * Created by MechAviv on 1/18/2019.
  */
 public class UserInfo {
 
     private int id;
     private String name;
     private String email;
-    //private String ip;
+    // private String ip;
     private String error;
     private String message;
     private int status_code;

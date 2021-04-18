@@ -27,6 +27,7 @@ public class Rect {
 
     /**
      * Top left x coord
+     * 
      * @return
      */
     public int getLeft() {
@@ -35,6 +36,7 @@ public class Rect {
 
     /**
      * Top left x coord
+     * 
      * @param left
      */
     public void setLeft(int left) {
@@ -43,6 +45,7 @@ public class Rect {
 
     /**
      * Top left y coord
+     * 
      * @return
      */
     public int getTop() {
@@ -51,6 +54,7 @@ public class Rect {
 
     /**
      * Top left y coord
+     * 
      * @param top
      */
     public void setTop(int top) {
@@ -59,6 +63,7 @@ public class Rect {
 
     /**
      * Bottom right x coord
+     * 
      * @return
      */
     public int getRight() {
@@ -67,6 +72,7 @@ public class Rect {
 
     /**
      * Bottom right x coord
+     * 
      * @param right
      */
     public void setRight(int right) {
@@ -75,6 +81,7 @@ public class Rect {
 
     /**
      * Bottom right y coord
+     * 
      * @return
      */
     public int getBottom() {
@@ -83,6 +90,7 @@ public class Rect {
 
     /**
      * Bottom right y coord
+     * 
      * @param bottom
      */
     public void setBottom(int bottom) {
@@ -91,6 +99,7 @@ public class Rect {
 
     /**
      * Returns the width of this Rect.
+     * 
      * @return the width of this Rect.
      */
     public int getWidth() {
@@ -99,6 +108,7 @@ public class Rect {
 
     /**
      * Returns the height of this Rect.
+     * 
      * @return The height of this Rect.
      */
     public int getHeight() {
@@ -107,7 +117,9 @@ public class Rect {
 
     /**
      * Encodes this Rect to a given {@link OutPacket}.
-     * @param outPacket The OutPacket this Rect should be encoded to.
+     * 
+     * @param outPacket
+     *            The OutPacket this Rect should be encoded to.
      */
     public void encode(OutPacket outPacket) {
         outPacket.encodeInt(getLeft());
@@ -118,12 +130,14 @@ public class Rect {
 
     /**
      * Returns whether or not a {@link Position} is inside this Rect.
-     * @param position The Position to check.
+     * 
+     * @param position
+     *            The Position to check.
      * @return if the position is not null and inside this Rect (rect.left < pos.x < rect.right &&
-     * rect.top < pos.y < rect.bottom.
+     *         rect.top < pos.y < rect.bottom.
      */
     public boolean hasPositionInside(Position position) {
-        if(position == null) {
+        if (position == null) {
             return false;
         }
         int x = position.getX();
@@ -133,6 +147,7 @@ public class Rect {
 
     /**
      * Move this Rect left by the width, effectively flipping around the left edge.
+     * 
      * @return The resulting Rect from the move.
      */
     public Rect moveLeft() {
@@ -141,6 +156,7 @@ public class Rect {
 
     /**
      * Move this Rect right by the width, effectively flipping around the right edge.
+     * 
      * @return The resulting Rect from the move.
      */
     public Rect moveRight() {
@@ -149,7 +165,9 @@ public class Rect {
 
     /**
      * Flips this Rect horizontally around a certain Position's x .
-     * @param x The x to flip around
+     * 
+     * @param x
+     *            The x to flip around
      * @return The flipped Rect
      */
     public Rect horizontalFlipAround(int x) {
@@ -158,6 +176,7 @@ public class Rect {
 
     /**
      * Returns a deep copy of this Rect.
+     * 
      * @return a deep copy of this Rect
      */
     public Rect deepCopy() {
@@ -166,16 +185,12 @@ public class Rect {
 
     @Override
     public String toString() {
-        return "Rect{" +
-                "left=" + left +
-                ", top=" + top +
-                ", right=" + right +
-                ", bottom=" + bottom +
-                '}';
+        return "Rect{" + "left=" + left + ", top=" + top + ", right=" + right + ", bottom=" + bottom + '}';
     }
 
     /**
      * Returns a random Position that is inside this Rect.
+     * 
      * @return the random Position
      */
     public Position getRandomPositionInside() {

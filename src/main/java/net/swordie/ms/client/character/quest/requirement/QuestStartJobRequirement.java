@@ -35,7 +35,7 @@ public class QuestStartJobRequirement implements QuestStartRequirement {
     @Override
     public void write(DataOutputStream dos) throws IOException {
         dos.writeShort(getJobReq().size());
-        for(short s : getJobReq()) {
+        for (short s : getJobReq()) {
             dos.writeShort(s);
         }
     }

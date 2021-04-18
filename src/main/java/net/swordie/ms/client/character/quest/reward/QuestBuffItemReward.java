@@ -17,7 +17,8 @@ public class QuestBuffItemReward implements QuestReward {
         this.status = status;
     }
 
-    public QuestBuffItemReward() { }
+    public QuestBuffItemReward() {
+    }
 
     public int getBuffItemID() {
         return buffItemID;
@@ -27,9 +28,13 @@ public class QuestBuffItemReward implements QuestReward {
         this.buffItemID = buffItemID;
     }
 
-    public void setStatus(int status) { this.status = status; }
+    public void setStatus(int status) {
+        this.status = status;
+    }
 
-    public int getStatus() { return status; }
+    public int getStatus() {
+        return status;
+    }
 
     @Override
     public void giveReward(Char chr) {

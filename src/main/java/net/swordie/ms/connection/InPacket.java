@@ -15,7 +15,9 @@ public class InPacket extends Packet {
 
     /**
      * Creates a new InPacket with a given buffer.
-     * @param byteBuf The buffer this InPacket has to be initialized with.
+     * 
+     * @param byteBuf
+     *            The buffer this InPacket has to be initialized with.
      */
     public InPacket(ByteBuf byteBuf) {
         super(byteBuf.array());
@@ -25,13 +27,15 @@ public class InPacket extends Packet {
     /**
      * Creates a new InPacket with no data.
      */
-    public InPacket(){
+    public InPacket() {
         this(Unpooled.buffer());
     }
 
     /**
      * Creates a new InPacket with given data.
-     * @param data The data this InPacket has to be initialized with.
+     * 
+     * @param data
+     *            The data this InPacket has to be initialized with.
      */
     public InPacket(byte[] data) {
         this(Unpooled.copiedBuffer(data));
@@ -54,6 +58,7 @@ public class InPacket extends Packet {
 
     /**
      * Reads a single byte of the ByteBuf.
+     * 
      * @return The byte that has been read.
      */
     public byte decodeByte() {
@@ -61,17 +66,19 @@ public class InPacket extends Packet {
     }
 
     public short decodeUByte() {
-            return byteBuf.readUnsignedByte();
+        return byteBuf.readUnsignedByte();
     }
 
     /**
      * Reads an <code>amount</code> of bytes from the ByteBuf.
-     * @param amount The amount of bytes to read.
+     * 
+     * @param amount
+     *            The amount of bytes to read.
      * @return The bytes that have been read.
      */
     public byte[] decodeArr(int amount) {
         byte[] arr = new byte[amount];
-        for(int i = 0; i < amount; i++) {
+        for (int i = 0; i < amount; i++) {
             arr[i] = byteBuf.readByte();
         }
         return arr;
@@ -79,6 +86,7 @@ public class InPacket extends Packet {
 
     /**
      * Reads an integer from the ByteBuf.
+     * 
      * @return The integer that has been read.
      */
     public int decodeInt() {
@@ -87,6 +95,7 @@ public class InPacket extends Packet {
 
     /**
      * Reads a short from the ByteBuf.
+     * 
      * @return The short that has been read.
      */
     public short decodeShort() {
@@ -95,13 +104,15 @@ public class InPacket extends Packet {
 
     /**
      * Reads a char array of a given length of this ByteBuf.
-     * @param amount The length of the char array
+     * 
+     * @param amount
+     *            The length of the char array
      * @return The char array as a String
      */
     public String decodeString(int amount) {
         byte[] bytes = decodeArr(amount);
         char[] chars = new char[amount];
-        for(int i = 0; i < amount; i++) {
+        for (int i = 0; i < amount; i++) {
             chars[i] = (char) bytes[i];
         }
         return String.valueOf(chars);
@@ -109,6 +120,7 @@ public class InPacket extends Packet {
 
     /**
      * Reads a String, by first reading a short, then reading a char array of that length.
+     * 
      * @return The char array as a String
      */
     public String decodeString() {
@@ -121,9 +133,9 @@ public class InPacket extends Packet {
         return Util.readableByteArray(Arrays.copyOfRange(getData(), getData().length - getUnreadAmount(), getData().length)); // Substring after copy of range xd
     }
 
-
     /**
      * Reads and returns a long from this net.swordie.ms.connection.packet.
+     * 
      * @return The long that has been read.
      */
     public long decodeLong() {
@@ -132,6 +144,7 @@ public class InPacket extends Packet {
 
     /**
      * Reads a position (short x, short y) and returns this.
+     * 
      * @return The position that has been read.
      */
     public Position decodePosition() {
@@ -140,6 +153,7 @@ public class InPacket extends Packet {
 
     /**
      * Reads a rectangle (short l, short t, short r, short b) and returns this.
+     * 
      * @return The rectangle that has been read.
      */
     public Rect decodeShortRect() {
@@ -148,6 +162,7 @@ public class InPacket extends Packet {
 
     /**
      * Reads a rectangle (int l, int t, int r, int b) and returns this.
+     * 
      * @return The rectangle that has been read.
      */
     public Position decodePositionInt() {
@@ -156,6 +171,7 @@ public class InPacket extends Packet {
 
     /**
      * Returns the amount of bytes that are unread.
+     * 
      * @return The amount of bytes that are unread.
      */
     public int getUnreadAmount() {
@@ -168,6 +184,7 @@ public class InPacket extends Packet {
 
     /**
      * Reads a rectangle (int l, int t, int r, int b) and returns this.
+     * 
      * @return The rectangle that has been read.
      */
     public Rect decodeIntRect() {

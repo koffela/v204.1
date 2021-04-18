@@ -229,7 +229,7 @@ public class MobData {
             mob.setFirstAttack(dataInputStream.readInt());
             Option bodyOpt = new Option();
             bodyOpt.nOption = dataInputStream.readInt();
-//            mts.addStatOptions(BodyAttack, bodyOpt);
+            // mts.addStatOptions(BodyAttack, bodyOpt);
             fms.setMaxHP(dataInputStream.readLong());
             fms.setMaxMP(dataInputStream.readLong());
             fms.setPad(dataInputStream.readInt());
@@ -372,7 +372,7 @@ public class MobData {
 
             Option pImmuneOpt = new Option();
             pImmuneOpt.nOption = dataInputStream.readInt();
-//            mts.addStatOptions(PImmune, pImmuneOpt);
+            // mts.addStatOptions(PImmune, pImmuneOpt);
 
             mob.setAppearType((byte) -2); // new spawn
             mob.setAfterAttack(-1);
@@ -384,10 +384,7 @@ public class MobData {
             mob.setMp(fms.getMaxMP());
             mob.setMaxMp(fms.getMaxMP());
             mob.setDrops(DropData.getDropInfoByID(mob.getTemplateId()).stream().filter(dropInfo -> !dropInfo.getReactorDrop()).collect(Collectors.toSet()));
-            mob.getDrops().add(new DropInfo(GameConstants.MAX_DROP_CHANCE,
-                    GameConstants.MIN_MONEY_MULT * mob.getForcedMobStat().getLevel(),
-                    GameConstants.MAX_MONEY_MULT * mob.getForcedMobStat().getLevel()
-            ));
+            mob.getDrops().add(new DropInfo(GameConstants.MAX_DROP_CHANCE, GameConstants.MIN_MONEY_MULT * mob.getForcedMobStat().getLevel(), GameConstants.MAX_MONEY_MULT * mob.getForcedMobStat().getLevel()));
             for (DropInfo di : mob.getDrops()) {
                 di.generateNextDrop();
             }
@@ -397,7 +394,6 @@ public class MobData {
         }
         return mob;
     }
-
 
     public static void loadMobsFromWz() {
         String wzDir1 = ServerConstants.WZ_DIR + "/Mob.wz";
@@ -420,7 +416,7 @@ public class MobData {
             }
 
             // handle death delay calculcation
-            String[] deathnodes = {"die1", "die2", "dieF"}; // idk there may be more
+            String[] deathnodes = { "die1", "die2", "dieF" }; // idk there may be more
             long respawnDelay = 0;
             for (String s : deathnodes) {
                 Node deathNode = XMLApi.getFirstChildByNameBF(node, s);
@@ -480,7 +476,7 @@ public class MobData {
                         fms.setPad(Integer.parseInt(value));
                         break;
                     case "PDDamage":
-//                            mts.addStatOptions(PDR, "nPDR", Integer.parseInt(value));
+                        // mts.addStatOptions(PDR, "nPDR", Integer.parseInt(value));
                         break;
                     case "PDRate":
                         fms.setPdr(Integer.parseInt(value));
@@ -489,7 +485,7 @@ public class MobData {
                         fms.setMad(Integer.parseInt(value));
                         break;
                     case "MDDamage":
-//                            mts.addStatOptions(PDR, "nMDR", Integer.parseInt(value));
+                        // mts.addStatOptions(PDR, "nMDR", Integer.parseInt(value));
                         break;
                     case "MDRate":
                         fms.setMdr(Integer.parseInt(value));
@@ -775,7 +771,7 @@ public class MobData {
                         break;
                     case "revive":
                         mob.setRespawnDelay(respawnDelay);
-                        //log.debug("Adding spawn delay: " + respawnDelay);
+                        // log.debug("Adding spawn delay: " + respawnDelay);
                         for (Node reviveNode : XMLApi.getAllChildren(n)) {
                             mob.addRevive(Integer.parseInt((XMLApi.getNamedAttribute(reviveNode, "value"))));
                         }
@@ -784,7 +780,7 @@ public class MobData {
                     case "attack":
                         boolean attack = "attack".equalsIgnoreCase(name);
                         for (Node skillIDNode : XMLApi.getAllChildren(n)) {
-                            if(!Util.isNumber(XMLApi.getNamedAttribute(skillIDNode, "name"))) {
+                            if (!Util.isNumber(XMLApi.getNamedAttribute(skillIDNode, "name"))) {
                                 continue;
                             }
                             MobSkill mobSkill = new MobSkill();

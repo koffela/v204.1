@@ -2,7 +2,7 @@ package net.swordie.ms.enums;
 
 /**
  * @author Sjonnie
- * Created on 8/31/2018.
+ *         Created on 8/31/2018.
  */
 public enum InGameDirectionEventType {
     ForcedAction(0),

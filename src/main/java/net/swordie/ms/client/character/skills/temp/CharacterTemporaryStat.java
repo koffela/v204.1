@@ -226,7 +226,7 @@ public enum CharacterTemporaryStat implements Comparator<CharacterTemporaryStat>
     Bless(182),// v202.3
     TimeBomb(183),// v202.3
     DisOrder(184),// v202.3
-    //Thread(185),// v202.3
+    // Thread(185),// v202.3
 
     Team(186),// v202.3
     Explosion(187),// v202.3
@@ -584,7 +584,7 @@ public enum CharacterTemporaryStat implements Comparator<CharacterTemporaryStat>
     Unk504(504),
     SpreadThrow(505),
     WindEnergy(506),
-    MassDestructionRockets(507),// Used for:   Cannonneer 1st V  |  Battle Mage 2nd V  |  Buccaneer 3rd V
+    MassDestructionRockets(507),// Used for: Cannonneer 1st V | Battle Mage 2nd V | Buccaneer 3rd V
     ShadowAssault(508),
     Unk509(509),
     Unk510(510),
@@ -720,118 +720,10 @@ public enum CharacterTemporaryStat implements Comparator<CharacterTemporaryStat>
     public static final int length = 32;
     private static final org.apache.log4j.Logger log = LogManager.getRootLogger();
 
-    private static final List<CharacterTemporaryStat> ORDER = Arrays.asList(
-            STR, INT, DEX, LUK,
-            PAD, PDD, MAD, ACC, EVA, EVAR,
-            Craft, Speed, Jump,
-            EMHP, EMMP, EPAD, EMAD, EPDD,
-            MagicGuard, DarkSight, Booster, PowerGuard, Guard,
-            MaxHP, MaxMP, Invincible, SoulArrow, Stun, Shock,
-            Unk82, Unk83, Unk84, Poison, Seal, Darkness, ComboCounter, WeaponCharge, ElementalCharge,
-            HolySymbol, MesoUp, ShadowPartner, PickPocket, MesoGuard, Thaw, Weakness, WeaknessMdamage,
-            Curse, Slow, TimeBomb, BuffLimit, Team, DisOrder, //Thread,
-            Morph, Ghost,
-            Regen, BasicStatUp, Stance, SharpEyes, ManaReflection, Attract, NoBulletConsume, StackBuff, Trinity,
-            Infinity, AdvancedBless, IllusionStep, Blind, Concentration, BanMap, MaxLevelBuff, Barrier, DojangShield, ReverseInput,
-            Unk114, Unk115, MesoUpByItem, ItemUpByItem, RespectPImmune, RespectMImmune, DefenseAtt, DefenseState, DojangBerserk, DojangInvincible, SoulMasterFinal,
-            WindBreakerFinal, ElementalReset, HideAttack, EventRate, ComboAbilityBuff, ComboDrain, ComboBarrier, PartyBarrier,
-            BodyPressure, RepeatEffect, ExpBuffRate, StopPortion, StopMotion, Fear, MagicShield, MagicResistance, SoulStone,
-            Flying, NewFlying, NaviFlying, Frozen, Frozen2, Web,
-            Enrage, NotDamaged, FinalCut, HowlingAttackDamage, BeastFormDamageUp, Dance, OnCapsule,
-            Cyclone, Unk165, Conversion, Revive, PinkbeanMinibeenMove, Sneak, Mechanic, DrawBack,
-            BeastFormMaxHP, Dice, BlessingArmor, BlessingArmorIncPAD,
-            DamR, TeleportMasteryOn, CombatOrders, Beholder, DispelItemOption, DispelItemOptionByField,
-            Inflation, OnixDivineProtection, Bless, Explosion, DarkTornado, IncMaxHP, IncMaxMP,
-            PVPDamage, PVPDamageSkill, PvPScoreBonus, PvPInvincible, PvPRaceEffect,
-            HolyMagicShell, InfinityForce, AmplifyDamage, KeyDownTimeIgnore, MasterMagicOn,
-            AsrR, AsrRByItem, TerR, DamAbsorbShield, Roulette, Event, SpiritLink,
-            CriticalBuff, DropRate, PlusExpRate, ItemInvincible, ItemCritical, ItemEvade,
-            Event2, VampiricTouch, DDR, IncTerR, IncAsrR, DeathMark, PainMark,
-            UsefulAdvancedBless, Lapidification, VampDeath, VampDeathSummon,
-            VenomSnake, CarnivalAttack, CarnivalDefence, CarnivalExp, SlowAttack, PyramidEffect, HollowPointBullet, KeyDownMoving, KeyDownAreaMoving, CygnusElementSkill,
-            IgnoreTargetDEF, Invisible, ReviveOnce, AntiMagicShell,
-            EnrageCr, EnrageCrDam, BlessOfDarkness, LifeTidal,
-            Judgement, DojangLuckyBonus, HitCriDamR, Larkness, SmashStack, ReshuffleSwitch, SpecialAction, ArcaneAim,
-            StopForceAtomInfo, SoulGazeCriDamR, SoulRageCount, PowerTransferGauge, AffinitySlug, SoulExalt, HiddenPieceOn,
-            BossShield, MobZoneState, GiveMeHeal, TouchMe, Contagion, ComboUnlimited,
-            IgnorePCounter, IgnoreAllCounter, IgnorePImmune, IgnoreAllImmune, Unk293,
-            FinalJudgement, KnightsAura, IceAura, FireAura, VengeanceOfAngel, HeavensDoor, Preparation, BullsEye, IncEffectHPPotion, IncEffectMPPotion,
-            SoulMP, FullSoulMP, SoulSkillDamageUp,
-            BleedingToxin, IgnoreMobDamR, Asura, Unk306, FlipTheCoin, UnityOfPower, Stimulate, ReturnTeleport, CapDebuff,
-            DropRIncrease, IgnoreMobpdpR, BdR,
-            Exceed, DiabolikRecovery, FinalAttackProp, ExceedOverload, DevilishPower,
-            OverloadCount, BuckShot, FireBomb, HalfstatByDebuff, SurplusSupply, SetBaseDamage, AmaranthGenerator,
-            StrikerHyperElectric, EventPointAbsorb, EventAssemble, StormBringer, ACCR, DEXR, Albatross, Translucence,
-            PoseType, LightOfSpirit, ElementSoul, GlimmeringTime, Restoration, ComboCostInc, ChargeBuff,
-            TrueSight, CrossOverChain, ChillingStep, Reincarnation, DotBasedBuff, BlessEnsenble, ExtremeArchery,
-            QuiverCatridge, AdvancedQuiver, UserControlMob, ImmuneBarrier, ArmorPiercing, ZeroAuraStr, ZeroAuraSpd,
-            CriticalGrowing, QuickDraw, BowMasterConcentration, TimeFastABuff, TimeFastBBuff, GatherDropR, AimBox2D,
-            IncMonsterBattleCaptureRate, CursorSniping, DebuffTolerance, Unk376, DotHealHPPerSecond, SpiritGuard, Unk379,
-            PreReviveOnce, SetBaseDamageByBuff, LimitMP, ReflectDamR, ComboTempest, MHPCutR, MMPCutR, SelfWeakness,
-            ElementDarkness, FlareTrick, Ember, Dominion, SiphonVitality, DarknessAscension, BossWaitingLinesBuff,
-            DamageReduce, ShadowServant, ShadowIllusion,
-            AddAttackCount, ComplusionSlant, JaguarSummoned, JaguarCount, SSFShootingAttack, DevilCry, ShieldAttack, BMageAura,
-            DarkLighting, AttackCountX, BMageDeath, BombTime, NoDebuff,
-            XenonAegisSystem, AngelicBursterSoulSeeker, HiddenPossession, NightWalkerBat, NightLordMark, WizardIgnite,
-            Unk423, Unk424,
-            BattlePvPHelenaMark, BattlePvPHelenaWindSpirit, BattlePvPLangEProtection, BattlePvPLeeMalNyunScaleUp, BattlePvPRevive, PinkbeanAttackBuff,
-            RandAreaAttack, Unk442, BattlePvPMikeShield, BattlePvPMikeBugle,
-            PinkbeanRelax, PinkbeanYoYoStack, WindEnergy,
-            NextAttackEnhance, AranBeyonderDamAbsorb, AranCombotempastOption, NautilusFinalAttack, ViperTimeLeap,
-            RoyalGuardState, RoyalGuardPrepare, MichaelSoulLink, MichaelStanceLink, TriflingWhimOnOff, AddRangeOnOff,
-            KinesisPsychicPoint, KinesisPsychicOver, KinesisPsychicShield, KinesisIncMastery, KinesisPsychicEnergeShield,
-            BladeStance, DebuffActiveSkillHPCon, DebuffIncHP, BowMasterMortalBlow, AngelicBursterSoulResonance, Fever,
-            IgnisRore, RpSiksin, TeleportMasteryRange, FireBarrier, ChangeFoxMan,
-            FixCoolTime, IncMobRateDummy, AdrenalinBoost, AranSmashSwing, AranDrain, AranBoostEndHunt, HiddenHyperLinkMaximization,
-            RWCylinder, RWCombination, Unk476, RWMagnumBlow, RWBarrier, RWBarrierHeal, RWMaximizeCannon, RWOverHeat,
-            RWMovingEvar, Stigma, Unk485, Unk486, Unk487, Unk488, Unk489, Unk490, Unk491, Unk492,
-            LightningCascade, BulletBarrage, AuraScythe, Unk497, Unk498, Unk499, Unk500, DivineEcho,
-            Unk501, ManaOverload, Unk503, Unk504, SpreadThrow,
-            MassDestructionRockets, ShadowAssault, Unk509, Unk510, Unk511, BlitzShield, Unk513, FreudWisdom, CoreOverload, Unk425,
-            CrystallineWings, Unk520, RIFT_OF_DAMNATION,
-            Unk517, Spotlight, Unk162, Unk518,
-            Unk521, Overdrive, EtherealForm, LastResort, Unk525, Unk526, Unk527, Unk528, Unk529, Unk163,
-            Unk530, Unk531, Unk532, Unk534, Unk535, Unk536, Unk537, Unk538, Unk539, Unk540, Unk541,
-            SpecterEnergy, SpecterState, BasicCast, ScarletCast, GustCast, AbyssalCast, ImpendingDeath, AbyssalRecall, ChargeSpellAmplifier,
-            InfinitySpell, ConversionOverdrive, Unk553, Unk554, Unk555, Unk556, Unk557,
-            Unk559, Unk560, Unk561, Unk562, Unk427,
-            Unk563, Unk428,
-            Unk564, Unk565, Unk566, Unk567, Unk429, Unk430,
-            Unk568, Unk569, DropPer, Unk431,
-            Unk570, Unk571, Unk572, Unk573, Unk574, IncMaxDamage,
-            Unk575, Unk576, Unk578, Unk579, IndieUnk13,
-            HayatoStance, EyeForEye, HayatoStanceBonus,
-            Unk583, Unk584, Unk585, Unk586, Unk587,
-            HayatoPAD, HayatoHPR, HayatoMPR, HayatoBooster, Unk595, Unk596, Jinsoku, HayatoCr, Unk582,
-            HakuBlessing, HayatoBoss, BattoujutsuAdvance, Unk602,
-            TeamRoar, Unk607, Unk608, Unk609, Unk610, Unk611, Unk612, Unk613,
-            Unk615, Unk616, Unk617, Unk618, Unk619
-    );
+    private static final List<CharacterTemporaryStat> ORDER = Arrays.asList(STR, INT, DEX, LUK, PAD, PDD, MAD, ACC, EVA, EVAR, Craft, Speed, Jump, EMHP, EMMP, EPAD, EMAD, EPDD, MagicGuard, DarkSight, Booster, PowerGuard, Guard, MaxHP, MaxMP, Invincible, SoulArrow, Stun, Shock, Unk82, Unk83, Unk84, Poison, Seal, Darkness, ComboCounter, WeaponCharge, ElementalCharge, HolySymbol, MesoUp, ShadowPartner, PickPocket, MesoGuard, Thaw, Weakness, WeaknessMdamage, Curse, Slow, TimeBomb, BuffLimit, Team, DisOrder, // Thread,
+            Morph, Ghost, Regen, BasicStatUp, Stance, SharpEyes, ManaReflection, Attract, NoBulletConsume, StackBuff, Trinity, Infinity, AdvancedBless, IllusionStep, Blind, Concentration, BanMap, MaxLevelBuff, Barrier, DojangShield, ReverseInput, Unk114, Unk115, MesoUpByItem, ItemUpByItem, RespectPImmune, RespectMImmune, DefenseAtt, DefenseState, DojangBerserk, DojangInvincible, SoulMasterFinal, WindBreakerFinal, ElementalReset, HideAttack, EventRate, ComboAbilityBuff, ComboDrain, ComboBarrier, PartyBarrier, BodyPressure, RepeatEffect, ExpBuffRate, StopPortion, StopMotion, Fear, MagicShield, MagicResistance, SoulStone, Flying, NewFlying, NaviFlying, Frozen, Frozen2, Web, Enrage, NotDamaged, FinalCut, HowlingAttackDamage, BeastFormDamageUp, Dance, OnCapsule, Cyclone, Unk165, Conversion, Revive, PinkbeanMinibeenMove, Sneak, Mechanic, DrawBack, BeastFormMaxHP, Dice, BlessingArmor, BlessingArmorIncPAD, DamR, TeleportMasteryOn, CombatOrders, Beholder, DispelItemOption, DispelItemOptionByField, Inflation, OnixDivineProtection, Bless, Explosion, DarkTornado, IncMaxHP, IncMaxMP, PVPDamage, PVPDamageSkill, PvPScoreBonus, PvPInvincible, PvPRaceEffect, HolyMagicShell, InfinityForce, AmplifyDamage, KeyDownTimeIgnore, MasterMagicOn, AsrR, AsrRByItem, TerR, DamAbsorbShield, Roulette, Event, SpiritLink, CriticalBuff, DropRate, PlusExpRate, ItemInvincible, ItemCritical, ItemEvade, Event2, VampiricTouch, DDR, IncTerR, IncAsrR, DeathMark, PainMark, UsefulAdvancedBless, Lapidification, VampDeath, VampDeathSummon, VenomSnake, CarnivalAttack, CarnivalDefence, CarnivalExp, SlowAttack, PyramidEffect, HollowPointBullet, KeyDownMoving, KeyDownAreaMoving, CygnusElementSkill, IgnoreTargetDEF, Invisible, ReviveOnce, AntiMagicShell, EnrageCr, EnrageCrDam, BlessOfDarkness, LifeTidal, Judgement, DojangLuckyBonus, HitCriDamR, Larkness, SmashStack, ReshuffleSwitch, SpecialAction, ArcaneAim, StopForceAtomInfo, SoulGazeCriDamR, SoulRageCount, PowerTransferGauge, AffinitySlug, SoulExalt, HiddenPieceOn, BossShield, MobZoneState, GiveMeHeal, TouchMe, Contagion, ComboUnlimited, IgnorePCounter, IgnoreAllCounter, IgnorePImmune, IgnoreAllImmune, Unk293, FinalJudgement, KnightsAura, IceAura, FireAura, VengeanceOfAngel, HeavensDoor, Preparation, BullsEye, IncEffectHPPotion, IncEffectMPPotion, SoulMP, FullSoulMP, SoulSkillDamageUp, BleedingToxin, IgnoreMobDamR, Asura, Unk306, FlipTheCoin, UnityOfPower, Stimulate, ReturnTeleport, CapDebuff, DropRIncrease, IgnoreMobpdpR, BdR, Exceed, DiabolikRecovery, FinalAttackProp, ExceedOverload, DevilishPower, OverloadCount, BuckShot, FireBomb, HalfstatByDebuff, SurplusSupply, SetBaseDamage, AmaranthGenerator, StrikerHyperElectric, EventPointAbsorb, EventAssemble, StormBringer, ACCR, DEXR, Albatross, Translucence, PoseType, LightOfSpirit, ElementSoul, GlimmeringTime, Restoration, ComboCostInc, ChargeBuff, TrueSight, CrossOverChain, ChillingStep, Reincarnation, DotBasedBuff, BlessEnsenble, ExtremeArchery, QuiverCatridge, AdvancedQuiver, UserControlMob, ImmuneBarrier, ArmorPiercing, ZeroAuraStr, ZeroAuraSpd, CriticalGrowing, QuickDraw, BowMasterConcentration, TimeFastABuff, TimeFastBBuff, GatherDropR, AimBox2D, IncMonsterBattleCaptureRate, CursorSniping, DebuffTolerance, Unk376, DotHealHPPerSecond, SpiritGuard, Unk379, PreReviveOnce, SetBaseDamageByBuff, LimitMP, ReflectDamR, ComboTempest, MHPCutR, MMPCutR, SelfWeakness, ElementDarkness, FlareTrick, Ember, Dominion, SiphonVitality, DarknessAscension, BossWaitingLinesBuff, DamageReduce, ShadowServant, ShadowIllusion, AddAttackCount, ComplusionSlant, JaguarSummoned, JaguarCount, SSFShootingAttack, DevilCry, ShieldAttack, BMageAura, DarkLighting, AttackCountX, BMageDeath, BombTime, NoDebuff, XenonAegisSystem, AngelicBursterSoulSeeker, HiddenPossession, NightWalkerBat, NightLordMark, WizardIgnite, Unk423, Unk424, BattlePvPHelenaMark, BattlePvPHelenaWindSpirit, BattlePvPLangEProtection, BattlePvPLeeMalNyunScaleUp, BattlePvPRevive, PinkbeanAttackBuff, RandAreaAttack, Unk442, BattlePvPMikeShield, BattlePvPMikeBugle, PinkbeanRelax, PinkbeanYoYoStack, WindEnergy, NextAttackEnhance, AranBeyonderDamAbsorb, AranCombotempastOption, NautilusFinalAttack, ViperTimeLeap, RoyalGuardState, RoyalGuardPrepare, MichaelSoulLink, MichaelStanceLink, TriflingWhimOnOff, AddRangeOnOff, KinesisPsychicPoint, KinesisPsychicOver, KinesisPsychicShield, KinesisIncMastery, KinesisPsychicEnergeShield, BladeStance, DebuffActiveSkillHPCon, DebuffIncHP, BowMasterMortalBlow, AngelicBursterSoulResonance, Fever, IgnisRore, RpSiksin, TeleportMasteryRange, FireBarrier, ChangeFoxMan, FixCoolTime, IncMobRateDummy, AdrenalinBoost, AranSmashSwing, AranDrain, AranBoostEndHunt, HiddenHyperLinkMaximization, RWCylinder, RWCombination, Unk476, RWMagnumBlow, RWBarrier, RWBarrierHeal, RWMaximizeCannon, RWOverHeat, RWMovingEvar, Stigma, Unk485, Unk486, Unk487, Unk488, Unk489, Unk490, Unk491, Unk492, LightningCascade, BulletBarrage, AuraScythe, Unk497, Unk498, Unk499, Unk500, DivineEcho, Unk501, ManaOverload, Unk503, Unk504, SpreadThrow, MassDestructionRockets, ShadowAssault, Unk509, Unk510, Unk511, BlitzShield, Unk513, FreudWisdom, CoreOverload, Unk425, CrystallineWings, Unk520, RIFT_OF_DAMNATION, Unk517, Spotlight, Unk162, Unk518, Unk521, Overdrive, EtherealForm, LastResort, Unk525, Unk526, Unk527, Unk528, Unk529, Unk163, Unk530, Unk531, Unk532, Unk534, Unk535, Unk536, Unk537, Unk538, Unk539, Unk540, Unk541, SpecterEnergy, SpecterState, BasicCast, ScarletCast, GustCast, AbyssalCast, ImpendingDeath, AbyssalRecall, ChargeSpellAmplifier, InfinitySpell, ConversionOverdrive, Unk553, Unk554, Unk555, Unk556, Unk557, Unk559, Unk560, Unk561, Unk562, Unk427, Unk563, Unk428, Unk564, Unk565, Unk566, Unk567, Unk429, Unk430, Unk568, Unk569, DropPer, Unk431, Unk570, Unk571, Unk572, Unk573, Unk574, IncMaxDamage, Unk575, Unk576, Unk578, Unk579, IndieUnk13, HayatoStance, EyeForEye, HayatoStanceBonus, Unk583, Unk584, Unk585, Unk586, Unk587, HayatoPAD, HayatoHPR, HayatoMPR, HayatoBooster, Unk595, Unk596, Jinsoku, HayatoCr, Unk582, HakuBlessing, HayatoBoss, BattoujutsuAdvance, Unk602, TeamRoar, Unk607, Unk608, Unk609, Unk610, Unk611, Unk612, Unk613, Unk615, Unk616, Unk617, Unk618, Unk619);
 
-    private static final List<CharacterTemporaryStat> REMOTE_ORDER = Arrays.asList(
-            Speed, Poison, Seal, Darkness, WeaponCharge, ElementalCharge, Stun, Shock, Unk84, Unk83, Weakness, WeaknessMdamage,
-            Curse, Slow, PvPRaceEffect, TimeBomb, Team, DisOrder, /*Thread*/ Unk82, ShadowPartner,  Morph, Ghost, Attract, Magnet, MagnetArea,
-            NoBulletConsume, BanMap, Barrier, DojangShield, ReverseInput, RespectPImmune, RespectMImmune, DefenseAtt, DefenseState,
-            DojangBerserk, RepeatEffect, Unk602, StopPortion, StopMotion, Fear, MagicShield, Frozen, Frozen2, Web, DrawBack, FinalCut,
-            OnCapsule, Mechanic, Inflation, Explosion, DarkTornado, AmplifyDamage, HideAttack, DevilishPower, SpiritLink, Event, Event2,
-            DeathMark, PainMark, Lapidification, VampDeath, VampDeathSummon, VenomSnake, PyramidEffect, KillingPoint, PinkbeanRollingGrade,
-            IgnoreTargetDEF, Invisible, Judgement, KeyDownAreaMoving, StackBuff, BlessOfDarkness, Larkness, ReshuffleSwitch, SpecialAction,
-            StopForceAtomInfo, SoulGazeCriDamR, PowerTransferGauge, BlitzShield, AffinitySlug, SoulExalt, HiddenPieceOn, SmashStack, MobZoneState,
-            GiveMeHeal, TouchMe, Contagion, ComboUnlimited, IgnorePCounter, IgnoreAllCounter, IgnorePImmune, IgnoreAllImmune, Unk293,
-            FinalJudgement, KnightsAura, IceAura, FireAura, HeavensDoor, DamAbsorbShield, NotDamaged, BleedingToxin,
-            WindBreakerFinal, IgnoreMobDamR, Asura, Unk306, UnityOfPower, Stimulate, ReturnTeleport, CapDebuff, OverloadCount, FireBomb,
-            SurplusSupply, NewFlying, NaviFlying, AmaranthGenerator, CygnusElementSkill, StrikerHyperElectric, EventPointAbsorb, EventAssemble,
-            Albatross, Translucence, PoseTypeBool, LightOfSpirit, ElementSoul, GlimmeringTime, Reincarnation, Beholder, QuiverCatridge, ArmorPiercing,
-            ZeroAuraStr, ZeroAuraSpd, ImmuneBarrier, FullSoulMP, AntiMagicShellBool, Dance, Unk379, Unk425, ComboTempest, HalfstatByDebuff,
-            ComplusionSlant, JaguarSummoned, BMageAura, BombTime, Unk491, Unk492, LightningCascade, BulletBarrage, Unk495, AuraScythe,
-            Unk497, DarkLighting, AttackCountX, FireBarrier, KeyDownMoving, MichaelSoulLink, KinesisPsychicEnergeShield, BladeStance,
-            IgnisRore, AdrenalinBoost, RWBarrier, Unk476, RWMagnumBlow, Unk253, Unk254, Unk255, Unk256, Unk257, Stigma, DivineEcho, Unk503,
-            Unk504, Unk485, ManaOverload, CursorSniping, Unk517, Spotlight, CoreOverload, FreudWisdom, ComboCounter, Overdrive, EtherealForm,
-            LastResort, Unk525, Unk526, Unk527, Unk528, Unk529, Unk520, Unk530, Unk531, Unk532, Unk533,
-            SpecterState, ImpendingDeath, Unk556, Unk531, Unk565, GrandGuardian, HayatoStanceBonus, BeastMode, TeamRoar, Unk586,
-            HayatoBooster, Unk587, HayatoPAD, HayatoHPR, HayatoMPR, HayatoCr, HayatoBoss, Stance, BattoujutsuAdvance, Unk603,
-            BlackHeartedCurse, EyeForEye, Unk608, Unk612, Unk613, Unk614, Unk616, Unk617, Unk618, Unk585, Unk513
-    );
+    private static final List<CharacterTemporaryStat> REMOTE_ORDER = Arrays.asList(Speed, Poison, Seal, Darkness, WeaponCharge, ElementalCharge, Stun, Shock, Unk84, Unk83, Weakness, WeaknessMdamage, Curse, Slow, PvPRaceEffect, TimeBomb, Team, DisOrder, /* Thread */ Unk82, ShadowPartner, Morph, Ghost, Attract, Magnet, MagnetArea, NoBulletConsume, BanMap, Barrier, DojangShield, ReverseInput, RespectPImmune, RespectMImmune, DefenseAtt, DefenseState, DojangBerserk, RepeatEffect, Unk602, StopPortion, StopMotion, Fear, MagicShield, Frozen, Frozen2, Web, DrawBack, FinalCut, OnCapsule, Mechanic, Inflation, Explosion, DarkTornado, AmplifyDamage, HideAttack, DevilishPower, SpiritLink, Event, Event2, DeathMark, PainMark, Lapidification, VampDeath, VampDeathSummon, VenomSnake, PyramidEffect, KillingPoint, PinkbeanRollingGrade, IgnoreTargetDEF, Invisible, Judgement, KeyDownAreaMoving, StackBuff, BlessOfDarkness, Larkness, ReshuffleSwitch, SpecialAction, StopForceAtomInfo, SoulGazeCriDamR, PowerTransferGauge, BlitzShield, AffinitySlug, SoulExalt, HiddenPieceOn, SmashStack, MobZoneState, GiveMeHeal, TouchMe, Contagion, ComboUnlimited, IgnorePCounter, IgnoreAllCounter, IgnorePImmune, IgnoreAllImmune, Unk293, FinalJudgement, KnightsAura, IceAura, FireAura, HeavensDoor, DamAbsorbShield, NotDamaged, BleedingToxin, WindBreakerFinal, IgnoreMobDamR, Asura, Unk306, UnityOfPower, Stimulate, ReturnTeleport, CapDebuff, OverloadCount, FireBomb, SurplusSupply, NewFlying, NaviFlying, AmaranthGenerator, CygnusElementSkill, StrikerHyperElectric, EventPointAbsorb, EventAssemble, Albatross, Translucence, PoseTypeBool, LightOfSpirit, ElementSoul, GlimmeringTime, Reincarnation, Beholder, QuiverCatridge, ArmorPiercing, ZeroAuraStr, ZeroAuraSpd, ImmuneBarrier, FullSoulMP, AntiMagicShellBool, Dance, Unk379, Unk425, ComboTempest, HalfstatByDebuff, ComplusionSlant, JaguarSummoned, BMageAura, BombTime, Unk491, Unk492, LightningCascade, BulletBarrage, Unk495, AuraScythe, Unk497, DarkLighting, AttackCountX, FireBarrier, KeyDownMoving, MichaelSoulLink, KinesisPsychicEnergeShield, BladeStance, IgnisRore, AdrenalinBoost, RWBarrier, Unk476, RWMagnumBlow, Unk253, Unk254, Unk255, Unk256, Unk257, Stigma, DivineEcho, Unk503, Unk504, Unk485, ManaOverload, CursorSniping, Unk517, Spotlight, CoreOverload, FreudWisdom, ComboCounter, Overdrive, EtherealForm, LastResort, Unk525, Unk526, Unk527, Unk528, Unk529, Unk520, Unk530, Unk531, Unk532, Unk533, SpecterState, ImpendingDeath, Unk556, Unk531, Unk565, GrandGuardian, HayatoStanceBonus, BeastMode, TeamRoar, Unk586, HayatoBooster, Unk587, HayatoPAD, HayatoHPR, HayatoMPR, HayatoCr, HayatoBoss, Stance, BattoujutsuAdvance, Unk603, BlackHeartedCurse, EyeForEye, Unk608, Unk612, Unk613, Unk614, Unk616, Unk617, Unk618, Unk585, Unk513);
 
     CharacterTemporaryStat(int bitPos) {
         this.bitPos = bitPos;
@@ -851,10 +743,7 @@ public enum CharacterTemporaryStat implements Comparator<CharacterTemporaryStat>
     }
 
     public static CharacterTemporaryStat getByBitPos(int parseInt) {
-        return
-                Arrays.asList(values()).stream()
-                        .filter(characterTemporaryStat -> characterTemporaryStat.getBitPos() == parseInt)
-                        .collect(Collectors.toList()).get(0);
+        return Arrays.asList(values()).stream().filter(characterTemporaryStat -> characterTemporaryStat.getBitPos() == parseInt).collect(Collectors.toList()).get(0);
     }
 
     public boolean isEncodeInt() {
@@ -989,7 +878,7 @@ public enum CharacterTemporaryStat implements Comparator<CharacterTemporaryStat>
             case Unk617:// v202.3
             case Unk618:// v202.3
             case HayatoStance:
-            //case Unk487:
+                // case Unk487:
             case Unk488:
             case Unk489:
                 return true;
@@ -1058,7 +947,7 @@ public enum CharacterTemporaryStat implements Comparator<CharacterTemporaryStat>
             case HayatoStance:
             case Unk488:
             case Unk489:
-            //case Unk460:
+                // case Unk460:
                 return true;
             default:
                 return false;
@@ -1080,7 +969,7 @@ public enum CharacterTemporaryStat implements Comparator<CharacterTemporaryStat>
             case VengeanceOfAngel:
             case UserControlMob:
             case Unk565:
-            // Special encoding
+                // Special encoding
             case FullSoulMP:// v202.3
             case AntiMagicShellBool:// v202.3
             case PoseTypeBool:
@@ -1092,28 +981,28 @@ public enum CharacterTemporaryStat implements Comparator<CharacterTemporaryStat>
 
     public static void main(String[] args) {
         int a = Stigma.bitPos;
-//        int val = 1 << (31 - (a & 0x1f));
-//        int pos = a >> 5;
+        // int val = 1 << (31 - (a & 0x1f));
+        // int pos = a >> 5;
         int val = 0x1000;
         int pos = 0;
         log.debug(String.format("value 0x%04x, pos %d", val, pos));
-        for(CharacterTemporaryStat cts : values()) {
-            if(cts.getVal() == val && cts.getPos() == pos) {
+        for (CharacterTemporaryStat cts : values()) {
+            if (cts.getVal() == val && cts.getPos() == pos) {
                 log.debug("Corresponds to " + cts);
             }
         }
-//        for (CharacterTemporaryStat cts : values()) {
-//            val = cts.getVal();
-//            for (int i = 0; i < 32; i++) {
-//                if (1 << i == val) {
-//                    val = 31 - i;
-//                }
-//            }
-//            if (val % 8 == 0) {
-//                System.out.println();
-//            }
-//            System.out.println(String.format("%s(%d),", cts.toString(), (cts.getPos() * 32) + val));
-//        }
+        // for (CharacterTemporaryStat cts : values()) {
+        // val = cts.getVal();
+        // for (int i = 0; i < 32; i++) {
+        // if (1 << i == val) {
+        // val = 31 - i;
+        // }
+        // }
+        // if (val % 8 == 0) {
+        // System.out.println();
+        // }
+        // System.out.println(String.format("%s(%d),", cts.toString(), (cts.getPos() * 32) + val));
+        // }
     }
 
     @Override

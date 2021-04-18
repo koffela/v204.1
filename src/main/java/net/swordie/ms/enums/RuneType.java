@@ -16,9 +16,13 @@ public enum RuneType {
 
     private byte val;
 
-    RuneType(int val) {this.val = (byte) val;}
+    RuneType(int val) {
+        this.val = (byte) val;
+    }
 
-    public byte getVal() {return val;}
+    public byte getVal() {
+        return val;
+    }
 
     public static RuneType getByVal(byte val) {
         return Arrays.stream(values()).filter(rt -> rt.getVal() == val).findAny().orElse(null);

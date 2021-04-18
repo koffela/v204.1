@@ -29,7 +29,7 @@ public class SetEffect {
         return effectsByLevel;
     }
 
-    public List<Object> getStatsByLevel (int level) {
+    public List<Object> getStatsByLevel(int level) {
         return effectsByLevel.get(level);
     }
 }

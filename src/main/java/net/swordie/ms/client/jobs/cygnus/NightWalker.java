@@ -49,40 +49,39 @@ public class NightWalker extends Noblesse {
     public static final int ELEMENTAL_HARMONY_LUK = 10000249;
 
     public static final int LUCKY_SEVEN = 14001020;
-    public static final int DARK_ELEMENTAL = 14001021; //Buff (Mark of Darkness)
-    public static final int HASTE = 14001022; //Buff
-    public static final int DARK_SIGHT = 14001023; //Buff
+    public static final int DARK_ELEMENTAL = 14001021; // Buff (Mark of Darkness)
+    public static final int HASTE = 14001022; // Buff
+    public static final int DARK_SIGHT = 14001023; // Buff
 
-    public static final int THROWING_BOOSTER = 14101022; //Buff
+    public static final int THROWING_BOOSTER = 14101022; // Buff
 
-
-    public static final int DARK_SERVANT = 14111024; //Buff
-    public static final int SPIRIT_PROJECTION = 14111025; //Buff
-    public static final int DARKNESS_ASCENDING = 14110030; //Special Buff
+    public static final int DARK_SERVANT = 14111024; // Buff
+    public static final int SPIRIT_PROJECTION = 14111025; // Buff
+    public static final int DARKNESS_ASCENDING = 14110030; // Special Buff
     public static final int SHADOW_SPARK = 14111023;
 
-    public static final int DARK_OMEN = 14121003; //Summon
-    public static final int SHADOW_STITCH = 14121004; //Special Attack (Bind Debuff)
-    public static final int CALL_OF_CYGNUS_NW = 14121000; //Buff
+    public static final int DARK_OMEN = 14121003; // Summon
+    public static final int SHADOW_STITCH = 14121004; // Special Attack (Bind Debuff)
+    public static final int CALL_OF_CYGNUS_NW = 14121000; // Buff
     public static final int VITALITY_SIPHON = 14120009;
 
     public static final int GLORY_OF_THE_GUARDIANS_NW = 14121053;
     public static final int SHADOW_ILLUSION = 14121054;
     public static final int DOMINION = 14121052;
 
-    //Bats
-    public static final int SHADOW_BAT = 14001027; //Buff (Shadow Bats) (ON/OFF)
+    // Bats
+    public static final int SHADOW_BAT = 14001027; // Buff (Shadow Bats) (ON/OFF)
     public static final int SHADOW_BAT_ATOM = 14000028;
-    public static final int BAT_AFFINITY = 14100027; //Summon Upgrade
-    public static final int BAT_AFFINITY_II = 14110029; //Summon Upgrade
-    public static final int BAT_AFFINITY_III = 14120008; //Summon Upgrade
+    public static final int BAT_AFFINITY = 14100027; // Summon Upgrade
+    public static final int BAT_AFFINITY_II = 14110029; // Summon Upgrade
+    public static final int BAT_AFFINITY_III = 14120008; // Summon Upgrade
 
-    //Dark Elemental
+    // Dark Elemental
     public static final int ADAPTIVE_DARKNESS = 14100026;
     public static final int ADAPTIVE_DARKNESS_II = 14110028;
     public static final int ADAPTIVE_DARKNESS_III = 14120007;
 
-    //Attacks
+    // Attacks
     public static final int QUINTUPLE_STAR = 14121001;
     public static final int QUINTUPLE_STAR_FINISHER = 14121002;
 
@@ -138,7 +137,7 @@ public class NightWalker extends Noblesse {
 
     public NightWalker(Char chr) {
         super(chr);
-        if(chr.getId() != 0 && isHandlerOfJob(chr.getJob())) {
+        if (chr.getId() != 0 && isHandlerOfJob(chr.getJob())) {
             for (int id : addedSkills) {
                 if (!chr.hasSkill(id)) {
                     Skill skill = SkillData.getSkillDeepCopyById(id);
@@ -153,8 +152,6 @@ public class NightWalker extends Noblesse {
     public boolean isHandlerOfJob(short id) {
         return JobConstants.isNightWalker(id);
     }
-
-
 
     // Buff related methods --------------------------------------------------------------------------------------------
 
@@ -220,10 +217,10 @@ public class NightWalker extends Noblesse {
                 o1.nValue = si.getValue(x, slv);
                 o1.tStart = (int) System.currentTimeMillis();
                 o1.tTerm = si.getValue(time, slv);
-                tsm.putCharacterStatValue(IndieStatR, o1); //Indie
+                tsm.putCharacterStatValue(IndieStatR, o1); // Indie
                 break;
             case SHADOW_BAT:
-                if(tsm.hasStatBySkillId(skillID)) {
+                if (tsm.hasStatBySkillId(skillID)) {
                     tsm.removeStatsBySkill(skillID);
                     tsm.sendResetStatPacket();
                 } else {
@@ -241,10 +238,7 @@ public class NightWalker extends Noblesse {
                 tsm.putCharacterStatValue(IndieDamR, o1);
                 break;
             case SHADOW_ILLUSION:
-                if(chr.getField().getSummons().stream()
-                        .anyMatch(l -> l.getChr() == chr &&
-                                l.getSkillID() == DARK_SERVANT)
-                        ) {
+                if (chr.getField().getSummons().stream().anyMatch(l -> l.getChr() == chr && l.getSkillID() == DARK_SERVANT)) {
                     tsm.removeStatsBySkill(DARK_SERVANT);
                     c.getChr().getField().broadcastPacket(Summoned.summonedRemoved(darkServant, LeaveType.ANIMATION));
                 }
@@ -252,7 +246,7 @@ public class NightWalker extends Noblesse {
                 o1.rOption = skillID;
                 o1.tOption = si.getValue(time, slv);
                 tsm.putCharacterStatValue(ShadowIllusion, o1);
-                for(int i = skillID; i < skillID+3; i++) {
+                for (int i = skillID; i < skillID + 3; i++) {
                     summon = Summon.getSummonBy(c.getChr(), i, slv);
                     summon.setFlyMob(false);
                     summon.setAvatarLook(chr.getAvatarData().getAvatarLook());
@@ -261,7 +255,7 @@ public class NightWalker extends Noblesse {
                     darkServant.setAssistType(AssistType.None);
                     field.spawnSummon(summon);
                 }
-                if(chr.hasSkill(DARK_SERVANT)) {
+                if (chr.hasSkill(DARK_SERVANT)) {
                     EventManager.addEvent(this::applyDarkServant, si.getValue(time, slv) * 1001, TimeUnit.MILLISECONDS);
                 }
                 break;
@@ -287,7 +281,6 @@ public class NightWalker extends Noblesse {
         byte slv = (byte) skill.getCurrentLevel();
         Option o1 = new Option();
 
-
         o1.nOption = si.getValue(x, slv);
         o1.rOption = skill.getSkillId();
         o1.tOption = si.getValue(time, slv);
@@ -301,8 +294,6 @@ public class NightWalker extends Noblesse {
         darkServant.setMoveAbility(MoveAbility.WalkClone);
         field.spawnSummon(darkServant);
     }
-
-
 
     // Attack related methods ------------------------------------------------------------------------------------------
 
@@ -320,7 +311,7 @@ public class NightWalker extends Noblesse {
             slv = (byte) skill.getCurrentLevel();
             skillID = skill.getSkillId();
         }
-        if(hasHitMobs) {
+        if (hasHitMobs) {
             // Handling Shadow Bats
             if (attackInfo.skillId != SHADOW_BAT_ATOM) {
                 shadowBats(attackInfo);
@@ -359,9 +350,9 @@ public class NightWalker extends Noblesse {
         Option o4 = new Option();
         switch (attackInfo.skillId) {
             case SHADOW_STITCH:
-                for(MobAttackInfo mai : attackInfo.mobAttackInfo) {
+                for (MobAttackInfo mai : attackInfo.mobAttackInfo) {
                     Mob mob = (Mob) chr.getField().getLifeByObjectID(mai.mobId);
-                    if(mob == null) {
+                    if (mob == null) {
                         continue;
                     }
                     MobTemporaryStat mts = mob.getTemporaryStat();
@@ -399,10 +390,10 @@ public class NightWalker extends Noblesse {
     // handling Shadow Bats
     private void shadowBats(AttackInfo attackInfo) {
         TemporaryStatManager tsm = chr.getTemporaryStatManager();
-        if(!tsm.hasStat(NightWalkerBat)) {
+        if (!tsm.hasStat(NightWalkerBat)) {
             return;
         }
-        for(MobAttackInfo mai : attackInfo.mobAttackInfo) {
+        for (MobAttackInfo mai : attackInfo.mobAttackInfo) {
             Mob mob = (Mob) chr.getField().getLifeByObjectID(mai.mobId);
             if (mob == null) {
                 continue;
@@ -410,9 +401,9 @@ public class NightWalker extends Noblesse {
             MobTemporaryStat mts = mob.getTemporaryStat();
             // Remove Bats & Create ForceAtom
             if (bats.size() > 0) {
-                for(Iterator<Summon> it = bats.iterator(); it.hasNext();) {
+                for (Iterator<Summon> it = bats.iterator(); it.hasNext();) {
                     Summon bat = it.next();
-                    if (Util.succeedProp((mts.hasCurrentMobStat(MobStat.ElementDarkness) ? 2*getBatAttackProp() : getBatAttackProp()))) {
+                    if (Util.succeedProp((mts.hasCurrentMobStat(MobStat.ElementDarkness) ? 2 * getBatAttackProp() : getBatAttackProp()))) {
                         it.remove();
                         chr.getField().broadcastPacket(Summoned.summonedRemoved(bat, LeaveType.ANIMATION));
                         createShadowBatForceAtom(attackInfo);
@@ -421,9 +412,9 @@ public class NightWalker extends Noblesse {
             }
             // Remove bats created by dark omen and create ForceAtom
             if (darkOmenBats.size() > 0) {
-                for(Iterator<Summon> it = darkOmenBats.iterator(); it.hasNext();) {
+                for (Iterator<Summon> it = darkOmenBats.iterator(); it.hasNext();) {
                     Summon bat = it.next();
-                    if (Util.succeedProp((mts.hasCurrentMobStat(MobStat.ElementDarkness) ? 2*getBatAttackProp() : getBatAttackProp()))) {
+                    if (Util.succeedProp((mts.hasCurrentMobStat(MobStat.ElementDarkness) ? 2 * getBatAttackProp() : getBatAttackProp()))) {
                         it.remove();
                         chr.getField().broadcastPacket(Summoned.summonedRemoved(bat, LeaveType.ANIMATION));
                         createShadowBatForceAtom(attackInfo);
@@ -442,16 +433,10 @@ public class NightWalker extends Noblesse {
         SkillInfo si = SkillData.getSkillInfoById(getBatSkill().getSkillId());
         Mob mob = (Mob) chr.getField().getLifeByObjectID(Util.getRandomFromCollection(attackInfo.mobAttackInfo).mobId);
 
-        if(mob == null) {
+        if (mob == null) {
             Rect rect = new Rect( // Skill itself doesn't hold any rect info
-                    new Position(
-                            chr.getPosition().getX() - 500,
-                            chr.getPosition().getY() - 500),
-                    new Position(
-                            chr.getPosition().getX() + 500,
-                            chr.getPosition().getY() + 500)
-            );
-            if(chr.getField().getMobsInRect(rect).size() <= 0) {
+                    new Position(chr.getPosition().getX() - 500, chr.getPosition().getY() - 500), new Position(chr.getPosition().getX() + 500, chr.getPosition().getY() + 500));
+            if (chr.getField().getMobsInRect(rect).size() <= 0) {
                 return;
             }
             mob = Util.getRandomFromCollection(chr.getField().getMobsInRect(rect));
@@ -461,34 +446,24 @@ public class NightWalker extends Noblesse {
         int inc = ForceAtomEnum.NIGHT_WALKER_FROM_MOB.getInc();
         int type = ForceAtomEnum.NIGHT_WALKER_FROM_MOB.getForceAtomType();
 
-        if(getBatSkill().getSkillId() == BAT_AFFINITY_III) {
+        if (getBatSkill().getSkillId() == BAT_AFFINITY_III) {
             inc = ForceAtomEnum.NIGHT_WALKER_FROM_MOB_4.getInc();
             type = ForceAtomEnum.NIGHT_WALKER_FROM_MOB_4.getForceAtomType();
         }
 
-        ForceAtomInfo forceAtomInfo = new ForceAtomInfo(1, inc, 2, 1,
-                ((chr.getPosition().getX() > mob.getPosition().getX()) ? 90 : 270), 0, (int) System.currentTimeMillis(), 1, 0,
-                new Position());
+        ForceAtomInfo forceAtomInfo = new ForceAtomInfo(1, inc, 2, 1, ((chr.getPosition().getX() > mob.getPosition().getX()) ? 90 : 270), 0, (int) System.currentTimeMillis(), 1, 0, new Position());
 
-        chr.getField().broadcastPacket(FieldPacket.createForceAtom(false, 0, chr.getId(), type,
-                true, mobId, SHADOW_BAT_ATOM, forceAtomInfo, new Rect(), ((chr.getPosition().getX() < mob.getPosition().getX()) ? 90 : 270), 30,
-                mob.getPosition(), SHADOW_BAT_ATOM, mob.getPosition()));
+        chr.getField().broadcastPacket(FieldPacket.createForceAtom(false, 0, chr.getId(), type, true, mobId, SHADOW_BAT_ATOM, forceAtomInfo, new Rect(), ((chr.getPosition().getX() < mob.getPosition().getX()) ? 90 : 270), 30, mob.getPosition(), SHADOW_BAT_ATOM, mob.getPosition()));
     }
 
     private void recreateShadowBatForceAtom() {
         TemporaryStatManager tsm = chr.getTemporaryStatManager();
-        if(!tsm.hasStat(NightWalkerBat)) {
+        if (!tsm.hasStat(NightWalkerBat)) {
             return;
         }
-        if(Util.succeedProp(45)) {
+        if (Util.succeedProp(45)) {
             Rect rect = new Rect( // Skill itself doesn't hold any rect info
-                    new Position(
-                            chr.getPosition().getX() - 500,
-                            chr.getPosition().getY() - 500),
-                    new Position(
-                            chr.getPosition().getX() + 500,
-                            chr.getPosition().getY() + 500)
-            );
+                    new Position(chr.getPosition().getX() - 500, chr.getPosition().getY() - 500), new Position(chr.getPosition().getX() + 500, chr.getPosition().getY() + 500));
             List<Mob> mobs = chr.getField().getMobsInRect(rect);
             if (mobs.size() <= 0) {
                 return;
@@ -504,21 +479,17 @@ public class NightWalker extends Noblesse {
                 type = ForceAtomEnum.NIGHT_WALKER_FROM_MOB_4.getForceAtomType();
             }
 
-            ForceAtomInfo forceAtomInfo = new ForceAtomInfo(1, inc, 2, 1,
-                    ((chr.getPosition().getX() > mob.getPosition().getX()) ? 90 : 270), 0, (int) System.currentTimeMillis(), 1, 0,
-                    new Position());
+            ForceAtomInfo forceAtomInfo = new ForceAtomInfo(1, inc, 2, 1, ((chr.getPosition().getX() > mob.getPosition().getX()) ? 90 : 270), 0, (int) System.currentTimeMillis(), 1, 0, new Position());
 
-            chr.getField().broadcastPacket(FieldPacket.createForceAtom(true, mobId, 0, type,
-                    true, mobId, SHADOW_BAT_ATOM, forceAtomInfo, new Rect(), ((chr.getPosition().getX() < mob.getPosition().getX()) ? 90 : 270), 30,
-                    mob.getPosition(), SHADOW_BAT_ATOM, mob.getPosition()));
+            chr.getField().broadcastPacket(FieldPacket.createForceAtom(true, mobId, 0, type, true, mobId, SHADOW_BAT_ATOM, forceAtomInfo, new Rect(), ((chr.getPosition().getX() < mob.getPosition().getX()) ? 90 : 270), 30, mob.getPosition(), SHADOW_BAT_ATOM, mob.getPosition()));
         }
     }
 
     private int getMaxBats() {
         int maxBats = 0;
-        for(int batSkill : batSkills) {
+        for (int batSkill : batSkills) {
             Skill skill = chr.getSkill(batSkill);
-            if(skill == null) {
+            if (skill == null) {
                 continue;
             }
             SkillInfo si = SkillData.getSkillInfoById(skill.getSkillId());
@@ -530,9 +501,9 @@ public class NightWalker extends Noblesse {
 
     private int getBatAttackProp() {
         int batAttackProp = 0;
-        for(int batSkill : batSkills) {
+        for (int batSkill : batSkills) {
             Skill skill = chr.getSkill(batSkill);
-            if(skill == null) {
+            if (skill == null) {
                 continue;
             }
             SkillInfo si = SkillData.getSkillInfoById(skill.getSkillId());
@@ -544,8 +515,8 @@ public class NightWalker extends Noblesse {
 
     private Skill getBatSkill() {
         Skill skill = null;
-        for(int batSkill : batSkills) {
-            if(chr.hasSkill(batSkill)) {
+        for (int batSkill : batSkills) {
+            if (chr.hasSkill(batSkill)) {
                 skill = chr.getSkill(batSkill);
             }
         }
@@ -576,7 +547,7 @@ public class NightWalker extends Noblesse {
 
     private void applyDarkElementalOnMob(AttackInfo attackInfo, byte slv) {
         TemporaryStatManager tsm = chr.getTemporaryStatManager();
-        if(tsm.hasStat(ElementDarkness)) {
+        if (tsm.hasStat(ElementDarkness)) {
             Option o1 = new Option();
             Option o2 = new Option();
             int amount = 1;
@@ -584,7 +555,7 @@ public class NightWalker extends Noblesse {
                 Skill skill = chr.getSkill(DARK_ELEMENTAL);
                 if (Util.succeedProp(getDarkEleProp())) {
                     Mob mob = (Mob) chr.getField().getLifeByObjectID(mai.mobId);
-                    if(mob == null) {
+                    if (mob == null) {
                         continue;
                     }
                     MobTemporaryStat mts = mob.getTemporaryStat();
@@ -597,7 +568,7 @@ public class NightWalker extends Noblesse {
                     }
 
                     // if dominion is active, instantly gain max stack
-                    if(tsm.getOptByCTSAndSkill(Stance, DOMINION) != null) {
+                    if (tsm.getOptByCTSAndSkill(Stance, DOMINION) != null) {
                         amount = getMaxDarkEleStack();
                     }
 
@@ -608,12 +579,12 @@ public class NightWalker extends Noblesse {
 
                     o2.nOption = 1;
                     o2.rOption = DARK_ELEMENTAL;
-                    o2.tOption = 15; //si.getValue(subTime, slv);
-                    mts.addStatOptionsAndBroadcast(MobStat.Blind, o2);  //To Show the Stack Effect
+                    o2.tOption = 15; // si.getValue(subTime, slv);
+                    mts.addStatOptionsAndBroadcast(MobStat.Blind, o2);  // To Show the Stack Effect
 
                     mts.createAndAddBurnedInfo(chr, skill);
 
-                    //handle Vitality Siphon
+                    // handle Vitality Siphon
                     if (chr.hasSkill(VITALITY_SIPHON)) {
                         incrementSiphonVitality(tsm);
                     }
@@ -624,8 +595,8 @@ public class NightWalker extends Noblesse {
 
     private int getMaxDarkEleStack() {
         int maxStack = 0;
-        for(int darkEleSkill : darkEleSkills) {
-            if(chr.hasSkill(darkEleSkill)) {
+        for (int darkEleSkill : darkEleSkills) {
+            if (chr.hasSkill(darkEleSkill)) {
                 Skill skill = chr.getSkill(darkEleSkill);
                 SkillInfo si = SkillData.getSkillInfoById(skill.getSkillId());
                 byte slv = (byte) skill.getCurrentLevel();
@@ -637,8 +608,8 @@ public class NightWalker extends Noblesse {
 
     private Skill getDarkElementalSkill() {
         Skill skill = null;
-        for(int darkEleSkill : darkEleSkills) {
-            if(chr.hasSkill(darkEleSkill)) {
+        for (int darkEleSkill : darkEleSkills) {
+            if (chr.hasSkill(darkEleSkill)) {
                 skill = chr.getSkill(darkEleSkill);
             }
         }
@@ -647,8 +618,8 @@ public class NightWalker extends Noblesse {
 
     private int getDarkEleProp() {
         int proc = 0;
-        for(int darkEleSkill : darkEleSkills) {
-            if(chr.hasSkill(darkEleSkill)) {
+        for (int darkEleSkill : darkEleSkills) {
+            if (chr.hasSkill(darkEleSkill)) {
                 Skill skill = chr.getSkill(darkEleSkill);
                 SkillInfo si = SkillData.getSkillInfoById(skill.getSkillId());
                 byte slv = (byte) skill.getCurrentLevel();
@@ -665,7 +636,7 @@ public class NightWalker extends Noblesse {
         Skill skill = chr.getSkill(VITALITY_SIPHON);
         byte slv = (byte) skill.getCurrentLevel();
         int amount = 1;
-        if(tsm.hasStat(ElementDarkness)) {
+        if (tsm.hasStat(ElementDarkness)) {
             if (tsm.hasStat(SiphonVitality)) {
                 amount = tsm.getOption(SiphonVitality).nOption;
                 if (amount < getMaxSiphon()) {
@@ -674,7 +645,7 @@ public class NightWalker extends Noblesse {
             }
 
             // if dominion is active, instantly gain max stack
-            if(tsm.getOptByCTSAndSkill(Stance, DOMINION) != null) {
+            if (tsm.getOptByCTSAndSkill(Stance, DOMINION) != null) {
                 amount = getMaxSiphon();
             }
 
@@ -702,8 +673,6 @@ public class NightWalker extends Noblesse {
     public int getFinalAttackSkill() {
         return 0;
     }
-
-
 
     // Skill related methods -------------------------------------------------------------------------------------------
 
@@ -733,8 +702,6 @@ public class NightWalker extends Noblesse {
             }
         }
     }
-
-
 
     // Hit related methods ---------------------------------------------------------------------------------------------
 

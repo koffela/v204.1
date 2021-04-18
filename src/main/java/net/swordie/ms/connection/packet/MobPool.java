@@ -30,11 +30,11 @@ public class MobPool {
         outPacket.encodeInt(mob.getTemplateId());
         ForcedMobStat fms = mob.getForcedMobStat();
         outPacket.encodeByte(fms != null);
-        if(fms != null) {
+        if (fms != null) {
             fms.encode(outPacket);
         }
         mob.getTemporaryStat().encode(outPacket);
-        if(!hasBeenInit) {
+        if (!hasBeenInit) {
             // CMob::Init
             mob.encodeInit(outPacket);
         }
@@ -45,16 +45,16 @@ public class MobPool {
         OutPacket outPacket = new OutPacket(OutHeader.MOB_CHANGE_CONTROLLER);
         outPacket.encodeByte(isController);
         outPacket.encodeInt(mob.getObjectId());
-        if(isController) {
+        if (isController) {
             outPacket.encodeByte(mob.getCalcDamageIndex());
             outPacket.encodeInt(mob.getTemplateId());
             ForcedMobStat fms = mob.getForcedMobStat();
             outPacket.encodeByte(fms != null);
-            if(fms != null) {
+            if (fms != null) {
                 fms.encode(outPacket);
             }
             mob.getTemporaryStat().encode(outPacket);
-            if(!hasBeenInit) {
+            if (!hasBeenInit) {
                 mob.encodeInit(outPacket);
             }
         }
@@ -62,7 +62,7 @@ public class MobPool {
         return outPacket;
     }
 
-    public static OutPacket leaveField(int id, DeathType deadType){
+    public static OutPacket leaveField(int id, DeathType deadType) {
         OutPacket outPacket = new OutPacket(OutHeader.MOB_LEAVE_FIELD);
 
         outPacket.encodeInt(id);
@@ -71,7 +71,7 @@ public class MobPool {
         return outPacket;
     }
 
-    public static OutPacket forceChase(int mobID,boolean chase) {
+    public static OutPacket forceChase(int mobID, boolean chase) {
         OutPacket outPacket = new OutPacket(OutHeader.MOB_FORCE_CHASE);
 
         outPacket.encodeInt(mobID);
@@ -85,7 +85,7 @@ public class MobPool {
         outPacket.encodeInt(mobID);
         outPacket.encodeByte(type);
         outPacket.encodeLong(damage);
-        if(templateID / 10000 == 250 || templateID / 10000 == 251) {
+        if (templateID / 10000 == 250 || templateID / 10000 == 251) {
             outPacket.encodeLong(hp);
             outPacket.encodeLong(maxHp);
         }
@@ -123,7 +123,7 @@ public class MobPool {
 
         outPacket.encodeByte(isController);
         outPacket.encodeInt(mob.getObjectId());
-        if(isController) {
+        if (isController) {
             outPacket.encodeByte(1); // controlling type
         }
 
@@ -139,7 +139,7 @@ public class MobPool {
         mts.encode(outPacket);
         outPacket.encodeShort(delay);
         outPacket.encodeByte(1); // nCalcDamageStatIndex
-        if(hasMovementStat) {
+        if (hasMovementStat) {
             outPacket.encodeByte(0); // ?
         }
 
@@ -158,15 +158,15 @@ public class MobPool {
         for (int i = 0; i < mob.getTemporaryStat().getNewMask().length; i++) {
             outPacket.encodeInt(mask[i]);
         }
-        if(resetStats.hasRemovedMobStat(MobStat.BurnedInfo)) {
-            if(biList == null) {
+        if (resetStats.hasRemovedMobStat(MobStat.BurnedInfo)) {
+            if (biList == null) {
                 outPacket.encodeInt(0);
                 outPacket.encodeInt(0);
             } else {
                 int dotCount = biList.stream().mapToInt(BurnedInfo::getDotCount).sum();
                 outPacket.encodeInt(dotCount);
                 outPacket.encodeInt(biList.size());
-                for(BurnedInfo bi : biList) {
+                for (BurnedInfo bi : biList) {
                     outPacket.encodeInt(bi.getCharacterId());
                     outPacket.encodeInt(bi.getSuperPos());
                 }
@@ -174,7 +174,7 @@ public class MobPool {
             resetStats.getBurnedInfos().clear();
         }
         outPacket.encodeByte(calcDamageStatIndex);
-        if(resetStats.hasRemovedMovementAffectingStat()) {
+        if (resetStats.hasRemovedMovementAffectingStat()) {
             outPacket.encodeByte(sn);
         }
         resetStats.getRemovedStatVals().clear();
@@ -223,11 +223,11 @@ public class MobPool {
 
         outPacket.encodeLong(msai.targetInfo);
         outPacket.encodeByte(msai.multiTargetForBalls.size());
-        for(Position pos : msai.multiTargetForBalls) {
+        for (Position pos : msai.multiTargetForBalls) {
             outPacket.encodePosition(pos);
         }
         outPacket.encodeByte(msai.randTimeForAreaAttacks.size());
-        for(short s : msai.randTimeForAreaAttacks) {
+        for (short s : msai.randTimeForAreaAttacks) {
             outPacket.encodeShort(s);
         }
         outPacket.encodeByte(0);
@@ -235,7 +235,6 @@ public class MobPool {
 
         return outPacket;
     }
-
 
     public static OutPacket castingBarSkillStart(int gaugeType, int castingTime, boolean reverseGauge, boolean notShowUI) {
         OutPacket outPacket = new OutPacket(OutHeader.MOB_CASTING_BAR_SKILL);
@@ -296,7 +295,6 @@ public class MobPool {
                 outPacket.encodeInt(60); // fAngle
             }
         }
-
 
         return outPacket;
     }
@@ -410,7 +408,7 @@ public class MobPool {
         outPacket.encodeInt(msi.getId());
         outPacket.encodeInt(msi.getLevel());
         outPacket.encodeInt(sequenceDelay);
-        if(msi.getId() != 0) {
+        if (msi.getId() != 0) {
             outPacket.encodeInt(rects.size());
             for (Rect rect : rects) {
                 outPacket.encodeRectInt(rect);

@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 /**
  * @author Sjonnie
- * Created on 7/23/2018.
+ *         Created on 7/23/2018.
  */
 @Entity
 @Table(name = "monster_collections")
@@ -42,7 +42,6 @@ public class MonsterCollection {
     @JoinColumn(name = "collectionid")
     private Set<MonsterCollectionExploration> monsterCollectionExplorations = new HashSet<>();
 
-
     public void init(Char chr) {
         for (int mob : getMobs()) {
             addMob(mob);
@@ -56,8 +55,7 @@ public class MonsterCollection {
             } else if (group == -1) {
                 collection.get(region).getMonsterCollectionSessions().get(session).setRewardClaimed(true);
             } else {
-                collection.get(region).getMonsterCollectionSessions().get(session)
-                        .getMonsterCollectionGroups().get(group).setRewardClaimed(true);
+                collection.get(region).getMonsterCollectionSessions().get(session).getMonsterCollectionGroups().get(group).setRewardClaimed(true);
             }
         }
         sendCompleteInfo(chr);
@@ -65,8 +63,7 @@ public class MonsterCollection {
 
     public boolean hasMob(int templateID) {
         MonsterCollectionMobInfo mcmi = MonsterCollectionData.getMobInfoByID(templateID);
-        return mcmi != null && collection.containsKey(mcmi.getRegion()) &&
-                collection.get(mcmi.getRegion()).hasMob(templateID, mcmi);
+        return mcmi != null && collection.containsKey(mcmi.getRegion()) && collection.get(mcmi.getRegion()).hasMob(templateID, mcmi);
     }
 
     public void addMob(int templateID) {
@@ -101,8 +98,7 @@ public class MonsterCollection {
         if (mcmi == null) {
             return;
         }
-        collection.get(mcmi.getRegion()).getMonsterCollectionSessions().get(mcmi.getSession()).sendCompletionInfo(chr,
-                100000 + mcmi.getRegion() * 100 + mcmi.getSession());
+        collection.get(mcmi.getRegion()).getMonsterCollectionSessions().get(mcmi.getSession()).sendCompletionInfo(chr, 100000 + mcmi.getRegion() * 100 + mcmi.getSession());
         chr.write(UserPacket.effect(Effect.effectFromWZ("Effect/BasicEff.img/monsterCollectionGet", false, 0, 4, 0)));
     }
 
@@ -154,8 +150,7 @@ public class MonsterCollection {
 
     public MonsterCollectionExploration getExploration(int region, int session, int group) {
         int collectionKey = region * 10000 + session * 100 + group;
-        return getMonsterCollectionExplorations().stream().filter(mce -> mce.getCollectionKey() == collectionKey)
-                .findAny().orElse(null);
+        return getMonsterCollectionExplorations().stream().filter(mce -> mce.getCollectionKey() == collectionKey).findAny().orElse(null);
     }
 
     public Set<MonsterCollectionExploration> getMonsterCollectionExplorations() {
@@ -177,9 +172,7 @@ public class MonsterCollection {
     }
 
     private int getFirstOpenSlot() {
-        List<MonsterCollectionExploration> mces = getMonsterCollectionExplorations().stream()
-                .sorted(Comparator.comparingInt(MonsterCollectionExploration::getPosition))
-                .collect(Collectors.toList());
+        List<MonsterCollectionExploration> mces = getMonsterCollectionExplorations().stream().sorted(Comparator.comparingInt(MonsterCollectionExploration::getPosition)).collect(Collectors.toList());
         int i;
         for (i = 0; i < mces.size(); i++) {
             MonsterCollectionExploration mce = mces.get(i);

@@ -14,7 +14,7 @@ public class MetaProgramming {
 
     public static void makeStateless() {
         String dir = ServerConstants.SCRIPT_DIR;
-        String[] subDirs = new String[]{"field", "item", "npc", "portal", "quest", "reactor"};
+        String[] subDirs = new String[] { "field", "item", "npc", "portal", "quest", "reactor" };
         for (String subDir : subDirs) {
             File exactDir = new File(dir + "/" + subDir);
             for (File file : exactDir.listFiles()) {
@@ -27,7 +27,7 @@ public class MetaProgramming {
         File outFile = new File(file.getAbsolutePath().replace("Swordie\\scripts", "Swordie\\stateless"));
         boolean fromRemoved = true;
         StringBuilder sb = new StringBuilder();
-        try(Scanner scanner = new Scanner(file)) {
+        try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
                 int tabs = 0;
                 String line = scanner.nextLine();
@@ -52,7 +52,7 @@ public class MetaProgramming {
                 if (line.contains("status")) {
                 } else if (line.contains("def init") || line.contains("def action(response")) {
                     fromRemoved = true;
-                }  else {
+                } else {
                     if (line.contains("def")) {
                         fromRemoved = false;
                     }
@@ -64,25 +64,24 @@ public class MetaProgramming {
                     newLine += line;
                     newLine = newLine.replace("sm.sendAskYesNo", "response = sm.sendAskYesNo");
                     newLine = newLine.replace("sm.sendAskAccept", "response = sm.sendAskAccept");
-//                    System.out.println(newLine + "              (neededtabs = " + neededTabs + ", tabs = " + tabs + ", changedLast = " + changedLast + ", fromRemoved = " + fromRemoved + ")");
+                    // System.out.println(newLine + " (neededtabs = " + neededTabs + ", tabs = " + tabs + ", changedLast = " + changedLast + ", fromRemoved = " + fromRemoved + ")");
                     sb.append(newLine).append("\r\n");
                 }
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        try (PrintWriter fos = new PrintWriter(outFile)){
+        try (PrintWriter fos = new PrintWriter(outFile)) {
             fos.write(sb.toString());
             fos.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-
     }
 
     public static void fixTempStats() {
-//        Invincible(0x10000000, 2),
+        // Invincible(0x10000000, 2),
         int plus = 5;
         File file = new File("D:/SwordieMS/Swordie/info txts/tempstats.txt");
         try (Scanner scanner = new Scanner(file)) {
@@ -120,7 +119,7 @@ public class MetaProgramming {
                     }
                 }
             }
-           log.debug(s);
+            log.debug(s);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -176,11 +175,11 @@ public class MetaProgramming {
                     String s3 = s2.replaceAll(" ", "");
                     String s4 = s3.replaceAll("[);]", "");
                     if (!s4.equalsIgnoreCase(lastSeen)) {
-//                        s.append("if(hasNewStat(").append(s4).append(")) {\r\n");
-//                        s.append("\toutPacket.encodeShort(getOption(").append(s4).append(").nOption);\r\n");
-//                        s.append("\toutPacket.encodeInt(getOption(").append(s4).append(").rOption);\r\n");
-//                        s.append("\toutPacket.encodeInt(getOption(").append(s4).append(").tOption);\r\n");
-//                        s.append("}\r\n");
+                        // s.append("if(hasNewStat(").append(s4).append(")) {\r\n");
+                        // s.append("\toutPacket.encodeShort(getOption(").append(s4).append(").nOption);\r\n");
+                        // s.append("\toutPacket.encodeInt(getOption(").append(s4).append(").rOption);\r\n");
+                        // s.append("\toutPacket.encodeInt(getOption(").append(s4).append(").tOption);\r\n");
+                        // s.append("}\r\n");
                         s.append(s4).append("(").append(num % 32).append(", ").append(num / 32).append("),\r\n");
                         lastSeen = s4;
                         num++;
@@ -202,7 +201,7 @@ public class MetaProgramming {
             int num = 0;
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
-                if(line.endsWith("h")) {
+                if (line.endsWith("h")) {
                     line = line.substring(0, line.length() - 1);
                 }
                 String[] split = line.split(" = ");
@@ -230,7 +229,7 @@ public class MetaProgramming {
     }
 
     public static void main(String[] args) {
-//        makeStateless(new File("D:\\SwordieMS\\Swordie\\old_scripts\\portal\\Resi_tutor11.py"));
+        // makeStateless(new File("D:\\SwordieMS\\Swordie\\old_scripts\\portal\\Resi_tutor11.py"));
         makeStateless();
     }
 }

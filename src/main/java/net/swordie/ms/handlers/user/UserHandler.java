@@ -101,12 +101,11 @@ public class UserHandler {
             chr.warp(toField);
         }
         if (status == 2) {
-            //TODO wtf happens here
-            //int write 0
-            //int something?
+            // TODO wtf happens here
+            // int write 0
+            // int something?
         }
     }
-
 
     @Handler(op = InHeader.FUNC_KEY_MAPPED_MODIFIED)
     public static void handleFuncKeyMappedModified(Client c, InPacket inPacket) {
@@ -132,7 +131,6 @@ public class UserHandler {
         }
     }
 
-
     @Handler(op = InHeader.USER_CHARACTER_INFO_REQUEST)
     public static void handleUserCharacterInfoRequest(Client c, InPacket inPacket) {
         Char chr = c.getChr();
@@ -147,10 +145,9 @@ public class UserHandler {
         }
     }
 
-
     @Handler(op = InHeader.EVENT_UI_REQ)
     public static void handleEventUiReq(Client c, InPacket inPacket) {
-        //TODO: get opcodes for CUIContext::OnPacket
+        // TODO: get opcodes for CUIContext::OnPacket
     }
 
     @Handler(op = InHeader.BATTLE_RECORD_ON_OFF_REQUEST)
@@ -193,7 +190,7 @@ public class UserHandler {
             return;
         }
 
-        // Tower Chair  check & id
+        // Tower Chair check & id
         inpacket.decodeInt(); // encodes 0
         int unknown = inpacket.decodeInt();
 
@@ -271,8 +268,7 @@ public class UserHandler {
         }
         if (cost > chr.getHonorExp()) {
             chr.chatMessage("You do not have enough honor exp for that action.");
-            chr.getOffenseManager().addOffense(String.format("Character %d tried to reset honor without having enough exp (required %d, has %d)",
-                    chr.getId(), cost, chr.getHonorExp()));
+            chr.getOffenseManager().addOffense(String.format("Character %d tried to reset honor without having enough exp (required %d, has %d)", chr.getId(), cost, chr.getHonorExp()));
             return;
         }
         chr.addHonorExp(-cost);
@@ -318,24 +314,20 @@ public class UserHandler {
         } else {
             long minutes = (((c.getChr().getRuneCooldown() + (GameConstants.RUNE_COOLDOWN_TIME * 60000)) - System.currentTimeMillis()) / 60000);
             long seconds = (((c.getChr().getRuneCooldown() + (GameConstants.RUNE_COOLDOWN_TIME * 60000)) - System.currentTimeMillis()) / 1000);
-            chr.chatScriptMessage("You cannot use another Rune for " +
-                    (minutes > 0 ?
-                            minutes + " minute" + (minutes > 1 ? "s" : "") + " and " + (seconds - (minutes * 60)) + " second" + ((seconds - (minutes * 60)) > 1 ? "s" : "") + "" :
-                            seconds + " second" + (seconds > 1 ? "s" : "")
-                    ));
+            chr.chatScriptMessage("You cannot use another Rune for " + (minutes > 0 ? minutes + " minute" + (minutes > 1 ? "s" : "") + " and " + (seconds - (minutes * 60)) + " second" + ((seconds - (minutes * 60)) > 1 ? "s" : "") + "" : seconds + " second" + (seconds > 1 ? "s" : "")));
         }
         chr.dispose();
     }
 
     @Handler(op = InHeader.RUNE_STONE_SKILL_REQ)
     public static void handleRuneStoneSkillRequest(Client c, InPacket inPacket) {
-        boolean success = inPacket.decodeByte() != 0; //Successfully done the Arrow Shit for runes
+        boolean success = inPacket.decodeByte() != 0; // Successfully done the Arrow Shit for runes
 
         if (success) {
             RuneStone runeStone = c.getChr().getField().getRuneStone();
 
             c.getChr().getField().useRuneStone(c, runeStone);
-            //c.write(FieldPacket.runeStoneSkillAck(runeStone.getRuneType()));
+            // c.write(FieldPacket.runeStoneSkillAck(runeStone.getRuneType()));
             runeStone.activateRuneStoneEffect(c.getChr());
             c.getChr().setRuneCooldown(System.currentTimeMillis());
         }
@@ -424,7 +416,6 @@ public class UserHandler {
             chr.getOffenseManager().addOffense(String.format("Character {%d} tried to use a skill {%d} they do not have.", chrId, skillId));
         }
 
-
         if (skillId == Evan.DRAGON_FURY) {
             field.broadcastPacket(UserRemote.effect(chrId, Effect.showDragonFuryEffect(skillId, slv, 0, true)));
 
@@ -439,7 +430,7 @@ public class UserHandler {
             Position ropeConnectDest = inPacket.decodePositionInt();
             field.broadcastPacket(UserRemote.effect(chrId, Effect.showVerticalGrappleEffect(skillId, slv, 0, chrPositionY, ropeConnectDest.getX(), ropeConnectDest.getY())));
 
-        } else if (skillId == 15001021/*TB  Flash*/ || skillId == Shade.FOX_TROT) { // 'Flash' Skills
+        } else if (skillId == 15001021/* TB Flash */ || skillId == Shade.FOX_TROT) { // 'Flash' Skills
             Position origin = inPacket.decodePositionInt();
             Position dest = inPacket.decodePositionInt();
             field.broadcastPacket(UserRemote.effect(chrId, Effect.showFlashBlinkEffect(skillId, slv, 0, origin.getX(), origin.getY(), dest.getX(), dest.getY())));
@@ -464,7 +455,6 @@ public class UserHandler {
         }
     }
 
-
     @Handler(op = InHeader.USER_FOLLOW_CHARACTER_REQUEST)
     public static void handleUserFollowCharacterRequest(Char chr, InPacket inPacket) {
         Field field = chr.getField();
@@ -472,7 +462,7 @@ public class UserHandler {
         short unk = inPacket.decodeShort();
 
         Char driverChr = field.getCharByID(driverChrId);
-        if(driverChr == null ) {
+        if (driverChr == null) {
             return;
         }
         driverChr.write(WvsContext.setPassenserRequest(chr.getId()));

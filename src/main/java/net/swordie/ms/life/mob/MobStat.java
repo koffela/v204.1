@@ -64,7 +64,7 @@ public enum MobStat {
     DarkLightning(54),
     PinkBeanFlowerPot(55),
 
-    //BattlePvPHelenaMark(56),
+    // BattlePvPHelenaMark(56),
     PowerImmune(56),
     PsychicLock(57),
     PsychicLockCoolTime(58),
@@ -120,8 +120,7 @@ public enum MobStat {
     Unknown_101(101),
     Unknown_102(102),
     Unknown_103(103),
-    Unknown_104(104)
-    ;
+    Unknown_104(104);
 
     private int val, pos, bitPos;
 
@@ -141,14 +140,14 @@ public enum MobStat {
     }
 
     public int getVal() {
-        if(this == BurnedInfo) {
+        if (this == BurnedInfo) {
             return 0x40000;
         }
         return val;
     }
 
     public boolean isMovementAffectingStat() {
-        switch(this) {
+        switch (this) {
             case Speed:
             case Stun:
             case Freeze:

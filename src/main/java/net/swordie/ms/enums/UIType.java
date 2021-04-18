@@ -326,11 +326,11 @@ public enum UIType {
     UI_MATRIX_UPGRADE(1131),
     UI_NOT_DEFINED(-1),
     ;
-    
+
     private int val;
-    
+
     UIType(int val) {
-        this.val =  val;
+        this.val = val;
     }
 
     public int getVal() {

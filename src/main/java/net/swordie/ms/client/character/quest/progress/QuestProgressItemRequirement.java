@@ -15,7 +15,6 @@ import java.io.IOException;
 @DiscriminatorValue("item")
 public class QuestProgressItemRequirement extends QuestProgressRequirement {
 
-
     @Column(name = "unitID")
     private int itemID;
     @Column(name = "requiredCount")

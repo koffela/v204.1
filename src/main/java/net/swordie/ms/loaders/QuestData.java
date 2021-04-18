@@ -540,12 +540,7 @@ public class QuestData {
             loadQuestsFromWZ();
         }
         for (QuestInfo qi : getBaseQuests()) {
-            for (QuestProgressMobRequirement qpmr :
-                    qi.getQuestProgressRequirements()
-                            .stream()
-                            .filter(q -> q instanceof QuestProgressMobRequirement)
-                            .map(q -> (QuestProgressMobRequirement) q)
-                            .collect(Collectors.toSet())) { // readability is overrated
+            for (QuestProgressMobRequirement qpmr : qi.getQuestProgressRequirements().stream().filter(q -> q instanceof QuestProgressMobRequirement).map(q -> (QuestProgressMobRequirement) q).collect(Collectors.toSet())) { // readability is overrated
                 Mob m = MobData.getMobById(qpmr.getMobID());
                 if (m != null) {
                     m.addQuest(qi.getQuestID());
@@ -559,12 +554,7 @@ public class QuestData {
             loadQuestsFromWZ();
         }
         for (QuestInfo qi : getBaseQuests()) {
-            for (QuestProgressItemRequirement qpmr :
-                    qi.getQuestProgressRequirements()
-                            .stream()
-                            .filter(q -> q instanceof QuestProgressItemRequirement)
-                            .map(q -> (QuestProgressItemRequirement) q)
-                            .collect(Collectors.toSet())) { // readability is overrated
+            for (QuestProgressItemRequirement qpmr : qi.getQuestProgressRequirements().stream().filter(q -> q instanceof QuestProgressItemRequirement).map(q -> (QuestProgressItemRequirement) q).collect(Collectors.toSet())) { // readability is overrated
                 int itemID = qpmr.getItemID();
                 if (ItemConstants.isEquip(itemID)) {
                     // create new ItemInfos just for equips that are required for quests
@@ -607,6 +597,7 @@ public class QuestData {
             e.printStackTrace();
         }
     }
+
     private static void saveAllQuestInfos(String dir) {
         Util.makeDirIfAbsent(dir);
         for (QuestInfo qi : getBaseQuests()) {
@@ -756,7 +747,7 @@ public class QuestData {
         if (qi != null) {
             if (qi.isAutoComplete()) {
                 quest.setStatus(QuestStatus.Started);
-//            quest.completeQuest(); // TODO check what autocomplete actually means
+                // quest.completeQuest(); // TODO check what autocomplete actually means
             } else {
                 quest.setStatus(QuestStatus.Started);
             }

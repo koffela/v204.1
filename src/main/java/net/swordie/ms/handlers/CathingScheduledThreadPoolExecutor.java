@@ -9,10 +9,9 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @author Sjonnie
- * Created on 7/27/2018.
- *
- * Class that wraps every callable/runnable inside a try/catch block to ensure that Exceptions are caught.
- * http://code.nomad-labs.com/2011/12/09/mother-fk-the-scheduledexecutorservice/
+ *         Created on 7/27/2018.
+ *         Class that wraps every callable/runnable inside a try/catch block to ensure that Exceptions are caught.
+ *         http://code.nomad-labs.com/2011/12/09/mother-fk-the-scheduledexecutorservice/
  */
 public class CathingScheduledThreadPoolExecutor extends ScheduledThreadPoolExecutor {
     private static final Logger log = Logger.getLogger(CathingScheduledThreadPoolExecutor.class);

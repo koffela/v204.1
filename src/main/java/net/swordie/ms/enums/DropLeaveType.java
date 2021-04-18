@@ -15,7 +15,7 @@ public enum DropLeaveType {
 
     private byte val;
 
-    DropLeaveType(int  val) {
+    DropLeaveType(int val) {
         this.val = (byte) val;
     }
 

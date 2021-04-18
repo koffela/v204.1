@@ -22,11 +22,7 @@ public class ApiFactory {
     public final static MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
     private ApiFactory() {
-        client = new OkHttpClient.Builder()
-                .connectTimeout(3, TimeUnit.SECONDS)
-                .readTimeout(5, TimeUnit.SECONDS)
-                .writeTimeout(5, TimeUnit.SECONDS)
-                .build();
+        client = new OkHttpClient.Builder().connectTimeout(3, TimeUnit.SECONDS).readTimeout(5, TimeUnit.SECONDS).writeTimeout(5, TimeUnit.SECONDS).build();
 
         gson = new GsonBuilder().setPrettyPrinting().create();
     }
@@ -72,16 +68,9 @@ public class ApiFactory {
     }
 
     public String getAccountByToken(Client c, String token) {
-        RequestBody body = new FormBody.Builder()
-                .add("token", token)
-                .build();
+        RequestBody body = new FormBody.Builder().add("token", token).build();
 
-        Request request = new Request.Builder()
-                .header("Accept", "application/json")
-                .header("Authorization", "Elli9767")
-                .url(ApiConstants.AUTH_URL)
-                .post(body)
-                .build();
+        Request request = new Request.Builder().header("Accept", "application/json").header("Authorization", "Elli9767").url(ApiConstants.AUTH_URL).post(body).build();
         try {
             Response response = ApiFactory.getFactory().getHttpClient().newCall(request).execute();
             if (response.isSuccessful()) {
@@ -91,39 +80,39 @@ public class ApiFactory {
                     return message;
                 }
                 c.write(WvsContext.broadcastMsg(BroadcastMsg.popUpMessage(message)));
-               // c.write(Login.checkPasswordResult(false, LoginType.Blocked, null));
+                // c.write(Login.checkPasswordResult(false, LoginType.Blocked, null));
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
         return null;
     }
-    /*public String getAccountNameByToken(String token) throws IOException {
-        Request request = new Request.Builder()
-                .header("Accept", "application/json")
-                .header("Authorization", "Elli " + token)
-                .url("http://185.158.251.179/login")
-                .build();
-
-        Response response = ApiFactory.getFactory().getHttpClient().newCall(request).execute();
-
-        if (response.isSuccessful()) {
-            UserInfo userData = getGson().fromJson(response.body().string(), UserInfo.class);
-            response.body().close();
-            /*if ("unauthorized".equals(userData.getError())) {
-                c.SendPacket(WvsContext.broadcastMsg(1, "Your login has either expired or is invalid. Please exit the game and login again through the launcher."));
-                return 8;
-            }
-            if (!userData.isVerified() || userData.isRequireReverification()) {
-                return 16;
-            }
-            return c.AuthLogin(userData, data);
-            return 0;
-        } else {
-            response.body().close();
-            return 8;
-        }
-    }*/
+    /*
+     * public String getAccountNameByToken(String token) throws IOException {
+     * Request request = new Request.Builder()
+     * .header("Accept", "application/json")
+     * .header("Authorization", "Elli " + token)
+     * .url("http://185.158.251.179/login")
+     * .build();
+     * Response response = ApiFactory.getFactory().getHttpClient().newCall(request).execute();
+     * if (response.isSuccessful()) {
+     * UserInfo userData = getGson().fromJson(response.body().string(), UserInfo.class);
+     * response.body().close();
+     * /*if ("unauthorized".equals(userData.getError())) {
+     * c.SendPacket(WvsContext.broadcastMsg(1, "Your login has either expired or is invalid. Please exit the game and login again through the launcher."));
+     * return 8;
+     * }
+     * if (!userData.isVerified() || userData.isRequireReverification()) {
+     * return 16;
+     * }
+     * return c.AuthLogin(userData, data);
+     * return 0;
+     * } else {
+     * response.body().close();
+     * return 8;
+     * }
+     * }
+     */
 
     public static void main(String[] args) throws IOException {
     }

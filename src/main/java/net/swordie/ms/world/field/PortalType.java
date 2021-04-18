@@ -21,6 +21,7 @@ public enum PortalType {
     PortalCollisionInvisibleChangable(14), // ?
     PortalUnk(15), // ? On map ID 910800200
     ;
+
     private byte val;
 
     PortalType(byte val) {

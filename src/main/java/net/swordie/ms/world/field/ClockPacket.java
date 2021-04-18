@@ -13,7 +13,8 @@ public class ClockPacket {
     private int arg1, arg2, arg3;
     private boolean bool;
 
-    private ClockPacket() {}
+    private ClockPacket() {
+    }
 
     private ClockPacket(ClockType clockType) {
         this.clockType = clockType;
@@ -68,7 +69,7 @@ public class ClockPacket {
     }
 
     public static ClockPacket stopWatch(int time) {
-        return new ClockPacket(ClockType.StopWatch, time*1000);
+        return new ClockPacket(ClockType.StopWatch, time * 1000);
     }
 
     public static ClockPacket pauseTimer(boolean paused, int time) {
@@ -85,7 +86,7 @@ public class ClockPacket {
 
     public void encode(OutPacket outPacket) {
         outPacket.encodeByte(clockType.getVal());
-        switch(clockType) {
+        switch (clockType) {
             case EventTimer:
                 outPacket.encodeInt(arg1);
                 break;

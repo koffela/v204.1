@@ -4,7 +4,7 @@ package net.swordie.ms.connection.crypto;
  * Created by MechAviv on 1/18/2019.
  */
 public class CIGCipher {
-    private static final int[] bShuffle = new int[]{0xEC, 0x3F, 0x77, 0xA4, 0x45, 0xD0, 0x71, 0xBF, 0xB7, 0x98, 0x20, 0xFC,
+    private static final int[] bShuffle = new int[] { 0xEC, 0x3F, 0x77, 0xA4, 0x45, 0xD0, 0x71, 0xBF, 0xB7, 0x98, 0x20, 0xFC,
             0x4B, 0xE9, 0xB3, 0xE1, 0x5C, 0x22, 0xF7, 0x0C, 0x44, 0x1B, 0x81, 0xBD, 0x63, 0x8D, 0xD4, 0xC3,
             0xF2, 0x10, 0x19, 0xE0, 0xFB, 0xA1, 0x6E, 0x66, 0xEA, 0xAE, 0xD6, 0xCE, 0x06, 0x18, 0x4E, 0xEB,
             0x78, 0x95, 0xDB, 0xBA, 0xB6, 0x42, 0x7A, 0x2A, 0x83, 0x0B, 0x54, 0x67, 0x6D, 0xE8, 0x65, 0xE7,
@@ -20,17 +20,18 @@ public class CIGCipher {
             0x28, 0x0F, 0x36, 0xE3, 0x23, 0xB4, 0x03, 0xD8, 0x90, 0xC8, 0x3C, 0xFE, 0x5E, 0x32, 0x24, 0x50,
             0x1F, 0x3A, 0x43, 0x8A, 0x96, 0x41, 0x74, 0xAC, 0x52, 0x33, 0xF0, 0xD9, 0x29, 0x80, 0xB1, 0x16,
             0xD3, 0xAB, 0x91, 0xB9, 0x84, 0x7F, 0x61, 0x1E, 0xCF, 0xC5, 0xD1, 0x56, 0x3D, 0xCA, 0xF4, 0x05,
-            0xC6, 0xE5, 0x08, 0x49};
+            0xC6, 0xE5, 0x08, 0x49 };
 
     /**
      * Generates (or, shuffles) a new hash for the ClientSocket's Sequence.
      *
      * @Author Eric Smith
-     *
-     * @param pSrc The ClientSocket's current sequence
-     * @param nLen The length in bytes of the sequence (default: 4, integer)
-     * @param dwKey - The key to shuffle
-     *
+     * @param pSrc
+     *            The ClientSocket's current sequence
+     * @param nLen
+     *            The length in bytes of the sequence (default: 4, integer)
+     * @param dwKey
+     *            - The key to shuffle
      * @return The new sequence for the ClientSocket.
      */
     public static int InnoHash(int pSrc, int nLen, int dwKey) {
@@ -49,14 +50,14 @@ public class CIGCipher {
      *
      * @Author Eric Smith: original conversion from GMS Client to JAVA.
      * @Author Kaz Voeten: modified code to match shortened version in the later GMS clients.
-     *
-     * @param pSrc The input key source to modify
-     * @param bData The specific byte within the sequence to shuffle
-     *
+     * @param pSrc
+     *            The input key source to modify
+     * @param bData
+     *            The specific byte within the sequence to shuffle
      * @return The result of the morph/shuffled key
      */
     public static int MorphKey(int pSrc, byte bData) {
-        byte[] pdwKey = new byte[]{
+        byte[] pdwKey = new byte[] {
                 (byte) (pSrc & 0xFF), (byte) ((pSrc >> 8) & 0xFF), (byte) ((pSrc >> 16) & 0xFF), (byte) ((pSrc >> 24) & 0xFF)
         };
 

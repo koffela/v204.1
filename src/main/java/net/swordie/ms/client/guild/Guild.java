@@ -73,7 +73,7 @@ public class Guild implements Encodable {
     private Alliance alliance;
 
     public Guild() {
-        setGradeNames(new String[]{"Guild Master", "Junior", "Veteran", "Member", "Newbie"});
+        setGradeNames(new String[] { "Guild Master", "Junior", "Veteran", "Member", "Newbie" });
         setAppliable(true);
         setMaxMembers(50);
         setLevel(1);
@@ -99,7 +99,7 @@ public class Guild implements Encodable {
     public void encode(OutPacket outPacket) {
         outPacket.encodeInt(getId());
         outPacket.encodeString(getName());
-        for(String str : getGradeNames()) {
+        for (String str : getGradeNames()) {
             outPacket.encodeString(str); // 5 times total
         }
         outPacket.encodeShort(getMembers().size());
@@ -126,7 +126,7 @@ public class Guild implements Encodable {
             outPacket.encode(skill);
         });
         outPacket.encodeByte(isAppliable());
-        if(isAppliable()) {
+        if (isAppliable()) {
             outPacket.encodeByte(getJoinSetting());
             outPacket.encodeInt(getReqLevel());
         }
@@ -138,10 +138,10 @@ public class Guild implements Encodable {
 
     public void addMember(GuildMember guildMember) {
         getMembers().add(guildMember);
-        if(guildMember.getChr() != null && guildMember.getChr().getGuild() == null) {
+        if (guildMember.getChr() != null && guildMember.getChr().getGuild() == null) {
             guildMember.getChr().setGuild(this);
         }
-        if(getLeaderID() == 0) {
+        if (getLeaderID() == 0) {
             setLeader(guildMember);
         } else {
             guildMember.setGrade(getGradeNames().size());
@@ -161,7 +161,7 @@ public class Guild implements Encodable {
     }
 
     public void removeMember(GuildMember guildMember) {
-        if(guildMember.getChr() != null) {
+        if (guildMember.getChr() != null) {
             guildMember.getChr().setGuild(null);
         }
         getMembers().remove(guildMember);
@@ -186,7 +186,7 @@ public class Guild implements Encodable {
     public void setLeader(GuildMember leader) {
         int oldGrade = leader.getGrade();
         setLeaderID(leader.getCharID());
-        if(getLeaderID() != 0) {
+        if (getLeaderID() != 0) {
             getMemberByCharID(getLeaderID()).setGrade(oldGrade);
         }
         this.leaderID = leader.getCharID();
@@ -250,8 +250,7 @@ public class Guild implements Encodable {
     }
 
     public void broadcast(OutPacket outPacket, Char exceptChr) {
-        getOnlineMembers().stream().filter(gm -> gm.getChr() != null && !gm.getChr().equals(exceptChr))
-                .forEach(gm -> gm.getChr().write(outPacket));
+        getOnlineMembers().stream().filter(gm -> gm.getChr() != null && !gm.getChr().equals(exceptChr)).forEach(gm -> gm.getChr().write(outPacket));
     }
 
     public List<GuildRequestor> getRequestors() {
@@ -404,15 +403,16 @@ public class Guild implements Encodable {
 
     /**
      * Adds a given amount of commitment to the char.
-     * @param chr the char that the commitment should be given to
-     * @param commitment the amount of commitment to add
+     * 
+     * @param chr
+     *            the char that the commitment should be given to
+     * @param commitment
+     *            the amount of commitment to add
      */
     public void addCommitmentToChar(Char chr, int commitment) {
         GuildMember gm = getMemberByCharID(chr.getId());
         if (gm != null && gm.getRemainingDayCommitment() > 0) {
-            int commitmentInc = gm.getDayCommitment() + commitment > GameConstants.MAX_DAY_COMMITMENT
-                    ? GameConstants.MAX_DAY_COMMITMENT - gm.getDayCommitment()
-                    : commitment;
+            int commitmentInc = gm.getDayCommitment() + commitment > GameConstants.MAX_DAY_COMMITMENT ? GameConstants.MAX_DAY_COMMITMENT - gm.getDayCommitment() : commitment;
             gm.addCommitment(commitmentInc);
             addGgp((int) (commitmentInc * GameConstants.GGP_PER_CONTRIBUTION));
             addPoints(commitment);
@@ -423,8 +423,7 @@ public class Guild implements Encodable {
         setPoints(getPoints() + commitment);
         if (getLevel() < GameConstants.MAX_GUILD_LV && getPoints() > GameConstants.getExpRequiredForNextGuildLevel(getLevel())) {
             setLevel(getLevel() + 1);
-            broadcast(UserLocal.chatMsg(ChatType.Notice2, String.format("%s has reached level %d!",
-                    getName(), getLevel())));
+            broadcast(UserLocal.chatMsg(ChatType.Notice2, String.format("%s has reached level %d!", getName(), getLevel())));
         }
         broadcast(WvsContext.guildResult(GuildResult.setPointAndLevel(this)));
     }

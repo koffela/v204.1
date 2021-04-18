@@ -10,7 +10,6 @@ import java.util.Arrays;
 public enum AdminCommandType {
     // not server handled commands or unknown types:
     /**
-     *
      * /setmobact - [Mob ID], [Action] (Client Side) TODO: check actions for this
      * /honorinfo - [No Args] (Client Side)
      * /pg - no idea what it does
@@ -478,7 +477,7 @@ public enum AdminCommandType {
     SetBurningFieldPhase(354, "/setBurningFieldPhase, /burningstage"),
     TestBait(355, "/baittest"),
     LucidButterfly(356, "/lucidButterfly"),
-    LucidHurdle(357 ,"/lucidHurdle"),
+    LucidHurdle(357, "/lucidHurdle"),
     LucidDragonBreath(358, "/lucidDragonBreath"),
     LucidFoothold(359, "/lucidFoothold"),
     SetHornCount(360, "/SetHornCount"),
@@ -504,7 +503,7 @@ public enum AdminCommandType {
     CaniMapleM(389, "/canimaplem"),
     CaniMapleBlitz(390, "/canimapleblitz"),
     AdminLog(393, "/adminlog"),
-    Decmp(391,"/decmp"),
+    Decmp(391, "/decmp"),
     SetFB(396, "/setfb"),
     FieldMobHuntUser(398, "/fieldmobhuntuser"),
     FieldMobHuntUserLit(399, "/fieldmobhuntuserlist"),

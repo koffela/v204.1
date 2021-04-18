@@ -52,19 +52,19 @@ public class Phantom extends Job {
     public static final int IMPECCABLE_MEMORY_I = 24001001;
 
     public static final int IMPECCABLE_MEMORY_II = 24101001;
-    public static final int CANE_BOOSTER = 24101005; //Buff
+    public static final int CANE_BOOSTER = 24101005; // Buff
     public static final int CARTE_BLANCHE = 24100003;
 
     public static final int IMPECCABLE_MEMORY_III = 24111001;
-    public static final int FINAL_FEINT = 24111002; //Buff (Unlimited Duration) Gone upon Death
-    public static final int BAD_LUCK_WARD = 24111003; //Buff
-    public static final int CLAIR_DE_LUNE = 24111005; //Buff
+    public static final int FINAL_FEINT = 24111002; // Buff (Unlimited Duration) Gone upon Death
+    public static final int BAD_LUCK_WARD = 24111003; // Buff
+    public static final int CLAIR_DE_LUNE = 24111005; // Buff
 
     public static final int IMPECCABLE_MEMORY_IV = 24121001;
-    public static final int PRIERE_DARIA = 24121004; //Buff
+    public static final int PRIERE_DARIA = 24121004; // Buff
     public static final int VOL_DAME = 24121007; // Special Buff
-    public static final int MAPLE_WARRIOR_PH = 24121008; //Buff
-    public static final int CARTE_NOIR = 24120002;              //80001890
+    public static final int MAPLE_WARRIOR_PH = 24121008; // Buff
+    public static final int CARTE_NOIR = 24120002;              // 80001890
     public static final int HEROS_WILL_PH = 24121009;
     public static final int TEMPEST = 24121005;
 
@@ -73,7 +73,7 @@ public class Phantom extends Job {
 
     public static final int CARTE_ATOM = 80001890;
 
-    private int[] addedSkills = new int[]{
+    private int[] addedSkills = new int[] {
             JUDGMENT_DRAW_2,
             SKILL_SWIPE,
             LOADOUT,
@@ -81,7 +81,7 @@ public class Phantom extends Job {
             DEXTEROUS_TRAINING,
     };
 
-    private final int[] buffs = new int[]{
+    private final int[] buffs = new int[] {
             IMPECCABLE_MEMORY_I,
             IMPECCABLE_MEMORY_II,
             CANE_BOOSTER,
@@ -235,7 +235,7 @@ public class Phantom extends Job {
 
         TemporaryStatManager tsm = chr.getTemporaryStatManager();
         Option o = new Option();
-        int randomInt = new Random().nextInt((skillId == JUDGMENT_DRAW_1 ? 2 : 5))+1;
+        int randomInt = new Random().nextInt((skillId == JUDGMENT_DRAW_1 ? 2 : 5)) + 1;
         int xOpt = 0;
         switch (randomInt) {
             case 1: // Crit Rate
@@ -254,8 +254,8 @@ public class Phantom extends Job {
                 xOpt = 1;
                 break;
         }
-        chr.write(UserPacket.effect(Effect.avatarOriented("Skill/2003.img/skill/20031210/affected/"+ (randomInt-1))));
-        chr.write(UserRemote.effect(chr.getId(), Effect.avatarOriented("Skill/2003.img/skill/20031210/affected/"+ (randomInt-1))));
+        chr.write(UserPacket.effect(Effect.avatarOriented("Skill/2003.img/skill/20031210/affected/" + (randomInt - 1))));
+        chr.write(UserRemote.effect(chr.getId(), Effect.avatarOriented("Skill/2003.img/skill/20031210/affected/" + (randomInt - 1))));
 
         o.nOption = randomInt;
         o.rOption = skill.getSkillId();
@@ -265,13 +265,11 @@ public class Phantom extends Job {
         tsm.sendSetStatPacket();
     }
 
-
-
     // Attack related methods ------------------------------------------------------------------------------------------
 
     @Override
     public void handleAttack(Client c, AttackInfo attackInfo) {
-        for(Job jobHandler : stealJobHandlers) {
+        for (Job jobHandler : stealJobHandlers) {
             jobHandler.handleAttack(c, attackInfo);
         }
         Char chr = c.getChr();
@@ -323,7 +321,7 @@ public class Phantom extends Job {
             int anglenum = new Random().nextInt(30) + 295;
             for (MobAttackInfo mai : attackInfo.mobAttackInfo) {
                 Mob mob = (Mob) chr.getField().getLifeByObjectID(mai.mobId);
-                if(mob == null) {
+                if (mob == null) {
                     continue;
                 }
                 int TW1prop = 100;
@@ -332,22 +330,14 @@ public class Phantom extends Job {
                         int mobID = mai.mobId;
                         int inc = ForceAtomEnum.PHANTOM_CARD_2.getInc();
                         int type = ForceAtomEnum.PHANTOM_CARD_2.getForceAtomType();
-                        ForceAtomInfo forceAtomInfo = new ForceAtomInfo(1, inc, 20, 35,
-                                anglenum, 0, (int) System.currentTimeMillis(), 1, 0,
-                                new Position()); //Slightly behind the player
-                        chr.getField().broadcastPacket(FieldPacket.createForceAtom(false, 0, chr.getId(), type,
-                                true, mobID, CARTE_NOIR, forceAtomInfo, new Rect(), 0, 300,
-                                mob.getPosition(), CARTE_NOIR, mob.getPosition()));
+                        ForceAtomInfo forceAtomInfo = new ForceAtomInfo(1, inc, 20, 35, anglenum, 0, (int) System.currentTimeMillis(), 1, 0, new Position()); // Slightly behind the player
+                        chr.getField().broadcastPacket(FieldPacket.createForceAtom(false, 0, chr.getId(), type, true, mobID, CARTE_NOIR, forceAtomInfo, new Rect(), 0, 300, mob.getPosition(), CARTE_NOIR, mob.getPosition()));
                     } else if (chr.hasSkill(CARTE_BLANCHE)) {
                         int mobID = mai.mobId;
                         int inc = ForceAtomEnum.PHANTOM_CARD_1.getInc();
                         int type = ForceAtomEnum.PHANTOM_CARD_1.getForceAtomType();
-                        ForceAtomInfo forceAtomInfo = new ForceAtomInfo(1, inc, 20, 40,
-                                anglenum, 0, (int) System.currentTimeMillis(), 1, 0,
-                                new Position()); //Slightly behind the player
-                        chr.getField().broadcastPacket(FieldPacket.createForceAtom(false, 0, chr.getId(), type,
-                                true, mobID, CARTE_BLANCHE, forceAtomInfo, new Rect(), 0, 300,
-                                mob.getPosition(), CARTE_BLANCHE, mob.getPosition()));
+                        ForceAtomInfo forceAtomInfo = new ForceAtomInfo(1, inc, 20, 40, anglenum, 0, (int) System.currentTimeMillis(), 1, 0, new Position()); // Slightly behind the player
+                        chr.getField().broadcastPacket(FieldPacket.createForceAtom(false, 0, chr.getId(), type, true, mobID, CARTE_BLANCHE, forceAtomInfo, new Rect(), 0, 300, mob.getPosition(), CARTE_BLANCHE, mob.getPosition()));
                     }
                 }
             }
@@ -357,14 +347,7 @@ public class Phantom extends Job {
     private void createCarteForceAtomByJudgmentDraw() {
         if (chr.hasSkill(CARTE_BLANCHE)) {
             SkillInfo si = SkillData.getSkillInfoById(CARTE_BLANCHE);
-            Rect rect = new Rect(
-                    new Position(
-                            chr.getPosition().getX() - 450,
-                            chr.getPosition().getY() - 450),
-                    new Position(
-                            chr.getPosition().getX() + 450,
-                            chr.getPosition().getY() + 450)
-            );
+            Rect rect = new Rect(new Position(chr.getPosition().getX() - 450, chr.getPosition().getY() - 450), new Position(chr.getPosition().getX() + 450, chr.getPosition().getY() + 450));
             List<Mob> mobs = chr.getField().getMobsInRect(rect);
             if (mobs.size() <= 0) {
                 chr.dispose();
@@ -377,36 +360,28 @@ public class Phantom extends Job {
                     int mobID = mob.getObjectId();
                     int inc = ForceAtomEnum.PHANTOM_CARD_2.getInc();
                     int type = ForceAtomEnum.PHANTOM_CARD_2.getForceAtomType();
-                    ForceAtomInfo forceAtomInfo = new ForceAtomInfo(1, inc, 20, 35,
-                            350 - (2 * i), i * 5, (int) System.currentTimeMillis(), 1, 0,
-                            new Position()); //Slightly behind the player
-                    chr.getField().broadcastPacket(FieldPacket.createForceAtom(false, 0, chr.getId(), type,
-                            true, mobID, CARTE_NOIR, forceAtomInfo, new Rect(), 0, 300,
-                            mob.getPosition(), CARTE_NOIR, mob.getPosition()));
+                    ForceAtomInfo forceAtomInfo = new ForceAtomInfo(1, inc, 20, 35, 350 - (2 * i), i * 5, (int) System.currentTimeMillis(), 1, 0, new Position()); // Slightly behind the player
+                    chr.getField().broadcastPacket(FieldPacket.createForceAtom(false, 0, chr.getId(), type, true, mobID, CARTE_NOIR, forceAtomInfo, new Rect(), 0, 300, mob.getPosition(), CARTE_NOIR, mob.getPosition()));
                 } else if (chr.hasSkill(CARTE_BLANCHE)) {
                     int mobID = mob.getObjectId();
                     int inc = ForceAtomEnum.PHANTOM_CARD_1.getInc();
                     int type = ForceAtomEnum.PHANTOM_CARD_1.getForceAtomType();
-                    ForceAtomInfo forceAtomInfo = new ForceAtomInfo(1, inc, 20, 40,
-                            350 - (2 * i), i * 5, (int) System.currentTimeMillis(), 1, 0,
-                            new Position()); //Slightly behind the player
-                    chr.getField().broadcastPacket(FieldPacket.createForceAtom(false, 0, chr.getId(), type,
-                            true, mobID, CARTE_BLANCHE, forceAtomInfo, new Rect(), 0, 300,
-                            mob.getPosition(), CARTE_BLANCHE, mob.getPosition()));
+                    ForceAtomInfo forceAtomInfo = new ForceAtomInfo(1, inc, 20, 40, 350 - (2 * i), i * 5, (int) System.currentTimeMillis(), 1, 0, new Position()); // Slightly behind the player
+                    chr.getField().broadcastPacket(FieldPacket.createForceAtom(false, 0, chr.getId(), type, true, mobID, CARTE_BLANCHE, forceAtomInfo, new Rect(), 0, 300, mob.getPosition(), CARTE_BLANCHE, mob.getPosition()));
                 }
             }
         }
     }
 
     private void drainLifeByJudgmentDraw() {
-        if(!chr.hasSkill(JUDGMENT_DRAW_2)) {
+        if (!chr.hasSkill(JUDGMENT_DRAW_2)) {
             return;
         }
         Skill skill = chr.getSkill(JUDGMENT_DRAW_2);
         SkillInfo si = SkillData.getSkillInfoById(skill.getSkillId());
         byte slv = (byte) skill.getCurrentLevel();
         TemporaryStatManager tsm = chr.getTemporaryStatManager();
-        if(tsm.hasStat(Judgement) && tsm.getOption(Judgement).nOption == 5) {
+        if (tsm.hasStat(Judgement) && tsm.getOption(Judgement).nOption == 5) {
             int healrate = si.getValue(z, slv);
             chr.heal((int) (chr.getMaxHP() * ((double) healrate / 100)));
         }
@@ -447,14 +422,12 @@ public class Phantom extends Job {
         return 0;
     }
 
-
-
     // Skill related methods -------------------------------------------------------------------------------------------
 
     @Override
     public void handleSkill(Client c, int skillID, byte slv, InPacket inPacket) {
         super.handleSkill(c, skillID, slv, inPacket);
-        for(Job jobHandler : stealJobHandlers) {
+        for (Job jobHandler : stealJobHandlers) {
             jobHandler.handleSkill(c, skillID, slv, inPacket);
         }
         TemporaryStatManager tsm = chr.getTemporaryStatManager();
@@ -497,7 +470,7 @@ public class Phantom extends Job {
         TemporaryStatManager tsm = chr.getTemporaryStatManager();
         Option o1 = new Option();
 
-        if(!chr.hasSkill(VOL_DAME)) {
+        if (!chr.hasSkill(VOL_DAME)) {
             return;
         }
 
@@ -505,27 +478,21 @@ public class Phantom extends Job {
         SkillInfo si = SkillData.getSkillInfoById(skill.getSkillId());
         byte slv = (byte) skill.getCurrentLevel();
 
-        Rect rect = new Rect(   //NPE when using the skill's rect
-                new Position(
-                        chr.getPosition().getX() - 250,
-                        chr.getPosition().getY() - 250),
-                new Position(
-                        chr.getPosition().getX() + 250,
-                        chr.getPosition().getY() + 250)
-        );
+        Rect rect = new Rect(   // NPE when using the skill's rect
+                new Position(chr.getPosition().getX() - 250, chr.getPosition().getY() - 250), new Position(chr.getPosition().getX() + 250, chr.getPosition().getY() + 250));
         List<Mob> mobs = chr.getField().getMobsInRect(rect);
-        if(mobs.size() <= 0) {
+        if (mobs.size() <= 0) {
             return;
         }
-        MobStat buffFromMobStat = MobStat.Mystery; //Needs to be initialised
-        MobStat[] mobStats = new MobStat[]{ //Ordered from Weakest to Strongest, since  the for loop will save the last MobsStat
-                PCounter,           //Dmg Reflect 600%
-                MCounter,           //Dmg Reflect 600%
-                PImmune,            //Dmg Recv -40%
-                MImmune,            //Dmg Recv -40%
-                PowerUp,            //Attack +40
-                MagicUp,            //Attack +40
-                MobStat.Invincible, //Invincible for short time
+        MobStat buffFromMobStat = MobStat.Mystery; // Needs to be initialised
+        MobStat[] mobStats = new MobStat[] { // Ordered from Weakest to Strongest, since the for loop will save the last MobsStat
+                PCounter,           // Dmg Reflect 600%
+                MCounter,           // Dmg Reflect 600%
+                PImmune,            // Dmg Recv -40%
+                MImmune,            // Dmg Recv -40%
+                PowerUp,            // Attack +40
+                MagicUp,            // Attack +40
+                MobStat.Invincible, // Invincible for short time
         };
         for (Mob mob : mobs) {
             MobTemporaryStat mts = mob.getTemporaryStat();
@@ -550,7 +517,7 @@ public class Phantom extends Job {
                 o1.nOption = si.getValue(x, slv);
                 o1.rOption = skill.getSkillId();
                 o1.tOption = 30;
-                tsm.putCharacterStatValue(CharacterTemporaryStat.EVA, o1); //as a check to allow for DmgReduction in the Hit Handler
+                tsm.putCharacterStatValue(CharacterTemporaryStat.EVA, o1); // as a check to allow for DmgReduction in the Hit Handler
                 break;
             case PowerUp:
             case MagicUp:
@@ -569,13 +536,11 @@ public class Phantom extends Job {
         tsm.sendSetStatPacket();
     }
 
-
-
     // Hit related methods ---------------------------------------------------------------------------------------------
 
     @Override
     public void handleHit(Client c, InPacket inPacket, HitInfo hitInfo) {
-        for(Job jobHandler : stealJobHandlers) {
+        for (Job jobHandler : stealJobHandlers) {
             jobHandler.handleHit(c, inPacket, hitInfo);
         }
         TemporaryStatManager tsm = chr.getTemporaryStatManager();

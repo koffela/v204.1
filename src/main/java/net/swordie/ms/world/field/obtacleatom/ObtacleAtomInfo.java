@@ -25,8 +25,7 @@ public class ObtacleAtomInfo {
     public ObtacleAtomInfo() {
     }
 
-    public ObtacleAtomInfo(int atomType, int key, Position startPos, Position endPos, int hitBoxRange, int trueDamR,
-                           int mobDamR, int createDelay, int height, int vPerSec, int maxP, int length, int angle) {
+    public ObtacleAtomInfo(int atomType, int key, Position startPos, Position endPos, int hitBoxRange, int trueDamR, int mobDamR, int createDelay, int height, int vPerSec, int maxP, int length, int angle) {
         this.atomType = atomType;
         this.key = key;
         this.startPos = startPos;

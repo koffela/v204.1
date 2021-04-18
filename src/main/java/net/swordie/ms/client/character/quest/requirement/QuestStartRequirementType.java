@@ -14,8 +14,7 @@ public enum QuestStartRequirementType {
     JOB(2),
     MARRIAGE(3),
     MAX_LEVEL(4),
-    MIN_STAT(5)
-    ;
+    MIN_STAT(5);
 
     private byte val;
 
@@ -28,23 +27,15 @@ public enum QuestStartRequirementType {
     }
 
     public static QuestStartRequirementType getQPRTByObj(Object o) {
-        return o instanceof QuestStartCompletionRequirement ? QUEST :
-                o instanceof QuestStartItemRequirement ? ITEM :
-                o instanceof QuestStartJobRequirement ? JOB :
-                o instanceof QuestStartMarriageRequirement ? MARRIAGE :
-                o instanceof QuestStartMaxLevelRequirement ? MAX_LEVEL :
-                o instanceof QuestStartMinStatRequirement ? MIN_STAT
-                : null;
+        return o instanceof QuestStartCompletionRequirement ? QUEST : o instanceof QuestStartItemRequirement ? ITEM : o instanceof QuestStartJobRequirement ? JOB : o instanceof QuestStartMarriageRequirement ? MARRIAGE : o instanceof QuestStartMaxLevelRequirement ? MAX_LEVEL : o instanceof QuestStartMinStatRequirement ? MIN_STAT : null;
     }
 
     public static QuestStartRequirementType getQPRTByVal(byte val) {
-        return Arrays.stream(QuestStartRequirementType.values())
-                .filter(qprt -> qprt.getVal() == val).findFirst().orElse(null);
+        return Arrays.stream(QuestStartRequirementType.values()).filter(qprt -> qprt.getVal() == val).findFirst().orElse(null);
     }
 
-
     public QuestStartRequirement load(DataInputStream dis) throws IOException {
-        switch(this) {
+        switch (this) {
             case QUEST:
                 return (QuestStartRequirement) new QuestStartCompletionRequirement().load(dis);
             case ITEM:

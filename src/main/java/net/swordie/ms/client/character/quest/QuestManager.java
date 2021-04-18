@@ -37,9 +37,9 @@ public class QuestManager {
     private long id;
 
     /*
-    @ElementCollection
-@CollectionTable(name="<name_of_join_table>")
-@MapKeyColumn(name="<name_of_map_key_in_table>")
+     * @ElementCollection
+     * @CollectionTable(name="<name_of_join_table>")
+     * @MapKeyColumn(name="<name_of_map_key_in_table>")
      */
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @CollectionTable(name = "questlists")
@@ -48,6 +48,7 @@ public class QuestManager {
 
     @Transient
     private Char chr;
+
     public QuestManager() {
 
     }
@@ -58,13 +59,11 @@ public class QuestManager {
     }
 
     public Set<Quest> getCompletedQuests() {
-        return getQuests().entrySet().stream().filter(entry -> entry.getValue().getStatus() == Completed).
-                map(Map.Entry::getValue).collect(Collectors.toSet());
+        return getQuests().entrySet().stream().filter(entry -> entry.getValue().getStatus() == Completed).map(Map.Entry::getValue).collect(Collectors.toSet());
     }
 
     public Set<Quest> getQuestsInProgress() {
-        return getQuests().entrySet().stream().filter(entry -> entry.getValue().getStatus() == Started).
-                map(Map.Entry::getValue).collect(Collectors.toSet());
+        return getQuests().entrySet().stream().filter(entry -> entry.getValue().getStatus() == Started).map(Map.Entry::getValue).collect(Collectors.toSet());
     }
 
     public int getSize() {
@@ -82,7 +81,9 @@ public class QuestManager {
 
     /**
      * Checks if a quest has been completed, i.e. the status is COMPLETE.
-     * @param questID the quest's id to check
+     * 
+     * @param questID
+     *            the quest's id to check
      * @return quest completeness
      */
     public boolean hasQuestCompleted(int questID) {
@@ -93,7 +94,9 @@ public class QuestManager {
     /**
      * Checks if a quest is complete. This means that a quest's status is STARTED, and that all the requirements to
      * complete it have been met.
-     * @param questID the quest's id to check
+     * 
+     * @param questID
+     *            the quest's id to check
      * @return completeness
      */
     public boolean isComplete(int questID) {
@@ -112,18 +115,21 @@ public class QuestManager {
     /**
      * Adds a new {@link Quest} to this QuestManager's quests. If it already exists, doesn't do anything.
      * Use {@link #replaceQuest(Quest)} if a given quest should be overridden.
-     * @param quest The Quest to add.
-     * @param addRewardsFromWz Whether or not to addRewards from the WzFiles
+     * 
+     * @param quest
+     *            The Quest to add.
+     * @param addRewardsFromWz
+     *            Whether or not to addRewards from the WzFiles
      */
     private void addQuest(Quest quest, boolean addRewardsFromWz) {
-        if(!getQuests().containsKey(quest.getQRKey())) {
+        if (!getQuests().containsKey(quest.getQRKey())) {
             getQuests().put(quest.getQRKey(), quest);
             chr.write(WvsContext.questRecordMessage(quest));
-            if(quest.getStatus() == QuestStatus.Completed) {
+            if (quest.getStatus() == QuestStatus.Completed) {
                 chr.chatMessage(Mob, "[Info] Completed quest " + quest.getQRKey());
             } else {
                 chr.chatMessage(Mob, "[Info] Accepted quest " + quest.getQRKey());
-                if(addRewardsFromWz) {
+                if (addRewardsFromWz) {
                     QuestInfo qi = QuestData.getQuestInfoById(quest.getQRKey());
                     if (qi != null) {
                         for (QuestReward qr : qi.getQuestRewards()) {
@@ -139,7 +145,9 @@ public class QuestManager {
 
     /**
      * Adds a new {@link Quest} to this QuestManager's quest. If it already exists, overrides the old one with the new one.
-     * @param quest The Quest to add/replace.
+     * 
+     * @param quest
+     *            The Quest to add/replace.
      */
     public void replaceQuest(Quest quest) {
         getQuests().put(quest.getQRKey(), quest);
@@ -148,7 +156,9 @@ public class QuestManager {
 
     /**
      * Returns whether or not a {@link Char} can start a given quest.
-     * @param questID The Quest's ID to check.
+     * 
+     * @param questID
+     *            The Quest's ID to check.
      * @return Whether or not the Char can start the quest.
      */
     public boolean canStartQuest(int questID) {
@@ -156,14 +166,9 @@ public class QuestManager {
         if (qi == null) {
             return true;
         }
-        Set<QuestStartRequirement> questReqs = qi.getQuestStartRequirements().stream()
-                .filter(qsr -> qsr instanceof QuestStartCompletionRequirement)
-                .collect(Collectors.toSet());
-        boolean hasQuest = questReqs.size() == 0 ||
-                questReqs.stream().anyMatch(q -> q.hasRequirements(chr));
-        return hasQuest && qi.getQuestStartRequirements().stream()
-                .filter(qsr -> !(qsr instanceof QuestStartCompletionRequirement))
-                .allMatch(qsr -> qsr.hasRequirements(chr));
+        Set<QuestStartRequirement> questReqs = qi.getQuestStartRequirements().stream().filter(qsr -> qsr instanceof QuestStartCompletionRequirement).collect(Collectors.toSet());
+        boolean hasQuest = questReqs.size() == 0 || questReqs.stream().anyMatch(q -> q.hasRequirements(chr));
+        return hasQuest && qi.getQuestStartRequirements().stream().filter(qsr -> !(qsr instanceof QuestStartCompletionRequirement)).allMatch(qsr -> qsr.hasRequirements(chr));
     }
 
     public Char getChr() {
@@ -173,12 +178,14 @@ public class QuestManager {
     /**
      * Completes a quest. Assumes the check for in-progressness has already been done, so this method can be used
      * to complete quests that the Char does not actually have.
-     * @param questID The quest ID to finish.
+     * 
+     * @param questID
+     *            The quest ID to finish.
      */
     public void completeQuest(int questID) {
         QuestInfo questInfo = QuestData.getQuestInfoById(questID);
         Quest quest = getQuests().get(questID);
-        if(quest == null) {
+        if (quest == null) {
             quest = QuestData.createQuestFromId(questID);
             addQuest(quest);
         }
@@ -198,7 +205,7 @@ public class QuestManager {
     }
 
     public void handleMobKill(Mob mob) {
-        for(int questID : mob.getQuests()) {
+        for (int questID : mob.getQuests()) {
             Quest q = getQuests().get(questID);
             if (q != null && !q.isComplete(chr)) {
                 q.handleMobKill(mob.getTemplateId());
@@ -208,8 +215,8 @@ public class QuestManager {
     }
 
     public void handleMoneyGain(int money) {
-        for(Quest q : getQuestsInProgress()) {
-            if(q.hasMoneyReq()) {
+        for (Quest q : getQuestsInProgress()) {
+            if (q.hasMoneyReq()) {
                 q.addMoney(money);
                 chr.write(WvsContext.questRecordMessage(q));
             }
@@ -231,11 +238,13 @@ public class QuestManager {
     /**
      * Removes a given quest from this QuestManager, and notifies the client of this change. Does nothing if the Char
      * does not currently have the quest.
-     * @param questID the id of the quest that should be removed
+     * 
+     * @param questID
+     *            the id of the quest that should be removed
      */
     public void removeQuest(int questID) {
         Quest q = getQuests().get(questID);
-        if(q != null) {
+        if (q != null) {
             q.setStatus(NotStarted);
             getQuests().remove(questID);
             chr.write(WvsContext.questRecordMessage(q));
@@ -244,7 +253,9 @@ public class QuestManager {
 
     /**
      * Adds a quest to this QuestManager with a given id. If there is no quest with that id, does nothing.
-     * @param id the quest's id to add
+     * 
+     * @param id
+     *            the quest's id to add
      */
     public void addQuest(int id) {
         Quest q = QuestData.createQuestFromId(id);

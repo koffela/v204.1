@@ -43,38 +43,37 @@ import static net.swordie.ms.client.character.skills.temp.CharacterTemporaryStat
  */
 public class Demon extends Job {
 
-    //Demon Skills
+    // Demon Skills
     public static final int DARK_WINDS = 30010110;
     public static final int DEMONIC_BLOOD = 30010185;
     public static final int SECRET_ASSEMBLY = 30001281;
 
-
-    //Demon Slayer
+    // Demon Slayer
     public static final int CURSE_OF_FURY = 30010111;
 
-    public static final int GRIM_SCYTHE = 31001000; //Special Attack            //TODO (Demon Force)
-    public static final int BATTLE_PACT_DS = 31001001; //Buff
+    public static final int GRIM_SCYTHE = 31001000; // Special Attack //TODO (Demon Force)
+    public static final int BATTLE_PACT_DS = 31001001; // Buff
 
-    public static final int SOUL_EATER = 31101000; //Special Attack             //TODO (Demon Force)
-    public static final int DARK_THRUST = 31101001; //Special Attack            //TODO (Demon Force)
-    public static final int CHAOS_LOCK = 31101002; //Special Attack  -Stun-     //TODO (Demon Force)
-    public static final int VENGEANCE = 31101003; //Buff (Stun Debuff)
+    public static final int SOUL_EATER = 31101000; // Special Attack //TODO (Demon Force)
+    public static final int DARK_THRUST = 31101001; // Special Attack //TODO (Demon Force)
+    public static final int CHAOS_LOCK = 31101002; // Special Attack -Stun- //TODO (Demon Force)
+    public static final int VENGEANCE = 31101003; // Buff (Stun Debuff)
 
-    public static final int JUDGEMENT = 31111000; //Special Attack              //TODO (Demon Force)
-    public static final int VORTEX_OF_DOOM = 31111001; //Special Attack  -Stun- //TODO (Demon Force)
-    public static final int RAVEN_STORM = 31111003; //Special Attack -GainHP-   //TODO (Demon Force)
-    public static final int CARRION_BREATH = 31111005; //Special Attack  -DoT-  //TODO (Demon Force)
+    public static final int JUDGEMENT = 31111000; // Special Attack //TODO (Demon Force)
+    public static final int VORTEX_OF_DOOM = 31111001; // Special Attack -Stun- //TODO (Demon Force)
+    public static final int RAVEN_STORM = 31111003; // Special Attack -GainHP- //TODO (Demon Force)
+    public static final int CARRION_BREATH = 31111005; // Special Attack -DoT- //TODO (Demon Force)
     public static final int POSSESSED_AEGIS = 31110008;
     public static final int MAX_FURY = 31110009;
 
-    public static final int INFERNAL_CONCUSSION = 31121000; //Special Attack    //TODO (Demon Force)
-    public static final int DEMON_IMPACT = 31121001; //Special Attack  -Slow-   //TODO (Demon Force)
-    public static final int DEMON_CRY = 31121003; //Special Attack -DemonCry-   //TODO (Demon Force)
-    public static final int BINDING_DARKNESS = 31121006; //Special Attack -Bind-//TODO (Demon Force)
-    public static final int DARK_METAMORPHOSIS = 31121005; //Buff               //TODO (Demon Force)
-    public static final int BOUNDLESS_RAGE = 31121007; //Buff                   //TODO (Demon Force)
-    public static final int LEECH_AURA = 31121002; //Buff                       //TODO (Demon Force)
-    public static final int MAPLE_WARRIOR_DS = 31121004; //Buff
+    public static final int INFERNAL_CONCUSSION = 31121000; // Special Attack //TODO (Demon Force)
+    public static final int DEMON_IMPACT = 31121001; // Special Attack -Slow- //TODO (Demon Force)
+    public static final int DEMON_CRY = 31121003; // Special Attack -DemonCry- //TODO (Demon Force)
+    public static final int BINDING_DARKNESS = 31121006; // Special Attack -Bind-//TODO (Demon Force)
+    public static final int DARK_METAMORPHOSIS = 31121005; // Buff //TODO (Demon Force)
+    public static final int BOUNDLESS_RAGE = 31121007; // Buff //TODO (Demon Force)
+    public static final int LEECH_AURA = 31121002; // Buff //TODO (Demon Force)
+    public static final int MAPLE_WARRIOR_DS = 31121004; // Buff
 
     public static final int BLUE_BLOOD = 31121054;
     public static final int DEMONIC_FORTITUDE_DS = 31121053;
@@ -85,58 +84,56 @@ public class Demon extends Job {
     public static final int DEMON_LASH_3 = 31001007;
     public static final int DEMON_LASH_4 = 31001008;
 
-
-    //Demon Avenger
+    // Demon Avenger
     public static final int BLOOD_PACT = 30010242;
     public static final int EXCEED = 30010230;
     public static final int HYPER_POTION_MASTERY = 30010231;
     public static final int STAR_FORCE_CONVERSION = 30010232;
 
-    public static final int EXCEED_DOUBLE_SLASH_1 = 31011000; //Special Attack  //TODO (EXCEED System)
-    public static final int EXCEED_DOUBLE_SLASH_2 = 31011004; //Special Attack  //TODO (EXCEED System)
-    public static final int EXCEED_DOUBLE_SLASH_3 = 31011005; //Special Attack  //TODO (EXCEED System)
-    public static final int EXCEED_DOUBLE_SLASH_4 = 31011006; //Special Attack  //TODO (EXCEED System)
-    public static final int EXCEED_DOUBLE_SLASH_PURPLE = 31011007; //Special Attack //TODO (EXCEED System)
-    public static final int OVERLOAD_RELEASE = 31011001; // Special Buff        //TODO TempStat: ExceedOverload
-    public static final int LIFE_SAP = 31010002; //Passive Life Drain
+    public static final int EXCEED_DOUBLE_SLASH_1 = 31011000; // Special Attack //TODO (EXCEED System)
+    public static final int EXCEED_DOUBLE_SLASH_2 = 31011004; // Special Attack //TODO (EXCEED System)
+    public static final int EXCEED_DOUBLE_SLASH_3 = 31011005; // Special Attack //TODO (EXCEED System)
+    public static final int EXCEED_DOUBLE_SLASH_4 = 31011006; // Special Attack //TODO (EXCEED System)
+    public static final int EXCEED_DOUBLE_SLASH_PURPLE = 31011007; // Special Attack //TODO (EXCEED System)
+    public static final int OVERLOAD_RELEASE = 31011001; // Special Buff //TODO TempStat: ExceedOverload
+    public static final int LIFE_SAP = 31010002; // Passive Life Drain
 
-    public static final int EXCEED_DEMON_STRIKE_1 = 31201000; //Special Attack  //TODO (EXCEED System)
-    public static final int EXCEED_DEMON_STRIKE_2 = 31201007; //Special Attack  //TODO (EXCEED System)
-    public static final int EXCEED_DEMON_STRIKE_3 = 31201008; //Special Attack  //TODO (EXCEED System)
-    public static final int EXCEED_DEMON_STRIKE_4 = 31201009; //Special Attack  //TODO (EXCEED System)
-    public static final int EXCEED_DEMON_STRIKE_PURPLE = 31201010; //Special Attack //TODO (EXCEED System)
-    public static final int BATTLE_PACT_DA = 31201002; //Buff
+    public static final int EXCEED_DEMON_STRIKE_1 = 31201000; // Special Attack //TODO (EXCEED System)
+    public static final int EXCEED_DEMON_STRIKE_2 = 31201007; // Special Attack //TODO (EXCEED System)
+    public static final int EXCEED_DEMON_STRIKE_3 = 31201008; // Special Attack //TODO (EXCEED System)
+    public static final int EXCEED_DEMON_STRIKE_4 = 31201009; // Special Attack //TODO (EXCEED System)
+    public static final int EXCEED_DEMON_STRIKE_PURPLE = 31201010; // Special Attack //TODO (EXCEED System)
+    public static final int BATTLE_PACT_DA = 31201002; // Buff
     public static final int BAT_SWARM = 31201001;
 
-    public static final int EXCEED_LUNAR_SLASH_1 = 31211000; //Special Attack   //TODO (EXCEED System)
-    public static final int EXCEED_LUNAR_SLASH_2 = 31211007; //Special Attack   //TODO (EXCEED System)
-    public static final int EXCEED_LUNAR_SLASH_3 = 31211008; //Special Attack   //TODO (EXCEED System)
-    public static final int EXCEED_LUNAR_SLASH_4 = 31211009; //Special Attack   //TODO (EXCEED System)
-    public static final int EXCEED_LUNAR_SLASH_PURPLE = 31211010; //Special Attack //TODO (EXCEED System)
+    public static final int EXCEED_LUNAR_SLASH_1 = 31211000; // Special Attack //TODO (EXCEED System)
+    public static final int EXCEED_LUNAR_SLASH_2 = 31211007; // Special Attack //TODO (EXCEED System)
+    public static final int EXCEED_LUNAR_SLASH_3 = 31211008; // Special Attack //TODO (EXCEED System)
+    public static final int EXCEED_LUNAR_SLASH_4 = 31211009; // Special Attack //TODO (EXCEED System)
+    public static final int EXCEED_LUNAR_SLASH_PURPLE = 31211010; // Special Attack //TODO (EXCEED System)
     public static final int VITALITY_VEIL = 31211001;
     public static final int SHIELD_CHARGE_RUSH = 31211002;
-    public static final int SHIELD_CHARGE = 31211011; //Special Attack (Stun Debuff)
-    public static final int DIABOLIC_RECOVERY = 31211004; //Buff
-    public static final int WARD_EVIL = 31211003; //Buff
-    public static final int ADVANCED_LIFE_SAP = 31210006; //Passive Life Drain
+    public static final int SHIELD_CHARGE = 31211011; // Special Attack (Stun Debuff)
+    public static final int DIABOLIC_RECOVERY = 31211004; // Buff
+    public static final int WARD_EVIL = 31211003; // Buff
+    public static final int ADVANCED_LIFE_SAP = 31210006; // Passive Life Drain
     public static final int PAIN_DAMPENER = 31210005;
 
-    public static final int EXCEED_EXECUTION_1 = 31221000; //Special Attack     //TODO (EXCEED System)
-    public static final int EXCEED_EXECUTION_2 = 31221009; //Special Attack     //TODO (EXCEED System)
-    public static final int EXCEED_EXECUTION_3 = 31221010; //Special Attack     //TODO (EXCEED System)
-    public static final int EXCEED_EXECUTION_4 = 31221011; //Special Attack     //TODO (EXCEED System)
-    public static final int EXCEED_EXECUTION_PURPLE = 31221012; //Special Attack//TODO (EXCEED System)
-    public static final int NETHER_SHIELD = 31221001; //Special Attack          //TODO
-    public static final int NETHER_SHIELD_ATOM = 31221014; //atom
+    public static final int EXCEED_EXECUTION_1 = 31221000; // Special Attack //TODO (EXCEED System)
+    public static final int EXCEED_EXECUTION_2 = 31221009; // Special Attack //TODO (EXCEED System)
+    public static final int EXCEED_EXECUTION_3 = 31221010; // Special Attack //TODO (EXCEED System)
+    public static final int EXCEED_EXECUTION_4 = 31221011; // Special Attack //TODO (EXCEED System)
+    public static final int EXCEED_EXECUTION_PURPLE = 31221012; // Special Attack//TODO (EXCEED System)
+    public static final int NETHER_SHIELD = 31221001; // Special Attack //TODO
+    public static final int NETHER_SHIELD_ATOM = 31221014; // atom
     public static final int NETHER_SLICE = 31221002; // Special Attack (DefDown Debuff)
     public static final int BLOOD_PRISON = 31221003; // Special Attack (Stun Debuff)
-    public static final int MAPLE_WARRIOR_DA = 31221008; //Buff
+    public static final int MAPLE_WARRIOR_DA = 31221008; // Buff
     public static final int INFERNAL_EXCEED = 31220007;
 
     public static final int DEMONIC_FORTITUDE_DA = 31221053;
     public static final int FORBIDDEN_CONTRACT = 31221054;
     public static final int THOUSAND_SWORDS = 31221052;
-
 
     private int[] addedSkillsDS = new int[] {
             SECRET_ASSEMBLY,
@@ -175,7 +172,7 @@ public class Demon extends Job {
 
     public Demon(Char chr) {
         super(chr);
-        if(chr.getId() != 0 && isHandlerOfJob(chr.getJob())) {
+        if (chr.getId() != 0 && isHandlerOfJob(chr.getJob())) {
             if (JobConstants.isDemonSlayer(chr.getJob())) {
                 for (int id : addedSkillsDS) {
                     if (!chr.hasSkill(id)) {
@@ -185,7 +182,7 @@ public class Demon extends Job {
                     }
                 }
                 if (chr.hasSkill(MAX_FURY)) {
-                    //regenDFInterval(); //TODO  WVsCrash
+                    // regenDFInterval(); //TODO WVsCrash
                 }
             } else if (JobConstants.isDemonAvenger(chr.getJob())) {
                 for (int id : addedSkillsDA) {
@@ -203,8 +200,6 @@ public class Demon extends Job {
     public boolean isHandlerOfJob(short id) {
         return JobConstants.isDemon(id);
     }
-
-
 
     // Buff related methods --------------------------------------------------------------------------------------------
 
@@ -241,7 +236,7 @@ public class Demon extends Job {
                 o1.tOption = si.getValue(time, slv);
                 tsm.putCharacterStatValue(Booster, o1);
                 break;
-            case VENGEANCE: //stun chance = prop | stun dur. = subTime
+            case VENGEANCE: // stun chance = prop | stun dur. = subTime
                 o1.nOption = si.getValue(y, slv);
                 o1.rOption = skillID;
                 o1.tOption = si.getValue(time, slv);
@@ -257,7 +252,7 @@ public class Demon extends Job {
                 o2.tStart = (int) System.currentTimeMillis();
                 o2.tTerm = si.getValue(time, slv);
                 tsm.putCharacterStatValue(IndieMHPR, o2);
-                o3.nOption = si.getValue(damage, slv); //?
+                o3.nOption = si.getValue(damage, slv); // ?
                 o3.rOption = skillID;
                 o3.tOption = si.getValue(time, slv);
                 tsm.putCharacterStatValue(PowerGuard, o3);
@@ -299,7 +294,7 @@ public class Demon extends Job {
                 o2.rOption = skillID;
                 o2.tOption = si.getValue(time, slv);
                 tsm.putCharacterStatValue(DiabolikRecovery, o2);
-                if(diabolicRecoveryTimer != null && !diabolicRecoveryTimer.isDone()) {
+                if (diabolicRecoveryTimer != null && !diabolicRecoveryTimer.isDone()) {
                     diabolicRecoveryTimer.cancel(true);
                 }
                 diabolicRecoveryHPRecovery();
@@ -331,7 +326,7 @@ public class Demon extends Job {
                 o1.tStart = (int) System.currentTimeMillis();
                 o1.tTerm = si.getValue(time, slv);
                 tsm.putCharacterStatValue(IndieDamR, o1);
-                //HP consumption from Skills = 0;
+                // HP consumption from Skills = 0;
                 break;
             case BLUE_BLOOD:
                 o1.nOption = si.getValue(x, slv);
@@ -348,7 +343,7 @@ public class Demon extends Job {
 
     public void diabolicRecoveryHPRecovery() {
         TemporaryStatManager tsm = chr.getTemporaryStatManager();
-		if(tsm.hasStat(DiabolikRecovery)) {
+        if (tsm.hasStat(DiabolikRecovery)) {
             Skill skill = chr.getSkill(DIABOLIC_RECOVERY);
             byte slv = (byte) skill.getCurrentLevel();
             SkillInfo si = SkillData.getSkillInfoById(skill.getSkillId());
@@ -363,8 +358,6 @@ public class Demon extends Job {
         chr.healMP(10);
         EventManager.addEvent(() -> regenDFInterval(), 4, TimeUnit.SECONDS);
     }
-
-
 
     // Attack related methods ------------------------------------------------------------------------------------------
 
@@ -382,14 +375,14 @@ public class Demon extends Job {
             slv = skill.getCurrentLevel();
             skillID = skill.getSkillId();
         }
-        if(JobConstants.isDemonSlayer(chr.getJob())) {
-            if(hasHitMobs) {
-                //Demon Slayer Fury Atoms
+        if (JobConstants.isDemonSlayer(chr.getJob())) {
+            if (hasHitMobs) {
+                // Demon Slayer Fury Atoms
                 createDemonFuryForceAtom(attackInfo);
 
-                //Max Fury
-                if(chr.hasSkill(MAX_FURY)) {
-                    if(attackInfo.skillId == DEMON_LASH || attackInfo.skillId == DEMON_LASH_2 || attackInfo.skillId == DEMON_LASH_3 || attackInfo.skillId == DEMON_LASH_4) {
+                // Max Fury
+                if (chr.hasSkill(MAX_FURY)) {
+                    if (attackInfo.skillId == DEMON_LASH || attackInfo.skillId == DEMON_LASH_2 || attackInfo.skillId == DEMON_LASH_3 || attackInfo.skillId == DEMON_LASH_4) {
                         Skill maxfuryskill = chr.getSkill(MAX_FURY);
                         SkillInfo mfsi = SkillData.getSkillInfoById(MAX_FURY);
                         byte skillLevel = (byte) maxfuryskill.getCurrentLevel();
@@ -400,23 +393,23 @@ public class Demon extends Job {
                     }
                 }
 
-                //Leech Aura
+                // Leech Aura
                 leechAuraHealing(attackInfo);
             }
         }
 
-        if(JobConstants.isDemonAvenger(chr.getJob())) {
+        if (JobConstants.isDemonAvenger(chr.getJob())) {
 
-            //DA HP Cost System
+            // DA HP Cost System
             applyHpCostForDA(SkillConstants.getActualSkillIDfromSkillID(attackInfo.skillId));
 
-            if(hasHitMobs) {
-                //Nether Shield Recreation
+            if (hasHitMobs) {
+                // Nether Shield Recreation
                 if (attackInfo.skillId == NETHER_SHIELD_ATOM) {
                     recreateNetherShieldForceAtom(attackInfo);
                 }
 
-                //Life Sap & Advanced Life Sap
+                // Life Sap & Advanced Life Sap
                 lifeSapHealing();
             }
         }
@@ -424,15 +417,15 @@ public class Demon extends Job {
         Option o2 = new Option();
         Option o3 = new Option();
         switch (attackInfo.skillId) {
-            case CHAOS_LOCK: //prop Stun/Bind
-            case VORTEX_OF_DOOM: //prop
+            case CHAOS_LOCK: // prop Stun/Bind
+            case VORTEX_OF_DOOM: // prop
                 for (MobAttackInfo mai : attackInfo.mobAttackInfo) {
                     if (Util.succeedProp(si.getValue(prop, slv))) {
                         Mob mob = (Mob) chr.getField().getLifeByObjectID(mai.mobId);
                         if (mob == null) {
                             continue;
                         }
-                        if(!mob.isBoss()) {
+                        if (!mob.isBoss()) {
                             MobTemporaryStat mts = mob.getTemporaryStat();
                             o1.nOption = 1;
                             o1.rOption = skill.getSkillId();
@@ -448,7 +441,7 @@ public class Demon extends Job {
                     if (mob == null) {
                         continue;
                     }
-                    if(!mob.isBoss()) {
+                    if (!mob.isBoss()) {
                         MobTemporaryStat mts = mob.getTemporaryStat();
                         o1.nOption = 1;
                         o1.rOption = skill.getSkillId();
@@ -463,7 +456,7 @@ public class Demon extends Job {
                     if (mob == null) {
                         continue;
                     }
-                    if(!mob.isBoss()) {
+                    if (!mob.isBoss()) {
                         MobTemporaryStat mts = mob.getTemporaryStat();
                         o1.nOption = 1;
                         o1.rOption = SkillConstants.getActualSkillIDfromSkillID(skillID);
@@ -472,8 +465,8 @@ public class Demon extends Job {
                     }
                 }
                 break;
-            case CARRION_BREATH: //DoT
-                for(MobAttackInfo mai : attackInfo.mobAttackInfo) {
+            case CARRION_BREATH: // DoT
+                for (MobAttackInfo mai : attackInfo.mobAttackInfo) {
                     Mob mob = (Mob) chr.getField().getLifeByObjectID(mai.mobId);
                     if (mob == null) {
                         continue;
@@ -482,20 +475,20 @@ public class Demon extends Job {
                     mts.createAndAddBurnedInfo(chr, skill);
                 }
                 break;
-            case BINDING_DARKNESS: //stun + DoT
+            case BINDING_DARKNESS: // stun + DoT
                 for (MobAttackInfo mai : attackInfo.mobAttackInfo) {
                     Mob mob = (Mob) chr.getField().getLifeByObjectID(mai.mobId);
                     if (mob == null) {
                         continue;
                     }
                     MobTemporaryStat mts = mob.getTemporaryStat();
-                    if(!mob.isBoss()) {
+                    if (!mob.isBoss()) {
                         o1.nOption = 1;
                         o1.rOption = skillID;
                         o1.tOption = si.getValue(time, slv);
                         mts.addStatOptions(MobStat.Stun, o1);
                     }
-                    if(Util.succeedProp(si.getValue(prop, slv))) {
+                    if (Util.succeedProp(si.getValue(prop, slv))) {
                         mts.createAndAddBurnedInfo(chr, skill);
                     }
                 }
@@ -554,7 +547,7 @@ public class Demon extends Job {
                 }
                 break;
             case THOUSAND_SWORDS:
-                for(int i = 0; i<4; i++) {
+                for (int i = 0; i < 4; i++) {
                     incrementOverloadCount(skillID, tsm);
                 }
                 break;
@@ -602,6 +595,7 @@ public class Demon extends Job {
 
         super.handleAttack(c, attackInfo);
     }
+
     public void sendHpUpdate() {
         // Used for client side damage calculation for DAs
         TemporaryStatManager tsm = chr.getTemporaryStatManager();
@@ -616,23 +610,19 @@ public class Demon extends Job {
         Field field = chr.getField();
         SkillInfo si = SkillData.getSkillInfoById(NETHER_SHIELD);
         Rect rect = chr.getPosition().getRectAround(si.getRects().get(0));
-        if(!chr.isLeft()) {
+        if (!chr.isLeft()) {
             rect = rect.moveRight();
         }
         List<Mob> mobs = field.getMobsInRect(rect);
-        if(mobs.size() <= 0) {
+        if (mobs.size() <= 0) {
             return;
         }
         Mob mob = Util.getRandomFromCollection(mobs);
         int mobID = mob.getObjectId(); //
         int inc = ForceAtomEnum.NETHER_SHIELD.getInc();
         int type = ForceAtomEnum.NETHER_SHIELD.getForceAtomType();
-            ForceAtomInfo forceAtomInfo = new ForceAtomInfo(1, inc, 20, 40,
-                    0, 500, (int) System.currentTimeMillis(), 1, 0,
-                    new Position(0, -100));
-            chr.getField().broadcastPacket(FieldPacket.createForceAtom(false, 0, chr.getId(), type,
-                    true, mobID, NETHER_SHIELD_ATOM, forceAtomInfo, new Rect(), 0, 300,
-                    mob.getPosition(), NETHER_SHIELD_ATOM, mob.getPosition()));
+        ForceAtomInfo forceAtomInfo = new ForceAtomInfo(1, inc, 20, 40, 0, 500, (int) System.currentTimeMillis(), 1, 0, new Position(0, -100));
+        chr.getField().broadcastPacket(FieldPacket.createForceAtom(false, 0, chr.getId(), type, true, mobID, NETHER_SHIELD_ATOM, forceAtomInfo, new Rect(), 0, 300, mob.getPosition(), NETHER_SHIELD_ATOM, mob.getPosition()));
     }
 
     private void recreateNetherShieldForceAtom(AttackInfo attackInfo) {
@@ -650,12 +640,8 @@ public class Demon extends Job {
 
                 int inc = ForceAtomEnum.NETHER_SHIELD_RECREATION.getInc();
                 int type = ForceAtomEnum.NETHER_SHIELD_RECREATION.getForceAtomType();
-                ForceAtomInfo forceAtomInfo = new ForceAtomInfo(1, inc, 35, 4,
-                        anglenum, 0, (int) System.currentTimeMillis(), 1, 0,
-                        new Position());
-                chr.getField().broadcastPacket(FieldPacket.createForceAtom(true, chr.getId(), mobID, type,
-                        true, mobID, NETHER_SHIELD_ATOM, forceAtomInfo, new Rect(), 0, 300,
-                        mob.getPosition(), NETHER_SHIELD_ATOM, mob.getPosition()));
+                ForceAtomInfo forceAtomInfo = new ForceAtomInfo(1, inc, 35, 4, anglenum, 0, (int) System.currentTimeMillis(), 1, 0, new Position());
+                chr.getField().broadcastPacket(FieldPacket.createForceAtom(true, chr.getId(), mobID, type, true, mobID, NETHER_SHIELD_ATOM, forceAtomInfo, new Rect(), 0, 300, mob.getPosition(), NETHER_SHIELD_ATOM, mob.getPosition()));
             }
         }
     }
@@ -676,7 +662,7 @@ public class Demon extends Job {
         if (tsm.hasStat(OverloadCount)) {
             amount = tsm.getOption(OverloadCount).nOption;
             if (amount < getMaxExceed()) {
-                if(skillid != lastExceedSkill && lastExceedSkill != 0) {
+                if (skillid != lastExceedSkill && lastExceedSkill != 0) {
                     amount++;
                 }
                 amount++;
@@ -698,7 +684,7 @@ public class Demon extends Job {
 
     private int getMaxExceed() {
         int num = 20;
-        if(chr.hasSkill(31220044)) { //Hyper Skill Boost [ Reduce Overload ]
+        if (chr.hasSkill(31220044)) { // Hyper Skill Boost [ Reduce Overload ]
             num = 18;
         }
         return num;
@@ -706,23 +692,23 @@ public class Demon extends Job {
 
     public void lifeSapHealing() {
         TemporaryStatManager tsm = chr.getTemporaryStatManager();
-        if(chr.hasSkill(LIFE_SAP)) {
+        if (chr.hasSkill(LIFE_SAP)) {
             Skill skill = chr.getSkill(LIFE_SAP);
             byte slv = (byte) skill.getCurrentLevel();
             SkillInfo si = SkillData.getSkillInfoById(skill.getSkillId());
             int proc = si.getValue(prop, slv);
             int amounthealed = si.getValue(x, slv);
-            if(chr.hasSkill(ADVANCED_LIFE_SAP)) {
+            if (chr.hasSkill(ADVANCED_LIFE_SAP)) {
                 amounthealed = SkillData.getSkillInfoById(ADVANCED_LIFE_SAP).getValue(x, chr.getSkill(ADVANCED_LIFE_SAP).getCurrentLevel());
             }
-            if(chr.hasSkill(PAIN_DAMPENER)) {
+            if (chr.hasSkill(PAIN_DAMPENER)) {
                 amounthealed -= SkillData.getSkillInfoById(PAIN_DAMPENER).getValue(x, chr.getSkill(PAIN_DAMPENER).getCurrentLevel());
             }
             int exceedamount = tsm.getOption(OverloadCount).nOption;
             int exceedpenalty = (int) Math.floor(exceedamount / 5);
             amounthealed -= exceedpenalty;
-            if(Util.succeedProp(proc)) {
-                int healamount = (int) ((chr.getMaxHP()) / ((double)100 / amounthealed));
+            if (Util.succeedProp(proc)) {
+                int healamount = (int) ((chr.getMaxHP()) / ((double) 100 / amounthealed));
                 chr.heal(healamount);
             }
         }
@@ -730,13 +716,13 @@ public class Demon extends Job {
 
     public void leechAuraHealing(AttackInfo attackInfo) {
         TemporaryStatManager tsm = chr.getTemporaryStatManager();
-        if(chr.hasSkill(LEECH_AURA)) {
-            if(tsm.getOptByCTSAndSkill(Regen, LEECH_AURA) != null) {
+        if (chr.hasSkill(LEECH_AURA)) {
+            if (tsm.getOptByCTSAndSkill(Regen, LEECH_AURA) != null) {
                 Skill skill = chr.getSkill(LEECH_AURA);
                 byte slv = (byte) skill.getCurrentLevel();
                 SkillInfo si = SkillData.getSkillInfoById(skill.getSkillId());
                 int cd = si.getValue(y, slv) * 1000;
-                if(cd + leechAuraCD < System.currentTimeMillis()) {
+                if (cd + leechAuraCD < System.currentTimeMillis()) {
                     for (MobAttackInfo mai : attackInfo.mobAttackInfo) {
                         long totaldmg = Arrays.stream(mai.damages).sum();
                         int hpheal = (int) (totaldmg * ((double) 100 / si.getValue(x, slv)));
@@ -759,56 +745,48 @@ public class Demon extends Job {
                 continue;
             }
             int mobID = mai.mobId;
-            int angle = new Random().nextInt(40)+30;
-            int speed = new Random().nextInt(31)+29;
+            int angle = new Random().nextInt(40) + 30;
+            int speed = new Random().nextInt(31) + 29;
 
-            //Attacking with Demon Lash
-            if(attackInfo.skillId == DEMON_LASH || attackInfo.skillId == DEMON_LASH_2 || attackInfo.skillId == DEMON_LASH_3 || attackInfo.skillId == DEMON_LASH_4) {
+            // Attacking with Demon Lash
+            if (attackInfo.skillId == DEMON_LASH || attackInfo.skillId == DEMON_LASH_2 || attackInfo.skillId == DEMON_LASH_3 || attackInfo.skillId == DEMON_LASH_4) {
                 int inc = ForceAtomEnum.DEMON_SLAYER_FURY_1.getInc();
                 int type = ForceAtomEnum.DEMON_SLAYER_FURY_1.getForceAtomType();
-                if(mob.isBoss()) {
+                if (mob.isBoss()) {
                     inc = ForceAtomEnum.DEMON_SLAYER_FURY_1_BOSS.getInc();
                     type = ForceAtomEnum.DEMON_SLAYER_FURY_1_BOSS.getForceAtomType();
                 }
                 if (chr.getJob() == JobConstants.JobEnum.DEMON_SLAYER4.getJobId()) {
                     inc = ForceAtomEnum.DEMON_SLAYER_FURY_2.getInc();
                     type = ForceAtomEnum.DEMON_SLAYER_FURY_2.getForceAtomType();
-                    if(mob.isBoss()) {
+                    if (mob.isBoss()) {
                         inc = ForceAtomEnum.DEMON_SLAYER_FURY_2_BOSS.getInc();
                         type = ForceAtomEnum.DEMON_SLAYER_FURY_2_BOSS.getForceAtomType();
                     }
                 }
-                ForceAtomInfo forceAtomInfo = new ForceAtomInfo(1, inc, speed, 5,
-                        angle, 50, (int) System.currentTimeMillis(), 1, 0,
-                        new Position(0, 0));
-                chr.write(FieldPacket.createForceAtom(true, chr.getId(), mobID, type,
-                        true, mobID, 0, forceAtomInfo, new Rect(), 0, 300,
-                        mob.getPosition(), 0, mob.getPosition()));
+                ForceAtomInfo forceAtomInfo = new ForceAtomInfo(1, inc, speed, 5, angle, 50, (int) System.currentTimeMillis(), 1, 0, new Position(0, 0));
+                chr.write(FieldPacket.createForceAtom(true, chr.getId(), mobID, type, true, mobID, 0, forceAtomInfo, new Rect(), 0, 300, mob.getPosition(), 0, mob.getPosition()));
             } else {
 
-                //Attacking with another skill
+                // Attacking with another skill
                 long totaldmg = Arrays.stream(mai.damages).sum();
                 if (totaldmg > mob.getHp()) {
                     int inc = ForceAtomEnum.DEMON_SLAYER_FURY_1.getInc();
                     int type = ForceAtomEnum.DEMON_SLAYER_FURY_1.getForceAtomType();
-                    if(mob.isBoss()) {
+                    if (mob.isBoss()) {
                         inc = ForceAtomEnum.DEMON_SLAYER_FURY_1_BOSS.getInc();
                         type = ForceAtomEnum.DEMON_SLAYER_FURY_1_BOSS.getForceAtomType();
                     }
                     if (chr.getJob() == JobConstants.JobEnum.DEMON_SLAYER4.getJobId()) {
                         inc = ForceAtomEnum.DEMON_SLAYER_FURY_2.getInc();
                         type = ForceAtomEnum.DEMON_SLAYER_FURY_2.getForceAtomType();
-                        if(mob.isBoss()) {
+                        if (mob.isBoss()) {
                             inc = ForceAtomEnum.DEMON_SLAYER_FURY_2_BOSS.getInc();
                             type = ForceAtomEnum.DEMON_SLAYER_FURY_2_BOSS.getForceAtomType();
                         }
                     }
-                    ForceAtomInfo forceAtomInfo = new ForceAtomInfo(1, inc, speed, 5,
-                            angle, 50, (int) System.currentTimeMillis(), 1, 0,
-                            new Position(0, 0));
-                    chr.write(FieldPacket.createForceAtom(true, chr.getId(), mobID, type,
-                            true, mobID, 0, forceAtomInfo, new Rect(), 0, 300,
-                            mob.getPosition(), 0, mob.getPosition()));
+                    ForceAtomInfo forceAtomInfo = new ForceAtomInfo(1, inc, speed, 5, angle, 50, (int) System.currentTimeMillis(), 1, 0, new Position(0, 0));
+                    chr.write(FieldPacket.createForceAtom(true, chr.getId(), mobID, type, true, mobID, 0, forceAtomInfo, new Rect(), 0, 300, mob.getPosition(), 0, mob.getPosition()));
                 }
             }
         }
@@ -818,38 +796,32 @@ public class Demon extends Job {
         Field field = chr.getField();
         Life life = field.getLifeByObjectID(mobID);
         if (life instanceof Mob) {
-            int angle = new Random().nextInt(40)+30;
-            int speed = new Random().nextInt(31)+29;
+            int angle = new Random().nextInt(40) + 30;
+            int speed = new Random().nextInt(31) + 29;
             int inc = ForceAtomEnum.DEMON_SLAYER_FURY_1.getInc();
             int type = ForceAtomEnum.DEMON_SLAYER_FURY_1.getForceAtomType();
             if (chr.getJob() == JobConstants.JobEnum.DEMON_SLAYER4.getJobId()) {
                 inc = ForceAtomEnum.DEMON_SLAYER_FURY_2.getInc();
                 type = ForceAtomEnum.DEMON_SLAYER_FURY_2.getForceAtomType();
             }
-            ForceAtomInfo forceAtomInfo = new ForceAtomInfo(1, inc, speed, 4,
-                    angle, 50, (int) System.currentTimeMillis(), 1, 0,
-                    new Position(0, 0));
-            chr.getField().broadcastPacket(FieldPacket.createForceAtom(true, chr.getId(), mobID, type,
-                    true, mobID, 0, forceAtomInfo, new Rect(), 0, 300,
-                    life.getPosition(), 0, life.getPosition()));
+            ForceAtomInfo forceAtomInfo = new ForceAtomInfo(1, inc, speed, 4, angle, 50, (int) System.currentTimeMillis(), 1, 0, new Position(0, 0));
+            chr.getField().broadcastPacket(FieldPacket.createForceAtom(true, chr.getId(), mobID, type, true, mobID, 0, forceAtomInfo, new Rect(), 0, 300, life.getPosition(), 0, life.getPosition()));
         }
     }
 
     @Override
     public int getFinalAttackSkill() {
-        if(chr.hasSkill(INFERNAL_EXCEED)) {
+        if (chr.hasSkill(INFERNAL_EXCEED)) {
             Skill skill = chr.getSkill(INFERNAL_EXCEED);
             byte slv = (byte) skill.getCurrentLevel();
             SkillInfo si = SkillData.getSkillInfoById(skill.getSkillId());
             int proc = si.getValue(prop, slv);
-            if(Util.succeedProp(proc)) {
+            if (Util.succeedProp(proc)) {
                 return INFERNAL_EXCEED;
             }
         }
         return 0;
     }
-
-
 
     // Skill related methods -------------------------------------------------------------------------------------------
 
@@ -886,9 +858,9 @@ public class Demon extends Job {
         byte slv = (byte) skill.getCurrentLevel();
         SkillInfo si = SkillData.getSkillInfoById(skill.getSkillId());
         int hpRCost = si.getValue(hpRCon, slv);
-        if(hpRCost > 0) {
+        if (hpRCost > 0) {
             int skillcost = (int) (chr.getMaxHP() / ((double) 100 / hpRCost));
-            if(chr.getHP() < skillcost) {
+            if (chr.getHP() < skillcost) {
                 return;
             }
             chr.heal(-skillcost);
@@ -898,7 +870,7 @@ public class Demon extends Job {
     public int alterCooldownSkill(int skillId) {
         TemporaryStatManager tsm = chr.getTemporaryStatManager();
         Skill skill = chr.getSkill(skillId);
-        if(skill != null) {
+        if (skill != null) {
             SkillInfo si = SkillData.getSkillInfoById(skill.getSkillId());
             byte slv = (byte) skill.getCurrentLevel();
 
@@ -912,8 +884,6 @@ public class Demon extends Job {
         return -1;
     }
 
-
-
     // Hit related methods ---------------------------------------------------------------------------------------------
 
     @Override
@@ -921,15 +891,15 @@ public class Demon extends Job {
         TemporaryStatManager tsm = chr.getTemporaryStatManager();
         Option o1 = new Option();
 
-        //Vengeance
-        if(tsm.getOptByCTSAndSkill(PowerGuard, VENGEANCE) != null) {
-            if(hitInfo.hpDamage != 0) {
+        // Vengeance
+        if (tsm.getOptByCTSAndSkill(PowerGuard, VENGEANCE) != null) {
+            if (hitInfo.hpDamage != 0) {
                 Skill skill = chr.getSkill(VENGEANCE);
                 byte slv = (byte) skill.getCurrentLevel();
                 SkillInfo si = SkillData.getSkillInfoById(skill.getSkillId());
                 int mobID = hitInfo.mobID;
                 Mob mob = (Mob) chr.getField().getLifeByObjectID(mobID);
-                if(mob == null) {
+                if (mob == null) {
                     return;
                 }
                 MobTemporaryStat mts = mob.getTemporaryStat();
@@ -943,15 +913,15 @@ public class Demon extends Job {
             }
         }
 
-        //Possessed Aegis
-        if(hitInfo.hpDamage == 0 && hitInfo.mpDamage == 0) {
+        // Possessed Aegis
+        if (hitInfo.hpDamage == 0 && hitInfo.mpDamage == 0) {
             // Guarded
-            if(chr.hasSkill(POSSESSED_AEGIS)) {
+            if (chr.hasSkill(POSSESSED_AEGIS)) {
                 Skill skill = chr.getSkill(POSSESSED_AEGIS);
                 byte slv = (byte) skill.getCurrentLevel();
                 SkillInfo si = SkillData.getSkillInfoById(skill.getSkillId());
                 int propz = si.getValue(x, slv);
-                if(Util.succeedProp(propz)) {
+                if (Util.succeedProp(propz)) {
                     int mobID = hitInfo.mobID;
                     createPossessedAegisFuryForceAtom(mobID);
                     chr.heal((int) (chr.getMaxHP() / ((double) 100 / si.getValue(y, slv))));

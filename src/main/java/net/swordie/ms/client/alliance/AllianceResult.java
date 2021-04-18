@@ -8,7 +8,7 @@ import net.swordie.ms.enums.AllianceType;
 
 /**
  * @author Sjonnie
- * Created on 9/1/2018.
+ *         Created on 9/1/2018.
  */
 public class AllianceResult implements Encodable {
     private AllianceType type;
@@ -111,7 +111,6 @@ public class AllianceResult implements Encodable {
                 break;
         }
     }
-
 
     public static AllianceResult inviteGuild(Alliance alliance, GuildMember member) {
         AllianceResult ar = new AllianceResult(AllianceType.Req_Invite);

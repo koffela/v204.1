@@ -46,12 +46,12 @@ public class ForceAtom {
 
     public void encode(OutPacket outPacket) {
         outPacket.encodeInt(isByMob() ? 1 : 0);
-        if(isByMob()) {
+        if (isByMob()) {
             outPacket.encodeInt(getUserOwner());
         }
         outPacket.encodeInt(getCharID());
         outPacket.encodeInt(getForceAtomType().getForceAtomType());
-        if(getForceAtomType().getForceAtomType() != 0 && getForceAtomType().getForceAtomType() != 9 && getForceAtomType().getForceAtomType() != 14 && getForceAtomType().getForceAtomType() != 29 && getForceAtomType().getForceAtomType() != 35 && getForceAtomType().getForceAtomType() != 42) {
+        if (getForceAtomType().getForceAtomType() != 0 && getForceAtomType().getForceAtomType() != 9 && getForceAtomType().getForceAtomType() != 14 && getForceAtomType().getForceAtomType() != 29 && getForceAtomType().getForceAtomType() != 35 && getForceAtomType().getForceAtomType() != 42) {
             outPacket.encodeByte(isToMob());
             switch (getForceAtomType().getForceAtomType()) {
                 case 2:
@@ -94,7 +94,7 @@ public class ForceAtom {
             }
             outPacket.encodeInt(getSkillID());
         }
-        for(ForceAtomInfo fai : faiList) {
+        for (ForceAtomInfo fai : faiList) {
             outPacket.encodeByte(1);
             fai.encode(outPacket);
         }

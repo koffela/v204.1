@@ -8,8 +8,9 @@ import net.swordie.ms.util.Position;
 /**
  * InGameDirectionEvent, for when a client is in InGameDirection mode
  * (by using {@link net.swordie.ms.connection.packet.UserLocal(boolean)})
+ * 
  * @author Sjonnie
- * Created on 8/31/2018.
+ *         Created on 8/31/2018.
  */
 public class InGameDirectionEvent implements Encodable {
     private InGameDirectionEventType type;
@@ -134,8 +135,7 @@ public class InGameDirectionEvent implements Encodable {
         return igdr;
     }
 
-    public static InGameDirectionEvent effectPlay(String effectUOL, int duration, Position position, int z,
-                                                    int npcIdForExtend, boolean onUser, int idk2) {
+    public static InGameDirectionEvent effectPlay(String effectUOL, int duration, Position position, int z, int npcIdForExtend, boolean onUser, int idk2) {
         InGameDirectionEvent igdr = new InGameDirectionEvent(InGameDirectionEventType.EffectPlay);
 
         igdr.str = effectUOL;
@@ -170,9 +170,13 @@ public class InGameDirectionEvent implements Encodable {
 
     /**
      * Moves the camera.
-     * @param back if the camera move should go back to its original state
-     * @param pixelPerSec speed of camera movement
-     * @param pos position the camera should move to (not applicable if back is true)
+     * 
+     * @param back
+     *            if the camera move should go back to its original state
+     * @param pixelPerSec
+     *            speed of camera movement
+     * @param pos
+     *            position the camera should move to (not applicable if back is true)
      * @return the event
      */
     public static InGameDirectionEvent cameraMove(boolean back, int pixelPerSec, Position pos) {
@@ -187,7 +191,9 @@ public class InGameDirectionEvent implements Encodable {
 
     /**
      * Sets a camera on a character or npc.
-     * @param npcID the npc's id on which the camera should focus on, or 0 if the camera should focus on the player
+     * 
+     * @param npcID
+     *            the npc's id on which the camera should focus on, or 0 if the camera should focus on the player
      * @return the event
      */
     public static InGameDirectionEvent cameraOnCharacter(int npcID) {
@@ -238,8 +244,7 @@ public class InGameDirectionEvent implements Encodable {
         return igdr;
     }
 
-    public static InGameDirectionEvent monologueScroll(String msg, boolean stayModal, short align, int updateSpeedTime,
-                                                       int decTic) {
+    public static InGameDirectionEvent monologueScroll(String msg, boolean stayModal, short align, int updateSpeedTime, int decTic) {
         InGameDirectionEvent igdr = new InGameDirectionEvent(InGameDirectionEventType.MonologueScroll);
 
         igdr.str = msg;
@@ -287,6 +292,5 @@ public class InGameDirectionEvent implements Encodable {
 
         return igdr;
     }
-
 
 }

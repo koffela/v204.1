@@ -28,7 +28,7 @@ public class UserPool {
         outPacket.encodeInt(chr.getLevel());
         outPacket.encodeString(chr.getName());
         outPacket.encodeString(""); // parent name, deprecated
-        if(chr.getGuild() != null) {
+        if (chr.getGuild() != null) {
             chr.getGuild().encodeForRemote(outPacket);
         } else {
             Guild.defaultEncodeForRemote(outPacket);
@@ -38,7 +38,7 @@ public class UserPool {
         outPacket.encodeInt(cs.getPop());
         outPacket.encodeInt(10); // nFarmLevel
         outPacket.encodeInt(0); // nNameTagMark
-        outPacket.encodeByte(0); //idk
+        outPacket.encodeByte(0); // idk
         outPacket.encodeInt(0);// Unknown
         tsm.encodeForRemote(outPacket, tsm.getCurrentStats());
         outPacket.encodeShort(chr.getJob());
@@ -46,7 +46,7 @@ public class UserPool {
         outPacket.encodeInt(chr.getTotalChuc());
         outPacket.encodeInt(0);
         al.encode(outPacket);
-        if(JobConstants.isZero(chr.getJob())) {
+        if (JobConstants.isZero(chr.getJob())) {
             chr.getAvatarData().getZeroAvatarLook().encode(outPacket);
         }
         outPacket.encodeInt(chr.getDriverID());
@@ -80,7 +80,7 @@ public class UserPool {
         outPacket.encodeInt(chr.getPortableChairID());
         boolean hasPortableChairMsg = chr.getPortableChairMsg() != null;
         outPacket.encodeByte(hasPortableChairMsg);
-        if(hasPortableChairMsg) {
+        if (hasPortableChairMsg) {
             outPacket.encodeString(chr.getPortableChairMsg());
         }
         outPacket.encodeByte(0);// boolean => long
@@ -103,10 +103,10 @@ public class UserPool {
 
         outPacket.encodeByte(1); // ? new
 
-        outPacket.encodeByte(0); //if true encode something virtualized
+        outPacket.encodeByte(0); // if true encode something virtualized
 
-        for(Pet pet : chr.getPets()) {
-            if(pet.getId() == 0) {
+        for (Pet pet : chr.getPets()) {
+            if (pet.getId() == 0) {
                 continue;
             }
             outPacket.encodeByte(1);
@@ -118,18 +118,16 @@ public class UserPool {
         outPacket.encodeByte(0); // if true, encode something. idk what (v4->vfptr[35].Update)(v4, iPacket);
         outPacket.encodeByte(0); // loop size, encode byte each iteration
 
-
-
-        //outPacket.encodeByte(chr.getMechanicHue());
+        // outPacket.encodeByte(chr.getMechanicHue());
         outPacket.encodeInt(chr.getTamingMobLevel());
         outPacket.encodeInt(chr.getTamingMobExp());
         outPacket.encodeInt(chr.getTamingMobFatigue());
 
-        outPacket.encodeByte(0);//unknown
+        outPacket.encodeByte(0);// unknown
 
         byte miniRoomType = chr.getMiniRoom() != null ? chr.getMiniRoom().getType() : 0;
         outPacket.encodeByte(miniRoomType);
-        if(miniRoomType > 0) {
+        if (miniRoomType > 0) {
             chr.getMiniRoom().encode(outPacket);
         }
 
@@ -139,17 +137,17 @@ public class UserPool {
         }
 
         outPacket.encodeByte(chr.isInCouple());
-        if(chr.isInCouple()) {
+        if (chr.isInCouple()) {
             chr.getCouple().encodeForRemote(outPacket);
         }
 
         outPacket.encodeByte(chr.hasFriendshipItem());
-        if(chr.hasFriendshipItem()) {
+        if (chr.hasFriendshipItem()) {
             chr.getFriendshipRingRecord().encode(outPacket);
         }
 
         outPacket.encodeByte(chr.isMarried());
-        if(chr.isMarried()) {
+        if (chr.isMarried()) {
             chr.getMarriageRecord().encodeForRemote(outPacket);
         }
 
@@ -164,7 +162,7 @@ public class UserPool {
                 break;
         }
         outPacket.encodeInt(chr.getEvanDragonGlide());
-        if(JobConstants.isKaiser(chr.getJob())) {
+        if (JobConstants.isKaiser(chr.getJob())) {
             outPacket.encodeInt(chr.getKaiserMorphRotateHueExtern());
             outPacket.encodeInt(chr.getKaiserMorphPrimiumBlack());
             outPacket.encodeByte(chr.getKaiserMorphRotateHueInnner());
@@ -175,13 +173,13 @@ public class UserPool {
             outPacket.encodeByte(-1); // activeEventNameTag
         }
         outPacket.encodeInt(chr.getCustomizeEffect());
-        if(chr.getCustomizeEffect() > 0) {
+        if (chr.getCustomizeEffect() > 0) {
             outPacket.encodeString(chr.getCustomizeEffectMsg());
         }
         outPacket.encodeByte(chr.getSoulEffect());
-        if(tsm.hasStat(CharacterTemporaryStat.RideVehicle)) {
+        if (tsm.hasStat(CharacterTemporaryStat.RideVehicle)) {
             int vehicleID = tsm.getTSBByTSIndex(TSIndex.RideVehicle).getNOption();
-            if(vehicleID == 1932249) { // is_mix_vehicle
+            if (vehicleID == 1932249) { // is_mix_vehicle
                 size = 0;
                 outPacket.encodeInt(size); // ???
                 for (int i = 0; i < size; i++) {
@@ -190,22 +188,22 @@ public class UserPool {
             }
         }
         /*
-         Flashfire (12101025) info
-         not really interested in encoding this
-         structure is:
-         if(bool)
-            if(bool)
-                slv = int
-                notused = int
-                x = short
-                y = short
+         * Flashfire (12101025) info
+         * not really interested in encoding this
+         * structure is:
+         * if(bool)
+         * if(bool)
+         * slv = int
+         * notused = int
+         * x = short
+         * y = short
          */
         outPacket.encodeByte(0);
         outPacket.encodeByte(0); // StarPlanetRank::Decode
         // CUser::DecodeStarPlanetTrendShopLook not interesting, will break REMOTE_AVATAR_MODIFIED if 1st int is != 0
         outPacket.encodeInt(0);
         // ~CUser::DecodeStarPlanetTrendShopLook
-        //outPacket.encodeInt(0); // CUser::DecodeTextEquipInfo
+        // outPacket.encodeInt(0); // CUser::DecodeTextEquipInfo
         outPacket.encodeInt(0);
         chr.getFreezeHotEventInfo().encode(outPacket);
         outPacket.encodeInt(chr.getEventBestFriendAID());
@@ -224,7 +222,7 @@ public class UserPool {
         outPacket.encodeInt(0);
         boolean bool = false;
         outPacket.encodeByte(bool);
-        if(bool) {
+        if (bool) {
             size = 0;
             outPacket.encodeInt(size);
             for (int i = 0; i < size; i++) {
@@ -233,7 +231,7 @@ public class UserPool {
         }
         int someID = 0;
         outPacket.encodeInt(someID);
-        if(someID > 0) {
+        if (someID > 0) {
             outPacket.encodeInt(0);
             outPacket.encodeInt(0);
             outPacket.encodeInt(0);

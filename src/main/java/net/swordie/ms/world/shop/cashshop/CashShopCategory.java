@@ -7,7 +7,7 @@ import java.util.Objects;
 
 /**
  * @author Sjonnie
- * Created on 7/7/2018.
+ *         Created on 7/7/2018.
  */
 @Entity
 @Table(name = "cs_categories")
@@ -16,7 +16,7 @@ public class CashShopCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    //idx: base = 1000000; favorite = +1000000; category = +10000; subcategory = +100 subsubcategory = +1 (odin)
+    // idx: base = 1000000; favorite = +1000000; category = +10000; subcategory = +100 subsubcategory = +1 (odin)
     private int idx;
     private String name;
     private int parentIdx;
@@ -83,11 +83,12 @@ public class CashShopCategory {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         CashShopCategory that = (CashShopCategory) o;
-        return idx == that.idx &&
-                parentIdx == that.parentIdx;
+        return idx == that.idx && parentIdx == that.parentIdx;
     }
 
     @Override
@@ -97,11 +98,7 @@ public class CashShopCategory {
 
     @Override
     public String toString() {
-        return "CashShopCategory{" +
-                "idx=" + idx +
-                ", name='" + name + '\'' +
-                ", parentIdx=" + parentIdx +
-                '}';
+        return "CashShopCategory{" + "idx=" + idx + ", name='" + name + '\'' + ", parentIdx=" + parentIdx + '}';
     }
 
     public enum Flag {
@@ -109,7 +106,5 @@ public class CashShopCategory {
         New,
         Hot
     }
-
-
 
 }

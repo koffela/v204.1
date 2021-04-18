@@ -15,10 +15,13 @@ public enum MakingSkillResult {
     EXTRACTOR_OWNER_NOT_RECEIVE_FEE_ERROR(31),
     EXTRACTION_FEE_TOO_LARGE(32),
     CANNOT_AFFORD_PARTY_LISTING(33);
+
     // 33+ => fail effect + inc skill proficiency effect
     private byte val;
 
-    MakingSkillResult(int val) {this.val = (byte) val;}
+    MakingSkillResult(int val) {
+        this.val = (byte) val;
+    }
 
     public byte getVal() {
         return val;

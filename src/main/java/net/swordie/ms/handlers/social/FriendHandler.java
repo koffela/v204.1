@@ -20,7 +20,6 @@ public class FriendHandler {
 
     private static final Logger log = Logger.getLogger(FriendHandler.class);
 
-
     @Handler(op = InHeader.LOAD_ACCOUNT_ID_OF_CHARACTER_FRIEND_REQUEST)
     public static void handleLoadAccountIDOfCharacterFriendRequest(Client c, InPacket inPacket) {
         c.write(WvsContext.loadAccountIDOfCharacterFriendResult(c.getChr().getFriends()));
@@ -84,8 +83,7 @@ public class FriendHandler {
                 }
                 c.write(WvsContext.friendResult(new FriendResultMsg(FriendType.FriendRes_SetFriend_Done, name)));
                 c.write(WvsContext.friendResult(new LoadFriendResult(chr.getAllFriends())));
-                other.write(WvsContext.friendResult(
-                        new InviteFriendResult(otherFriend, account, chr.getLevel(), chr.getJob(), chr.getSubJob())));
+                other.write(WvsContext.friendResult(new InviteFriendResult(otherFriend, account, chr.getLevel(), chr.getJob(), chr.getSubJob())));
                 break;
             case FriendReq_AcceptFriend:
                 int friendID = inPacket.decodeInt();

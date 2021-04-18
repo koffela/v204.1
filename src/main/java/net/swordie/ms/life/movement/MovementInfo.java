@@ -14,7 +14,7 @@ import java.util.List;
 
 /**
  * @author Sjonnie
- * Created on 8/16/2018.
+ *         Created on 8/16/2018.
  */
 public class MovementInfo implements Encodable {
     private static final Logger log = Logger.getLogger(MovementInfo.class);
@@ -66,7 +66,7 @@ public class MovementInfo implements Encodable {
         outPacket.encodePosition(oldPos);
         outPacket.encodePosition(oldVPos);
         outPacket.encodeByte(movements.size());
-        for(Movement m : movements) {
+        for (Movement m : movements) {
             m.encode(outPacket);
         }
         outPacket.encodeByte(keyPadState);

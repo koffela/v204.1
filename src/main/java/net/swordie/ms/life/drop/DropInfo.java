@@ -97,7 +97,8 @@ public class DropInfo {
     /**
      * Does an RNG roll to check if this should be dropped.
      *
-     * @param dropRate the drop rate of the Char
+     * @param dropRate
+     *            the drop rate of the Char
      * @return Whether or not the drop is successful.
      */
     public boolean willDrop(int dropRate) {
@@ -154,9 +155,10 @@ public class DropInfo {
 
     public String toNPCString(Char chr) {
         if (getItemID() != 0 && getItemID() > 0 && !isMoney()) {
-            if(ItemData.getItemDeepCopy(getItemID()) != null) {
-                return String.format("#L0##v%d# %.3f%% chance#l", getItemID(), (float)chr.getTotalStat(BaseStat.dropR) != 0 ? (float) (getChance() / 100D) * (chr.getTotalStat(BaseStat.dropR) + 100) / 100 : (float) (getChance() / 100D));
-            } else return null;
+            if (ItemData.getItemDeepCopy(getItemID()) != null) {
+                return String.format("#L0##v%d# %.3f%% chance#l", getItemID(), (float) chr.getTotalStat(BaseStat.dropR) != 0 ? (float) (getChance() / 100D) * (chr.getTotalStat(BaseStat.dropR) + 100) / 100 : (float) (getChance() / 100D));
+            } else
+                return null;
         } else {
             return String.format("#L0##v5200000# %d mesos.#l", getMoney());
         }

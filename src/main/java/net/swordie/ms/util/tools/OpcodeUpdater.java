@@ -10,7 +10,7 @@ import java.util.Arrays;
  */
 public class OpcodeUpdater {
     private static String versionInfo = String.format("v%d.%s", ServerConstants.VERSION, ServerConstants.MINOR_VERSION);
-    private static int[] newOpcodes = {111, 116, 122, 369, 443, 506, 507, 624, 1083, 1084, 1675, 1676, 1677, 1678, 1679, 1854};
+    private static int[] newOpcodes = { 111, 116, 122, 369, 443, 506, 507, 624, 1083, 1084, 1675, 1676, 1677, 1678, 1679, 1854 };
 
     public static void main(String[] args) {
         int valAdd = 0;
@@ -35,7 +35,7 @@ public class OpcodeUpdater {
 
                 String opcodeName = header.name();
                 if (opcodeName.contains("UNK")) {
-                    opcodeName = String.format("UNK%d",intHeader + valAdd);
+                    opcodeName = String.format("UNK%d", intHeader + valAdd);
                 }
                 System.out.println(String.format("%s(%d),", opcodeName, intHeader + valAdd));
             } else {

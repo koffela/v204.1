@@ -39,34 +39,34 @@ import static net.swordie.ms.client.character.skills.temp.CharacterTemporaryStat
  * Created on 12/14/2017.
  */
 public class Mercedes extends Job {
-    //Link Skill = return skill
+    // Link Skill = return skill
 
     public static final int ELVEN_GRACE = 20020112;
     public static final int UPDRAFT = 20020111;
     public static final int ELVEN_HEALING = 20020109;
 
-    public static final int DUAL_BOWGUN_BOOSTER = 23101002; //Buff
+    public static final int DUAL_BOWGUN_BOOSTER = 23101002; // Buff
 
-    public static final int STUNNING_STRIKES = 23111000; //Special Attack
-    public static final int UNICORN_SPIKE = 23111002; //Special Attack
-    public static final int IGNIS_ROAR = 23111004; //Buff
-    public static final int WATER_SHIELD = 23111005; //Buff
-    public static final int ELEMENTAL_KNIGHTS_BLUE = 23111008; //Summon
-    public static final int ELEMENTAL_KNIGHTS_RED = 23111009; //Summon
-    public static final int ELEMENTAL_KNIGHTS_PURPLE = 23111010; //Summon
+    public static final int STUNNING_STRIKES = 23111000; // Special Attack
+    public static final int UNICORN_SPIKE = 23111002; // Special Attack
+    public static final int IGNIS_ROAR = 23111004; // Buff
+    public static final int WATER_SHIELD = 23111005; // Buff
+    public static final int ELEMENTAL_KNIGHTS_BLUE = 23111008; // Summon
+    public static final int ELEMENTAL_KNIGHTS_RED = 23111009; // Summon
+    public static final int ELEMENTAL_KNIGHTS_PURPLE = 23111010; // Summon
 
-    public static final int SPIKES_ROYALE = 23121002;  //Special Attack
-    public static final int STAGGERING_STRIKES = 23120013; //Special Attack
-    public static final int ANCIENT_WARDING = 23121004; //Buff
-    public static final int MAPLE_WARRIOR_MERC = 23121005; //Buff
-    public static final int LIGHTNING_EDGE = 23121003; //Debuff mobs
+    public static final int SPIKES_ROYALE = 23121002;  // Special Attack
+    public static final int STAGGERING_STRIKES = 23120013; // Special Attack
+    public static final int ANCIENT_WARDING = 23121004; // Buff
+    public static final int MAPLE_WARRIOR_MERC = 23121005; // Buff
+    public static final int LIGHTNING_EDGE = 23121003; // Debuff mobs
     public static final int HEROS_WILL_MERC = 23121008;
 
     public static final int HEROIC_MEMORIES_MERC = 23121053;
     public static final int ELVISH_BLESSING = 23121054;
     public static final int WRATH_OF_ENLIL = 23121052;
 
-    //Final Attack
+    // Final Attack
     public static final int FINAL_ATTACK_DBG = 23100006;
     public static final int ADVANCED_FINAL_ATTACK = 23120012;
 
@@ -76,13 +76,13 @@ public class Mercedes extends Job {
             ELVEN_HEALING,
     };
 
-    private final int[] buffs = new int[]{
+    private final int[] buffs = new int[] {
             DUAL_BOWGUN_BOOSTER,
             IGNIS_ROAR,
             WATER_SHIELD,
-            ELEMENTAL_KNIGHTS_BLUE, //Summon
-            ELEMENTAL_KNIGHTS_RED, //Summon
-            ELEMENTAL_KNIGHTS_PURPLE, //Summon
+            ELEMENTAL_KNIGHTS_BLUE, // Summon
+            ELEMENTAL_KNIGHTS_RED, // Summon
+            ELEMENTAL_KNIGHTS_PURPLE, // Summon
             ANCIENT_WARDING,
             MAPLE_WARRIOR_MERC,
             HEROIC_MEMORIES_MERC,
@@ -101,7 +101,7 @@ public class Mercedes extends Job {
 
     public Mercedes(Char chr) {
         super(chr);
-        if(chr.getId() != 0 && isHandlerOfJob(chr.getJob())) {
+        if (chr.getId() != 0 && isHandlerOfJob(chr.getJob())) {
             for (int id : addedSkills) {
                 if (!chr.hasSkill(id)) {
                     Skill skill = SkillData.getSkillDeepCopyById(id);
@@ -139,8 +139,6 @@ public class Mercedes extends Job {
         stats.put(Stat.mmp, chr.getStat(Stat.mmp));
         chr.write(WvsContext.statChanged(stats));
     }
-
-
 
     // Buff related methods --------------------------------------------------------------------------------------------
 
@@ -184,7 +182,7 @@ public class Mercedes extends Job {
                 o3.nOption = si.getValue(x, slv);
                 o3.rOption = skillID;
                 o3.tOption = si.getValue(time, slv);
-                tsm.putCharacterStatValue(DamAbsorbShield, o3);   //IgnoreMobDamR
+                tsm.putCharacterStatValue(DamAbsorbShield, o3);   // IgnoreMobDamR
                 break;
             case ANCIENT_WARDING:
                 o1.nOption = si.getValue(emhp, slv);
@@ -246,7 +244,7 @@ public class Mercedes extends Job {
         set.add(ELEMENTAL_KNIGHTS_RED);
         set.add(ELEMENTAL_KNIGHTS_PURPLE);
 
-        if(eleKnightSummonID != 0) {
+        if (eleKnightSummonID != 0) {
             set.remove((Integer) eleKnightSummonID);
         }
         int random = Util.getRandomFromCollection(set);
@@ -257,7 +255,7 @@ public class Mercedes extends Job {
         summon.setSummonTerm(0);
 
         summonList.add(summon);
-        if(summonList.size() > 2) {
+        if (summonList.size() > 2) {
             c.write(Summoned.summonedRemoved(summonList.get(0), LeaveType.ANIMATION));
             tsm.removeStatsBySkill(summonList.get(0).getSkillID());
             summonList.remove(0);
@@ -268,8 +266,6 @@ public class Mercedes extends Job {
         SkillInfo si = SkillData.getSkillInfoById(ELEMENTAL_KNIGHTS_BLUE);
         byte slv = (byte) chr.getSkill(ELEMENTAL_KNIGHTS_BLUE).getCurrentLevel();
     }
-
-
 
     // Attack related methods ------------------------------------------------------------------------------------------
 
@@ -297,13 +293,13 @@ public class Mercedes extends Job {
             case STUNNING_STRIKES:
                 SkillInfo stunningStrikes = SkillData.getSkillInfoById(STUNNING_STRIKES);
                 int proc = stunningStrikes.getValue(prop, slv);
-                for(MobAttackInfo mai : attackInfo.mobAttackInfo) {
-                    if(Util.succeedProp(proc)) {
+                for (MobAttackInfo mai : attackInfo.mobAttackInfo) {
+                    if (Util.succeedProp(proc)) {
                         Mob mob = (Mob) chr.getField().getLifeByObjectID(mai.mobId);
-                        if(mob == null) {
+                        if (mob == null) {
                             continue;
                         }
-                        if(!mob.isBoss()) {
+                        if (!mob.isBoss()) {
                             MobTemporaryStat mts = mob.getTemporaryStat();
                             o1.nOption = 1;
                             o1.rOption = STUNNING_STRIKES;
@@ -316,13 +312,13 @@ public class Mercedes extends Job {
             case STAGGERING_STRIKES:
                 SkillInfo staggeringStrikes = SkillData.getSkillInfoById(STAGGERING_STRIKES);
                 int procc = staggeringStrikes.getValue(prop, slv);
-                for(MobAttackInfo mai : attackInfo.mobAttackInfo) {
-                    if(Util.succeedProp(procc)) {
+                for (MobAttackInfo mai : attackInfo.mobAttackInfo) {
+                    if (Util.succeedProp(procc)) {
                         Mob mob = (Mob) chr.getField().getLifeByObjectID(mai.mobId);
                         if (mob == null) {
                             continue;
                         }
-                        if(!mob.isBoss()) {
+                        if (!mob.isBoss()) {
                             MobTemporaryStat mts = mob.getTemporaryStat();
                             o1.nOption = 1;
                             o1.rOption = STAGGERING_STRIKES;
@@ -333,8 +329,8 @@ public class Mercedes extends Job {
                 }
                 break;
             case UNICORN_SPIKE:
-                for(MobAttackInfo mai : attackInfo.mobAttackInfo) {
-                    if(Util.succeedProp(si.getValue(prop, slv))) {
+                for (MobAttackInfo mai : attackInfo.mobAttackInfo) {
+                    if (Util.succeedProp(si.getValue(prop, slv))) {
                         Mob mob = (Mob) chr.getField().getLifeByObjectID(mai.mobId);
                         if (mob == null) {
                             continue;
@@ -348,13 +344,13 @@ public class Mercedes extends Job {
                 }
                 break;
             case SPIKES_ROYALE:
-                for(MobAttackInfo mai : attackInfo.mobAttackInfo) {
+                for (MobAttackInfo mai : attackInfo.mobAttackInfo) {
                     Mob mob = (Mob) chr.getField().getLifeByObjectID(mai.mobId);
                     if (mob == null) {
                         continue;
                     }
                     MobTemporaryStat mts = mob.getTemporaryStat();
-                    o1.nOption = - si.getValue(x, slv);
+                    o1.nOption = -si.getValue(x, slv);
                     o1.rOption = skill.getSkillId();
                     o1.tOption = si.getValue(time, slv);
                     mts.addStatOptionsAndBroadcast(MobStat.PDR, o1);
@@ -362,7 +358,7 @@ public class Mercedes extends Job {
                 }
                 break;
             case LIGHTNING_EDGE:
-                for(MobAttackInfo mai : attackInfo.mobAttackInfo) {
+                for (MobAttackInfo mai : attackInfo.mobAttackInfo) {
                     Mob mob = (Mob) chr.getField().getLifeByObjectID(mai.mobId);
                     if (mob == null) {
                         continue;
@@ -375,8 +371,8 @@ public class Mercedes extends Job {
                 }
                 break;
             case ELEMENTAL_KNIGHTS_BLUE:
-                for(MobAttackInfo mai : attackInfo.mobAttackInfo) {
-                    if(Util.succeedProp(si.getValue(prop, slv))) {
+                for (MobAttackInfo mai : attackInfo.mobAttackInfo) {
+                    if (Util.succeedProp(si.getValue(prop, slv))) {
                         Mob mob = (Mob) chr.getField().getLifeByObjectID(mai.mobId);
                         if (mob == null) {
                             continue;
@@ -390,7 +386,7 @@ public class Mercedes extends Job {
                 }
                 break;
             case ELEMENTAL_KNIGHTS_RED:
-                for(MobAttackInfo mai : attackInfo.mobAttackInfo) {
+                for (MobAttackInfo mai : attackInfo.mobAttackInfo) {
                     Mob mob = (Mob) chr.getField().getLifeByObjectID(mai.mobId);
                     if (mob == null) {
                         continue;
@@ -404,9 +400,7 @@ public class Mercedes extends Job {
     }
 
     private void incrementIgnisRoarStackCount(TemporaryStatManager tsm, AttackInfo attackInfo) {
-        if (Arrays.asList(summonAttacks).contains(attackInfo.skillId)
-                || getFinalAtkSkill() != null && attackInfo.skillId == getFinalAtkSkill().getSkillId()
-                || attackInfo.skillId == lastAttackSkill) {
+        if (Arrays.asList(summonAttacks).contains(attackInfo.skillId) || getFinalAtkSkill() != null && attackInfo.skillId == getFinalAtkSkill().getSkillId() || attackInfo.skillId == lastAttackSkill) {
             return;
         }
         Option o = new Option();
@@ -419,16 +413,16 @@ public class Mercedes extends Job {
         byte slv = (byte) skill.getCurrentLevel();
         int amount = 1;
         SkillInfo si = SkillData.getSkillInfoById(lastAttackSkill);
-        if(si != null && si.getAddAttackSkills().stream().noneMatch(aas -> aas == attackInfo.skillId)) {
+        if (si != null && si.getAddAttackSkills().stream().noneMatch(aas -> aas == attackInfo.skillId)) {
             return;
         }
-        if(attackInfo.skillId != SPIKES_ROYALE) {
+        if (attackInfo.skillId != SPIKES_ROYALE) {
             chr.reduceSkillCoolTime(SPIKES_ROYALE, 1000);
         }
-        if(attackInfo.skillId != UNICORN_SPIKE) {
+        if (attackInfo.skillId != UNICORN_SPIKE) {
             chr.reduceSkillCoolTime(UNICORN_SPIKE, 1000);
         }
-        if(attackInfo.skillId != WRATH_OF_ENLIL) {
+        if (attackInfo.skillId != WRATH_OF_ENLIL) {
             chr.reduceSkillCoolTime(WRATH_OF_ENLIL, 1000);
         }
         if (tsm.hasStat(IgnisRore)) {
@@ -454,7 +448,7 @@ public class Mercedes extends Job {
     @Override
     public int getFinalAttackSkill() {
         Skill faSkill = getFinalAtkSkill();
-        if(faSkill != null) {
+        if (faSkill != null) {
             SkillInfo si = SkillData.getSkillInfoById(faSkill.getSkillId());
             byte slv = (byte) faSkill.getCurrentLevel();
             int proc = si.getValue(prop, slv);
@@ -467,16 +461,14 @@ public class Mercedes extends Job {
 
     private Skill getFinalAtkSkill() {
         Skill skill = null;
-        if(chr.hasSkill(FINAL_ATTACK_DBG)) {
+        if (chr.hasSkill(FINAL_ATTACK_DBG)) {
             skill = chr.getSkill(FINAL_ATTACK_DBG);
         }
-        if(chr.hasSkill(ADVANCED_FINAL_ATTACK)) {
+        if (chr.hasSkill(ADVANCED_FINAL_ATTACK)) {
             skill = chr.getSkill(ADVANCED_FINAL_ATTACK);
         }
         return skill;
     }
-
-
 
     // Skill related methods -------------------------------------------------------------------------------------------
 
@@ -487,7 +479,7 @@ public class Mercedes extends Job {
         Char chr = c.getChr();
         Skill skill = chr.getSkill(skillID);
         SkillInfo si = null;
-        if(skill != null) {
+        if (skill != null) {
             si = SkillData.getSkillInfoById(skillID);
         }
         chr.chatMessage(ChatType.Mob, "SkillID: " + skillID);
@@ -497,15 +489,13 @@ public class Mercedes extends Job {
             Option o1 = new Option();
             Option o2 = new Option();
             Option o3 = new Option();
-            switch(skillID) {
+            switch (skillID) {
                 case HEROS_WILL_MERC:
                     tsm.removeAllDebuffs();
                     break;
             }
         }
     }
-
-
 
     // Hit related methods ---------------------------------------------------------------------------------------------
 

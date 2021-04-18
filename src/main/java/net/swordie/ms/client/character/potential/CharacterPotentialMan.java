@@ -30,7 +30,9 @@ public class CharacterPotentialMan {
     /**
      * Adds a potential to the char's potential list. Will override the old one with the same key if one exists.
      * Also sends a packet to the client to indicate the change.
-     * @param potential The potential to add
+     * 
+     * @param potential
+     *            The potential to add
      */
     public void addPotential(CharacterPotential potential) {
         getPotentials().add(potential);
@@ -40,7 +42,9 @@ public class CharacterPotentialMan {
     /**
      * Removes a potential from the char's potential list by key. Will do nothing if there is no such potential.
      * Also sends a packet to the client to indicate the change.
-     * @param key the potential's key to remove
+     * 
+     * @param key
+     *            the potential's key to remove
      */
     public void removePotential(byte key) {
         CharacterPotential cp = getPotentialByKey(key);
@@ -52,11 +56,12 @@ public class CharacterPotentialMan {
 
     /**
      * Returns the current grade of a Char's potential, which is equivalent to the highest potential of the Char.
+     * 
      * @return the current grade of a Char's potential
      */
     public byte getGrade() {
         int max = 0;
-        for(CharacterPotential cp : getPotentials()) {
+        for (CharacterPotential cp : getPotentials()) {
             if (cp.getGrade() > max) {
                 max = cp.getGrade();
             }
@@ -66,7 +71,9 @@ public class CharacterPotentialMan {
 
     /**
      * Generates a new CharacterPotential, based off of the current grade.
-     * @param key the key (line number, 1-3) the generated potential should have
+     * 
+     * @param key
+     *            the key (line number, 1-3) the generated potential should have
      * @return the generated CharacterPotential.
      */
     public CharacterPotential generateRandomPotential(byte key) {
@@ -78,7 +85,5 @@ public class CharacterPotentialMan {
         int skillID = Util.getRandom(GameConstants.CHAR_POT_BASE_ID, GameConstants.CHAR_POT_END_ID + 1);
         return new CharacterPotential(key, skillID, (byte) slv, grade);
     }
-
-
 
 }

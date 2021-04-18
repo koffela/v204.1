@@ -1,9 +1,9 @@
 package net.swordie.ms.life.movement;
 
 /**
-*@author Sjonnie
-*Created on 8/16/2018.
-*/
+ * @author Sjonnie
+ *         Created on 8/16/2018.
+ */
 public enum MovePathAttribute {
     NORMAL(0),
     JUMP(1),

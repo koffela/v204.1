@@ -2,7 +2,7 @@ package net.swordie.ms.enums;
 
 /**
  * @author Sjonnie
- * Created on 8/10/2018.
+ *         Created on 8/10/2018.
  */
 public enum RoomLeaveType {
     MRLeave_UserRequest(0),
@@ -40,7 +40,7 @@ public enum RoomLeaveType {
     CMRLeave_NotOnTime(32),
     CMRLeave_Done(33),
     CMRLeave_Failed(34),
-        ;
+    ;
 
     private int val;
 

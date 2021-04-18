@@ -9,7 +9,7 @@ import javax.persistence.*;
 
 /**
  * @author Sjonnie
- * Created on 8/12/2018.
+ *         Created on 8/12/2018.
  */
 @Entity
 @Table(name = "bbs_replies")

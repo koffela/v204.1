@@ -47,29 +47,29 @@ public class Kanna extends Job {
     public static final int NIMBUS_CURSE = 42101005;
     public static final int HAKU_REBORN = 42101002;
 
-    public static final int KISHIN_SHOUKAN = 42111003; //summon
-    public static final int BLOSSOM_BARRIER = 42111004; //AoE
-    public static final int SOUL_SHEAR = 42111002; //Reactive Skill [4033270 - soul shear balls]
+    public static final int KISHIN_SHOUKAN = 42111003; // summon
+    public static final int BLOSSOM_BARRIER = 42111004; // AoE
+    public static final int SOUL_SHEAR = 42111002; // Reactive Skill [4033270 - soul shear balls]
     public static final int SOUL_SHEAR_BOMB_ITEM_ID = 4033270;
 
-    public static final int MONKEY_SPIRITS = 42120003; //Passive activation summon
-    public static final int BELLFLOWER_BARRIER = 42121005; //AoE
+    public static final int MONKEY_SPIRITS = 42120003; // Passive activation summon
+    public static final int BELLFLOWER_BARRIER = 42121005; // AoE
     public static final int AKATUSKI_HERO_KANNA = 42121006;
-    public static final int NINE_TAILED_FURY = 42121024; //Attacking Skill + Buff
+    public static final int NINE_TAILED_FURY = 42121024; // Attacking Skill + Buff
     public static final int BINDING_TEMPEST = 42121004;
     public static final int BLOSSOMING_DAWN = 42121007;
 
-    public static final int VERITABLE_PANDEMONIUM = 42121052; //Immobility Debuff
+    public static final int VERITABLE_PANDEMONIUM = 42121052; // Immobility Debuff
     public static final int PRINCESS_VOW_KANNA = 42121053;
     public static final int BLACKHEARTED_CURSE = 42121054;
 
-    //Haku Buffs
+    // Haku Buffs
     public static final int HAKUS_GIFT = 42121020;
     public static final int FOXFIRE = 42121021;
     public static final int HAKUS_BLESSING = 42121022;
     public static final int BREATH_UNSEEN = 42121023;
 
-    private int[] buffs = new int[]{
+    private int[] buffs = new int[] {
             HAKU_REBORN,
             RADIANT_PEACOCK,
             KISHIN_SHOUKAN,
@@ -87,8 +87,6 @@ public class Kanna extends Job {
     public boolean isHandlerOfJob(short id) {
         return JobConstants.isKanna(id);
     }
-
-
 
     // Buff related methods --------------------------------------------------------------------------------------------
 
@@ -116,7 +114,7 @@ public class Kanna extends Job {
                 o1.tOption = si.getValue(time, slv);
                 tsm.putCharacterStatValue(Booster, o1);
                 break;
-            case KISHIN_SHOUKAN: //TODO
+            case KISHIN_SHOUKAN: // TODO
                 chr.getField().setKishin(true);
 
                 Summon.summonKishin(chr, slv);
@@ -126,7 +124,7 @@ public class Kanna extends Job {
                 o1.nValue = si.getValue(x, slv);
                 o1.tStart = (int) System.currentTimeMillis();
                 o1.tTerm = si.getValue(time, slv);
-                tsm.putCharacterStatValue(IndieStatR, o1); //Indie
+                tsm.putCharacterStatValue(IndieStatR, o1); // Indie
                 break;
             case PRINCESS_VOW_KANNA:
                 o1.nReason = skillID;
@@ -204,8 +202,6 @@ public class Kanna extends Job {
         tsm.sendSetStatPacket();
     }
 
-
-
     // Attack related methods ------------------------------------------------------------------------------------------
 
     @Override
@@ -234,7 +230,7 @@ public class Kanna extends Job {
                     if (mob == null) {
                         continue;
                     }
-                    if(!mob.isBoss()) {
+                    if (!mob.isBoss()) {
                         MobTemporaryStat mts = mob.getTemporaryStat();
                         o1.nOption = 1;
                         o1.rOption = skill.getSkillId();
@@ -269,7 +265,7 @@ public class Kanna extends Job {
         SkillInfo si = SkillData.getSkillInfoById(skill.getSkillId());
         byte slv = (byte) skill.getCurrentLevel();
         int proc = si.getValue(prop, slv);
-        for(MobAttackInfo mai : attackInfo.mobAttackInfo) {
+        for (MobAttackInfo mai : attackInfo.mobAttackInfo) {
             if (Util.succeedProp(proc)) {
                 Mob mob = (Mob) field.getLifeByObjectID(mai.mobId);
                 if (mob == null) {
@@ -284,7 +280,7 @@ public class Kanna extends Job {
 
     private void explodeSoulShearBomb() {
         Set<Drop> soulShearBombSet = chr.getField().getDrops().stream().filter(d -> !d.isMoney() && d.getItem().getItemId() == SOUL_SHEAR_BOMB_ITEM_ID).collect(Collectors.toSet());
-        for(Drop soulShearBomb : soulShearBombSet) {
+        for (Drop soulShearBomb : soulShearBombSet) {
             chr.getField().broadcastPacket(DropPool.dropExplodeField(soulShearBomb.getObjectId()));
             soulShearBomb.broadcastLeavePacket();
         }
@@ -294,8 +290,6 @@ public class Kanna extends Job {
     public int getFinalAttackSkill() {
         return 0;
     }
-
-
 
     // Skill related methods -------------------------------------------------------------------------------------------
 
@@ -331,7 +325,7 @@ public class Kanna extends Job {
                     o1.nValue = si.getValue(indieDamR, slv);
                     o1.tStart = (int) System.currentTimeMillis();
                     o1.tTerm = si.getValue(time, slv);
-                    tsm.putCharacterStatValue(IndieDamR, o1); //Indie
+                    tsm.putCharacterStatValue(IndieDamR, o1); // Indie
                     tsm.sendSetStatPacket();
                     break;
                 case BLOSSOMING_DAWN:
@@ -341,8 +335,6 @@ public class Kanna extends Job {
         }
     }
 
-
-
     // Hit related methods ---------------------------------------------------------------------------------------------
 
     @Override
@@ -351,14 +343,14 @@ public class Kanna extends Job {
         Option o = new Option();
         int foxfires = 6;
         if (tsm.hasStat(FireBarrier)) {
-            if(foxfires > 1) {
+            if (foxfires > 1) {
                 foxfires = foxfires - 1;
-                }
-            if(foxfires == 4 || foxfires == 3) {
+            }
+            if (foxfires == 4 || foxfires == 3) {
                 o.nOption = 2;
                 tsm.putCharacterStatValue(FireBarrier, o);
                 tsm.sendSetStatPacket();
-            } else if(foxfires == 2) {
+            } else if (foxfires == 2) {
                 o.nOption = 1;
                 tsm.putCharacterStatValue(FireBarrier, o);
                 tsm.sendSetStatPacket();

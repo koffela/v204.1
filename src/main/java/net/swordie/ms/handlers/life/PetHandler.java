@@ -29,7 +29,6 @@ public class PetHandler {
 
     private static final Logger log = Logger.getLogger(PetHandler.class);
 
-
     @Handler(op = InHeader.USER_ACTIVATE_PET_REQUEST)
     public static void handleUserActivatePetRequest(Client c, InPacket inPacket) {
         Char chr = c.getChr();
@@ -58,10 +57,7 @@ public class PetHandler {
             chr.addPet(pet);
             chr.getField().broadcastPacket(UserLocal.petActivateChange(pet, true, (byte) 0));
         } else {
-            Pet pet = chr.getPets()
-                    .stream()
-                    .filter(p -> p.getItem().getActiveState() == petItem.getActiveState())
-                    .findFirst().orElse(null);
+            Pet pet = chr.getPets().stream().filter(p -> p.getItem().getActiveState() == petItem.getActiveState()).findFirst().orElse(null);
             petItem.setActiveState((byte) 0);
             chr.removePet(pet);
             chr.getField().broadcastPacket(UserLocal.petActivateChange(pet, false, (byte) 0));
@@ -173,11 +169,9 @@ public class PetHandler {
         Skill skill = chr.getSkill(skillID);
         Pet pet = chr.getPetByIdx(petIdx);
         int coolTime = si == null ? 0 : si.getValue(SkillStat.cooltime, 1);
-        if (skillID != 0 && (si == null || pet == null || !pet.getItem().hasPetSkill(PetSkill.AUTO_BUFF) ||
-                skill == null || skill.getCurrentLevel() == 0 || coolTime > 0)) {
+        if (skillID != 0 && (si == null || pet == null || !pet.getItem().hasPetSkill(PetSkill.AUTO_BUFF) || skill == null || skill.getCurrentLevel() == 0 || coolTime > 0)) {
             chr.chatMessage("Something went wrong when adding the pet skill.");
-            chr.getOffenseManager().addOffense(String.format("Character %d tried to illegally add a pet skill (skillID = %d, skill = %s, " +
-                    "pet = %s, coolTime = %d)", chr.getId(), skillID, skill, pet, coolTime));
+            chr.getOffenseManager().addOffense(String.format("Character %d tried to illegally add a pet skill (skillID = %d, skill = %s, " + "pet = %s, coolTime = %d)", chr.getId(), skillID, skill, pet, coolTime));
             chr.dispose();
             return;
         }

@@ -11,8 +11,7 @@ public enum InvType {
     CONSUME(2),
     ETC(4),
     INSTALL(3),
-    CASH(5)
-    ;
+    CASH(5);
 
     private byte val;
 
@@ -35,7 +34,7 @@ public enum InvType {
     public static InvType getInvTypeByString(String subMap) {
         subMap = subMap.toLowerCase();
         InvType res = null;
-        switch(subMap) {
+        switch (subMap) {
             case "cash":
             case "pet":
                 res = CASH;

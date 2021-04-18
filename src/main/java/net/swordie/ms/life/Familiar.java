@@ -8,13 +8,14 @@ import javax.persistence.*;
 
 /**
  * @author Sjonnie
- * Created on 6/9/2018.
+ *         Created on 6/9/2018.
  */
 @Entity
 @Table(name = "familiars")
 public class Familiar extends Life {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private int idk1;
     private int familiarID;

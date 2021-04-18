@@ -68,7 +68,6 @@ public class DatabaseManager {
     private static SessionFactory sessionFactory;
     private static List<Session> sessions;
 
-
     public static void init() {
         Configuration configuration = new Configuration().configure();
         configuration.setProperty("autoReconnect", "true");
@@ -136,7 +135,7 @@ public class DatabaseManager {
                 EmployeeTrunk.class,
                 MerchantItem.class,
         };
-        for(Class clazz : dbClasses) {
+        for (Class clazz : dbClasses) {
             configuration.addAnnotatedClass(clazz);
         }
         sessionFactory = configuration.buildSessionFactory();
@@ -194,7 +193,7 @@ public class DatabaseManager {
     public static Object getObjFromDB(Class clazz, int id) {
         log.info(String.format("%s: Trying to get obj %s with id %d.", LocalDateTime.now(), clazz, id));
         Object o = null;
-        try(Session session = getSession()) {
+        try (Session session = getSession()) {
             Transaction transaction = session.beginTransaction();
             // String.format for query, just to fill in the class
             // Can't set the FROM clause with a parameter it seems

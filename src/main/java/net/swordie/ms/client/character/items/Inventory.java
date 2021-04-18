@@ -45,7 +45,7 @@ public class Inventory {
         List<Item> items = new CopyOnWriteArrayList<>();
         for (Item item : getItems()) {
             if (item instanceof PetItem) {
-                items.add(ItemData.getItemDeepCopy(item.getItemId())); //item.deepCopy cannot be used on pets, still putting it in different if state because other items can have quantity
+                items.add(ItemData.getItemDeepCopy(item.getItemId())); // item.deepCopy cannot be used on pets, still putting it in different if state because other items can have quantity
             } else {
                 items.add(item.deepCopy());
             }
@@ -150,10 +150,7 @@ public class Inventory {
         if (ii == null) {
             return getItemByItemID(itemId);
         }
-        return getItems().stream()
-                .filter(item -> item.getItemId() == itemId && item.getQuantity() < ii.getSlotMax())
-                .findFirst()
-                .orElse(null);
+        return getItems().stream().filter(item -> item.getItemId() == itemId && item.getQuantity() < ii.getSlotMax()).findFirst().orElse(null);
     }
 
     public Item getItemBySN(long sn) {

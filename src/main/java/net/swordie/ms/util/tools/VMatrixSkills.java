@@ -13,7 +13,7 @@ import java.util.List;
 public class VMatrixSkills {
     public static void main(String[] args) {
         int jobID = 212;
-        VCore.loadVCoreFromFile(new File(ServerConstants.DAT_DIR,  "VCore.dat"), true);
+        VCore.loadVCoreFromFile(new File(ServerConstants.DAT_DIR, "VCore.dat"), true);
         List<VCoreData> coreByJob = VCore.getNodesForJob(jobID);
         for (VCoreData core : coreByJob) {
             if (core.getType() == VCore.SKILL) {

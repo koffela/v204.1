@@ -64,7 +64,7 @@ public class ItemHandler {
             chr.dispose();
             return;
         }
-        inPacket.decodeInt(); //tick
+        inPacket.decodeInt(); // tick
         short slot = inPacket.decodeShort();
         int itemID = inPacket.decodeInt();
         ItemInfo ii = ItemData.getItemInfoByID(itemID);
@@ -75,36 +75,31 @@ public class ItemHandler {
             chr.consumeItem(itemID, 1);
             chr.dispose();
             return;
-        } else
-        if (itemID == 2030002) {
+        } else if (itemID == 2030002) {
             Field ellinia = chr.getOrCreateFieldByCurrentInstanceType(101000000);
             chr.warp(ellinia);
             chr.consumeItem(itemID, 1);
             chr.dispose();
             return;
-        } else
-        if (itemID == 2030003) {
+        } else if (itemID == 2030003) {
             Field perion = chr.getOrCreateFieldByCurrentInstanceType(102000000);
             chr.warp(perion);
             chr.consumeItem(itemID, 1);
             chr.dispose();
             return;
-        } else
-        if (itemID == 2030004) {
+        } else if (itemID == 2030004) {
             Field henesys = chr.getOrCreateFieldByCurrentInstanceType(100000000);
             chr.warp(henesys);
             chr.consumeItem(itemID, 1);
             chr.dispose();
             return;
-        } else
-        if (itemID == 2030005) {
+        } else if (itemID == 2030005) {
             Field kerning = chr.getOrCreateFieldByCurrentInstanceType(103000000);
             chr.warp(kerning);
             chr.consumeItem(itemID, 1);
             chr.dispose();
             return;
-        } else
-        if (itemID == 2030006) {
+        } else if (itemID == 2030006) {
             Field sleepy = chr.getOrCreateFieldByCurrentInstanceType(105000000);
             chr.warp(sleepy);
             chr.consumeItem(itemID, 1);
@@ -118,7 +113,6 @@ public class ItemHandler {
         }
     }
 
-
     @Handler(op = InHeader.USER_STAT_CHANGE_ITEM_CANCEL_REQUEST)
     public static void handleUserStatChangeItemCancelRequest(Char chr, InPacket inPacket) {
         TemporaryStatManager tsm = chr.getTemporaryStatManager();
@@ -128,7 +122,7 @@ public class ItemHandler {
     }
 
     @Handler(op = InHeader.USER_FREE_MIRACLE_CUBE_ITEM_USE_REQUEST)
-    public static void handleUserFreeMiracleCubeItemUserRequest(Client c, InPacket inPacket){
+    public static void handleUserFreeMiracleCubeItemUserRequest(Client c, InPacket inPacket) {
         Char chr = c.getChr();
         Inventory useInv = chr.getInventoryByType(CONSUME);
         inPacket.decodeInt(); // tick
@@ -140,12 +134,11 @@ public class ItemHandler {
         }
         int itemID = item.getItemId();
 
-        if(!ItemConstants.MEISTERS_CUBES.contains(itemID) && !ItemConstants.MASTER_CRAFTSMANS_CUBES.contains(itemID) && !ItemConstants.OCCULT_CUBES.contains(itemID) && !ItemConstants.BONUS_OCCULT_CUBES.contains(itemID)){
+        if (!ItemConstants.MEISTERS_CUBES.contains(itemID) && !ItemConstants.MASTER_CRAFTSMANS_CUBES.contains(itemID) && !ItemConstants.OCCULT_CUBES.contains(itemID) && !ItemConstants.BONUS_OCCULT_CUBES.contains(itemID)) {
             String msg = String.format("Character %d tried to use a non-cube (id %d) on an equip via Use inventory. OPCode : %d", chr.getId(), itemID, InHeader.USER_FREE_MIRACLE_CUBE_ITEM_USE_REQUEST.getValue());
             chr.getOffenseManager().addOffense(msg);
             chr.dispose();
-        }
-        else{
+        } else {
             switch (itemID) {
                 case ItemConstants.MEISTERS_CUBE:
                 case ItemConstants.REBOOT_MEISTERS_CUBE:
@@ -169,7 +162,7 @@ public class ItemHandler {
         }
     }
 
-    private static void useConsumeItemMiracleCube(Client c, Char chr, int cubeId, Item item, short ePos, ItemGrade itemGradeMax, boolean bonus){
+    private static void useConsumeItemMiracleCube(Client c, Char chr, int cubeId, Item item, short ePos, ItemGrade itemGradeMax, boolean bonus) {
         InvType invType = ePos < 0 ? EQUIPPED : EQUIP;
         Equip equip = (Equip) chr.getInventoryByType(invType).getItemBySlot(ePos);
         if (equip == null) {
@@ -194,7 +187,7 @@ public class ItemHandler {
         if (tierUp) {
             hiddenValue++;
         }
-        if(bonus){
+        if (bonus) {
             equip.setHiddenOptionBonus(hiddenValue, ItemConstants.THIRD_LINE_CHANCE);
         } else {
             equip.setHiddenOptionBase(hiddenValue, ItemConstants.THIRD_LINE_CHANCE);
@@ -225,8 +218,6 @@ public class ItemHandler {
             Item reward = itemInfo.getRandomReward();
             chr.addItemToInventory(reward);
 
-
-
         } else if (itemID / 10000 == 539) {
             // Avatar Megaphones
             List<String> lineList = new ArrayList<>();
@@ -238,7 +229,6 @@ public class ItemHandler {
             World world = c.getWorld();
             world.broadcastPacket(WvsContext.setAvatarMegaphone(chr, itemID, lineList, whisperIcon));
 
-
         } else if (itemType == 512) { // Weather Effects
             String text = inPacket.decodeString();
             Field field = c.getChr().getField();
@@ -247,13 +237,11 @@ public class ItemHandler {
             ActionListener taskPerformer = new ActionListener() {
                 public void actionPerformed(ActionEvent evt) {
                     field.broadcastPacket(FieldPacket.removeBlowWeather());
-                    //       chr.write(CField.removeBlowWeather());
+                    // chr.write(CField.removeBlowWeather());
                     ((javax.swing.Timer) evt.getSource()).stop();
                 }
             };
             new Timer(delay, taskPerformer).start();
-
-
 
         } else if (itemID / 10000 == 519) {
             // Pet Skill Items
@@ -307,8 +295,7 @@ public class ItemHandler {
                     if (type == 1) {
                         int fieldId = inPacket.decodeInt();
                         Field field = chr.getOrCreateFieldByCurrentInstanceType(fieldId);
-                        if (field == null || (field.getFieldLimit() & FieldOption.TeleportItemLimit.getVal()) > 0 ||
-                                !FieldData.getWorldMapFields().contains(fieldId)) {
+                        if (field == null || (field.getFieldLimit() & FieldOption.TeleportItemLimit.getVal()) > 0 || !FieldData.getWorldMapFields().contains(fieldId)) {
                             chr.chatMessage("You may not warp to that map.");
                             chr.dispose();
                             return;
@@ -353,8 +340,6 @@ public class ItemHandler {
                     }
                     break;
 
-
-
                 case ItemConstants.RED_CUBE: // Red Cube
                 case ItemConstants.BLACK_CUBE: // Black cube
                     short ePos = (short) inPacket.decodeInt();
@@ -370,8 +355,8 @@ public class ItemHandler {
                         chr.dispose();
                         return;
                     }
-                    if(itemID == ItemConstants.BLACK_CUBE){
-                        //Have to handle this here atleast in 176  as well since "another try" button doesn't trigger memorial packet ; thus rolling continuously and not saving previous potential
+                    if (itemID == ItemConstants.BLACK_CUBE) {
+                        // Have to handle this here atleast in 176 as well since "another try" button doesn't trigger memorial packet ; thus rolling continuously and not saving previous potential
                         MemorialCubeInfo mci = chr.getMemorialCubeInfo();
                         if (mci != null) {
                             Inventory inventory = chr.getInventoryByType(invType);
@@ -403,8 +388,8 @@ public class ItemHandler {
                         c.write(WvsContext.blackCubeResult(equip, chr.getMemorialCubeInfo()));
                     }
                     equip.updateToChar(chr);
-                    //zero weapon
-                    if(ItemConstants.isLongOrBigSword(equip.getItemId())) {
+                    // zero weapon
+                    if (ItemConstants.isLongOrBigSword(equip.getItemId())) {
                         Equip zeroWeapon = (Equip) chr.getEquippedInventory().getItemBySlot(11);
                         if (zeroWeapon != null) {
                             zeroWeapon.setOptions(equip.getOptions());
@@ -431,8 +416,8 @@ public class ItemHandler {
                         chr.dispose();
                         return;
                     }
-                    if(itemID == ItemConstants.WHITE_BONUS_POTENTIAL_CUBE){
-                        //Have to handle this here atleast in 176 as well since "another try" button doesn't trigger memorial packet ; thus rolling continuously and not saving previous potential
+                    if (itemID == ItemConstants.WHITE_BONUS_POTENTIAL_CUBE) {
+                        // Have to handle this here atleast in 176 as well since "another try" button doesn't trigger memorial packet ; thus rolling continuously and not saving previous potential
                         MemorialCubeInfo mci = chr.getMemorialCubeInfo();
                         if (mci != null) {
                             Inventory inventory = chr.getInventoryByType(invType);
@@ -484,7 +469,7 @@ public class ItemHandler {
                     String text = inPacket.decodeString();
                     boolean whisperIcon = inPacket.decodeByte() != 0;
                     World world = chr.getClient().getWorld();
-                    BroadcastMsg smega = BroadcastMsg.megaphone(String.format("%s%s : %s", medalString, chr.getName(), text),(byte) chr.getClient().getChannelInstance().getChannelId(), whisperIcon, chr);
+                    BroadcastMsg smega = BroadcastMsg.megaphone(String.format("%s%s : %s", medalString, chr.getName(), text), (byte) chr.getClient().getChannelInstance().getChannelId(), whisperIcon, chr);
                     world.broadcastPacket(WvsContext.broadcastMsg(smega));
                     break;
 
@@ -525,7 +510,7 @@ public class ItemHandler {
                     return;
             }
         }
-        if (itemID != 5040004 && itemID / 10000 != 545 ) { //tp rock and portable potions stores / storage
+        if (itemID != 5040004 && itemID / 10000 != 545) { // tp rock and portable potions stores / storage
             chr.consumeItem(item);
         }
         chr.dispose();
@@ -564,7 +549,6 @@ public class ItemHandler {
         chr.dispose();
     }
 
-
     @Handler(op = InHeader.USER_SCRIPT_ITEM_USE_REQUEST)
     public static void handleUserScriptItemUseRequest(Client c, InPacket inPacket) {
         inPacket.decodeInt(); // tick
@@ -591,7 +575,6 @@ public class ItemHandler {
         chr.dispose();
     }
 
-
     @Handler(op = InHeader.USER_EQUIPMENT_ENCHANT_WITH_SINGLE_UI_REQUEST)
     public static void handleUserEquipmentEnchantWithSingleUIRequest(Client c, InPacket inPacket) {
         byte equipmentEnchantType = inPacket.decodeByte();
@@ -615,15 +598,13 @@ public class ItemHandler {
                 Equip equip = (Equip) inv.getItemBySlot(pos);
                 Equip prevEquip = equip.deepCopy();
                 if (equip == null || equip.getBaseStat(tuc) <= 0 || equip.hasSpecialAttribute(EquipSpecialAttribute.Vestige)) {
-                    chr.getOffenseManager().addOffense(String.format("Character %d tried to enchant a non-scrollable equip (pos %d, itemid %d).",
-                            chr.getId(), pos, equip == null ? 0 : equip.getItemId()));
+                    chr.getOffenseManager().addOffense(String.format("Character %d tried to enchant a non-scrollable equip (pos %d, itemid %d).", chr.getId(), pos, equip == null ? 0 : equip.getItemId()));
                     chr.write(FieldPacket.showUnknownEnchantFailResult((byte) 0));
                     return;
                 }
                 List<ScrollUpgradeInfo> suis = ItemConstants.getScrollUpgradeInfosByEquip(equip);
                 if (scrollID < 0 || scrollID >= suis.size()) {
-                    chr.getOffenseManager().addOffense(String.format("Characer %d tried to spell trace scroll with an invalid scoll ID (%d, " +
-                            "itemID %d).", chr.getId(), scrollID, equip.getItemId()));
+                    chr.getOffenseManager().addOffense(String.format("Characer %d tried to spell trace scroll with an invalid scoll ID (%d, " + "itemID %d).", chr.getId(), scrollID, equip.getItemId()));
                     chr.write(FieldPacket.showUnknownEnchantFailResult((byte) 0));
                     return;
                 }
@@ -640,7 +621,7 @@ public class ItemHandler {
                 }
                 break;
             case HyperUpgradeResult:
-                inPacket.decodeInt(); //tick
+                inPacket.decodeInt(); // tick
                 int eqpPos = inPacket.decodeShort();
                 boolean extraChanceFromMiniGame = inPacket.decodeByte() != 0;
                 equip = (Equip) chr.getEquipInventory().getItemBySlot(eqpPos);
@@ -664,11 +645,7 @@ public class ItemHandler {
                     chr.write(FieldPacket.showUnknownEnchantFailResult((byte) 0));
                     return;
                 }
-                if (!ItemConstants.isUpgradable(equip.getItemId()) ||
-                        (equip.getBaseStat(tuc) != 0 && !c.getWorld().isReboot()) ||
-                        chr.getEquipInventory().getEmptySlots() == 0 ||
-                        equip.getChuc() >= GameConstants.getMaxStars(equip) ||
-                        equip.hasSpecialAttribute(EquipSpecialAttribute.Vestige)) {
+                if (!ItemConstants.isUpgradable(equip.getItemId()) || (equip.getBaseStat(tuc) != 0 && !c.getWorld().isReboot()) || chr.getEquipInventory().getEmptySlots() == 0 || equip.getChuc() >= GameConstants.getMaxStars(equip) || equip.hasSpecialAttribute(EquipSpecialAttribute.Vestige)) {
                     chr.chatMessage("Equipment cannot be enhanced.");
                     chr.write(FieldPacket.showUnknownEnchantFailResult((byte) 0));
                     return;
@@ -686,8 +663,7 @@ public class ItemHandler {
                 }
                 int destroyProp = GameConstants.getEnchantmentDestroyRate(equip);
                 if (equippedInv && destroyProp > 0 && chr.getEquipInventory().getEmptySlots() == 0) {
-                    c.write(WvsContext.broadcastMsg(BroadcastMsg.popUpMessage("You do not have enough space in your " +
-                            "equip inventory in case your item gets destroyed.")));
+                    c.write(WvsContext.broadcastMsg(BroadcastMsg.popUpMessage("You do not have enough space in your " + "equip inventory in case your item gets destroyed.")));
                     return;
                 }
                 success = Util.succeedProp(successProp, 1000);
@@ -728,8 +704,7 @@ public class ItemHandler {
                 short fromPos = inPacket.decodeShort();
                 Equip fromEq = (Equip) chr.getEquipInventory().getItemBySlot(fromPos);
                 Equip toEq = (Equip) chr.getEquipInventory().getItemBySlot(toPos);
-                if (fromEq == null || toEq == null || fromEq.getItemId() != toEq.getItemId() ||
-                        !fromEq.hasSpecialAttribute(EquipSpecialAttribute.Vestige)) {
+                if (fromEq == null || toEq == null || fromEq.getItemId() != toEq.getItemId() || !fromEq.hasSpecialAttribute(EquipSpecialAttribute.Vestige)) {
                     log.error(String.format("Equip transmission failed: from = %s, to = %s", fromEq, toEq));
                     c.write(FieldPacket.showUnknownEnchantFailResult((byte) 0));
                     return;
@@ -746,22 +721,22 @@ public class ItemHandler {
                 ePos = Math.abs(ePos);
                 equip = (Equip) inv.getItemBySlot((short) ePos);
                 if (c.getWorld().isReboot()) {
-                    chr.getOffenseManager().addOffense(String.format("Character %d attempted to scroll in reboot world (pos %d, itemid %d).",
-                            chr.getId(), ePos, equip == null ? 0 : equip.getItemId()));
+                    chr.getOffenseManager().addOffense(String.format("Character %d attempted to scroll in reboot world (pos %d, itemid %d).", chr.getId(), ePos, equip == null ? 0 : equip.getItemId()));
                     chr.dispose();
                     return;
                 }
                 if (equip == null || equip.getBaseStat(tuc) <= 0 || equip.hasSpecialAttribute(EquipSpecialAttribute.Vestige) || !ItemConstants.isUpgradable(equip.getItemId())) {
-                    chr.getOffenseManager().addOffense(String.format("Character %d tried to scroll a non-scrollable equip (pos %d, itemid %d).",
-                            chr.getId(), ePos, equip == null ? 0 : equip.getItemId()));
+                    chr.getOffenseManager().addOffense(String.format("Character %d tried to scroll a non-scrollable equip (pos %d, itemid %d).", chr.getId(), ePos, equip == null ? 0 : equip.getItemId()));
                     chr.dispose();
                     return;
                 }
                 suis = ItemConstants.getScrollUpgradeInfosByEquip(equip);
                 c.write(FieldPacket.scrollUpgradeDisplay(false, suis));
                 break;
-            /*case ScrollTimerEffective:
-                break;*/
+            /*
+             * case ScrollTimerEffective:
+             * break;
+             */
             case HyperUpgradeDisplay:
                 ePos = inPacket.decodeInt();
                 inv = ePos < 0 ? chr.getEquippedInventory() : chr.getEquipInventory();
@@ -774,28 +749,25 @@ public class ItemHandler {
                 }
 
                 if (equip == null || equip.hasSpecialAttribute(EquipSpecialAttribute.Vestige) || !ItemConstants.isUpgradable(equip.getItemId())) {
-                    chr.getOffenseManager().addOffense(String.format("Character %d tried to enchant a non-enchantable equip (pos %d, itemid %d).",
-                            chr.getId(), ePos, equip == null ? 0 : equip.getItemId()));
+                    chr.getOffenseManager().addOffense(String.format("Character %d tried to enchant a non-enchantable equip (pos %d, itemid %d).", chr.getId(), ePos, equip == null ? 0 : equip.getItemId()));
                     chr.write(FieldPacket.showUnknownEnchantFailResult((byte) 0));
                     return;
                 }
-                c.write(FieldPacket.hyperUpgradeDisplay(equip, equip.isSuperiorEqp() ? equip.getChuc() > 0 : equip.getChuc() > 5 && equip.getChuc() % 5 != 0,
-                        GameConstants.getEnchantmentMesoCost(equip.getrLevel() + equip.getiIncReq(), equip.getChuc(), equip.isSuperiorEqp()),
-                        0, GameConstants.getEnchantmentSuccessRate(equip),
-                        GameConstants.getEnchantmentDestroyRate(equip), equip.getDropStreak() >= 2));
+                c.write(FieldPacket.hyperUpgradeDisplay(equip, equip.isSuperiorEqp() ? equip.getChuc() > 0 : equip.getChuc() > 5 && equip.getChuc() % 5 != 0, GameConstants.getEnchantmentMesoCost(equip.getrLevel() + equip.getiIncReq(), equip.getChuc(), equip.isSuperiorEqp()), 0, GameConstants.getEnchantmentSuccessRate(equip), GameConstants.getEnchantmentDestroyRate(equip), equip.getDropStreak() >= 2));
                 break;
             case MiniGameDisplay:
                 c.write(FieldPacket.miniGameDisplay(eeType));
                 break;
-            //case ShowScrollUpgradeResult:
+            // case ShowScrollUpgradeResult:
             case ScrollTimerEffective:
             case ShowHyperUpgradeResult:
                 break;
             /*
-            case ShowScrollVestigeCompensationResult:
-            case ShowTransmissionResult:
-            case ShowUnknownFailResult:
-                break;*/
+             * case ShowScrollVestigeCompensationResult:
+             * case ShowTransmissionResult:
+             * case ShowUnknownFailResult:
+             * break;
+             */
             default:
                 log.debug("Unhandled Equipment Enchant Type: " + eeType);
                 chr.write(FieldPacket.showUnknownEnchantFailResult((byte) 0));
@@ -805,7 +777,7 @@ public class ItemHandler {
 
     @Handler(op = InHeader.USER_SKILL_LEARN_ITEM_USE_REQUEST)
     public static void handleUserLearnItemUseRequest(Client c, InPacket inPacket) {
-        inPacket.decodeInt(); //tick
+        inPacket.decodeInt(); // tick
         short pos = inPacket.decodeShort();
         int itemID = inPacket.decodeInt();
         Char chr = c.getChr();
@@ -855,7 +827,6 @@ public class ItemHandler {
         }
         chr.dispose();
     }
-
 
     @Handler(op = InHeader.SOCKET_CREATE_REQUEST)
     public static void handleSocketCreateRequest(Client c, InPacket inPacket) {
@@ -920,8 +891,7 @@ public class ItemHandler {
         short ePos = inPacket.decodeShort();
         Item item = chr.getConsumeInventory().getItemBySlot(uPos);
         Equip equip = (Equip) chr.getEquipInventory().getItemBySlot(ePos);
-        if (item == null || equip == null || !ItemConstants.isWeapon(equip.getItemId()) ||
-                !ItemConstants.isSoulEnchanter(item.getItemId()) || equip.getrLevel() + equip.getiIncReq() < ItemConstants.MIN_LEVEL_FOR_SOUL_SOCKET) {
+        if (item == null || equip == null || !ItemConstants.isWeapon(equip.getItemId()) || !ItemConstants.isSoulEnchanter(item.getItemId()) || equip.getrLevel() + equip.getiIncReq() < ItemConstants.MIN_LEVEL_FOR_SOUL_SOCKET) {
             chr.dispose();
             return;
         }
@@ -943,8 +913,7 @@ public class ItemHandler {
         short ePos = inPacket.decodeShort();
         Item item = chr.getConsumeInventory().getItemBySlot(uPos);
         Equip equip = (Equip) chr.getEquipInventory().getItemBySlot(ePos);
-        if (item == null || equip == null || !ItemConstants.isWeapon(equip.getItemId()) ||
-                !ItemConstants.isSoul(item.getItemId()) || equip.getSoulSocketId() == 0) {
+        if (item == null || equip == null || !ItemConstants.isWeapon(equip.getItemId()) || !ItemConstants.isSoul(item.getItemId()) || equip.getSoulSocketId() == 0) {
             chr.dispose();
             return;
         }
@@ -966,9 +935,7 @@ public class ItemHandler {
             Option o = new Option();
             o.nOption = tsm.getOption(SoulMP).nOption;
             o.xOption = tsm.getOption(SoulMP).xOption;
-            o.rOption = ItemConstants.getSoulSkillFromSoulID(
-                    ((Equip) chr.getEquippedItemByBodyPart(BodyPart.Weapon)).getSoulOptionId()
-            );
+            o.rOption = ItemConstants.getSoulSkillFromSoulID(((Equip) chr.getEquippedItemByBodyPart(BodyPart.Weapon)).getSoulOptionId());
             tsm.putCharacterStatValue(FullSoulMP, o);
             tsm.sendSetStatPacket();
         }
@@ -1055,12 +1022,10 @@ public class ItemHandler {
         Skill skill = chr.getSkill(skillID, true);
         if (si.getHyper() != 0) { // Passive hyper
             ExtendSP esp = chr.getAvatarData().getCharacterStat().getExtendSP();
-            SPSet spSet = si.getHyper() == 1 ? esp.getSpSet().get(SkillConstants.PASSIVE_HYPER_JOB_LEVEL - 1) :
-                    esp.getSpSet().get(SkillConstants.ACTIVE_HYPER_JOB_LEVEL - 1);
+            SPSet spSet = si.getHyper() == 1 ? esp.getSpSet().get(SkillConstants.PASSIVE_HYPER_JOB_LEVEL - 1) : esp.getSpSet().get(SkillConstants.ACTIVE_HYPER_JOB_LEVEL - 1);
             int curSp = spSet.getSp();
             if (curSp <= 0 || skill.getCurrentLevel() != 0) {
-                log.error(String.format("Character %d attempted assigning hyper skill SP without having it, or too much. Available SP %d, current %d (%d, job %d)",
-                        chr.getId(), curSp, skill.getCurrentLevel(), skillID, chr.getJob()));
+                log.error(String.format("Character %d attempted assigning hyper skill SP without having it, or too much. Available SP %d, current %d (%d, job %d)", chr.getId(), curSp, skill.getCurrentLevel(), skillID, chr.getJob()));
                 chr.dispose();
                 return;
             }
@@ -1071,8 +1036,7 @@ public class ItemHandler {
             int availableSp = totalHyperSp - spentSp;
             int neededSp = SkillConstants.getNeededSpForHyperStatSkill(skill.getCurrentLevel() + 1);
             if (skill.getCurrentLevel() >= skill.getMaxLevel() || availableSp < neededSp) {
-                log.error(String.format("Character %d attempted assigning too many hyper stat levels. Available SP %d, needed %d, current %d (%d, job %d)",
-                        chr.getId(), availableSp, neededSp, skill.getCurrentLevel(), skillID, chr.getJob()));
+                log.error(String.format("Character %d attempted assigning too many hyper stat levels. Available SP %d, needed %d, current %d (%d, job %d)", chr.getId(), availableSp, neededSp, skill.getCurrentLevel(), skillID, chr.getJob()));
                 chr.dispose();
                 return;
             }
@@ -1130,11 +1094,11 @@ public class ItemHandler {
         if (chr.getHP() > 0 && ItemConstants.isBridleItem(itemID)) {
             ItemInfo bridle = ItemData.getItemInfoByID(itemID);
             if (mob.getTemplateId() == bridle.getMobID()) {
-                if (mob.getHp() < (mob.getMaxHp() * bridle.getMobHP() / 100)) { //success/failure hp check
+                if (mob.getHp() < (mob.getMaxHp() * bridle.getMobHP() / 100)) { // success/failure hp check
                     if (chr.canHold(bridle.getCreateID())) { // check if we have space
                         chr.write(MobPool.effectByItem(mob, item.getItemId(), true));// do success handler
                         chr.consumeItem(item); // consume the bridle
-                        chr.addItemToInventory(bridle.getCreateID(), 1);//gives the bridle reward
+                        chr.addItemToInventory(bridle.getCreateID(), 1);// gives the bridle reward
                         mob.die(false);
                     } else {
                         chr.chatMessage("Please make more space in your inventory.");
@@ -1148,6 +1112,5 @@ public class ItemHandler {
         }
 
     }
-
 
 }

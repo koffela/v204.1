@@ -60,8 +60,8 @@ public enum Stat {
         List<Stat> stats = new ArrayList<>();
         List<Stat> allStats = Arrays.asList(values());
         Collections.sort(allStats);
-        for(Stat stat : allStats) {
-            if((stat.getVal() & mask) != 0) {
+        for (Stat stat : allStats) {
+            if ((stat.getVal() & mask) != 0) {
                 stats.add(stat);
             }
         }

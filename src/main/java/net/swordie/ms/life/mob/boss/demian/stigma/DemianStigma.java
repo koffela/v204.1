@@ -58,7 +58,7 @@ public class DemianStigma {
     }
 
     public static void changeStigma(Char chr, int newStigma) {
-        //int curStigma = getStigmaCount(chr);
+        // int curStigma = getStigmaCount(chr);
         TemporaryStatManager tsm = chr.getTemporaryStatManager();
         Option o = new Option();
         o.bOption = BossConstants.DEMIAN_MAX_STIGMA;

@@ -18,7 +18,8 @@ import javax.persistence.*;
 @Table(name = "characterstats")
 public class CharacterStat {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
     @Column(name = "characterId")
@@ -159,7 +160,7 @@ public class CharacterStat {
         return mp;
     }
 
-    public short getPop() { //Fame
+    public short getPop() { // Fame
         return (short) pop;
     }
 
@@ -376,15 +377,19 @@ public class CharacterStat {
         outPacket.encodeByte(getPvpGrade());
         outPacket.encodeInt(getPvpPoint());
         outPacket.encodeByte(2);
-        /* Fuck that, setting the above byte lower than 2 will make all 3rd and 4th job that have the property
-         ((skillID % 10000) / 10000 == 0) be bugged (you see the level, but can't actually use it). ?????????????*/
+        /*
+         * Fuck that, setting the above byte lower than 2 will make all 3rd and 4th job that have the property
+         * ((skillID % 10000) / 10000 == 0) be bugged (you see the level, but can't actually use it). ?????????????
+         */
 
         outPacket.encodeByte(getPvpModeType());
         outPacket.encodeInt(getEventPoint());
-        /*outPacket.encodeByte(getAlbaActivityID()); // part time job
-        outPacket.encodeFT(getAlbaStartTime());
-        outPacket.encodeInt(getAlbaDuration());
-        outPacket.encodeByte(getAlbaSpecialRewagrd());*/
+        /*
+         * outPacket.encodeByte(getAlbaActivityID()); // part time job
+         * outPacket.encodeFT(getAlbaStartTime());
+         * outPacket.encodeInt(getAlbaDuration());
+         * outPacket.encodeByte(getAlbaSpecialRewagrd());
+         */
         getCharacterCard().encode(outPacket);
         outPacket.encodeFT(getLastLogout());
         // sub_91A960
@@ -669,4 +674,3 @@ public class CharacterStat {
         this.nextAvailableFameTime = nextAvailableFameTime;
     }
 }
-

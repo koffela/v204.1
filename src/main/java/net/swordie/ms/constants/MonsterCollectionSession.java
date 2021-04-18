@@ -9,7 +9,7 @@ import java.util.*;
 
 /**
  * @author Sjonnie
- * Created on 7/22/2018.
+ *         Created on 7/22/2018.
  */
 public class MonsterCollectionSession {
     private Map<Integer, MonsterCollectionGroup> monsterCollectionGroups = new HashMap<>();
@@ -62,8 +62,7 @@ public class MonsterCollectionSession {
 
     public boolean hasMob(int templateID, MonsterCollectionMobInfo mcmi) {
         int group = mcmi.getPosition() / 5;
-        return monsterCollectionGroups.containsKey(group) &&
-                monsterCollectionGroups.get(group).hasMob(templateID);
+        return monsterCollectionGroups.containsKey(group) && monsterCollectionGroups.get(group).hasMob(templateID);
     }
 
     public void sendCompletionInfo(Char chr, int sessionKey) {
@@ -76,8 +75,7 @@ public class MonsterCollectionSession {
         // 25 mobs per page
         for (int i = 0; i < GameConstants.MOBS_PER_PAGE; i++) {
             int group = i / GameConstants.MOBS_PER_GROUP;
-            boolean hasMob = getMonsterCollectionGroups().containsKey(group) &&
-                    getMonsterCollectionGroups().get(group).hasMobAtPosition(i % 5);
+            boolean hasMob = getMonsterCollectionGroups().containsKey(group) && getMonsterCollectionGroups().get(group).hasMobAtPosition(i % 5);
             char active = hasMob ? '1' : '0';
             stringBuilder.append(active); // probably 3 different properties, so keeping them seperated
             stringBuilder.append(active);

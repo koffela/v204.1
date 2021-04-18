@@ -21,7 +21,7 @@ public class QuestProgressLevelRequirement extends QuestProgressRequirement {
     public QuestProgressLevelRequirement() {
     }
 
-    public QuestProgressLevelRequirement(int level){
+    public QuestProgressLevelRequirement(int level) {
         this.level = level;
     }
 
@@ -55,6 +55,5 @@ public class QuestProgressLevelRequirement extends QuestProgressRequirement {
     public DatSerializable load(DataInputStream dis) throws IOException {
         return new QuestProgressLevelRequirement(dis.readInt());
     }
-
 
 }

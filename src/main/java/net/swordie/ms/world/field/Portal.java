@@ -15,9 +15,7 @@ public class Portal {
     private int delay;
     private int id;
 
-    public Portal(int id, PortalType type, String name, int targetMapId, String targetPortalName, int x, int y,
-                  int horizontalImpact, int verticalImpact, String script, boolean onlyOnce, boolean hideTooltip,
-                  int delay) {
+    public Portal(int id, PortalType type, String name, int targetMapId, String targetPortalName, int x, int y, int horizontalImpact, int verticalImpact, String script, boolean onlyOnce, boolean hideTooltip, int delay) {
         this.id = id;
         this.type = type;
         this.name = name;
@@ -144,10 +142,6 @@ public class Portal {
 
     @Override
     public String toString() {
-        return "Portal{" +
-                "name='" + name + '\'' +
-                ", targetPortalName='" + targetPortalName + '\'' +
-                ", script='" + script + '\'' +
-                '}';
+        return "Portal{" + "name='" + name + '\'' + ", targetPortalName='" + targetPortalName + '\'' + ", script='" + script + '\'' + '}';
     }
 }

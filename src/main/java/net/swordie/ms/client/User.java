@@ -18,7 +18,7 @@ import java.util.Set;
  * A class that represents a User of this system. It is uniquely identified by its username.
  *
  * @author Sjonnie
- * Created on 3/19/2019.
+ *         Created on 3/19/2019.
  */
 @Entity
 @Table(name = "users")
@@ -252,7 +252,7 @@ public class User {
     public PicStatus getPicStatus() {
         PicStatus picStatus;
         String pic = getPic();
-        if(pic == null || pic.length() == 0) {
+        if (pic == null || pic.length() == 0) {
             picStatus = PicStatus.CREATE_PIC;
         } else {
             picStatus = PicStatus.ENTER_PIC;
@@ -334,7 +334,9 @@ public class User {
 
     /**
      * Gets a Char from the current active Account by id.
-     * @param characterId the Char's id
+     * 
+     * @param characterId
+     *            the Char's id
      * @return the corresponding Char, or null if none exist
      */
     public Char getCharById(int characterId) {

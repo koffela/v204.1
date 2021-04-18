@@ -43,7 +43,7 @@ public class QuestProgressMobRequirement extends QuestProgressRequirement implem
 
     public void incCurrentCount(int amount) {
         currentCount += amount;
-        if(currentCount < 0) {
+        if (currentCount < 0) {
             currentCount = 0;
         }
     }

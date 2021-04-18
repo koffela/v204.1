@@ -9,7 +9,7 @@ public class AESCipher {
     private AES pCipher;
 
     public static final short nVersion = ServerConstants.VERSION;
-    private static final byte[] aKey = new byte[]{
+    private static final byte[] aKey = new byte[] {
             (byte) 0x29, (byte) 0x00, (byte) 0x00, (byte) 0x00,
             (byte) 0xE1, (byte) 0x00, (byte) 0x00, (byte) 0x00,
             (byte) 0x52, (byte) 0x00, (byte) 0x00, (byte) 0x00,
@@ -26,7 +26,7 @@ public class AESCipher {
     }
 
     public void Crypt(byte[] aData, int pSrc) {
-        byte[] pdwKey = new byte[]{
+        byte[] pdwKey = new byte[] {
                 (byte) (pSrc & 0xFF), (byte) ((pSrc >> 8) & 0xFF), (byte) ((pSrc >> 16) & 0xFF), (byte) ((pSrc >> 24) & 0xFF)
         };
         Crypt(aData, pdwKey);

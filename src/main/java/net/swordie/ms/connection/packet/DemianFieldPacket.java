@@ -32,8 +32,6 @@ public class DemianFieldPacket {
     public static OutPacket stigmaObjectEffect() {
         OutPacket outPacket = new OutPacket(OutHeader.FIELD_STIGMA_OBJECT_DEC);
 
-
-
         return outPacket;
     }
 
@@ -46,7 +44,7 @@ public class DemianFieldPacket {
         if (create) {
             outPacket.encodeByte(demianFlyingSword.getSwordType().getVal()); // objType
             outPacket.encodeByte(4); // Attack Idx
-            outPacket.encodeInt(demianFlyingSword.getOwner().getTemplateId()); // dwMobTemplateID  |  MobOwner
+            outPacket.encodeInt(demianFlyingSword.getOwner().getTemplateId()); // dwMobTemplateID | MobOwner
             outPacket.encodePositionInt(demianFlyingSword.getPosition());
         }
 
@@ -88,7 +86,7 @@ public class DemianFieldPacket {
     public static OutPacket stigmaRemainTime(int timeMS) {
         OutPacket outPacket = new OutPacket(OutHeader.STIGMA_REMAIN_TIME);
 
-        outPacket.encodeInt(timeMS); // (ms)  | in seconds, in v206
+        outPacket.encodeInt(timeMS); // (ms) | in seconds, in v206
         // outPacket.encodeInt(stack);
         // outPacket.encodeByte(0); // unk
 

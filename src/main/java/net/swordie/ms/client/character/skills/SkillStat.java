@@ -283,8 +283,8 @@ public enum SkillStat {
     ;
 
     public static SkillStat getSkillStatByString(String s) {
-        for(SkillStat skillStat : SkillStat.values()) {
-            if(skillStat.toString().equals(s)) {
+        for (SkillStat skillStat : SkillStat.values()) {
+            if (skillStat.toString().equals(s)) {
                 return skillStat;
             }
         }

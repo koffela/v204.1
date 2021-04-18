@@ -105,7 +105,7 @@ public class TownPortal {
     public void spawnTownPortal() {
         Field fieldField = channel.getField(getFieldFieldId()); // get fieldField
 
-        if(despawnTimer != null && !despawnTimer.isDone()) {
+        if (despawnTimer != null && !despawnTimer.isDone()) {
             despawnTimer.cancel(true);
         }
         despawnTimer = EventManager.addEvent(this::despawnTownPortal, getDuration(), TimeUnit.SECONDS);
@@ -116,7 +116,7 @@ public class TownPortal {
     }
 
     public void despawnTownPortal() {
-        if(despawnTimer != null && !despawnTimer.isDone()) {
+        if (despawnTimer != null && !despawnTimer.isDone()) {
             despawnTimer.cancel(true);
         }
 
@@ -136,18 +136,16 @@ public class TownPortal {
 
     public void removeTownPortalInTownField() { // Normal 'TOWN_PORTAL_REMOVED' only removes the field TownPortals, not the town TownPortals
         Field townField = channel.getField(getTownFieldId());
-        if(townField.getChars().size() <= 0) {
-            chr.write(WvsContext.townPortal(new TownPortal(chr, new Position(), new Position(),
-                    999999999, 999999999, getSkillid(), 1)));
+        if (townField.getChars().size() <= 0) {
+            chr.write(WvsContext.townPortal(new TownPortal(chr, new Position(), new Position(), 999999999, 999999999, getSkillid(), 1)));
         } else {
-            townField.broadcastPacket(WvsContext.townPortal(new TownPortal(chr, new Position(), new Position(),
-                    999999999, 999999999, getSkillid(), 1)));
+            townField.broadcastPacket(WvsContext.townPortal(new TownPortal(chr, new Position(), new Position(), 999999999, 999999999, getSkillid(), 1)));
         }
     }
 
     // Called when characters enter the map with an already existing TownPortal
     public void showTownPortal(Field field) {
-        if(field.isTown()) {
+        if (field.isTown()) {
             chr.write(WvsContext.townPortal(this));
         } else {
             chr.write(FieldPacket.townPortalCreated(this, true));

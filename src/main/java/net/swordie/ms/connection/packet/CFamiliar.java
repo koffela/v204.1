@@ -10,7 +10,7 @@ import net.swordie.ms.life.movement.MovementInfo;
 
 /**
  * @author Sjonnie
- * Created on 6/9/2018.
+ *         Created on 6/9/2018.
  */
 public class CFamiliar {
     // Thanks to nox, my ida wasn't able to give me the correct opcodes :(
@@ -43,7 +43,7 @@ public class CFamiliar {
         return outPacket;
     }
 
-    public static OutPacket familiarAttack(int charID, AttackInfo attackInfo){
+    public static OutPacket familiarAttack(int charID, AttackInfo attackInfo) {
         OutPacket outPacket = new OutPacket(OutHeader.FAMILIAR_ATTACK);
 
         outPacket.encodeInt(charID);

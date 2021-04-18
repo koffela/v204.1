@@ -24,7 +24,6 @@ public class PartyHandler {
 
     private static final Logger log = Logger.getLogger(PartyHandler.class);
 
-
     @Handler(op = InHeader.PARTY_INVITABLE_SET)
     public static void handlePartyInvitableSet(Client c, InPacket inPacket) {
         c.getChr().setPartyInvitable(inPacket.decodeByte() != 0);
@@ -256,9 +255,7 @@ public class PartyHandler {
     public static void handlePartyMemberCandidateRequest(Client c, InPacket inPacket) {
         Char chr = c.getChr();
         Field field = chr.getField();
-        chr.write(WvsContext.partyMemberCandidateResult(field.getChars().stream()
-                .filter(ch -> ch.isPartyInvitable() && !ch.equals(chr) && ch.getParty() == null)
-                .collect(Collectors.toSet())));
+        chr.write(WvsContext.partyMemberCandidateResult(field.getChars().stream().filter(ch -> ch.isPartyInvitable() && !ch.equals(chr) && ch.getParty() == null).collect(Collectors.toSet())));
     }
 
     @Handler(op = InHeader.PARTY_CANDIDATE_REQUEST)

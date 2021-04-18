@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 /**
  * @author Sjonnie
- * Created on 1/2/2019.
+ *         Created on 1/2/2019.
  */
 @Entity
 @Table(name = "equip_drops")

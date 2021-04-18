@@ -63,7 +63,7 @@ public enum InHeader {
     RESERVED_DELETE_CHARACTER_CONFIRM(131),
     RESERVED_DELETE_CHARACTER_CANCEL(132),
     RENAME_CHARACTER(133),
-    //ALIVE_ACK_FAKE(134),
+    // ALIVE_ACK_FAKE(134),
     EXCEPTION_LOG(134),
     PRIVATE_SERVER_PACKET(135),
     RESET_LOGIN_STATE_ON_CHECK_OTP(-1),
@@ -195,7 +195,7 @@ public enum InHeader {
     USER_UPGRADE_ITEM_USE_REQUEST(296),
     USER_UPGRADE_ASSIST_ITEM_USE_REQUEST(297),
     USER_HYPER_UPGRADE_ITEM_USE_REQUEST(298),
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // TODO: update them by sniffing
     USER_EX_ITEM_UPGRADE_ITEM_USE_REQUEST(299),
     USER_KARMA_CONSUME_ITEM_USE_REQUEST(300),
@@ -477,7 +477,6 @@ public enum InHeader {
     UPDATE_MATRIX(605),// v202
     SPECTRA_ENERGY_UPDATE(608),
 
-
     B_E_G_I_N__P_E_T(625),
     PET_MOVE(626),
     PET_ACTION(627),
@@ -488,7 +487,6 @@ public enum InHeader {
     PET_FOOD_ITEM_USE_REQUEST(632),
     PET_OPEN_SHOP(633),
     E_N_D__P_E_T(634),
-
 
     B_E_G_I_N__S_K_I_L_L_P_E_T(635),
     SKILL_PET_MOVE(636),
@@ -509,18 +507,15 @@ public enum InHeader {
     SUMMONED_ASSIST_ATTACK_DONE(653),
     E_N_D__S_U_M_M_O_N_E_D(654),
 
-
     B_E_G_I_N__D_R_A_G_O_N(659),
     DRAGON_MOVE(660),
     DRAGON_GLIDE(661),
     E_N_D__D_R_A_G_O_N(662),
 
-
     B_E_G_I_N__A_N_D_R_O_I_D(663),
     ANDROID_MOVE(664),
     ANDROID_ACTION_SET(665),
     E_N_D__A_N_D_R_O_I_D(666),
-
 
     B_E_G_I_N__F_O_X_M_A_N(667),
     FOX_MAN_MOVE(668),
@@ -627,7 +622,6 @@ public enum InHeader {
     STAR_PLANET_QUEUE__UN_REGISTER_REQ(673),
     E_N_D__S_T_A_R_P_L_A_N_E_T__Q_U_E_U_E(674),
 
-
     B_E_G_I_N__S_T_A_R_P_L_A_N_E_T__I_N_V_I_T_A_T_I_O_N(766),
     STAR_PLANET_INVITATION_ACCEPT(767),
     STAR_PLANET_INVITATION_CANCLE(768),
@@ -717,7 +711,6 @@ public enum InHeader {
     B_E_G_I_N__F_I_E_L_D(822),
     B_E_G_I_N__L_I_F_E_P_O_O_L(823),
 
-
     // v203.2
     B_E_G_I_N__M_O_B(1003),
     MOB_MOVE(1004),
@@ -751,7 +744,6 @@ public enum InHeader {
     MOB_UNK_1032(1032),
     E_N_D__M_O_B(1033),
 
-
     // v203.2
     B_E_G_I_N__N_P_C(1038),
     NPC_MOVE(1039),
@@ -764,14 +756,12 @@ public enum InHeader {
     DROP_PICK_UP_REQUEST(1044),
     E_N_D__D_R_O_P_P_O_O_L(1045),
 
-
     B_E_G_I_N__R_E_A_C_T_O_R_P_O_O_L(1046),
     REACTOR_HIT(1047),
     REACTOR_CLICK(1048),
     REACTOR_RECT_IN_MOB(1049),
     REACTOR_KEY(1050),
     E_N_D__R_E_A_C_T_O_R_P_O_O_L(1051),
-
 
     // v203.2
     B_E_G_I_N__F_I_S_H_I_N_G_Z_O_N_E_P_O_O_L(1064),
@@ -848,12 +838,10 @@ public enum InHeader {
     RHYTHM_GAME_EXIT_GAME(1129),
     E_N_D__R_H_Y_T_H_M_G_A_M_E(1130),
 
-
     B_E_G_I_N__M_O_U_N_T_A_I_N_R_I_D_I_N_G(1131),
     MOUNTAIN_RIDING_HP_INFO(1132),
     MOUNTAIN_RIDING_MOB_INFO(1133),
     E_N_D__M_O_U_N_T_A_I_N_R_I_D_I_N_G(1134),
-
 
     // v203.2
     B_E_G_I_N__P_I_R_A_N_H_A(1135),
@@ -877,13 +865,11 @@ public enum InHeader {
     FALLING_STONE_PREPARE(1149),
     E_N_D__F_A_L_L_I_N_G_S_T_O_N_E(1150),
 
-
     B_E_G_I_N__B_A_T_T_L_E_F_I_E_L_D(1146),
     BATTLE_FIELD_DAMAGE(1147),
     BATTLE_FIELD_SHEEP_REVIVAL_REQ(1148),
     BATTLE_FIELD_SHEEP_REVIVE(1149),
     E_N_D__B_A_T_T_L_E_F_I_E_L_D(1150),
-
 
     B_E_G_I_N__B_O_S_S_A_R_E_N_A(1151),
     BOSS_ARENA_SELECT_BOSS(1152),
@@ -891,7 +877,6 @@ public enum InHeader {
     BOSS_ARENA_SELECT_DIFFICULTY(1154),
     BOSS_ARENA_SELECT_CONFIRM(1155),
     E_N_D__B_O_S_S_A_R_E_N_A(1156),
-
 
     B_E_G_I_N__C_A_T_A_P_U_L_T(1157),
     CATAPULT__UPGRADE_SKILL(1158),
@@ -934,14 +919,12 @@ public enum InHeader {
     H_OX_QUIZ_SELECTED(1188),
     E_N_D__H_U_N_D_R_E_D_O_X_Q_UI_Z(1189),
 
-
     // v203.2
     B_E_G_I_N__S_T_A_R_P_L_A_N_E_T_R_P_S(1190),
     S_P_RPS_GAME_USER_SELECT(1191),
     S_P_RPS_GAME_ANSWER(1192),
     S_P_RPS_GAME_LEAVE(1193),
     E_N_D__S_T_A_R_P_L_A_N_E_T_R_P_S(1194),
-
 
     // v203.2
     B_E_G_I_N__S_I_D_E_S_C_R_O_L_L_F_L_Y_S_H_O_O_T_I_N_G(1195),
@@ -989,12 +972,10 @@ public enum InHeader {
     POLO_FRITO_BOUNTY_HUNTING_REQUEST(1229),
     E_N_D__P_O_L_O_F_R_I_T_O_B_O_U_N_T_Y_H_U_N_T_I_N_G(1230),
 
-
     // v203.2
     B_E_G_I_N__P_O_L_O_F_R_I_T_O_T_O_W_N_D_E_F_E_N_S_E(1231),
     POLO_FRITO_TOWN_DEFENSE_REQUEST(1232),
     E_N_D__P_O_L_O_F_R_I_T_O_T_O_W_N_D_E_F_E_N_S_E(1233),
-
 
     // v203.2
     B_E_G_I_N__U_N_K_N_O_W_N_1(1234),
@@ -1002,12 +983,10 @@ public enum InHeader {
     UNK1231(1236),
     E_N_D__U_N_K_N_O_W_N_1(1237),
 
-
     // v203.2
     B_E_G_I_N__P_O_L_O_F_R_I_T_O_C_O_U_R_T_S_H_I_P_D_A_N_C_E(1238),
     POLO_FRITO_COURTSHIP_DANCE_RESULT(1239),
     E_N_D__P_O_L_O_F_R_I_T_O_C_O_U_R_T_S_H_I_P_D_A_N_C_E(1240),
-
 
     // v203.2
     B_E_G_I_N__B_O_S_S__D_E_M_I_A_N__F_L_Y_I_N_G_S_W_O_R_D(1241),
@@ -1046,7 +1025,6 @@ public enum InHeader {
     CASH_SHOP_ACTION(-1),
     E_N_D__C_A_S_H_S_H_O_P(1060),
 
-
     B_E_G_I_N__R_A_I_S_E(1041),
     RAISE_REFESH(1042),
     RAISE_UI_STATE(1043),
@@ -1060,7 +1038,6 @@ public enum InHeader {
     REQUEST_CLASS_COMPETION_AUTH_KEY(1050),
     REQUEST_WEB_BOARD_AUTH_KEY(1051),
     IRBOX_EVENT(1052),
-
 
     B_E_G_I_N__I_T_E_M_U_P_G_R_A_D_E(1381),
     GOLD_HAMMER_REQUEST(1382), // was 1054
@@ -1135,36 +1112,7 @@ public enum InHeader {
     NO(2687),
     ;
 
-    private static List<InHeader> spam = Arrays.asList(
-            UPDATE_CLIENT_ENVIRONMENT,
-            PONG,
-            WVS_SET_UP_STEP,
-            SECURITY_PACKET,
-            PRIVATE_SERVER_PACKET,
-            MOB_MOVE,
-            USER_MOVE,
-            PASSIVESKILL_INFO_UPDATE,
-            USER_CHANGE_STAT_REQUEST,
-            SUMMONED_MOVE,
-            USER_TEMPORARY_STAT_UPDATE_REQUEST,
-            USER_CALC_DAMAGE_STAT_SET_REQUEST,
-            MOB_APPLY_CTRL,
-            USER_REQUEST_INSTANCE_TABLE,
-            USER_QUEST_REQUEST,
-            CHECK_LOGIN_AUTH_INFO,
-            CHECK_SPW_REQUEST,
-            NPC_MOVE,
-            FAMILIAR_MOVE,
-            PET_MOVE,
-            AUTH_HEARTBEAT,
-            OBTACLE_ATOM_COLLISION,
-            ANDROID_MOVE,
-            DRAGON_MOVE,
-            USER_HIT,
-            USER_EMOTION,
-            USER_B2_BODY_REQUEST,
-            SPECTRA_ENERGY_UPDATE
-    );
+    private static List<InHeader> spam = Arrays.asList(UPDATE_CLIENT_ENVIRONMENT, PONG, WVS_SET_UP_STEP, SECURITY_PACKET, PRIVATE_SERVER_PACKET, MOB_MOVE, USER_MOVE, PASSIVESKILL_INFO_UPDATE, USER_CHANGE_STAT_REQUEST, SUMMONED_MOVE, USER_TEMPORARY_STAT_UPDATE_REQUEST, USER_CALC_DAMAGE_STAT_SET_REQUEST, MOB_APPLY_CTRL, USER_REQUEST_INSTANCE_TABLE, USER_QUEST_REQUEST, CHECK_LOGIN_AUTH_INFO, CHECK_SPW_REQUEST, NPC_MOVE, FAMILIAR_MOVE, PET_MOVE, AUTH_HEARTBEAT, OBTACLE_ATOM_COLLISION, ANDROID_MOVE, DRAGON_MOVE, USER_HIT, USER_EMOTION, USER_B2_BODY_REQUEST, SPECTRA_ENERGY_UPDATE);
 
     private short value;
     private final static Map<Short, InHeader> opToHeaderMap = new HashMap<>();

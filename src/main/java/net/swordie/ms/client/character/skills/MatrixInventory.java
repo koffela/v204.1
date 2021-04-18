@@ -202,7 +202,7 @@ public class MatrixInventory {
         List<Skill> changed = new ArrayList<>();
         Skill skill;
         for (MatrixSkill skillRecord : chr.getMatrixInventory().skills) {
-            int[] toRemove = {skillRecord.getSkillID(), skillRecord.getSkillID2(), skillRecord.getSkillID3()};
+            int[] toRemove = { skillRecord.getSkillID(), skillRecord.getSkillID2(), skillRecord.getSkillID3() };
             for (int i = 0; i < toRemove.length; i++) {
                 int skillID = toRemove[i];
                 if (skillID != 0) {
@@ -221,7 +221,7 @@ public class MatrixInventory {
                 if (skillRecord.getSlot() == 0) {
                     continue;
                 }
-                int[] toAdd = {skillRecord.getSkillID(), skillRecord.getSkillID2(), skillRecord.getSkillID3()};
+                int[] toAdd = { skillRecord.getSkillID(), skillRecord.getSkillID2(), skillRecord.getSkillID3() };
                 for (int i = 0; i < toAdd.length; i++) {
                     int skillID = toAdd[i];
                     if (skillID != 0) {

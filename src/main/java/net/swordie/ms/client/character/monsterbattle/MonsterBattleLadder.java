@@ -7,7 +7,6 @@ import net.swordie.ms.connection.OutPacket;
  */
 public class MonsterBattleLadder {
 
-
     public void encode(OutPacket outPacket) {
 
     }

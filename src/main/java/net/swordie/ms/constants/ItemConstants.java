@@ -46,11 +46,11 @@ public class ItemConstants {
 
     public static final int HYPER_TELEPORT_ROCK = 5040004;
 
-    //CUBING CONSTANTS BELOW
-    public static int GLOBAL_TIER_UP_MULTIPLIER = 1; //For DMT uses? 2 = 2x, 3 = 3x, etc etc
+    // CUBING CONSTANTS BELOW
+    public static int GLOBAL_TIER_UP_MULTIPLIER = 1; // For DMT uses? 2 = 2x, 3 = 3x, etc etc
     public static final int THIRD_LINE_CHANCE = 50;
 
-    //Chances are out of 1k (10* typical 100 values so we don't have to use doubles)
+    // Chances are out of 1k (10* typical 100 values so we don't have to use doubles)
     public static final int DEFAULT_PRIME_LINE_2_CHANCE = 125;
     public static final int DEFAULT_PRIME_LINE_3_CHANCE = 100;
 
@@ -61,56 +61,48 @@ public class ItemConstants {
     public static final int BLACK_CUBE = 5062010;
 
     public static final int VIOLET_CUBE_PRIME_LINE_CHANCE = 85;
-    public static final int VIOLET_CUBE = 5062024; //NEVER!
-    //If you plan to implement, you must store the grade to the item and change Equip#getBaseGrade and similar methods behave appropriately
-    //This is because you can select a non-current tier line as the primary line, thus making the current methods believe the item is actually a tier lower!
-    //By storing the tier in the Equip object you can allow for the list of potentials to be completely independent
+    public static final int VIOLET_CUBE = 5062024; // NEVER!
+    // If you plan to implement, you must store the grade to the item and change Equip#getBaseGrade and similar methods behave appropriately
+    // This is because you can select a non-current tier line as the primary line, thus making the current methods believe the item is actually a tier lower!
+    // By storing the tier in the Equip object you can allow for the list of potentials to be completely independent
 
     public static final int BONUS_POTENTIAL_CUBE = 5062500;
     public static final int SPECIAL_BONUS_POTENTIAL_CUBE = 5062501;
     public static final int WHITE_BONUS_POTENTIAL_CUBE = 5062503;
 
-
     public static final int OCCULT_CUBE = 2711000;
-    public static final int REBOOT_OCCULT_CUBE = 2711001; //Later Versions 2711011(?)
-    public static final List<Integer> OCCULT_CUBES = Arrays.asList(2711000, 2711001, 2711009, 2711011); //2711000 = Tradable Stackable, 2711001 = Untradable NonStackable, 2711009 = Untradable Stackable, >v176 2711011 = Account Movement only
+    public static final int REBOOT_OCCULT_CUBE = 2711001; // Later Versions 2711011(?)
+    public static final List<Integer> OCCULT_CUBES = Arrays.asList(2711000, 2711001, 2711009, 2711011); // 2711000 = Tradable Stackable, 2711001 = Untradable NonStackable, 2711009 = Untradable Stackable, >v176 2711011 = Account Movement only
 
     public static final int MASTER_CRAFTSMANS_CUBE = 2711005;
-    public static final int REBOOT_MASTER_CRAFTSMANS_CUBE = 2710002; //Later Versions 2711012(?)
-    public static final List<Integer> MASTER_CRAFTSMANS_CUBES = Arrays.asList(2711003, 2710002, 2711005, 2711012); //2711003 = Tradable, 2710002 = Account Movement only  -  Later Versions Untradable, 2711005 = Untradable, >v176 2711012 = Account Movement only
+    public static final int REBOOT_MASTER_CRAFTSMANS_CUBE = 2710002; // Later Versions 2711012(?)
+    public static final List<Integer> MASTER_CRAFTSMANS_CUBES = Arrays.asList(2711003, 2710002, 2711005, 2711012); // 2711003 = Tradable, 2710002 = Account Movement only - Later Versions Untradable, 2711005 = Untradable, >v176 2711012 = Account Movement only
 
     public static final int MEISTERS_CUBE = 2711004;
-    public static final int REBOOT_MEISTERS_CUBE = 2710003; //Later Versions 2711013(?)
-    public static final List<Integer> MEISTERS_CUBES = Arrays.asList(2711004, 2710003, 2711006, 2711013); //2711004 = Tradable, 2710003 = Account Movement only  -  Later Versions Untradable, 2711006 = Untradable, >v176 2711013 = Account Movement only
+    public static final int REBOOT_MEISTERS_CUBE = 2710003; // Later Versions 2711013(?)
+    public static final List<Integer> MEISTERS_CUBES = Arrays.asList(2711004, 2710003, 2711006, 2711013); // 2711004 = Tradable, 2710003 = Account Movement only - Later Versions Untradable, 2711006 = Untradable, >v176 2711013 = Account Movement only
 
     public static final int BONUS_OCCULT_CUBE = 2730002; // > v176
-    public static final List<Integer> BONUS_OCCULT_CUBES = Arrays.asList(2730000, 2730002, 2730004); //2730000 = Untradable Stackable, 2730002 = Tradable Stackable, 2730004 = Account Movement only Stackable
+    public static final List<Integer> BONUS_OCCULT_CUBES = Arrays.asList(2730000, 2730002, 2730004); // 2730000 = Untradable Stackable, 2730002 = Tradable Stackable, 2730004 = Account Movement only Stackable
 
+    public static final int SYSTEM_DEFAULT_CUBE_INDICATOR = -1; // Cause default int value is 0 and we want to differentiate when it is intentional to not have a cube source
 
-    public static final int SYSTEM_DEFAULT_CUBE_INDICATOR = -1; //Cause default int value is 0 and we want to differentiate when it is intentional to not have a cube source
+    // Chances are out of 1k (10* typical 100 values so we don't have to use doubles)
 
-    //Chances are out of 1k (10* typical 100 values so we don't have to use doubles)
+    public static final int[] OCCULT_CUBE_TIER_UP_RATES = new int[] { 10, 0, 0 }; // 1%, 0%, 0%
+    public static final int[] MASTER_CRAFTSMANS_CUBE_TIER_UP_RATES = new int[] { 120, 40, 0 }; // 12%, 4%, 0%
+    public static final int[] MEISTERS_CUBE_TIER_UP_RATES = new int[] { 120, 80, 50 }; // 12%, 8%, 5%
 
+    public static final int[] RED_CUBE_TIER_UP_RATES = new int[] { 150, 60, 25 }; // 15%, 6%, 2.5%
+    public static final int[] BLACK_CUBE_TIER_UP_RATES = new int[] { 150, 120, 50 }; // 15%, 12%, 5%
 
-    public static final int[] OCCULT_CUBE_TIER_UP_RATES = new int[]{10, 0, 0}; //1%, 0%, 0%
-    public static final int[] MASTER_CRAFTSMANS_CUBE_TIER_UP_RATES = new int[]{120, 40, 0}; //12%, 4%, 0%
-    public static final int[] MEISTERS_CUBE_TIER_UP_RATES = new int[]{120, 80, 50}; //12%, 8%, 5%
+    public static final int[] VIOLET_CUBE_TIER_UP_RATES = new int[] { 30, 12, 5 }; // 3%, 1.2%, 0.5% //No data to support this, but it's confirmed to be the worst cube to tier with
 
-    public static final int[] RED_CUBE_TIER_UP_RATES = new int[]{150, 60, 25}; //15%, 6%, 2.5%
-    public static final int[] BLACK_CUBE_TIER_UP_RATES = new int[]{150, 120, 50}; //15%, 12%, 5%
+    public static final int[] BONUS_OCCULT_CUBE_TIER_UP_RATES = new int[] { 20, 0, 0 }; // 2%, 0%, 0%
+    public static final int[] BONUS_POT_CUBE_TIER_UP_RATE = new int[] { 200, 100, 50 }; // 20%, 10%, 5%
+    public static final int[] WHITE_BONUS_POT_CUBE_TIER_UP_RATE = new int[] { 200, 150, 75 }; // 20%, 15%, 7.5%
 
-    public static final int[] VIOLET_CUBE_TIER_UP_RATES = new int[]{30, 12, 5}; //3%, 1.2%, 0.5% //No data to support this, but it's confirmed to be the worst cube to tier with
-
-
-    public static final int[] BONUS_OCCULT_CUBE_TIER_UP_RATES = new int[]{20, 0, 0}; //2%, 0%, 0%
-    public static final int[] BONUS_POT_CUBE_TIER_UP_RATE = new int[]{200, 100, 50}; //20%, 10%, 5%
-    public static final int[] WHITE_BONUS_POT_CUBE_TIER_UP_RATE = new int[]{200, 150, 75}; //20%, 15%, 7.5%
-
-
-    public static final int[] DEFAULT_CUBE_TIER_UP_RATES = new int[]{100, 50, 25}; //10%, 5%, 2.5%
-
-
-
+    public static final int[] DEFAULT_CUBE_TIER_UP_RATES = new int[] { 100, 50, 25 }; // 10%, 5%, 2.5%
 
     public static final int NEBILITE_BASE_ID = 3060000;
 
@@ -138,8 +130,8 @@ public class ItemConstants {
 
     public static final short MAX_HAMMER_SLOTS = 2;
 
-    private static final Integer[] soulPotList = new Integer[]{32001, 32002, 32003, 32004, 32005, 32006, 32011, 32012, // flat
-            32041, 32042, 32043, 32044, 32045, 32046, 32051, 32052}; // rate
+    private static final Integer[] soulPotList = new Integer[] { 32001, 32002, 32003, 32004, 32005, 32006, 32011, 32012, // flat
+            32041, 32042, 32043, 32044, 32045, 32046, 32051, 32052 }; // rate
 
     private static final int TUC_IGNORE_ITEMS[] = {
             1113231, // Master Ring SS
@@ -151,25 +143,25 @@ public class ItemConstants {
     };
 
     public static final int NON_KMS_BOSS_SETS[] = {
-        127, // Amaterasu
-        128, // Oyamatsumi
-        129, // Ame-no-Uzume
-        130, // Tsukuyomi
-        131, // Susano-o
-        315, // Cracked Gollux
-        316, // Solid Gollux
-        317, // Reinforced Gollux
-        318, // Superior Gollux
-        328, // Sweetwater
+            127, // Amaterasu
+            128, // Oyamatsumi
+            129, // Ame-no-Uzume
+            130, // Tsukuyomi
+            131, // Susano-o
+            315, // Cracked Gollux
+            316, // Solid Gollux
+            317, // Reinforced Gollux
+            318, // Superior Gollux
+            328, // Sweetwater
     };
 
     public static final int NON_KMS_BOSS_ITEMS[] = {
-        1032224, // Sweetwater Earrings
-        1022211, // Sweetwater Monocle
-        1012438, // Sweetwater Tattoo
-        1152160, // Sweetwater Shoulder
-        1132247, // Sweetwater Belt
-        1122269, // Sweetwater Pendant
+            1032224, // Sweetwater Earrings
+            1022211, // Sweetwater Monocle
+            1012438, // Sweetwater Tattoo
+            1152160, // Sweetwater Shoulder
+            1132247, // Sweetwater Belt
+            1122269, // Sweetwater Pendant
     };
 
     // Spell tracing
@@ -198,28 +190,22 @@ public class ItemConstants {
     }
 
     private static void initConsumableDrops() {
-        consumableDropsPerLevel.put(0, Util.makeSet(
-                new DropInfo(2000046, 200), // Red Potion
+        consumableDropsPerLevel.put(0, Util.makeSet(new DropInfo(2000046, 200), // Red Potion
                 new DropInfo(2000014, 200)  // Blue Potion
         ));
-        consumableDropsPerLevel.put(20, Util.makeSet(
-                new DropInfo(2000002, 200), // White Potion
+        consumableDropsPerLevel.put(20, Util.makeSet(new DropInfo(2000002, 200), // White Potion
                 new DropInfo(2000006, 200)  // Mana Elixir
         ));
-        consumableDropsPerLevel.put(40, Util.makeSet(
-                new DropInfo(2001527, 200), // Unagi
+        consumableDropsPerLevel.put(40, Util.makeSet(new DropInfo(2001527, 200), // Unagi
                 new DropInfo(2022000, 200)  // Pure Water
         ));
-        consumableDropsPerLevel.put(60, Util.makeSet(
-                new DropInfo(2001527, 200), // Unagi
+        consumableDropsPerLevel.put(60, Util.makeSet(new DropInfo(2001527, 200), // Unagi
                 new DropInfo(2022000, 200)  // Pure Water
         ));
-        consumableDropsPerLevel.put(80, Util.makeSet(
-                new DropInfo(2001001, 200), // Ice Cream Pop
+        consumableDropsPerLevel.put(80, Util.makeSet(new DropInfo(2001001, 200), // Ice Cream Pop
                 new DropInfo(2001002, 200)  // Pure Water
         ));
-        consumableDropsPerLevel.put(100, Util.makeSet(
-                new DropInfo(2020012, 100), // Melting Cheese
+        consumableDropsPerLevel.put(100, Util.makeSet(new DropInfo(2020012, 100), // Melting Cheese
                 new DropInfo(2020013, 100), // Reindeer Milk
                 new DropInfo(2020014, 100), // Sunrise Dew
                 new DropInfo(2020015, 100), // Sunset Dew
@@ -272,11 +258,10 @@ public class ItemConstants {
         int gender = getGenderFromId(itemID);
         EquipPrefix prefix = EquipPrefix.getByVal(getItemPrefix(itemID));
         List<Integer> bodyPartList = new ArrayList<>();
-        if (prefix != EquipPrefix.Emblem && prefix != EquipPrefix.Bit &&
-                gender != 2 && genderArg != 2 && gender != genderArg) {
+        if (prefix != EquipPrefix.Emblem && prefix != EquipPrefix.Bit && gender != 2 && genderArg != 2 && gender != genderArg) {
             return bodyPartList;
         }
-        if(prefix != null) {
+        if (prefix != null) {
             switch (prefix) {
                 case Hat:
                     bodyPartList.add(BodyPart.Hat.getVal());
@@ -443,9 +428,7 @@ public class ItemConstants {
                     }
                     break;
             }
-        }
-        else
-        {
+        } else {
             log.debug("Unknown type? id = " + itemID);
         }
         return bodyPartList;
@@ -512,8 +495,7 @@ public class ItemConstants {
     }
 
     public static boolean isAccessory(int itemID) {
-        return (itemID >= 1010000 && itemID < 1040000) || (itemID >= 1122000 && itemID < 1153000) ||
-                (itemID >= 1112000 && itemID < 1113000) || (itemID >= 1670000 && itemID < 1680000);
+        return (itemID >= 1010000 && itemID < 1040000) || (itemID >= 1122000 && itemID < 1153000) || (itemID >= 1112000 && itemID < 1113000) || (itemID >= 1670000 && itemID < 1680000);
     }
 
     public static boolean isFaceAccessory(int itemID) {
@@ -606,62 +588,29 @@ public class ItemConstants {
         return getItemPrefix(itemID) == EquipPrefix.MechanicalHeart.getVal();
     }
 
-    public static boolean isRebirthFlame(int itemId) { return itemId >= 2048700 && itemId < 2048800; }
+    public static boolean isRebirthFlame(int itemId) {
+        return itemId >= 2048700 && itemId < 2048800;
+    }
 
-    public static boolean isNebulite(int itemId) { return getItemPrefix(itemId) == 306; }
+    public static boolean isNebulite(int itemId) {
+        return getItemPrefix(itemId) == 306;
+    }
 
     public static boolean canEquipTypeHavePotential(int itemid) {
-        return isRing(itemid) ||
-                isPendant(itemid) ||
-                isWeapon(itemid) ||
-                isBelt(itemid) ||
-                isHat(itemid) ||
-                isFaceAccessory(itemid) ||
-                isEyeAccessory(itemid) ||
-                isOverall(itemid) ||
-                isTop(itemid) ||
-                isBottom(itemid) ||
-                isShoe(itemid) ||
-                isEarrings(itemid) ||
-                isShoulder(itemid) ||
-                isGlove(itemid) ||
-                isEmblem(itemid) ||
-                isBadge(itemid) ||
-                isShield(itemid) ||
-                isCape(itemid) ||
-                isMechanicalHeart(itemid);
+        return isRing(itemid) || isPendant(itemid) || isWeapon(itemid) || isBelt(itemid) || isHat(itemid) || isFaceAccessory(itemid) || isEyeAccessory(itemid) || isOverall(itemid) || isTop(itemid) || isBottom(itemid) || isShoe(itemid) || isEarrings(itemid) || isShoulder(itemid) || isGlove(itemid) || isEmblem(itemid) || isBadge(itemid) || isShield(itemid) || isCape(itemid) || isMechanicalHeart(itemid);
     }
 
     public static boolean canEquipHavePotential(Equip equip) {
-        return !equip.isCash() &&
-                canEquipTypeHavePotential(equip.getItemId()) &&
-                !equip.isNoPotential() &&
-                (ItemData.getEquipById(equip.getItemId()).getTuc() >= 1 || isTucIgnoreItem(equip.getItemId()));
+        return !equip.isCash() && canEquipTypeHavePotential(equip.getItemId()) && !equip.isNoPotential() && (ItemData.getEquipById(equip.getItemId()).getTuc() >= 1 || isTucIgnoreItem(equip.getItemId()));
     }
 
     public static boolean canEquipHaveFlame(Equip equip) {
-        return !equip.isCash() && (isPendant(equip.getItemId()) ||
-                (isWeapon(equip.getItemId()) && !isSecondary((equip.getItemId())) && !isShield((equip.getItemId()))) ||
-                isBelt(equip.getItemId()) ||
-                isHat(equip.getItemId()) ||
-                isFaceAccessory(equip.getItemId()) ||
-                isEyeAccessory(equip.getItemId()) ||
-                isOverall(equip.getItemId()) ||
-                isTop(equip.getItemId()) ||
-                isBottom(equip.getItemId()) ||
-                isShoe(equip.getItemId()) ||
-                isEarrings(equip.getItemId()) ||
-                Arrays.asList(EXCEPTIONAL_EX_ALLOWED).contains(equip.getItemId()) ||
-                isGlove(equip.getItemId()) ||
-                isCape(equip.getItemId()) ||
-                isPocketItem(equip.getItemId()));
+        return !equip.isCash() && (isPendant(equip.getItemId()) || (isWeapon(equip.getItemId()) && !isSecondary((equip.getItemId())) && !isShield((equip.getItemId()))) || isBelt(equip.getItemId()) || isHat(equip.getItemId()) || isFaceAccessory(equip.getItemId()) || isEyeAccessory(equip.getItemId()) || isOverall(equip.getItemId()) || isTop(equip.getItemId()) || isBottom(equip.getItemId()) || isShoe(equip.getItemId()) || isEarrings(equip.getItemId()) || Arrays.asList(EXCEPTIONAL_EX_ALLOWED).contains(equip.getItemId()) || isGlove(equip.getItemId()) || isCape(equip.getItemId()) || isPocketItem(equip.getItemId()));
     }
 
     public static boolean canEquipGoldHammer(Equip equip) {
         Equip defaultEquip = ItemData.getEquipById(equip.getItemId());
-        return !(Arrays.asList(HORNTAIL_NECKLACE).contains(equip.getItemId()) ||
-                equip.getIuc() >= defaultEquip.getIUCMax() ||
-                defaultEquip.getTuc() <= 0); // No upgrade slots by default
+        return !(Arrays.asList(HORNTAIL_NECKLACE).contains(equip.getItemId()) || equip.getIuc() >= defaultEquip.getIUCMax() || defaultEquip.getTuc() <= 0); // No upgrade slots by default
     }
 
     public static boolean isGoldHammer(Item item) {
@@ -671,15 +620,19 @@ public class ItemConstants {
     /**
      * Gets potential tier for a line.
      * Accounts prime lines too.
-     * @param line Potential line.
-     * @param grade Our current potential grade.
-     * @param additionalPrimes How many extra prime lines this item has;
+     * 
+     * @param line
+     *            Potential line.
+     * @param grade
+     *            Our current potential grade.
+     * @param additionalPrimes
+     *            How many extra prime lines this item has;
      */
     public static ItemGrade getLineTier(int line, ItemGrade grade, int additionalPrimes) {
         if (line == 0) {
             return grade;
         }
-        if(additionalPrimes >= line){ //If cube has > 3 lines, still supports
+        if (additionalPrimes >= line) { // If cube has > 3 lines, still supports
             return grade;
         } else {
             return getOneTierLower(grade.getVal());
@@ -689,32 +642,34 @@ public class ItemConstants {
     /**
      * Gets prime line count based on cubeId
      * Used to manage the position of lines on the item throughout the cube method chain
-     * @param cubeId used to grab which rate will be used;
+     * 
+     * @param cubeId
+     *            used to grab which rate will be used;
      */
     public static int getAdditionalPrimeCountForCube(int cubeId) {
         int addedPrimeCount = 0;
-        switch (cubeId){
-            case VIOLET_CUBE: //Max of 5 additional since default has 1 prime
-                //Independent Probability
-                for(int j = 0; j < 5; j++){ //Max of 5 additional at lower chance
-                    if(Util.succeedProp(VIOLET_CUBE_PRIME_LINE_CHANCE, 1000)){
+        switch (cubeId) {
+            case VIOLET_CUBE: // Max of 5 additional since default has 1 prime
+                // Independent Probability
+                for (int j = 0; j < 5; j++) { // Max of 5 additional at lower chance
+                    if (Util.succeedProp(VIOLET_CUBE_PRIME_LINE_CHANCE, 1000)) {
                         addedPrimeCount++;
                     }
                 }
                 break;
             case BLACK_CUBE:
             case WHITE_BONUS_POTENTIAL_CUBE:
-                if(Util.succeedProp(BOOSTED_PRIME_LINE_2_CHANCE, 1000)){ //Dependent Probability for 2 additional primes
+                if (Util.succeedProp(BOOSTED_PRIME_LINE_2_CHANCE, 1000)) { // Dependent Probability for 2 additional primes
                     addedPrimeCount++;
-                    if(Util.succeedProp(BOOSTED_PRIME_LINE_3_CHANCE, 1000)){
+                    if (Util.succeedProp(BOOSTED_PRIME_LINE_3_CHANCE, 1000)) {
                         addedPrimeCount++;
                     }
                 }
                 break;
             default:
-                if(Util.succeedProp(DEFAULT_PRIME_LINE_2_CHANCE, 1000)){
+                if (Util.succeedProp(DEFAULT_PRIME_LINE_2_CHANCE, 1000)) {
                     addedPrimeCount++;
-                    if(Util.succeedProp(DEFAULT_PRIME_LINE_3_CHANCE, 1000)){
+                    if (Util.succeedProp(DEFAULT_PRIME_LINE_3_CHANCE, 1000)) {
                         addedPrimeCount++;
                     }
                 }
@@ -726,8 +681,11 @@ public class ItemConstants {
 
     /**
      * Determines whether a nebulite can be mounted on an equip.
-     * @param equip Equip item.
-     * @param nebulite The nebulite to mount on the equip.
+     * 
+     * @param equip
+     *            Equip item.
+     * @param nebulite
+     *            The nebulite to mount on the equip.
      */
     public static boolean nebuliteFitsEquip(Equip equip, Item nebulite) {
         int nebuliteId = nebulite.getItemId();
@@ -737,7 +695,7 @@ public class ItemConstants {
         }
         ItemOptionType type = ItemOptionType.getByVal(vals.getOrDefault(ScrollStat.optionType, 0));
         int equipId = equip.getItemId();
-        switch(type) {
+        switch (type) {
             case AnyEquip:
                 return true;
             case Weapon: // no emblems for nebs here
@@ -768,100 +726,49 @@ public class ItemConstants {
         Collection<ItemOption> data = ItemData.getFilteredItemOptions();
         ItemGrade grade = getLineTier(line, getGradeByVal(bonus ? equip.getBonusGrade() : equip.getBaseGrade()), additionalPrimes);
         // need a list, as we take a random item from it later on
-        List<ItemOption> res = data.stream().filter(
-                io -> io.getOptionType() == ItemOptionType.AnyEquip.getVal() &&
-                io.hasMatchingGrade(grade.getVal()) && io.isBonus() == bonus
-        ).collect(Collectors.toList());
+        List<ItemOption> res = data.stream().filter(io -> io.getOptionType() == ItemOptionType.AnyEquip.getVal() && io.hasMatchingGrade(grade.getVal()) && io.isBonus() == bonus).collect(Collectors.toList());
 
         if (isShield(id) || isSecondary(id)) {
-            res.addAll(data.stream().filter(
-                    io -> (io.getOptionType() == ItemOptionType.Armor.getVal() || io.getOptionType() == ItemOptionType.Weapon.getVal())
-                            &&  io.hasMatchingGrade(grade.getVal())
-                            && io.isBonus() == bonus
-                            && io.getId() != 42060 //Armor's Crit Damage (Secondary Specific Filter)
+            res.addAll(data.stream().filter(io -> (io.getOptionType() == ItemOptionType.Armor.getVal() || io.getOptionType() == ItemOptionType.Weapon.getVal()) && io.hasMatchingGrade(grade.getVal()) && io.isBonus() == bonus && io.getId() != 42060 // Armor's Crit Damage (Secondary Specific Filter)
             ).collect(Collectors.toList()));
         } else if (isWeapon(id)) {
-            res.addAll(data.stream().filter(
-                    io -> io.getOptionType() == ItemOptionType.Weapon.getVal()
-                            &&  io.hasMatchingGrade(grade.getVal())
-                            && io.isBonus() == bonus
-            ).collect(Collectors.toList()));
-        } else if(isEmblem(id)){
-            res.addAll(data.stream().filter(
-                    io -> io.getOptionType() == ItemOptionType.Weapon.getVal()
-                            &&  io.hasMatchingGrade(grade.getVal())
-                            && io.isBonus() == bonus
-                            && !io.getString().contains("Boss") //(Emblem Specific Filter)
+            res.addAll(data.stream().filter(io -> io.getOptionType() == ItemOptionType.Weapon.getVal() && io.hasMatchingGrade(grade.getVal()) && io.isBonus() == bonus).collect(Collectors.toList()));
+        } else if (isEmblem(id)) {
+            res.addAll(data.stream().filter(io -> io.getOptionType() == ItemOptionType.Weapon.getVal() && io.hasMatchingGrade(grade.getVal()) && io.isBonus() == bonus && !io.getString().contains("Boss") // (Emblem Specific Filter)
             ).collect(Collectors.toList()));
         }
 
         else {
-            res.addAll(data.stream().filter(
-                    io -> io.getOptionType() == ItemOptionType.AnyExceptWeapon.getVal()
-                            && io.hasMatchingGrade(grade.getVal())
-                            && io.isBonus() == bonus
-            ).collect(Collectors.toList()));
+            res.addAll(data.stream().filter(io -> io.getOptionType() == ItemOptionType.AnyExceptWeapon.getVal() && io.hasMatchingGrade(grade.getVal()) && io.isBonus() == bonus).collect(Collectors.toList()));
 
             if (isRing(id) || isPendant(id) || isFaceAccessory(id) || isEyeAccessory(id) || isEarrings(id)) {
-                res.addAll(data.stream().filter(
-                        io -> io.getOptionType() == ItemOptionType.Accessory.getVal()
-                                && io.hasMatchingGrade(grade.getVal())
-                                && io.isBonus() == bonus
-                ).collect(Collectors.toList()));
+                res.addAll(data.stream().filter(io -> io.getOptionType() == ItemOptionType.Accessory.getVal() && io.hasMatchingGrade(grade.getVal()) && io.isBonus() == bonus).collect(Collectors.toList()));
             } else {
                 if (isHat(id)) {
-                    res.addAll(data.stream().filter(
-                            io -> io.getOptionType() == ItemOptionType.Hat.getVal()
-                                    && io.hasMatchingGrade(grade.getVal())
-                                    && io.isBonus() == bonus
-                    ).collect(Collectors.toList()));
+                    res.addAll(data.stream().filter(io -> io.getOptionType() == ItemOptionType.Hat.getVal() && io.hasMatchingGrade(grade.getVal()) && io.isBonus() == bonus).collect(Collectors.toList()));
                 }
                 if (isTop(id) || isOverall(id)) {
-                    res.addAll(data.stream().filter(
-                            io -> io.getOptionType() == ItemOptionType.Top.getVal()
-                                    && io.hasMatchingGrade(grade.getVal())
-                                    && io.isBonus() == bonus
-                    ).collect(Collectors.toList()));
+                    res.addAll(data.stream().filter(io -> io.getOptionType() == ItemOptionType.Top.getVal() && io.hasMatchingGrade(grade.getVal()) && io.isBonus() == bonus).collect(Collectors.toList()));
                 }
                 if (isBottom(id)) {
-                    res.addAll(data.stream().filter(
-                            io -> io.getOptionType() == ItemOptionType.Bottom.getVal()
-                                    && io.hasMatchingGrade(grade.getVal())
-                                    && io.isBonus() == bonus
-                    ).collect(Collectors.toList()));
+                    res.addAll(data.stream().filter(io -> io.getOptionType() == ItemOptionType.Bottom.getVal() && io.hasMatchingGrade(grade.getVal()) && io.isBonus() == bonus).collect(Collectors.toList()));
                 }
                 if (isShoe(id)) {
-                    res.addAll(data.stream().filter(
-                            io -> io.getOptionType() == ItemOptionType.Shoes.getVal()
-                                    && io.hasMatchingGrade(grade.getVal())
-                                    && io.isBonus() == bonus
-                    ).collect(Collectors.toList()));
+                    res.addAll(data.stream().filter(io -> io.getOptionType() == ItemOptionType.Shoes.getVal() && io.hasMatchingGrade(grade.getVal()) && io.isBonus() == bonus).collect(Collectors.toList()));
                 }
-                if(isGlove(id)){
-                    if(grade == HiddenUnique || grade == Unique || grade == HiddenLegendary || grade == Legendary || grade == UniqueBonusHidden || grade == LegendaryBonusHidden){
-                        res.addAll(data.stream().filter(io ->
-                                (io.getOptionType() == ItemOptionType.Glove.getVal() || io.getOptionType() == ItemOptionType.Armor.getVal())
-                                        && io.hasMatchingGrade(grade.getVal()) && io.isBonus() == bonus
-                                        && io.getId() != 42060 //Bonus - Armor's 1% Crit Damage (Glove Specific Filter)
+                if (isGlove(id)) {
+                    if (grade == HiddenUnique || grade == Unique || grade == HiddenLegendary || grade == Legendary || grade == UniqueBonusHidden || grade == LegendaryBonusHidden) {
+                        res.addAll(data.stream().filter(io -> (io.getOptionType() == ItemOptionType.Glove.getVal() || io.getOptionType() == ItemOptionType.Armor.getVal()) && io.hasMatchingGrade(grade.getVal()) && io.isBonus() == bonus && io.getId() != 42060 // Bonus - Armor's 1% Crit Damage (Glove Specific Filter)
                         ).collect(Collectors.toList()));
-                        if(!MEISTERS_CUBES.contains(cubeId) && !MASTER_CRAFTSMANS_CUBES.contains(cubeId) && (cubeId != SYSTEM_DEFAULT_CUBE_INDICATOR)){
-                            res = res.stream().filter(
-                                    io -> !io.getString().contains("Auto Steal")) //(Glove Specific Filter)
+                        if (!MEISTERS_CUBES.contains(cubeId) && !MASTER_CRAFTSMANS_CUBES.contains(cubeId) && (cubeId != SYSTEM_DEFAULT_CUBE_INDICATOR)) {
+                            res = res.stream().filter(io -> !io.getString().contains("Auto Steal")) // (Glove Specific Filter)
                                     .collect(Collectors.toList());
                         }
                     } else {
-                        res.addAll(data.stream().filter(
-                                io -> io.getOptionType() == ItemOptionType.Glove.getVal()
-                                        && io.hasMatchingGrade(grade.getVal())
-                                        && io.isBonus() == bonus
-                        ).collect(Collectors.toList()));
+                        res.addAll(data.stream().filter(io -> io.getOptionType() == ItemOptionType.Glove.getVal() && io.hasMatchingGrade(grade.getVal()) && io.isBonus() == bonus).collect(Collectors.toList()));
                     }
                 } else if (isArmor(id) || isShoulder(id) || isBelt(id)) {
-                    res.addAll(data.stream().filter(
-                            io -> io.getOptionType() == ItemOptionType.Armor.getVal()
-                                    && io.hasMatchingGrade(grade.getVal())
-                                    && io.isBonus() == bonus
-                    ).collect(Collectors.toList()));
+                    res.addAll(data.stream().filter(io -> io.getOptionType() == ItemOptionType.Armor.getVal() && io.hasMatchingGrade(grade.getVal()) && io.isBonus() == bonus).collect(Collectors.toList()));
                 }
             }
         }
@@ -871,7 +778,7 @@ public class ItemConstants {
     public static List<Integer> getWeightedOptionsByEquip(Equip equip, boolean bonus, int line, int cubeId, int additionalPrimes) {
         List<Integer> res = new ArrayList<>();
         List<ItemOption> data = getOptionsByEquip(equip, bonus, line, cubeId, additionalPrimes);
-        for(ItemOption io : data) {
+        for (ItemOption io : data) {
             for (int i = 0; i < io.getWeight(); i++) {
                 res.add(io.getId());
             }
@@ -886,40 +793,33 @@ public class ItemConstants {
 
     public static int getTierUpChance(int id, ItemGrade grade) {
         int[] rateArray;
-        if(id == ItemConstants.RED_CUBE){
+        if (id == ItemConstants.RED_CUBE) {
             rateArray = ItemConstants.RED_CUBE_TIER_UP_RATES;
-        }
-        else if(id == ItemConstants.BLACK_CUBE){
+        } else if (id == ItemConstants.BLACK_CUBE) {
             rateArray = ItemConstants.BLACK_CUBE_TIER_UP_RATES;
-        }
-        else if(id == ItemConstants.VIOLET_CUBE){
+        } else if (id == ItemConstants.VIOLET_CUBE) {
             rateArray = ItemConstants.VIOLET_CUBE_TIER_UP_RATES;
-        }
-        else if(MEISTERS_CUBES.contains(id)){
+        } else if (MEISTERS_CUBES.contains(id)) {
             rateArray = ItemConstants.MEISTERS_CUBE_TIER_UP_RATES;
-        }
-        else if(MASTER_CRAFTSMANS_CUBES.contains(id)){
+        } else if (MASTER_CRAFTSMANS_CUBES.contains(id)) {
             rateArray = ItemConstants.MASTER_CRAFTSMANS_CUBE_TIER_UP_RATES;
-        }
-        else if(OCCULT_CUBES.contains(id)){
+        } else if (OCCULT_CUBES.contains(id)) {
             rateArray = ItemConstants.OCCULT_CUBE_TIER_UP_RATES;
         }
 
-        else if(BONUS_OCCULT_CUBES.contains(id)){
+        else if (BONUS_OCCULT_CUBES.contains(id)) {
             rateArray = ItemConstants.BONUS_OCCULT_CUBE_TIER_UP_RATES;
-        }
-        else if(id == ItemConstants.BONUS_POTENTIAL_CUBE || id == ItemConstants.SPECIAL_BONUS_POTENTIAL_CUBE){
+        } else if (id == ItemConstants.BONUS_POTENTIAL_CUBE || id == ItemConstants.SPECIAL_BONUS_POTENTIAL_CUBE) {
             rateArray = ItemConstants.BONUS_POT_CUBE_TIER_UP_RATE;
         }
 
-        else if(id == ItemConstants.WHITE_BONUS_POTENTIAL_CUBE){
+        else if (id == ItemConstants.WHITE_BONUS_POTENTIAL_CUBE) {
             rateArray = ItemConstants.WHITE_BONUS_POT_CUBE_TIER_UP_RATE;
-        }
-        else{
+        } else {
             rateArray = ItemConstants.DEFAULT_CUBE_TIER_UP_RATES;
         }
 
-        switch (grade){
+        switch (grade) {
             case Rare:
             case HiddenRare:
             case RareBonusHidden:
@@ -942,7 +842,6 @@ public class ItemConstants {
                 return 0;
         }
     }
-
 
     public static boolean isEquip(int id) {
         return id / 1000000 == 1;
@@ -969,11 +868,11 @@ public class ItemConstants {
     }
 
     public static InvType getInvTypeByItemID(int itemID) {
-        if(isEquip(itemID)) {
+        if (isEquip(itemID)) {
             return EQUIP;
         } else {
             ItemInfo ii = ItemData.getItemInfoByID(itemID);
-            if(ii == null) {
+            if (ii == null) {
                 return null;
             }
             return ii.getInvType();
@@ -983,7 +882,7 @@ public class ItemConstants {
     public static Set<Integer> getRechargeablesList() {
         Set<Integer> itemList = new HashSet<>();
         // all throwing stars
-        for(int i = 2070000; i <= 2070016; i++) {
+        for (int i = 2070000; i <= 2070016; i++) {
             itemList.add(i);
         }
         itemList.add(2070018);
@@ -991,7 +890,7 @@ public class ItemConstants {
         itemList.add(2070024);
         itemList.add(2070026);
         // all bullets
-        for(int i = 2330000; i <= 2330006; i++) {
+        for (int i = 2330000; i <= 2330006; i++) {
             itemList.add(i);
         }
         itemList.add(2330008);
@@ -1006,7 +905,7 @@ public class ItemConstants {
     }
 
     public static int getDamageSkinIDByItemID(int itemID) {
-        switch(itemID) {
+        switch (itemID) {
             case 2431965: // base damage Skin:
                 return 0;
             case 2431966: // digital Sunrise Skin Damage:
@@ -1025,125 +924,125 @@ public class ItemConstants {
             case 2432658: // sweet traditional one and damage the skin
                 return 5;
             case 2432207: // Club Henesys' damage Skin:
-                 return 6;
+                return 6;
             case 2432354: // Merry Christmas Skin Damage:
-                 return 7;
+                return 7;
             case 2432355: // Snow Blossom Skin Damage:
             case 2432972: // Snow Blossom Skin Damage
-                 return 8;
+                return 8;
             case 2432465: // damage the skin of Alicia:
-                 return 9;
+                return 9;
             case 2432479: // Dorothy skin damage:
-                 return 10;
+                return 10;
             case 2432526: // Keyboard Warrior Skin Damage:
             case 2432639: // Keyboard Warrior Skin Damage
             case 2432660: // Keyboard Warrior Skin Damage
-                 return 11;
+                return 11;
             case 2432532: // spring breeze rustling skin damage:
-                 return 12;
+                return 12;
             case 2432592: // solo troops skin damage:
-                 return 13;
+                return 13;
             case 2432640: // Reminiscence skin damage:
             case 2432661: // Remy you damage the skin Suns
-                 return 14;
+                return 14;
             case 2432710: // Orange Mushroom Skin Damage:
-                 return 15;
+                return 15;
             case 2432836: // crown damage Skin:
-                 return 16;
+                return 16;
             case 2432973: // monotone skin damage:
-                 return 17;
+                return 17;
             case 2433063: // Star Planet skin:
-                 return 18;
+                return 18;
             case 2433178: // Halloween Skin (bones):
-                 return 20;
+                return 20;
             case 2433456: // Hangul Skin:
-                 return 21;
+                return 21;
             case 2435960: // Fried Chicken Dmg Skin(Unknown ItemID):
-                 return 22;
+                return 22;
             case 2433715: // Striped Damage Skin:
-                 return 23;
+                return 23;
             case 2433804: // Couples Army Damage Skin:
-                 return 24;
+                return 24;
             case 5680343: // Star Damage Skin:
-                 return 25;
+                return 25;
             case 2433913: // Yeti and Pepe Damage Skin:
-                 return 26;
+                return 26;
             case 2433980: // Slime and Mushroom Damage Skin:
-                 return 27;
+                return 27;
             case 2433981: // Pink bean Damage skin:
-                 return 28;
-            //case 2436229: // Pig Bar Dmg Skin(Unknown ItemID):
-            //     return 29;
-//         case 2432659: // Hard-Hitting Dmg Skin (already in): 30
-//         case 2return 432526;: // Keyboard Warrior (already in): 31
-//         case 2432710: // Orange mushroom Skin Damage(already in): 32
-//         case 2432355: // Snowflake Dmg Skin(already in): 33
+                return 28;
+            // case 2436229: // Pig Bar Dmg Skin(Unknown ItemID):
+            // return 29;
+            // case 2432659: // Hard-Hitting Dmg Skin (already in): 30
+            // case 2return 432526;: // Keyboard Warrior (already in): 31
+            // case 2432710: // Orange mushroom Skin Damage(already in): 32
+            // case 2432355: // Snowflake Dmg Skin(already in): 33
             case 2434248: // Rainbow Boom Damage Skin:
-                 return 34;
+                return 34;
             case 2433362: // Night Sky Damage Skin:
-                 return 35;
+                return 35;
             case 2434274: // Marshmallow Damage Skin:
-                 return 36;
+                return 36;
             case 2434289: // Mu Lung Dojo Dmg Skin:
-                 return 37;
+                return 37;
             case 2434390: // Teddy Damage Skin:
-                 return 38;
+                return 38;
             case 2434391: // Mighty Ursus Damage Skin:
-                 return 39;
+                return 39;
             case 5680395: // Scorching Heat Damage Skin:
-                 return 40;
+                return 40;
             case 2434528: // USA Damage Skin:
-                 return 41;
+                return 41;
             case 2434529: // Churro Damage Skin:
-                 return 42;
+                return 42;
             case 2434530: // Singapore Night Damage Skin:
-                 return 43;
+                return 43;
             case 2433571: // Scribble Crush Damage Skin:
-                 return 44;
+                return 44;
             case 2434574: // Full Moon Damage Skin:
-                 return 45;
-            //case 2433828: // White Heaven Sun Damage Skin:
-            //     return 46;
+                return 45;
+            // case 2433828: // White Heaven Sun Damage Skin:
+            // return 46;
             case 2432804: // Princess No Damage Skin:
-                 return 47;
+                return 47;
             case 2434654: // Murgoth Damage Skin:
-                 return 48;
+                return 48;
             case 2435326: // Nine-Tailed Fox Damage Skin:
-                 return 49;
+                return 49;
             case 2432749: // Zombie Damage Skin:
-                 return 50;
+                return 50;
             case 2434710: // MVP Special Damage Skin:
-                 return 51;
-            //case 2433777: // Black Heaven Damage Skin:
-            //     return 52;
+                return 51;
+            // case 2433777: // Black Heaven Damage Skin:
+            // return 52;
             case 2434824: // Monster Park Damage Skin:
-                 return 53;
-                // case 2431966: // Digital Damage Skin(already in): 54 - (1)
-                // case 2431967: // Kritias Damage Skin(already in): 55 - (2)
-                // case 2432154: // Sweet tea cake Damage Skin(already in): 56 - (5)
-                // case 2432354: // Merry Christmas Damage Skin(already in): 57 - (7)
-                // case 2432532: // Gentle spring breeze damage skin(already in): 58 - (12)
-                // case 2433715: // Striped Damage Skin(already in): 59 - (23)
-                // case 2433063: // Star Damage Skin(already in): 60 - (25)
-                // case 2433913: // Yeti and Pepe Damage Skin(already in): 61 - (26)
-                // case 2433980: // Slime and Mushroom Damage Skin(already in): 62 - (27)
-                // case 2434248: // Rainbow Boom Damage Skin(already in): 63 - (34)
-                // case 2433362: // Night Sky Damage Skin(already in): 64 - (35)
-                // case 2434274: // Marshmallow Damage Skin(already in): 65 - (36)
-                // case 2434390: // Teddy Damage Skin(already in): 66 - (38)
-                // case 5680395: // Scorching Heat Damage Skin(already in): 67 - (40)
-                // case 2434528: // USA Damage Skin(already in): 68 - (41)
-                // case 2434529: // Churro Damage Skin(already in): 69 - (42)
-                // case 2434530: // Singapore Night Damage Skin(already in): 70 - (43)
-                // case 2433571: // Scribble Crush Damage Skin(already in): 71 - (44)
-                // case 2434574: // Full Moon Damage Skin(already in): 72 - (45)
-                // case 2433828: // White Heaven Sun Damage Skin(already in): 73 - (46)
-            //case 2434662: // Jelly Beans Damage Skin:
-            //    return 74;
-            //case 2434664: // Soft-Serve Damage Skin:
-            //    return 75;
-            //case 2434868: // Christmas lights Damage skin:
-            //    return 76;
+                return 53;
+            // case 2431966: // Digital Damage Skin(already in): 54 - (1)
+            // case 2431967: // Kritias Damage Skin(already in): 55 - (2)
+            // case 2432154: // Sweet tea cake Damage Skin(already in): 56 - (5)
+            // case 2432354: // Merry Christmas Damage Skin(already in): 57 - (7)
+            // case 2432532: // Gentle spring breeze damage skin(already in): 58 - (12)
+            // case 2433715: // Striped Damage Skin(already in): 59 - (23)
+            // case 2433063: // Star Damage Skin(already in): 60 - (25)
+            // case 2433913: // Yeti and Pepe Damage Skin(already in): 61 - (26)
+            // case 2433980: // Slime and Mushroom Damage Skin(already in): 62 - (27)
+            // case 2434248: // Rainbow Boom Damage Skin(already in): 63 - (34)
+            // case 2433362: // Night Sky Damage Skin(already in): 64 - (35)
+            // case 2434274: // Marshmallow Damage Skin(already in): 65 - (36)
+            // case 2434390: // Teddy Damage Skin(already in): 66 - (38)
+            // case 5680395: // Scorching Heat Damage Skin(already in): 67 - (40)
+            // case 2434528: // USA Damage Skin(already in): 68 - (41)
+            // case 2434529: // Churro Damage Skin(already in): 69 - (42)
+            // case 2434530: // Singapore Night Damage Skin(already in): 70 - (43)
+            // case 2433571: // Scribble Crush Damage Skin(already in): 71 - (44)
+            // case 2434574: // Full Moon Damage Skin(already in): 72 - (45)
+            // case 2433828: // White Heaven Sun Damage Skin(already in): 73 - (46)
+            // case 2434662: // Jelly Beans Damage Skin:
+            // return 74;
+            // case 2434664: // Soft-Serve Damage Skin:
+            // return 75;
+            // case 2434868: // Christmas lights Damage skin:
+            // return 76;
             case 2436041: // Phantom Damage Skin:
                 return 77;
             case 2436042: // Mercedes Damage Skin:
@@ -1168,8 +1067,8 @@ public class ItemConstants {
                 return 87;
             case 2436044: // Miho Damage Skin:
                 return 88;
-            //case 2434663: // Donut Damage Skin:
-            //    return 89;
+            // case 2434663: // Donut Damage Skin:
+            // return 89;
             case 2435182: // Music Score Damage Skin:
                 return 90;
             case 2435850: // Moon Bunny Damage Skin:
@@ -1204,8 +1103,8 @@ public class ItemConstants {
                 return 105;
             case 2435493: // Monster Balloon Damage Skin:
                 return 106;
-                // case 2435331: // Bubble April Fools' Damage Skin(already in): 107 - (96)
-                // case 2435334: // Sparkling April Fools' Damage Skin(already in): 108 - (99)
+            // case 2435331: // Bubble April Fools' Damage Skin(already in): 107 - (96)
+            // case 2435334: // Sparkling April Fools' Damage Skin(already in): 108 - (99)
             case 2435959: // Henesys Damage Skin (unknown ID):
                 return 109;
             case 2435958: // Leafre Damage Skin (unknown ID):
@@ -1218,12 +1117,12 @@ public class ItemConstants {
                 return 113;
             case 2435433: // Nanopixel Damage Skin:
                 return 114;
-            //case 2434601: // Invisible Damage Skin(unknown ID):
-            //    return 115;
+            // case 2434601: // Invisible Damage Skin(unknown ID):
+            // return 115;
             case 2435521: // Crystal Damage Skin:
                 return 116;
-           // case 2435196: // Crow Damage Skin:
-           //     return 117;
+            // case 2435196: // Crow Damage Skin:
+            // return 117;
             case 2435523: // Chocolate Damage Skin:
                 return 118;
             case 2435524: // Spark Damage Skin:
@@ -1258,16 +1157,16 @@ public class ItemConstants {
                 return 133;
             case 2436045: // Starlight Aurora Damage Skin:
                 return 134;
-            //case 2434619:// Nine-Tailed Fox Damage Skin
-            //    return 88;
-            //case 2434663:// Donut Damage Skin
-            //    return 89;
+            // case 2434619:// Nine-Tailed Fox Damage Skin
+            // return 88;
+            // case 2434663:// Donut Damage Skin
+            // return 89;
             case 3801003:// null
                 return 90;
-            //case 2436133:// Chick Damage Skin
-            //    return 165;
-            //case 2436474:// XOXO Damage Skin
-            //    return 166;
+            // case 2436133:// Chick Damage Skin
+            // return 165;
+            // case 2436474:// XOXO Damage Skin
+            // return 166;
             case 3801113:// null
                 return 182;
             case 2433269:// Golden Damage Skin
@@ -1725,7 +1624,7 @@ public class ItemConstants {
 
     public static short getSoulOptionFromSoul(int itemId) {
         short id = 0;
-        switch(itemId) {
+        switch (itemId) {
 
         }
         return id;
@@ -1801,8 +1700,8 @@ public class ItemConstants {
         int[] chances;
         int[] attStats = new int[0];
         int[] stat;
-        int[] armorHp = new int[]{5, 20, 30, 70, 120};
-        int[] armorDef = new int[]{1, 2, 4, 7, 10};
+        int[] armorHp = new int[] { 5, 20, 30, 70, 120 };
+        int[] armorDef = new int[] { 1, 2, 4, 7, 10 };
         boolean armor = false;
         if (bp == BodyPart.Weapon) {
             plusFromLevel = rLevel >= 120 ? 2 : rLevel >= 60 ? 1 : 0;
@@ -1830,9 +1729,9 @@ public class ItemConstants {
                 possibleStat.add(EnchantStat.LUK);
                 possibleStat.add(EnchantStat.MHP);
             }
-            chances = new int[]{100, 70, 30, 15};
-            attStats = new int[]{1, 2, 3, 5, 7, 9};
-            stat = new int[]{0, 0, 1, 2, 3, 4};
+            chances = new int[] { 100, 70, 30, 15 };
+            attStats = new int[] { 1, 2, 3, 5, 7, 9 };
+            stat = new int[] { 0, 0, 1, 2, 3, 4 };
         } else if (bp == BodyPart.Gloves) {
             plusFromLevel = rLevel <= 70 ? 0 : 1;
             if ((rJob & RequiredJob.Magician.getVal()) > 0) {
@@ -1842,9 +1741,9 @@ public class ItemConstants {
             }
             possibleStat.add(EnchantStat.PDD);
             possibleStat.add(EnchantStat.MDD);
-            chances = new int[]{100, 70, 30};
-            attStats = new int[]{0, 1, 2, 3};
-            stat = new int[]{3, 0, 0, 0};
+            chances = new int[] { 100, 70, 30 };
+            attStats = new int[] { 0, 1, 2, 3 };
+            stat = new int[] { 3, 0, 0, 0 };
         } else if (ItemConstants.isAccessory(equip.getItemId())) {
             plusFromLevel = rLevel >= 120 ? 2 : rLevel >= 60 ? 1 : 0;
             if ((rJob & RequiredJob.Warrior.getVal()) > 0) { // warrior
@@ -1865,8 +1764,8 @@ public class ItemConstants {
                 possibleStat.add(EnchantStat.LUK);
                 possibleStat.add(EnchantStat.MHP);
             }
-            chances = new int[]{100, 70, 30};
-            stat = new int[]{1, 1, 2, 3, 5};
+            chances = new int[] { 100, 70, 30 };
+            stat = new int[] { 1, 1, 2, 3, 5 };
         } else {
             armor = true;
             plusFromLevel = rLevel >= 120 ? 2 : rLevel >= 60 ? 1 : 0;
@@ -1888,8 +1787,8 @@ public class ItemConstants {
                 possibleStat.add(EnchantStat.LUK);
                 possibleStat.add(EnchantStat.MHP);
             }
-            chances = new int[]{100, 70, 30};
-            stat = new int[]{1, 2, 3, 5, 7};
+            chances = new int[] { 100, 70, 30 };
+            stat = new int[] { 1, 2, 3, 5, 7 };
         }
         for (int i = 0; i < chances.length; i++) { // 4 scroll tiers for weapons
             int tier = i + plusFromLevel;
@@ -1898,7 +1797,7 @@ public class ItemConstants {
                 int val;
                 if (es.isAttackType()) {
                     val = attStats[tier];
-                } else if (es.isHpOrMp()){
+                } else if (es.isHpOrMp()) {
                     val = stat[tier] * 50;
                 } else {
                     val = stat[tier];
@@ -1914,15 +1813,12 @@ public class ItemConstants {
             }
             String title = chances[i] + "% ";
             title += bp == BodyPart.Weapon ? "Attack" : "Stat";
-            ScrollUpgradeInfo sui = new ScrollUpgradeInfo(i, title, SpellTraceScrollType.Normal, 0, stats,
-                    BASE_ST_COST + rLevel * (tier + 1), chances[i]);
+            ScrollUpgradeInfo sui = new ScrollUpgradeInfo(i, title, SpellTraceScrollType.Normal, 0, stats, BASE_ST_COST + rLevel * (tier + 1), chances[i]);
             scrolls.add(sui);
         }
         if (equip.hasUsedSlots()) {
-            scrolls.add(new ScrollUpgradeInfo(4, "Innocence Scroll 30%",
-                    SpellTraceScrollType.Innocence, 0, new TreeMap<>(), INNOCENCE_ST_COST, 30));
-            scrolls.add(new ScrollUpgradeInfo(5, "Clean Slate Scroll 5%",
-                    SpellTraceScrollType.CleanSlate, 0, new TreeMap<>(), CLEAN_SLATE_ST_COST, 5));
+            scrolls.add(new ScrollUpgradeInfo(4, "Innocence Scroll 30%", SpellTraceScrollType.Innocence, 0, new TreeMap<>(), INNOCENCE_ST_COST, 30));
+            scrolls.add(new ScrollUpgradeInfo(5, "Clean Slate Scroll 5%", SpellTraceScrollType.CleanSlate, 0, new TreeMap<>(), CLEAN_SLATE_ST_COST, 5));
         }
         return scrolls;
     }
@@ -2071,4 +1967,3 @@ public class ItemConstants {
         return itemId / 100 == 50624;
     }
 }
-

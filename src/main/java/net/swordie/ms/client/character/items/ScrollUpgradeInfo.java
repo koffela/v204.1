@@ -12,7 +12,7 @@ import java.util.TreeMap;
 
 /**
  * @author Sjonnie
- * Created on 8/18/2018.
+ *         Created on 8/18/2018.
  */
 public class ScrollUpgradeInfo implements Encodable {
     private int iconID;
@@ -23,8 +23,7 @@ public class ScrollUpgradeInfo implements Encodable {
     private int cost;
     private int chance;
 
-    public ScrollUpgradeInfo(int iconID, String title, SpellTraceScrollType scrollType, int scrollOption,
-                             TreeMap<EnchantStat, Integer> scrollStats, int cost, int chance) {
+    public ScrollUpgradeInfo(int iconID, String title, SpellTraceScrollType scrollType, int scrollOption, TreeMap<EnchantStat, Integer> scrollStats, int cost, int chance) {
         this.iconID = iconID;
         this.title = title;
         this.type = scrollType;

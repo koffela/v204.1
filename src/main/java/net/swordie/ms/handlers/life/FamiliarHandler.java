@@ -20,7 +20,6 @@ public class FamiliarHandler {
 
     private static final Logger log = Logger.getLogger(FamiliarHandler.class);
 
-
     @Handler(op = InHeader.FAMILIAR_ADD_REQUEST)
     public static void handleFamiliarAddRequest(Char chr, InPacket inPacket) {
         inPacket.decodeInt(); // tick
@@ -54,8 +53,7 @@ public class FamiliarHandler {
         Familiar familiar = chr.getFamiliarByID(familiarID);
         if (familiar != null) {
             if (chr.getActiveFamiliar() != null && chr.getActiveFamiliar() != familiar) {
-                chr.getField().broadcastPacket(CFamiliar.familiarEnterField(chr.getId(), false,
-                        chr.getActiveFamiliar(), false, true));
+                chr.getField().broadcastPacket(CFamiliar.familiarEnterField(chr.getId(), false, chr.getActiveFamiliar(), false, true));
             }
             chr.setActiveFamiliar(on ? familiar : null);
             if (on) {
@@ -92,7 +90,6 @@ public class FamiliarHandler {
             chr.getField().broadcastPacket(CFamiliar.familiarMove(chr.getId(), movementInfo), chr);
         }
     }
-
 
     @Handler(op = InHeader.FAMILIAR_SKILL)
     public static void handleFamiliarSkill(Char chr, InPacket inPacket) {

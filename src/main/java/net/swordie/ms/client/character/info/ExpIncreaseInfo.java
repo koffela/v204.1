@@ -420,9 +420,9 @@ public class ExpIncreaseInfo {
         if ((mask & InstallItemBonusExp.getVal()) != 0) {
             outPacket.encodeInt(getInstallItemBonusExp());
         }
-        //if ((mask & AswanWinnerBonusExp.getVal()) != 0) {
-        //    outPacket.encodeInt(getAswanWinnerBonusExp());
-        //}
+        // if ((mask & AswanWinnerBonusExp.getVal()) != 0) {
+        // outPacket.encodeInt(getAswanWinnerBonusExp());
+        // }
         if ((mask & ExpByIncExpR.getVal()) != 0) {
             outPacket.encodeInt(getExpByIncExpR());
         }

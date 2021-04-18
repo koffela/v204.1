@@ -4,6 +4,7 @@ import net.swordie.ms.connection.OutPacket;
 
 /**
  * Created on 12/18/2017.
+ * 
  * @NexonName GW_Core struct
  */
 public class Core {

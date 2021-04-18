@@ -9,14 +9,16 @@ import javax.persistence.*;
 @Table(name = "systemtimes")
 public class SystemTime {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column(name = "yr")
     private int year;
     @Column(name = "mnth")
     private int month;
 
-    public SystemTime(){}
+    public SystemTime() {
+    }
 
     public SystemTime(int year, int month) {
         this.year = year;

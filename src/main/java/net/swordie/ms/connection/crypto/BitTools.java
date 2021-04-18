@@ -18,8 +18,8 @@
 package net.swordie.ms.connection.crypto;
 
 /**
- * Artifact brought over from Invictus.  Contains multiple tools
- * that are used for bit-wise logic. Will not be documented since the 
+ * Artifact brought over from Invictus. Contains multiple tools
+ * that are used for bit-wise logic. Will not be documented since the
  * logic is pretty straightforward.
  * 
  * @author Zygon
@@ -38,8 +38,7 @@ public final class BitTools {
     }
 
     public static byte rollLeft(byte in, int count) {
-        return (byte) (((in & 0xFF) << (count % 8) & 0xFF)
-                | ((in & 0xFF) << (count % 8) >> 8));
+        return (byte) (((in & 0xFF) << (count % 8) & 0xFF) | ((in & 0xFF) << (count % 8) >> 8));
     }
 
     public static byte rollRight(byte in, int count) {

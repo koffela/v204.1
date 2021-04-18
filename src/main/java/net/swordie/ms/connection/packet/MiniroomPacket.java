@@ -14,7 +14,7 @@ import net.swordie.ms.life.Merchant.MerchantItem;
 
 /**
  * @author Sjonnie
- * Created on 8/10/2018.
+ *         Created on 8/10/2018.
  */
 public class MiniroomPacket {
 
@@ -42,7 +42,6 @@ public class MiniroomPacket {
 
         return outPacket;
     }
-
 
     public static OutPacket putItem(int user, int pos, Item item) {
         OutPacket outPacket = new OutPacket(OutHeader.MINI_ROOM_BASE_DLG);
@@ -131,9 +130,9 @@ public class MiniroomPacket {
         outPacket.encodeByte(6); // action
         outPacket.encodeByte(GameConstants.MAX_MERCHANT_VISITORS + 1); // number of slots
         if (character.getId() == merchant.getOwnerID()) {
-            outPacket.encodeShort(0); //my position
+            outPacket.encodeShort(0); // my position
         } else {
-            outPacket.encodeShort(merchant.getVisitors().indexOf(character) + 1); //my position
+            outPacket.encodeShort(merchant.getVisitors().indexOf(character) + 1); // my position
         }
         outPacket.encodeInt(merchant.getItemID());
         outPacket.encodeString("Hired Merchant");
@@ -161,7 +160,7 @@ public class MiniroomPacket {
         }
         outPacket.encodeInt(263);
         outPacket.encodeString(merchant.getMessage());
-        outPacket.encodeByte(GameConstants.MAX_MERCHANT_SLOTS); //size
+        outPacket.encodeByte(GameConstants.MAX_MERCHANT_SLOTS); // size
         outPacket.encodeLong(merchant.getMesos());
         outPacket.encodeByte(merchant.getItems().size());
         for (MerchantItem item : merchant.getItems()) {
@@ -177,7 +176,6 @@ public class MiniroomPacket {
     public static OutPacket shopVisitorAdd(Char chr, int slot) {
         OutPacket outPacket = new OutPacket(OutHeader.MINI_ROOM_BASE_DLG);
 
-
         outPacket.encodeByte(MiniRoomType.Accept.getVal());
 
         outPacket.encodeByte(slot);
@@ -191,7 +189,6 @@ public class MiniroomPacket {
     public static OutPacket shopVisitorRemove(Char chr, int slot) {
         OutPacket outPacket = new OutPacket(OutHeader.MINI_ROOM_BASE_DLG);
 
-
         outPacket.encodeByte(MiniRoomType.Accept.getVal());
 
         outPacket.encodeByte(MiniRoomType.Accept.getVal());
@@ -204,7 +201,6 @@ public class MiniroomPacket {
 
         OutPacket outPacket = new OutPacket(OutHeader.EMPLOYEE_ENTER_FIELD);
 
-
         outPacket.encodeInt(merchant.getOwnerID());
         outPacket.encodeInt(merchant.getItemID());
         outPacket.encodePosition(merchant.getPosition());
@@ -213,19 +209,19 @@ public class MiniroomPacket {
         int itemID = merchant.getItemID();
         byte type = 6;
         /*
-        if(itemID>=5030000&&itemID<=5030001) //elf
-            {type=6;}
-        if(itemID>=5030002&&itemID<=5030003) //bear
-        {type=20;}
-        if(itemID>=5030004&&itemID<=5030005) //robo
-        {type=8;}
-        if(itemID>=5030008&&itemID<=5030009) //cute girl
-        {type=9;}
-        if(itemID>=5030010&&itemID<=5030011) //grandma
-        {type=10;}
-        if(itemID==5030012) //mustach guy
-        {type=11;}
-        */
+         * if(itemID>=5030000&&itemID<=5030001) //elf
+         * {type=6;}
+         * if(itemID>=5030002&&itemID<=5030003) //bear
+         * {type=20;}
+         * if(itemID>=5030004&&itemID<=5030005) //robo
+         * {type=8;}
+         * if(itemID>=5030008&&itemID<=5030009) //cute girl
+         * {type=9;}
+         * if(itemID>=5030010&&itemID<=5030011) //grandma
+         * {type=10;}
+         * if(itemID==5030012) //mustach guy
+         * {type=11;}
+         */
         outPacket.encodeByte(type);
         outPacket.encodeInt(merchant.getObjectId());
         outPacket.encodeString(merchant.getMessage());
@@ -233,7 +229,6 @@ public class MiniroomPacket {
         outPacket.encodeByte(merchant.getItems().size());
         outPacket.encodeByte(GameConstants.MAX_MERCHANT_SLOTS);
         outPacket.encodeByte(merchant.getOpen());
-
 
         return outPacket;
     }

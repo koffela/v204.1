@@ -5,7 +5,6 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
-
 public abstract class Timer {
 
     public static class WorldTimer extends Timer {
@@ -125,7 +124,7 @@ public abstract class Timer {
         ses.allowCoreThreadTimeOut(true);
         ses.setMaximumPoolSize(8);
         ses.setContinueExistingPeriodicTasksAfterShutdownPolicy(false);
-        //ses.setExecuteExistingDelayedTasksAfterShutdownPolicy(false);
+        // ses.setExecuteExistingDelayedTasksAfterShutdownPolicy(false);
     }
 
     public ScheduledThreadPoolExecutor getSES() {
@@ -166,6 +165,7 @@ public abstract class Timer {
     private static class LoggingSaveRunnable implements Runnable {
 
         Runnable r;
+
         public LoggingSaveRunnable(final Runnable r, final String file) {
             this.r = r;
         }
@@ -175,18 +175,11 @@ public abstract class Timer {
             try {
                 r.run();
             } catch (Throwable t) {
-                //t.printStackTrace(); //mostly this gives un-needed errors... that take up a lot of space
+                // t.printStackTrace(); //mostly this gives un-needed errors... that take up a lot of space
             }
         }
     }
 
+    private final AtomicInteger threadNumber2 = new AtomicInteger(1);
 
-
-        private final AtomicInteger threadNumber2 = new AtomicInteger(1);
-
-
-
-
-
-        }
-
+}

@@ -99,7 +99,7 @@ public class UserPacket {
 
         return outPacket;
     }
-    
+
     public static OutPacket scriptProgressMessage(String string) {
         OutPacket outPacket = new OutPacket(OutHeader.SCRIPT_PROGRESS_MESSAGE);
 
@@ -110,16 +110,16 @@ public class UserPacket {
 
     public static OutPacket progressMessageFont(int fontNameType, int fontSize, int fontColorType, int fadeOutDelay, String message) {
         OutPacket outPacket = new OutPacket(OutHeader.PROGRESS_MESSAGE_FONT);
-        
+
         outPacket.encodeInt(fontNameType);
         outPacket.encodeInt(fontSize);
         outPacket.encodeInt(fontColorType);
         outPacket.encodeInt(fadeOutDelay);
         outPacket.encodeString(message);
- 
+
         return outPacket;
     }
-    
+
     public static OutPacket effect(Effect effect) {
         OutPacket outPacket = new OutPacket(OutHeader.EFFECT);
 
@@ -145,7 +145,6 @@ public class UserPacket {
         outPacket.encodeInt(charID);
         outPacket.encodeByte(pl.success);
         pl.encode(outPacket);
-
 
         return outPacket;
     }
@@ -189,9 +188,8 @@ public class UserPacket {
     public static OutPacket teslaTriangle(List<Summon> rockNshockLifes, int chrId) {
         OutPacket outPacket = new OutPacket(OutHeader.TESLA_TRIANGLE);
 
-
         outPacket.encodeInt(chrId);
-        for (int i = 0; i < 3 ; i++) {
+        for (int i = 0; i < 3; i++) {
             outPacket.encodeInt(rockNshockLifes.get(i).getObjectId());
         }
         return outPacket;
@@ -200,7 +198,7 @@ public class UserPacket {
     public static OutPacket checkUpgradeItemResult(int index, boolean show) {
         OutPacket outPacket = new OutPacket(OutHeader.EGO_EQUIP_CHECK_UPGRADE_ITEM_RESULT);
         outPacket.encodeByte(show);
-        outPacket.encodeString(""); //does nothing and not named in kmst idb.
+        outPacket.encodeString(""); // does nothing and not named in kmst idb.
         outPacket.encodeInt(index);
         return outPacket;
     }

@@ -1,6 +1,5 @@
 package net.swordie.ms.client.character.items;
 
-
 import net.swordie.ms.client.character.Char;
 import net.swordie.ms.client.character.skills.Option;
 import net.swordie.ms.client.character.skills.temp.TemporaryStatManager;

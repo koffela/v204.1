@@ -49,7 +49,9 @@ public class ItemInfo {
     private int android;
     private Set<Integer> reqItemIds = new HashSet<>();
 
-    public Set<Integer> getReqItemIds() { return reqItemIds; }
+    public Set<Integer> getReqItemIds() {
+        return reqItemIds;
+    }
 
     public void setItemId(int itemId) {
         this.itemId = itemId;
@@ -299,7 +301,9 @@ public class ItemInfo {
         this.skills = skills;
     }
 
-    public void addSkill(int skill) {skills.add(skill); }
+    public void addSkill(int skill) {
+        skills.add(skill);
+    }
 
     public int getMoveTo() {
         return moveTo;

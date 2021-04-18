@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * @author Sjonnie
- * Created on 9/9/2018.
+ *         Created on 9/9/2018.
  */
 public class ScriptMemory {
 
@@ -29,12 +29,13 @@ public class ScriptMemory {
     /**
      * Returns the previous script info according to the current position (or null if we don't have it).
      * Automatically decrements the position.
+     * 
      * @return previous script info
      */
     public NpcScriptInfo getPreviousScriptInfo() {
         if (getPosition() > 1) {
             setPosition(getPosition() - 2);
-        } else if (getPosition() == 1){
+        } else if (getPosition() == 1) {
             setPosition(0);
         }
         NpcScriptInfo nsi = isInMemory() ? getMemory().get(getPosition()) : null;
@@ -47,6 +48,7 @@ public class ScriptMemory {
     /**
      * Returns the previous script info according to the current position (or null if we don't have it).
      * Automatically decrements the position.
+     * 
      * @return previous script info
      */
     public NpcScriptInfo getNextScriptInfo() {
@@ -59,6 +61,7 @@ public class ScriptMemory {
 
     /**
      * Checks if the current position corresponds to something in memory.
+     * 
      * @return if we're in memory
      */
     public boolean isInMemory() {
@@ -67,7 +70,9 @@ public class ScriptMemory {
 
     /**
      * Adds a new entry to the memory. Automatically increments the position.
-     * @param nsi the info to add
+     * 
+     * @param nsi
+     *            the info to add
      */
     public void addMemoryInfo(NpcScriptInfo nsi) {
         if (getPosition() < getMemory().size() - 1) {

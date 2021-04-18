@@ -1,4 +1,5 @@
 package net.swordie.ms.client.character.info;
+
 import net.swordie.ms.connection.OutPacket;
 
 /**
@@ -97,7 +98,7 @@ public class FarmUserInfo {
     }
 
     public void encode(OutPacket outPacket) {
-       outPacket.encodeString(getFarmName());
+        outPacket.encodeString(getFarmName());
         outPacket.encodeInt(getFarmPoint());
         outPacket.encodeInt(getFarmLevel());
         outPacket.encodeInt(getFarmExp());

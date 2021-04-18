@@ -32,13 +32,12 @@ public class ItemUpgradeHandler {
 
     private static final Logger log = Logger.getLogger(ItemUpgradeHandler.class);
 
-
     @Handler(op = InHeader.USER_EX_ITEM_UPGRADE_ITEM_USE_REQUEST)
     public static void handleUserExItemUpgradeItemUseRequest(Client c, InPacket inPacket) {
-        inPacket.decodeInt(); //tick
-        short usePosition = inPacket.decodeShort(); //Use Position
-        short eqpPosition = inPacket.decodeShort(); //Equip Position
-        byte echantSkill = inPacket.decodeByte(); //boolean
+        inPacket.decodeInt(); // tick
+        short usePosition = inPacket.decodeShort(); // Use Position
+        short eqpPosition = inPacket.decodeShort(); // Equip Position
+        byte echantSkill = inPacket.decodeByte(); // boolean
 
         Char chr = c.getChr();
         Item flame = chr.getInventoryByType(InvType.CONSUME).getItemBySlot(usePosition);
@@ -73,7 +72,7 @@ public class ItemUpgradeHandler {
             if (success) {
                 boolean eternalFlame = vals.getOrDefault(ScrollStat.createType, 6) >= 7;
                 equip.randomizeFlameStats(eternalFlame); // Generate high stats if it's an eternal/RED flame only.
-                //apply flame to zero's weapon
+                // apply flame to zero's weapon
                 if (ItemConstants.isLongOrBigSword(equip.getItemId())) {
                     Equip zeroWeapon = (Equip) chr.getEquippedInventory().getItemBySlot(11);
                     if (zeroWeapon != null) {
@@ -134,19 +133,16 @@ public class ItemUpgradeHandler {
             }
         }
 
-        if (equip == null || !ItemConstants.canEquipGoldHammer(equip) ||
-                hammer == null || !ItemConstants.isGoldHammer(hammer) || hammerID != hammer.getItemId()) {
+        if (equip == null || !ItemConstants.canEquipGoldHammer(equip) || hammer == null || !ItemConstants.isGoldHammer(hammer) || hammerID != hammer.getItemId()) {
             chr.write(WvsContext.goldHammerItemUpgradeResult(GoldHammerResult.Error, 1, 0));
-            chr.getOffenseManager().addOffense(String.format("Character %d tried to use hammer (id %d) on an invalid equip (id %d)",
-                    chr.getId(), hammer == null ? 0 : hammer.getItemId(), equip == null ? 0 : equip.getItemId()));
+            chr.getOffenseManager().addOffense(String.format("Character %d tried to use hammer (id %d) on an invalid equip (id %d)", chr.getId(), hammer == null ? 0 : hammer.getItemId(), equip == null ? 0 : equip.getItemId()));
             return;
         }
 
         Map<ScrollStat, Integer> vals = ItemData.getItemInfoByID(hammer.getItemId()).getScrollStats();
         if (vals.size() > 0) {
             if (equip.getIuc() >= maxHammers) {
-                chr.getOffenseManager().addOffense(String.format("Character %d tried to use hammer (id %d) an invalid equip (id %d)",
-                        chr.getId(), hammerID, equip.getItemId()));
+                chr.getOffenseManager().addOffense(String.format("Character %d tried to use hammer (id %d) an invalid equip (id %d)", chr.getId(), hammerID, equip.getItemId()));
                 chr.write(WvsContext.goldHammerItemUpgradeResult(GoldHammerResult.Error, 2, 0));
                 return;
             }
@@ -170,13 +166,13 @@ public class ItemUpgradeHandler {
         int returnResult = inPacket.decodeInt();
         int result = inPacket.decodeInt();
         if (returnResult == GoldHammerResult.Success.getVal() || returnResult == GoldHammerResult.Fail.getVal()) {
-            //I think its ok to just send back the result given.
+            // I think its ok to just send back the result given.
             chr.write(WvsContext.goldHammerItemUpgradeResult(GoldHammerResult.Done, result, 0));
         } else {
-            chr.getOffenseManager().addOffense(String.format("Character %d have invalid gold hammer complete returnResult %d",
-                    chr.getId(), returnResult));
+            chr.getOffenseManager().addOffense(String.format("Character %d have invalid gold hammer complete returnResult %d", chr.getId(), returnResult));
         }
     }
+
     @Handler(op = InHeader.USER_UPGRADE_ASSIST_ITEM_USE_REQUEST)
     public static void handleUserUpgradeAssistItemUseRequest(Client c, InPacket inPacket) {
         Char chr = c.getChr();
@@ -185,11 +181,11 @@ public class ItemUpgradeHandler {
             chr.dispose();
             return;
         }
-        inPacket.decodeInt(); //tick
-        short uPos = inPacket.decodeShort(); //Use Position
-        short ePos = inPacket.decodeShort(); //Eqp Position
-        byte bEnchantSkill = inPacket.decodeByte(); //no clue what this means exactly
-//        short idk = inPacket.decodeShort(); //No clue what this is, stayed  00 00  throughout different tests
+        inPacket.decodeInt(); // tick
+        short uPos = inPacket.decodeShort(); // Use Position
+        short ePos = inPacket.decodeShort(); // Eqp Position
+        byte bEnchantSkill = inPacket.decodeByte(); // no clue what this means exactly
+        // short idk = inPacket.decodeShort(); //No clue what this is, stayed 00 00 throughout different tests
         Item scroll = chr.getInventoryByType(InvType.CONSUME).getItemBySlot(uPos);
         InvType invType = ePos < 0 ? EQUIPPED : EQUIP;
         Equip equip = (Equip) chr.getInventoryByType(invType).getItemBySlot(ePos);
@@ -234,11 +230,11 @@ public class ItemUpgradeHandler {
             chr.dispose();
             return;
         }
-        inPacket.decodeInt(); //tick
-        short uPos = inPacket.decodeShort(); //Use Position
-        short ePos = inPacket.decodeShort(); //Eqp Position
-        byte bEnchantSkill = inPacket.decodeByte(); //no clue what this means exactly
-        short idk = inPacket.decodeShort(); //No clue what this is, stayed  00 00  throughout different tests
+        inPacket.decodeInt(); // tick
+        short uPos = inPacket.decodeShort(); // Use Position
+        short ePos = inPacket.decodeShort(); // Eqp Position
+        byte bEnchantSkill = inPacket.decodeByte(); // no clue what this means exactly
+        short idk = inPacket.decodeShort(); // No clue what this is, stayed 00 00 throughout different tests
         Item scroll = chr.getInventoryByType(InvType.CONSUME).getItemBySlot(uPos);
         InvType invType = ePos < 0 ? EQUIPPED : EQUIP;
         Equip equip = (Equip) chr.getInventoryByType(invType).getItemBySlot(ePos);
@@ -252,7 +248,7 @@ public class ItemUpgradeHandler {
             chr.dispose();
             return;
         }
-        if(ii != null && !ii.getReqItemIds().contains(equip.getItemId())) {
+        if (ii != null && !ii.getReqItemIds().contains(equip.getItemId())) {
             chr.chatMessage(SystemNotice, "You may not scroll the selected equip with this scroll.");
             chr.dispose();
             return;
@@ -286,7 +282,7 @@ public class ItemUpgradeHandler {
                 equip.updateToChar(chr);
                 zeroWeapon.updateToChar(chr);
                 chr.write(FieldPacket.showItemUpgradeEffect(chr.getId(), success, false, scrollID, equip.getItemId(), false));
-                //chr.write(FieldPacket.showItemUpgradeEffect(chr.getId(), success, false, scrollID, zeroWeapon.getItemId(), false));
+                // chr.write(FieldPacket.showItemUpgradeEffect(chr.getId(), success, false, scrollID, zeroWeapon.getItemId(), false));
                 chr.consumeItem(scroll);
             } else {
                 equip.applyScroll(scroll, chr, success);
@@ -300,7 +296,7 @@ public class ItemUpgradeHandler {
     @Handler(op = InHeader.USER_ITEM_OPTION_UPGRADE_ITEM_USE_REQUEST)
     public static void handleUserItemOptionUpgradeItemUseRequest(Client c, InPacket inPacket) {
         Char chr = c.getChr();
-        inPacket.decodeInt(); //tick
+        inPacket.decodeInt(); // tick
         short uPos = inPacket.decodeShort();
         short ePos = inPacket.decodeShort();
         byte bEnchantSkill = inPacket.decodeByte(); // bool or byte?
@@ -383,8 +379,7 @@ public class ItemUpgradeHandler {
             switch (itemID) {
                 case 2049505: // Gold Potential Stamp
                 case 2049517:
-                    equip.setOption(2, equip.getRandomOption(false, 2, ItemConstants.SYSTEM_DEFAULT_CUBE_INDICATOR,
-                            ItemConstants.getAdditionalPrimeCountForCube(ItemConstants.SYSTEM_DEFAULT_CUBE_INDICATOR)), false);
+                    equip.setOption(2, equip.getRandomOption(false, 2, ItemConstants.SYSTEM_DEFAULT_CUBE_INDICATOR, ItemConstants.getAdditionalPrimeCountForCube(ItemConstants.SYSTEM_DEFAULT_CUBE_INDICATOR)), false);
                     break;
                 default:
                     log.error("Unhandled slot extend item " + itemID);
@@ -405,7 +400,7 @@ public class ItemUpgradeHandler {
             chr.dispose();
             return;
         }
-        inPacket.decodeInt(); //tick
+        inPacket.decodeInt(); // tick
         short uPos = inPacket.decodeShort();
         short ePos = inPacket.decodeShort();
         byte bEnchantSkill = inPacket.decodeByte();
@@ -458,7 +453,7 @@ public class ItemUpgradeHandler {
     @Handler(op = InHeader.USER_ITEM_RELEASE_REQUEST)
     public static void handleUserItemReleaseRequest(Client c, InPacket inPacket) {
         Char chr = c.getChr();
-        inPacket.decodeInt(); //tick
+        inPacket.decodeInt(); // tick
         short uPos = inPacket.decodeShort();
         short ePos = inPacket.decodeShort();
         Item item = chr.getInventoryByType(InvType.CONSUME).getItemBySlot(uPos); // old system with magnifying glasses
@@ -494,17 +489,17 @@ public class ItemUpgradeHandler {
     @Handler(op = InHeader.EGO_EQUIP_GAUGE_COMPLETE_RETURN)
     public static void handleEgoEquipGaugeCompleteReturn(Client c, InPacket inPacket) {
         // todo: gauge complete
-        //OutPacket outPacket = new OutPacket(OutHeader.GAUGE_COMPLETE);
-        //c.write(outPacket);
+        // OutPacket outPacket = new OutPacket(OutHeader.GAUGE_COMPLETE);
+        // c.write(outPacket);
     }
 
     @Handler(op = InHeader.USER_LUCKY_ITEM_USE_REQUEST)
     public static void handleUserLuckyItemUseRequest(Client c, InPacket inPacket) {
         Char chr = c.getChr();
-        inPacket.decodeInt(); //idk...
+        inPacket.decodeInt(); // idk...
         byte slot = inPacket.decodeByte();
         Item scroll = chr.getConsumeInventory().getItemBySlot(slot);
-        if(scroll == null) {
+        if (scroll == null) {
             return;
         }
         ItemInfo scrollInfo = ItemData.getItemInfoByID(scroll.getItemId());
@@ -512,7 +507,7 @@ public class ItemUpgradeHandler {
         boolean success = Util.succeedProp(scrollInfo.getScrollStats().getOrDefault(ScrollStat.success, 100), 100);
         if (setId != 0 && success) {
             QuestManager qm = chr.getQuestManager();
-            if(qm.hasQuestInProgress(QuestConstants.ZERO_SET_QUEST) || qm.hasQuestCompleted(QuestConstants.ZERO_SET_QUEST)){
+            if (qm.hasQuestInProgress(QuestConstants.ZERO_SET_QUEST) || qm.hasQuestCompleted(QuestConstants.ZERO_SET_QUEST)) {
                 qm.removeQuest(QuestConstants.ZERO_SET_QUEST);
             }
             Quest q = QuestData.createQuestFromId(QuestConstants.ZERO_SET_QUEST);

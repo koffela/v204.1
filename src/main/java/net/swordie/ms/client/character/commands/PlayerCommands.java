@@ -22,7 +22,7 @@ import static net.swordie.ms.enums.PrivateStatusIDFlag.NONE;
 public class PlayerCommands {
     static final org.apache.log4j.Logger log = LogManager.getRootLogger();
 
-    @Command(names = {"check", "dispose", "fix"}, requiredType = NONE)
+    @Command(names = { "check", "dispose", "fix" }, requiredType = NONE)
     public static class Dispose extends PlayerCommand {
         public static void execute(Char chr, String[] args) {
             chr.dispose();
@@ -43,18 +43,18 @@ public class PlayerCommands {
         }
     }
 
-    @Command(names = {"event"}, requiredType = NONE)
+    @Command(names = { "event" }, requiredType = NONE)
     public static class JoinEvent extends PlayerCommand {
         public static void execute(Char chr, String[] args) {
             InGameEventManager.getInstance().joinPublicEvent(chr);
         }
     }
 
-    @Command(names = {"roll"}, requiredType = NONE)
+    @Command(names = { "roll" }, requiredType = NONE)
     public static class OneArmedBandit extends PlayerCommand {
         public static void execute(Char chr, String[] args) {
 
-            String[] str = new String[]{
+            String[] str = new String[] {
                     "Map/Effect.img/miro/frame",
                     "Map/Effect.img/miro/RR1/" + Util.getRandom(4),
                     "Map/Effect.img/miro/RR2/" + Util.getRandom(4),
@@ -67,7 +67,7 @@ public class PlayerCommands {
         }
     }
 
-    @Command(names = {"sell"}, requiredType = NONE)
+    @Command(names = { "sell" }, requiredType = NONE)
     public static class SellItem extends PlayerCommand {
         public static void execute(Char chr, String[] args) {
             ScriptManagerImpl smi = chr.getScriptManager();

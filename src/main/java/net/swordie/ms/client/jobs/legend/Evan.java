@@ -63,14 +63,13 @@ public class Evan extends Job {
     public static final int HEROS_WILL_EVAN = 22171004;
     public static final int DRAGON_FURY = 22170074;
 
-    //Returns
+    // Returns
     public static final int RETURN_FLASH = 22110013; // Return after Wind Skills (Mob Debuff)
     public static final int RETURN_DIVE = 22140013; // Return Dive (Buff)
-    public static final int RETURN_FLAME = 22170064; // Return Flame (Flame  AoE)
+    public static final int RETURN_FLAME = 22170064; // Return Flame (Flame AoE)
     public static final int RETURN_FLAME_TILE = 22170093; // Return Flames Tile
 
-
-    //Evan Attacks
+    // Evan Attacks
     public static final int MANA_BURST_I = 22001010;
     public static final int MANA_BURST_II = 22110010;
     public static final int MANA_BURST_III = 22140010;
@@ -81,7 +80,7 @@ public class Evan extends Job {
     public static final int EARTH_CIRCLE = 22171062;
     public static final int DARK_FOG = 22171095;
 
-    //Final Attack
+    // Final Attack
     public static final int DRAGON_SPARK = 22000015;
     public static final int ADV_DRAGON_SPARK = 22110021;
 
@@ -96,7 +95,7 @@ public class Evan extends Job {
             BACK_TO_NATURE,
     };
 
-    private final int[] buffs = new int[]{
+    private final int[] buffs = new int[] {
             MAGIC_GUARD,
             MAGIC_BOOSTER,
             ELEMENTAL_DECREASE,
@@ -111,7 +110,7 @@ public class Evan extends Job {
 
     public Evan(Char chr) {
         super(chr);
-        if(chr.getId() != 0 && isHandlerOfJob(chr.getJob())) {
+        if (chr.getId() != 0 && isHandlerOfJob(chr.getJob())) {
             for (int id : addedSkills) {
                 if (!chr.hasSkill(id)) {
                     Skill skill = SkillData.getSkillDeepCopyById(id);
@@ -139,13 +138,10 @@ public class Evan extends Job {
         return skillID;
     }
 
-
     @Override
     public boolean isHandlerOfJob(short id) {
         return JobConstants.isEvan(id);
     }
-
-
 
     // Buff related methods --------------------------------------------------------------------------------------------
 
@@ -174,7 +170,7 @@ public class Evan extends Job {
                 break;
             case RETURN_DIVE:
                 o1.nReason = skillID;
-                o1.nValue = 1; //si.getValue(x, slv);
+                o1.nValue = 1; // si.getValue(x, slv);
                 o1.tStart = (int) System.currentTimeMillis();
                 o1.tTerm = si.getValue(time, slv);
                 tsm.putCharacterStatValue(IndieBooster, o1);
@@ -226,7 +222,6 @@ public class Evan extends Job {
                 field.spawnSummon(summon);
                 break;
 
-
             case DRAGON_MASTER:
                 tsb.setNOption(1939007);
                 tsb.setROption(skillID);
@@ -236,7 +231,7 @@ public class Evan extends Job {
                 o1.nOption = 1;
                 o1.rOption = DRAGON_MASTER;
                 o1.tOption = 30;
-                //tsm.putCharacterStatValue(NewFlying, o1);
+                // tsm.putCharacterStatValue(NewFlying, o1);
                 break;
             case DRAGON_MASTER_2:
                 break;
@@ -248,13 +243,11 @@ public class Evan extends Job {
         return super.isBuff(skillID) || Arrays.stream(buffs).anyMatch(b -> b == skillID);
     }
 
-
-
     // Attack related methods ------------------------------------------------------------------------------------------
 
     @Override
     public void handleAttack(Client c, AttackInfo attackInfo) {
-        if(chr.getField() != oldField) {
+        if (chr.getField() != oldField) {
             debrisCount = 0;
             c.write(FieldPacket.delWreckage(chr));
         }
@@ -271,21 +264,21 @@ public class Evan extends Job {
             slv = skill.getCurrentLevel();
             skillID = skill.getSkillId();
         }
-        if(hasHitMobs) {
+        if (hasHitMobs) {
             // Partners
             if (getEvanSkill(skillID) != 1 && chr.hasSkill(PARTNERS)) {
                 givePartnersBuff(skillID);
             }
 
             // Wreckage / Magic Debris
-            if(SkillConstants.isEvanFusionSkill(attackInfo.skillId)) {
-                if(attackInfo.skillId != MAGIC_DEBRIS && attackInfo.skillId != ENHANCED_MAGIC_DEBRIS) {
+            if (SkillConstants.isEvanFusionSkill(attackInfo.skillId)) {
+                if (attackInfo.skillId != MAGIC_DEBRIS && attackInfo.skillId != ENHANCED_MAGIC_DEBRIS) {
                     for (MobAttackInfo mai : attackInfo.mobAttackInfo) {
                         Mob mob = (Mob) chr.getField().getLifeByObjectID(mai.mobId);
                         if (mob == null) {
                             continue;
                         }
-                        if(debrisCount < getMaxDebris()) {
+                        if (debrisCount < getMaxDebris()) {
                             debrisPos.put(debrisCount, mob.getPosition());
                             debrisCount++;
                             c.write(FieldPacket.addWreckage(chr, mob, getDebrisSkill(), debrisCount));
@@ -308,7 +301,7 @@ public class Evan extends Job {
         SkillInfo si = SkillData.getSkillInfoById(PARTNERS);
         Option o = new Option();
         Option o1 = new Option();
-        if(tsm.getOptByCTSAndSkill(Stance, PARTNERS) == null) {
+        if (tsm.getOptByCTSAndSkill(Stance, PARTNERS) == null) {
             prevSkill = skillID;
             o.nReason = PARTNERS;
             o.nValue = si.getValue(indieDamR, 1);
@@ -323,34 +316,29 @@ public class Evan extends Job {
         }
     }
 
-
     private void createMagicDebrisForceAtom() {
         Field field = chr.getField();
         SkillInfo si = SkillData.getSkillInfoById(getDebrisSkill());
         Rect rect = chr.getPosition().getRectAround(si.getRects().get(0));
-        if(!chr.isLeft()) {
+        if (!chr.isLeft()) {
             rect = rect.moveRight();
         }
-        List<Mob> lifes =  field.getMobsInRect(rect);
-        if(lifes.size() <= 0) {
+        List<Mob> lifes = field.getMobsInRect(rect);
+        if (lifes.size() <= 0) {
             return;
         }
-        for(int i = 0; i<debrisCount; i++) {
+        for (int i = 0; i < debrisCount; i++) {
             c.write(FieldPacket.delWreckage(chr));
             Life life = Util.getRandomFromCollection(lifes);
             int mobID = (life).getObjectId(); //
             int inc = ForceAtomEnum.WRECKAGE.getInc();
             int type = ForceAtomEnum.WRECKAGE.getForceAtomType();
-            if(chr.hasSkill(ENHANCED_MAGIC_DEBRIS)) {
+            if (chr.hasSkill(ENHANCED_MAGIC_DEBRIS)) {
                 inc = ForceAtomEnum.ADV_WRECKAGE.getInc();
                 type = ForceAtomEnum.ADV_WRECKAGE.getForceAtomType();
             }
-            ForceAtomInfo forceAtomInfo = new ForceAtomInfo(1, inc, 15, 10,
-                    0, 200, (int) System.currentTimeMillis(), 1, 0,
-                    debrisPos.get(i));
-            chr.getField().broadcastPacket(FieldPacket.createForceAtom(false, 0, chr.getId(), type,
-                    true, mobID, getDebrisSkill(), forceAtomInfo, new Rect(), 0, 300,
-                    life.getPosition(), getDebrisSkill(), life.getPosition()));
+            ForceAtomInfo forceAtomInfo = new ForceAtomInfo(1, inc, 15, 10, 0, 200, (int) System.currentTimeMillis(), 1, 0, debrisPos.get(i));
+            chr.getField().broadcastPacket(FieldPacket.createForceAtom(false, 0, chr.getId(), type, true, mobID, getDebrisSkill(), forceAtomInfo, new Rect(), 0, 300, life.getPosition(), getDebrisSkill(), life.getPosition()));
         }
         debrisCount = 0;
         debrisPos.clear();
@@ -358,10 +346,10 @@ public class Evan extends Job {
 
     private int getMaxDebris() {
         Skill skill = null;
-        if(chr.hasSkill(MAGIC_DEBRIS)) {
+        if (chr.hasSkill(MAGIC_DEBRIS)) {
             skill = chr.getSkill(MAGIC_DEBRIS);
         }
-        if(chr.hasSkill(ENHANCED_MAGIC_DEBRIS)) {
+        if (chr.hasSkill(ENHANCED_MAGIC_DEBRIS)) {
             skill = chr.getSkill(ENHANCED_MAGIC_DEBRIS);
         }
         if (skill == null) {
@@ -374,10 +362,10 @@ public class Evan extends Job {
 
     private int getDebrisSkill() {
         int skill = 0;
-        if(chr.hasSkill(MAGIC_DEBRIS)) {
+        if (chr.hasSkill(MAGIC_DEBRIS)) {
             skill = MAGIC_DEBRIS;
         }
-        if(chr.hasSkill(ENHANCED_MAGIC_DEBRIS)) {
+        if (chr.hasSkill(ENHANCED_MAGIC_DEBRIS)) {
             skill = ENHANCED_MAGIC_DEBRIS;
         }
         return skill;
@@ -386,7 +374,7 @@ public class Evan extends Job {
     @Override
     public int getFinalAttackSkill() {
         Skill faSkill = getFinalAtkSkill();
-        if(faSkill != null) {
+        if (faSkill != null) {
             SkillInfo si = SkillData.getSkillInfoById(faSkill.getSkillId());
             byte slv = (byte) faSkill.getCurrentLevel();
             int proc = si.getValue(prop, slv);
@@ -399,10 +387,10 @@ public class Evan extends Job {
 
     private Skill getFinalAtkSkill() {
         Skill skill = null;
-        if(chr.hasSkill(DRAGON_SPARK)) {
+        if (chr.hasSkill(DRAGON_SPARK)) {
             skill = chr.getSkill(DRAGON_SPARK);
         }
-        if(chr.hasSkill(ADV_DRAGON_SPARK)) {
+        if (chr.hasSkill(ADV_DRAGON_SPARK)) {
             skill = chr.getSkill(ADV_DRAGON_SPARK);
         }
         return skill;
@@ -420,7 +408,7 @@ public class Evan extends Job {
     @Override
     public void handleSkill(Client c, int skillID, byte slv, InPacket inPacket) {
         super.handleSkill(c, skillID, slv, inPacket);
-        if(chr.getField() != oldField) {
+        if (chr.getField() != oldField) {
             debrisCount = 0;
             c.write(FieldPacket.delWreckage(chr));
         }
@@ -429,7 +417,7 @@ public class Evan extends Job {
         Char chr = c.getChr();
         Skill skill = chr.getSkill(skillID);
         SkillInfo si = null;
-        if(skill != null) {
+        if (skill != null) {
             si = SkillData.getSkillInfoById(skillID);
         }
         chr.chatMessage(ChatType.Mob, "SkillID: " + skillID);
@@ -455,16 +443,10 @@ public class Evan extends Job {
                     break;
                 case RETURN_FLASH:
                     SkillInfo rflash = SkillData.getSkillInfoById(RETURN_FLASH);
-                    Rect rect = new Rect(       //Skill itself doesn't give a Rect
-                            new Position(
-                                    chr.getPosition().deepCopy().getX() - 300,
-                                    chr.getPosition().deepCopy().getY() - 300),
-                            new Position(
-                                    chr.getPosition().deepCopy().getX() + 300,
-                                    chr.getPosition().deepCopy().getY() + 300)
-                    );
-                    for(Life life : chr.getField().getLifesInRect(rect)) {
-                        if(life instanceof Mob && ((Mob) life).getHp() > 0) {
+                    Rect rect = new Rect(       // Skill itself doesn't give a Rect
+                            new Position(chr.getPosition().deepCopy().getX() - 300, chr.getPosition().deepCopy().getY() - 300), new Position(chr.getPosition().deepCopy().getX() + 300, chr.getPosition().deepCopy().getY() + 300));
+                    for (Life life : chr.getField().getLifesInRect(rect)) {
+                        if (life instanceof Mob && ((Mob) life).getHp() > 0) {
                             Mob mob = (Mob) life;
                             MobTemporaryStat mts = mob.getTemporaryStat();
                             o1.nOption = rflash.getValue(x, slv);
@@ -486,8 +468,6 @@ public class Evan extends Job {
         }
     }
 
-
-
     // Hit related methods ---------------------------------------------------------------------------------------------
 
     @Override
@@ -505,12 +485,14 @@ public class Evan extends Job {
         }
         super.handleHit(c, inPacket, hitInfo);
     }
+
     @Override
     public void setCharCreationStats(Char chr) {
         super.setCharCreationStats(chr);
         CharacterStat cs = chr.getAvatarData().getCharacterStat();
         cs.setPosMap(900010000);
     }
+
     @Override
     public void handleLevelUp() {
         super.handleLevelUp();

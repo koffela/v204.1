@@ -160,4 +160,3 @@ public class BurnedInfo {
         this.chr = chr;
     }
 }
-

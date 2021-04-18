@@ -59,31 +59,29 @@ public class BlazeWizard extends Noblesse {
     public static final int GRAND_ORBITAL_FLAME_ATOM = 12110028;
     public static final int FINAL_ORBITAL_FLAME_ATOM = 12120010;
 
-
-
-    public static final int IGNITION = 12101024; //Buff
+    public static final int IGNITION = 12101024; // Buff
     public static final int IGNITION_EXPLOSION = 12100029; // Explosion Attack
-    public static final int FLASHFIRE = 12101025; //Special Skill
-    public static final int WORD_OF_FIRE = 12101023; //Buff
-    public static final int CONTROLLED_BURN = 12101022; //Special Skill
+    public static final int FLASHFIRE = 12101025; // Special Skill
+    public static final int WORD_OF_FIRE = 12101023; // Buff
+    public static final int CONTROLLED_BURN = 12101022; // Special Skill
 
-    public static final int CINDER_MAELSTROM = 12111022; //Special Skill //TODO
-    public static final int PHOENIX_RUN = 12111023; //Special Buff
+    public static final int CINDER_MAELSTROM = 12111022; // Special Skill //TODO
+    public static final int PHOENIX_RUN = 12111023; // Special Buff
     public static final int PHOENIX_RUN_EFFECTS = 12111029;
 
     public static final int BURNING_CONDUIT = 12121005;
-    public static final int FIRES_OF_CREATION = 12121004; //only used for visual cooldown
-    public static final int FIRES_OF_CREATION_FOX = 12120014; //Buff
-    public static final int FIRES_OF_CREATION_LION = 12120013; //Buff
-    public static final int FLAME_BARRIER = 12121003; //Buff
-    public static final int CALL_OF_CYGNUS_BW = 12121000; //Buff
+    public static final int FIRES_OF_CREATION = 12121004; // only used for visual cooldown
+    public static final int FIRES_OF_CREATION_FOX = 12120014; // Buff
+    public static final int FIRES_OF_CREATION_LION = 12120013; // Buff
+    public static final int FLAME_BARRIER = 12121003; // Buff
+    public static final int CALL_OF_CYGNUS_BW = 12121000; // Buff
     public static final int ORBITAL_FLAME_RANGE = 12121043; // Buff - toggle
 
     public static final int DRAGON_BLAZE_FIRST = 12121054;
 
     public static final int GLORY_OF_THE_GUARDIANS_BW = 12121053;
 
-    //Flame Elements
+    // Flame Elements
     public static final int FLAME_ELEMENT = 12000022;
     public static final int GREATER_FLAME_ELEMENT = 12100026;
     public static final int GRAND_FLAME_ELEMENT = 12110024;
@@ -121,7 +119,7 @@ public class BlazeWizard extends Noblesse {
 
     public BlazeWizard(Char chr) {
         super(chr);
-        if(chr.getId() != 0 && isHandlerOfJob(chr.getJob())) {
+        if (chr.getId() != 0 && isHandlerOfJob(chr.getJob())) {
             for (int id : addedSkills) {
                 if (!chr.hasSkill(id)) {
                     Skill skill = SkillData.getSkillDeepCopyById(id);
@@ -136,8 +134,6 @@ public class BlazeWizard extends Noblesse {
     public boolean isHandlerOfJob(short id) {
         return JobConstants.isBlazeWizard(id);
     }
-
-
 
     // Buff related methods --------------------------------------------------------------------------------------------
 
@@ -167,7 +163,7 @@ public class BlazeWizard extends Noblesse {
                 o1.nValue = si.getValue(x, slv);
                 o1.tStart = (int) System.currentTimeMillis();
                 o1.tTerm = si.getValue(time, slv);
-                tsm.putCharacterStatValue(IndieStatR, o1); //Indie
+                tsm.putCharacterStatValue(IndieStatR, o1); // Indie
                 break;
             case IGNITION:
                 o1.nOption = 1;
@@ -184,13 +180,11 @@ public class BlazeWizard extends Noblesse {
                 tsm.removeStatsBySkill(skillID == FIRES_OF_CREATION_FOX ? FIRES_OF_CREATION_LION : FIRES_OF_CREATION_LION);
                 Field field = c.getChr().getField();
 
-                if (summonFox != null)
-                {
+                if (summonFox != null) {
                     field.broadcastPacket(Summoned.summonedRemoved(summonFox, LeaveType.ANIMATION));
                 }
 
-                if (summonLion != null)
-                {
+                if (summonLion != null) {
                     field.broadcastPacket(Summoned.summonedRemoved(summonLion, LeaveType.ANIMATION));
                 }
 
@@ -223,7 +217,7 @@ public class BlazeWizard extends Noblesse {
                 o2.tOption = si.getValue(time, slv);
                 tsm.putCharacterStatValue(ElementalReset, o2);
                 break;
-            case CINDER_MAELSTROM:  //Special Summon    //TODO
+            case CINDER_MAELSTROM:  // Special Summon //TODO
                 summon = Summon.getSummonBy(c.getChr(), skillID, slv);
                 field = c.getChr().getField();
                 summon.setFlyMob(false);
@@ -262,7 +256,7 @@ public class BlazeWizard extends Noblesse {
                 break;
         }
         tsm.sendSetStatPacket();
-        
+
     }
 
     public boolean isBuff(int skillID) {
@@ -282,8 +276,7 @@ public class BlazeWizard extends Noblesse {
     private void removeFiresOfCreationSummon(Client c, int skillID) {
         Summon summon = skillID == FIRES_OF_CREATION_FOX ? summonFox : summonLion;
 
-        if (summon != null)
-        {
+        if (summon != null) {
             Field field = c.getChr().getField();
             field.broadcastPacket(Summoned.summonedRemoved(summon, LeaveType.ANIMATION));
         }
@@ -291,7 +284,7 @@ public class BlazeWizard extends Noblesse {
 
     private void summonFlameElement() {
         TemporaryStatManager tsm = chr.getTemporaryStatManager();
-        if(tsm.getOptByCTSAndSkill(MAD, getFlameElement()) == null) {
+        if (tsm.getOptByCTSAndSkill(MAD, getFlameElement()) == null) {
             Option o1 = new Option();
             Option o2 = new Option();
             Skill skill = chr.getSkill(FLAME_ELEMENT);
@@ -323,22 +316,20 @@ public class BlazeWizard extends Noblesse {
 
     private int getFlameElement() {
         int skill = 0;
-        if(chr.hasSkill(FLAME_ELEMENT)) {
+        if (chr.hasSkill(FLAME_ELEMENT)) {
             skill = FLAME_ELEMENT;
         }
-        if(chr.hasSkill(GREATER_FLAME_ELEMENT)) {
+        if (chr.hasSkill(GREATER_FLAME_ELEMENT)) {
             skill = GREATER_FLAME_ELEMENT;
         }
-        if(chr.hasSkill(GRAND_FLAME_ELEMENT)) {
+        if (chr.hasSkill(GRAND_FLAME_ELEMENT)) {
             skill = GRAND_FLAME_ELEMENT;
         }
-        if(chr.hasSkill(FINAL_FLAME_ELEMENT)) {
+        if (chr.hasSkill(FINAL_FLAME_ELEMENT)) {
             skill = FINAL_FLAME_ELEMENT;
         }
         return skill;
     }
-
-
 
     // Attack related methods ------------------------------------------------------------------------------------------
 
@@ -356,8 +347,8 @@ public class BlazeWizard extends Noblesse {
             slv = (byte) skill.getCurrentLevel();
             skillID = skill.getSkillId();
         }
-        if(hasHitMobs) {
-            if(attackInfo.skillId != IGNITION_EXPLOSION) {
+        if (hasHitMobs) {
+            if (attackInfo.skillId != IGNITION_EXPLOSION) {
                 applyIgniteOnMob(attackInfo);
             }
         }
@@ -379,27 +370,26 @@ public class BlazeWizard extends Noblesse {
     private void applyIgniteOnMob(AttackInfo attackInfo) {
         TemporaryStatManager tsm = chr.getTemporaryStatManager();
         Option o = new Option();
-        if(tsm.hasStat(WizardIgnite)) {
+        if (tsm.hasStat(WizardIgnite)) {
             Skill skill = chr.getSkill(IGNITION);
             SkillInfo si = SkillData.getSkillInfoById(skill.getSkillId());
             byte slv = (byte) skill.getCurrentLevel();
-            for(MobAttackInfo mai : attackInfo.mobAttackInfo) {
+            for (MobAttackInfo mai : attackInfo.mobAttackInfo) {
                 if (Util.succeedProp(si.getValue(prop, slv))) {
                     Mob mob = (Mob) chr.getField().getLifeByObjectID(mai.mobId);
-                    if(mob == null) {
+                    if (mob == null) {
                         continue;
                     }
                     MobTemporaryStat mts = mob.getTemporaryStat();
 
                     mts.createAndAddBurnedInfo(chr, skill);
 
-                    if(hashMap.get(mob) != null && !hashMap.get(mob).isDone()) {
+                    if (hashMap.get(mob) != null && !hashMap.get(mob).isDone()) {
                         hashMap.get(mob).cancel(true);
                         hashMap.remove(mob);
                     }
 
-                    schFuture = EventManager.addEvent(() ->
-                            explodeIgnitionOnMob(mob), si.getValue(dotTime, slv), TimeUnit.SECONDS);
+                    schFuture = EventManager.addEvent(() -> explodeIgnitionOnMob(mob), si.getValue(dotTime, slv), TimeUnit.SECONDS);
 
                     hashMap.put(mob, schFuture);
 
@@ -417,7 +407,7 @@ public class BlazeWizard extends Noblesse {
         MobTemporaryStat mts = mob.getTemporaryStat();
         hashMap.remove(mob);
         Life checkMob = chr.getField().getLifeByObjectID(mob.getObjectId());
-        if(checkMob != null && checkMob instanceof Mob) {
+        if (checkMob != null && checkMob instanceof Mob) {
             c.write(UserLocal.explosionAttack(IGNITION_EXPLOSION, mob.getPosition(), mob.getObjectId(), 10));
         }
 
@@ -428,8 +418,6 @@ public class BlazeWizard extends Noblesse {
         return 0;
     }
 
-
-
     // Skill related methods -------------------------------------------------------------------------------------------
 
     @Override
@@ -438,7 +426,7 @@ public class BlazeWizard extends Noblesse {
         Char chr = c.getChr();
         Skill skill = chr.getSkill(skillID);
         SkillInfo si = null;
-        if(skill != null) {
+        if (skill != null) {
             si = SkillData.getSkillInfoById(skillID);
         }
         chr.chatMessage(ChatType.Mob, "SkillID: " + skillID);
@@ -448,26 +436,26 @@ public class BlazeWizard extends Noblesse {
             Option o1 = new Option();
             Option o2 = new Option();
             Option o3 = new Option();
-            switch(skillID) {
+            switch (skillID) {
                 case CINDER_MAELSTROM:
-                    //TODO
+                    // TODO
                     break;
                 case FLASHFIRE:
                     Position flamepos = chr.getPosition();
-                    if(used == true) {
-                        if(chr.getFieldID() != prevmap) {
-                            //Set Blink
+                    if (used == true) {
+                        if (chr.getFieldID() != prevmap) {
+                            // Set Blink
                             prevmap = chr.getFieldID();
                             c.write(WvsContext.flameWizardFlareBlink(chr, flamepos, false));
                             chrPos = chr.getPosition();
                             used = true;
                         } else {
-                            //Clear Blink + Teleport
+                            // Clear Blink + Teleport
                             c.write(WvsContext.flameWizardFlareBlink(chr, chrPos, true));
                             used = false;
                         }
                     } else {
-                        //Set Blink
+                        // Set Blink
                         prevmap = chr.getFieldID();
                         c.write(WvsContext.flameWizardFlareBlink(chr, flamepos, false));
                         chrPos = chr.getPosition();
@@ -496,8 +484,6 @@ public class BlazeWizard extends Noblesse {
         }
     }
 
-
-
     // Hit related methods ---------------------------------------------------------------------------------------------
 
     @Override
@@ -519,7 +505,7 @@ public class BlazeWizard extends Noblesse {
         chr.chatMessage("You have been revived by Phoenix Run.");
 
         Position position = chr.getPosition();
-        chr.write(FieldPacket.teleport(new Position(position.getX() + (chr.isLeft() ? + 350 : - 350), position.getY()), chr));
+        chr.write(FieldPacket.teleport(new Position(position.getX() + (chr.isLeft() ? +350 : -350), position.getY()), chr));
 
         // Hit effect
         chr.write(UserPacket.effect(Effect.skillUse(PHOENIX_RUN_EFFECTS, slv, 0)));

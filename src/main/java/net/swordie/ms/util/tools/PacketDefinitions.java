@@ -15,13 +15,16 @@ public class PacketDefinitions {
     private static final int BUILD = ServerConstants.VERSION;
     private static final int LOCALE = 8;
     private static final boolean out = true, in = true;
+
     public static void main(String[] args) {
         try {
             PrintWriter writer = new PrintWriter(new FileWriter("PacketDefinitions.xml"));
             writer.println("<ArrayOfDefinition xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">");
             printDefinition(writer, (1 << 16) - 1, "Maple Handshake", false, false);
-            if (out) printSendDefinitions(writer);
-            if (in) printRecvDefinitions(writer);
+            if (out)
+                printSendDefinitions(writer);
+            if (in)
+                printRecvDefinitions(writer);
             writer.print("</ArrayOfDefinition>");
             writer.close();
         } catch (Exception e) {
@@ -41,7 +44,7 @@ public class PacketDefinitions {
         }
     }
 
-    private static void printDefinition(PrintWriter writer, int op, String name, boolean outbound, boolean ignore){
+    private static void printDefinition(PrintWriter writer, int op, String name, boolean outbound, boolean ignore) {
         if (op < 0) {
             return;
         }
@@ -57,8 +60,8 @@ public class PacketDefinitions {
 
     private static boolean isIgnored(OutHeader header) {
         switch (header) {
-            //case PING:
-            //    return true;
+            // case PING:
+            // return true;
             default:
                 return false;
         }
@@ -66,8 +69,8 @@ public class PacketDefinitions {
 
     private static boolean isIgnored(InHeader header) {
         switch (header) {
-            //case PONG:
-            //    return true;
+            // case PONG:
+            // return true;
             default:
                 return false;
         }

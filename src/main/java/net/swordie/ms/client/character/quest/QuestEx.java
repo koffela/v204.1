@@ -55,10 +55,7 @@ public class QuestEx {
         if (vals.size() != values.size()) {
             return false;
         }
-        return values.entrySet().stream().filter(value ->
-                vals.entrySet().stream().anyMatch(value1 ->
-                        (value1.getKey().equals(value.getKey()) &&
-                                value1.getValue().equals(value.getValue())))).findAny().isPresent();
+        return values.entrySet().stream().filter(value -> vals.entrySet().stream().anyMatch(value1 -> (value1.getKey().equals(value.getKey()) && value1.getValue().equals(value.getValue())))).findAny().isPresent();
     }
 
     public int getQuestID() {

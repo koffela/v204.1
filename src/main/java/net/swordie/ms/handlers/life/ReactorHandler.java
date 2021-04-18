@@ -20,7 +20,6 @@ public class ReactorHandler {
 
     private static final Logger log = Logger.getLogger(ReactorHandler.class);
 
-
     @Handler(op = InHeader.REACTOR_CLICK)
     public static void handleReactorClick(Client c, InPacket inPacket) {
         Char chr = c.getChr();
@@ -36,8 +35,7 @@ public class ReactorHandler {
         int templateID = reactor.getTemplateId();
         ReactorInfo ri = ReactorData.getReactorInfoByID(templateID);
         String action = ri.getAction();
-        if (chr.getScriptManager().isActive(ScriptType.Reactor)
-                && chr.getScriptManager().getParentIDByScriptType(ScriptType.Reactor) == templateID) {
+        if (chr.getScriptManager().isActive(ScriptType.Reactor) && chr.getScriptManager().getParentIDByScriptType(ScriptType.Reactor) == templateID) {
             try {
                 chr.getScriptManager().getInvocableByType(ScriptType.Reactor).invokeFunction("action", reactor, type);
             } catch (ScriptException | NoSuchMethodException e) {
@@ -65,8 +63,7 @@ public class ReactorHandler {
         if (action.equals("")) {
             action = templateID + "action";
         }
-        if (chr.getScriptManager().isActive(ScriptType.Reactor)
-                && chr.getScriptManager().getParentIDByScriptType(ScriptType.Reactor) == templateID) {
+        if (chr.getScriptManager().isActive(ScriptType.Reactor) && chr.getScriptManager().getParentIDByScriptType(ScriptType.Reactor) == templateID) {
             try {
                 chr.getScriptManager().getInvocableByType(ScriptType.Reactor).invokeFunction("action", 0);
             } catch (ScriptException | NoSuchMethodException e) {
@@ -82,7 +79,7 @@ public class ReactorHandler {
         Char chr = c.getChr();
         int objID = inPacket.decodeInt();
         int lifeID = inPacket.decodeInt();
-        Mob mob = (Mob)chr.getField().getLifeByObjectID(lifeID);
+        Mob mob = (Mob) chr.getField().getLifeByObjectID(lifeID);
         mob.die(false);
         Field field = chr.getField();
         for (Char character : field.getChars()) {

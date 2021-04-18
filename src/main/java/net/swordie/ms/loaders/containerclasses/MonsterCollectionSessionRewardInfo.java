@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 /**
  * @author Sjonnie
- * Created on 7/23/2018.
+ *         Created on 7/23/2018.
  */
 @Entity
 @Table(name = "monster_collection_session_rewards")
@@ -51,4 +51,3 @@ public class MonsterCollectionSessionRewardInfo implements Serializable {
         this.quantity = quantity;
     }
 }
-

@@ -14,7 +14,7 @@ import java.io.IOException;
 /**
  * Created on 3/2/2018.
  */
-public class QuestItemReward implements QuestReward{
+public class QuestItemReward implements QuestReward {
     private int id;
     private short quantity;
     private String potentialGrade;

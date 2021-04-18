@@ -53,7 +53,7 @@ public class MobSkillInfo {
     }
 
     public int getSkillStatIntValue(MobSkillStat mobSkillStat) {
-        if(!getMobSkillStats().containsKey(mobSkillStat)) {
+        if (!getMobSkillStats().containsKey(mobSkillStat)) {
             return 0;
         }
         return Integer.parseInt(getSkillStat(mobSkillStat));

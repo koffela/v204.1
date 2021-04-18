@@ -15,7 +15,7 @@ public class ShopDlg {
         OutPacket outPacket = new OutPacket(OutHeader.SHOP_OPEN);
         outPacket.encodeInt(npcID);
         outPacket.encodeByte(petTemplateID != 0);
-        if(petTemplateID != 0) {
+        if (petTemplateID != 0) {
             outPacket.encodeInt(petTemplateID);
         }
         nsd.encode(outPacket);

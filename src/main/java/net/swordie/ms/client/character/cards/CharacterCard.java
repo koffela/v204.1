@@ -10,13 +10,15 @@ import javax.persistence.*;
 @Entity
 @Table(name = "charactercards")
 public class CharacterCard {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private int characterId;
     private int job;
     private byte level;
 
-    public CharacterCard(){}
+    public CharacterCard() {
+    }
 
     public CharacterCard(int characterId, int job, byte level) {
         this.characterId = characterId;
@@ -49,8 +51,8 @@ public class CharacterCard {
     }
 
     public void encode(OutPacket outPacket) {
-        //CHARACTERCARD::Decode
-        for(int i = 0; i < 9; i++) {
+        // CHARACTERCARD::Decode
+        for (int i = 0; i < 9; i++) {
             outPacket.encodeInt(getCharacterId());
             outPacket.encodeInt(getLevel());
             outPacket.encodeInt(getJob());

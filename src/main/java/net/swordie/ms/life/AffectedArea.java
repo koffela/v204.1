@@ -356,7 +356,7 @@ public class AffectedArea extends Life {
                 }
             }
 
-        // Char Affected Areas
+            // Char Affected Areas
         } else {
 
         }

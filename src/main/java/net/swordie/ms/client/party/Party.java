@@ -54,35 +54,35 @@ public class Party implements Encodable {
 
     public void encode(OutPacket outPacket) {
         for (PartyMember pm : partyMembers) {
-            outPacket.encodeInt(pm != null ? pm.getCharID() : 0); //24
+            outPacket.encodeInt(pm != null ? pm.getCharID() : 0); // 24
         }
         for (PartyMember pm : partyMembers) {
-            outPacket.encodeString(pm != null ? pm.getCharName() : "", 13); //78
+            outPacket.encodeString(pm != null ? pm.getCharName() : "", 13); // 78
         }
         for (PartyMember pm : partyMembers) {
-            outPacket.encodeInt(pm != null ? pm.getJob() : 0); //24
+            outPacket.encodeInt(pm != null ? pm.getJob() : 0); // 24
         }
         for (PartyMember pm : partyMembers) {
-            outPacket.encodeInt(pm != null ? pm.getSubJob() : 0); //24
+            outPacket.encodeInt(pm != null ? pm.getSubJob() : 0); // 24
         }
         for (PartyMember pm : partyMembers) {
-            outPacket.encodeInt(pm != null ? pm.getLevel() : 0); //24
+            outPacket.encodeInt(pm != null ? pm.getLevel() : 0); // 24
         }
         for (PartyMember pm : partyMembers) {
-            outPacket.encodeInt(pm != null && pm.isOnline() ? pm.getChannel() - 1 : -2 ); // -1 for cash shop //24
+            outPacket.encodeInt(pm != null && pm.isOnline() ? pm.getChannel() - 1 : -2); // -1 for cash shop //24
         }
         for (PartyMember pm : partyMembers) {
-            outPacket.encodeInt(pm != null && pm.isOnline() ? 1 : 0); //24
+            outPacket.encodeInt(pm != null && pm.isOnline() ? 1 : 0); // 24
         }
         for (PartyMember pm : partyMembers) {
-            outPacket.encodeInt(0); //24
+            outPacket.encodeInt(0); // 24
         }
-        outPacket.encodeInt(getPartyLeaderID()); //4
+        outPacket.encodeInt(getPartyLeaderID()); // 4
         // end PARTYMEMBER struct
         for (PartyMember pm : partyMembers) {
-            outPacket.encodeInt(pm != null ? pm.getFieldID() : 0); //24
+            outPacket.encodeInt(pm != null ? pm.getFieldID() : 0); // 24
         }
-        for (PartyMember pm : partyMembers) { //120
+        for (PartyMember pm : partyMembers) { // 120
             if (pm != null && pm.getTownPortal() != null) {
                 pm.getTownPortal().encodeIntPos(outPacket);
             } else {
@@ -106,7 +106,9 @@ public class Party implements Encodable {
 
     /**
      * Adds a {@link Char} to this Party. Will do nothing if this Party is full.
-     * @param chr The Char to add.
+     * 
+     * @param chr
+     *            The Char to add.
      */
     public boolean addPartyMember(Char chr) {
         if (isFull()) {
@@ -118,7 +120,7 @@ public class Party implements Encodable {
         }
 
         PartyMember[] partyMembers = getPartyMembers();
-        for(int i = 0; i < partyMembers.length; i++) {
+        for (int i = 0; i < partyMembers.length; i++) {
             if (partyMembers[i] == null) {
                 partyMembers[i] = pm;
                 chr.setParty(this);
@@ -137,9 +139,7 @@ public class Party implements Encodable {
     }
 
     public TownPortal getTownPortal() {
-        PartyMember pm = Arrays.stream(getPartyMembers()).filter(Objects::nonNull)
-                .filter(p -> p.getTownPortal() != null)
-                .findFirst().orElse(null);
+        PartyMember pm = Arrays.stream(getPartyMembers()).filter(Objects::nonNull).filter(p -> p.getTownPortal() != null).findFirst().orElse(null);
         return pm != null ? pm.getTownPortal() : new TownPortal();
     }
 
@@ -184,14 +184,14 @@ public class Party implements Encodable {
     }
 
     public void broadcast(OutPacket outPacket) {
-        for(PartyMember pm : getOnlineMembers()) {
+        for (PartyMember pm : getOnlineMembers()) {
             pm.getChr().write(outPacket);
         }
     }
 
     public void broadcast(OutPacket outPacket, Char exceptChar) {
-        for(PartyMember pm : getOnlineMembers()) {
-            if(!pm.getChr().equals(exceptChar)) {
+        for (PartyMember pm : getOnlineMembers()) {
+            if (!pm.getChr().equals(exceptChar)) {
                 pm.getChr().write(outPacket);
             }
         }
@@ -200,7 +200,7 @@ public class Party implements Encodable {
     public void removePartyMember(PartyMember partyMember) {
         for (int i = 0; i < getPartyMembers().length; i++) {
             PartyMember pm = getPartyMembers()[i];
-            if(pm != null && pm.equals(partyMember)) {
+            if (pm != null && pm.equals(partyMember)) {
                 pm.getChr().setParty(null);
                 getPartyMembers()[i] = null;
                 break;
@@ -226,9 +226,7 @@ public class Party implements Encodable {
 
     public int getAvgLevel() {
         Collection<PartyMember> partyMembers = getMembers();
-        return partyMembers.stream()
-                .mapToInt(pm -> pm.getChr().getLevel())
-                .sum() / partyMembers.size();
+        return partyMembers.stream().mapToInt(pm -> pm.getChr().getLevel()).sum() / partyMembers.size();
     }
 
     public void setWorld(World world) {
@@ -252,7 +250,7 @@ public class Party implements Encodable {
     }
 
     public void updatePartyMemberInfoByChr(Char chr) {
-        if(!isPartyMember(chr)) {
+        if (!isPartyMember(chr)) {
             return;
         }
         getPartyMemberByID(chr.getId()).updateInfoByChar(chr);
@@ -261,30 +259,32 @@ public class Party implements Encodable {
 
     /**
      * Returns the average party member's level, according to the given Char's field.
-     * @param chr the chr to get the map to
+     * 
+     * @param chr
+     *            the chr to get the map to
      * @return the average level of the party in the Char's field
      */
     public int getAvgPartyLevel(Char chr) {
         Field field = chr.getField();
-        return (int) getOnlineMembers().stream().filter(om -> om.getChr().getField() == field)
-                .mapToInt(PartyMember::getLevel).average().orElse(chr.getLevel());
+        return (int) getOnlineMembers().stream().filter(om -> om.getChr().getField() == field).mapToInt(PartyMember::getLevel).average().orElse(chr.getLevel());
     }
 
     /**
      * Gets a list of party members in the same Field instance as the given Char, excluding the given Char.
-     * @param chr the given Char
+     * 
+     * @param chr
+     *            the given Char
      * @return a set of Characters that are in the same field as the given Char
      */
     public Set<Char> getPartyMembersInSameField(Char chr) {
-        return getOnlineMembers().stream()
-                .filter(pm -> pm.getChr() != null && pm.getChr() != chr && pm.getChr().getField() == chr.getField())
-                .map(PartyMember::getChr)
-                .collect(Collectors.toSet());
+        return getOnlineMembers().stream().filter(pm -> pm.getChr() != null && pm.getChr() != chr && pm.getChr().getField() == chr.getField()).map(PartyMember::getChr).collect(Collectors.toSet());
     }
 
     /**
      * Checks if this Party has a member with the given character id.
-     * @param charID the charID to look for
+     * 
+     * @param charID
+     *            the charID to look for
      * @return if the corresponding char is in the party
      */
     public boolean hasPartyMember(int charID) {

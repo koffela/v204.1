@@ -8,14 +8,16 @@ import javax.persistence.*;
 @Entity
 @Table(name = "keymaps")
 public class Keymapping {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column(name = "idx")
     private int index;
     private byte type;
     private int val;
 
-    public Keymapping(){}
+    public Keymapping() {
+    }
 
     public Keymapping(byte type, int val) {
         this.type = type;

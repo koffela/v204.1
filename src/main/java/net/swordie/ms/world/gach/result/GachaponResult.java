@@ -4,6 +4,7 @@ public enum GachaponResult {
     SUCCESS(0),
     EXIT(1),
     ERROR(3);
+
     private final int result;
 
     private GachaponResult(final int result) {

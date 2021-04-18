@@ -2,7 +2,7 @@ package net.swordie.ms.enums;
 
 /**
  * @author Sjonnie
- * Created on 9/12/2018.
+ *         Created on 9/12/2018.
  */
 public enum RandomMissionType {
     Res_InventoryFull(13),

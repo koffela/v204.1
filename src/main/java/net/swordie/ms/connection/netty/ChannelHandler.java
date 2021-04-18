@@ -23,7 +23,6 @@ import java.util.Set;
 
 import static net.swordie.ms.connection.netty.NettyClient.CLIENT_KEY;
 
-
 /**
  * Created by Tim on 2/28/2017.
  */
@@ -40,10 +39,7 @@ public class ChannelHandler extends SimpleChannelInboundHandler<InPacket> {
         for (File file : files) {
             try {
                 // grab all files in the handlers dir, strip them to their package name, and remove .java extension
-                String className = file.getPath()
-                        .replaceAll("[\\\\|/]", ".")
-                        .split("src\\.main\\.java\\.")[1]
-                        .replaceAll("\\.java", "");
+                String className = file.getPath().replaceAll("[\\\\|/]", ".").split("src\\.main\\.java\\.")[1].replaceAll("\\.java", "");
                 Class<?> clazz = Class.forName(className);
                 for (Method method : clazz.getMethods()) {
                     Handler handler = method.getAnnotation(Handler.class);
@@ -51,8 +47,7 @@ public class ChannelHandler extends SimpleChannelInboundHandler<InPacket> {
                         InHeader header = handler.op();
                         if (header != InHeader.NO) {
                             if (handlers.containsKey(header) && !mayOverride) {
-                                throw new IllegalArgumentException(String.format("Multiple handlers found for header %s! " +
-                                        "Had method %s, but also found %s.", header, handlers.get(header).getName(), method.getName()));
+                                throw new IllegalArgumentException(String.format("Multiple handlers found for header %s! " + "Had method %s, but also found %s.", header, handlers.get(header).getName(), method.getName()));
                             }
                             handlers.put(header, method);
                         }
@@ -75,7 +70,7 @@ public class ChannelHandler extends SimpleChannelInboundHandler<InPacket> {
         Client c = (Client) ctx.channel().attr(CLIENT_KEY).get();
         User user = c.getUser();
         Char chr = c.getChr();
-        if(chr != null && !chr.isChangingChannel()) {
+        if (chr != null && !chr.isChangingChannel()) {
             chr.logout();
         } else if (chr != null && chr.isChangingChannel()) {
             chr.setChangingChannel(false);
@@ -99,11 +94,11 @@ public class ChannelHandler extends SimpleChannelInboundHandler<InPacket> {
             op = c.mEncryptedOpcode.get(op);
         }
         InHeader inHeader = InHeader.getInHeaderByOp(op);
-        if(inHeader == null) {
+        if (inHeader == null) {
             handleUnknown(inPacket, op);
             return;
         }
-        if(!InHeader.isSpamHeader(InHeader.getInHeaderByOp(op))) {
+        if (!InHeader.isSpamHeader(InHeader.getInHeaderByOp(op))) {
             log.debug(String.format("[In]\t| %s, %d/0x%s\t| %s", InHeader.getInHeaderByOp(op), op, Integer.toHexString(op).toUpperCase(), inPacket));
         }
 

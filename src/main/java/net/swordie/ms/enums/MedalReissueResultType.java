@@ -2,6 +2,7 @@ package net.swordie.ms.enums;
 
 /**
  * Created on 28-9-2018.
+ * 
  * @author Asura
  */
 public enum MedalReissueResultType {

@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 /**
  * @author Sjonnie
- * Created on 8/12/2018.
+ *         Created on 8/12/2018.
  */
 public enum GuildBBSType {
     Req_CreateRecord(0),

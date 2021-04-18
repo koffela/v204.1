@@ -8,7 +8,7 @@ import net.swordie.ms.util.Position;
 
 /**
  * @author Sjonnie
- * Created on 9/12/2018.
+ *         Created on 9/12/2018.
  */
 public class RandomPortal extends Life implements Encodable {
 

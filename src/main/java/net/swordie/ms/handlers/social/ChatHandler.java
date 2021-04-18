@@ -61,7 +61,7 @@ public class ChatHandler {
                     continue;
                 }
 
-                if (chr.getUser().getPrivateStatusIDFlag().ordinal() < cmd.requiredType().ordinal()) {
+                if (!chr.getUser().getPrivateStatusIDFlag().hasFlag(cmd.requiredType())) {
                     continue;
                 }
 

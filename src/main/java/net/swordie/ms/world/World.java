@@ -9,6 +9,7 @@ import net.swordie.ms.client.guild.Guild;
 import net.swordie.ms.client.party.Party;
 import net.swordie.ms.connection.OutPacket;
 import net.swordie.ms.connection.db.DatabaseManager;
+import net.swordie.ms.enums.WorldId;
 import net.swordie.ms.life.Merchant.Merchant;
 
 import java.util.*;
@@ -32,9 +33,9 @@ public class World {
     private boolean reboot;
     private ArrayList<Merchant> merchants = new ArrayList<Merchant>();
 
-    public World(int worldId, String name, int worldState, String worldEventDescription, int worldEventEXP_WSE, int worldEventDrop_WSE, int boomUpEventNotice, int amountOfChannels, boolean starplanet, boolean reboot) {
-        this.worldId = worldId;
-        this.name = name;
+    public World(WorldId worldId, int worldState, String worldEventDescription, int worldEventEXP_WSE, int worldEventDrop_WSE, int boomUpEventNotice, int amountOfChannels, boolean starplanet, boolean reboot) {
+        this.worldId = worldId.getVal();
+        this.name = worldId.name();
         this.worldState = worldState;
         this.worldEventDescription = worldEventDescription;
         this.worldEventEXP_WSE = worldEventEXP_WSE;
@@ -42,15 +43,15 @@ public class World {
         this.boomUpEventNotice = boomUpEventNotice;
         List<Channel> channelList = new ArrayList<>();
         for (int i = 1; i <= amountOfChannels; i++) {
-            channelList.add(new Channel(name, worldId, i));
+            channelList.add(new Channel(worldId, i));
         }
         this.channels = channelList;
         this.starplanet = starplanet;
         this.reboot = reboot;
     }
 
-    public World(int worldId, String name, int amountOfChannels, String worldEventMsg) {
-        this(worldId, name, 0, worldEventMsg, 100, 100, 0, amountOfChannels, false, false);
+    public World(WorldId worldId, int amountOfChannels, String worldEventMsg) {
+        this(worldId, 0, worldEventMsg, 100, 100, 0, amountOfChannels, false, false);
         initGuilds();
     }
 

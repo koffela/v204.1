@@ -90,7 +90,7 @@ import static net.swordie.ms.life.npc.NpcMessageType.*;
  * @see ScriptManager
  */
 public class ScriptManagerImpl implements ScriptManager {
-    public static final String SCRIPT_ENGINE_NAME = "python";
+    public static final String SCRIPT_ENGINE_NAME = "jython";
     public static final String QUEST_START_SCRIPT_END_TAG = "s";
     public static final String QUEST_COMPLETE_SCRIPT_END_TAG = "e";
 
@@ -189,6 +189,8 @@ public class ScriptManagerImpl implements ScriptManager {
     }
 
     public void startScript(int parentID, int objID, String scriptName, ScriptType scriptType, int npcID) {
+        log.info("parentId: %d, objID: %d, scriptName: %s, scriptType: %s, npcID: %d".formatted(parentID, objID, scriptName, scriptType, npcID));
+
         if (scriptType == ScriptType.None || (scriptType == ScriptType.Quest && !isQuestScriptAllowed())) {
             log.debug(String.format("Did not allow script %s to go through (type %s)  |  Active Script Type: %s", scriptName, scriptType, getLastActiveScriptType()));
             return;
@@ -256,9 +258,11 @@ public class ScriptManagerImpl implements ScriptManager {
             if (ServerConfig.AUTO_CREATE_UNCODED_SCRIPTS) {
                 dir = String.format("%s/%s/%s%s", ServerConstants.SCRIPT_DIR, // dev will remove script prefix when script has been coded
                         scriptType.getDir().toLowerCase(), "autogen_" + name, SCRIPT_ENGINE_EXTENSION);
+
+                final int fieldId = chr != null ? getFieldID() : field.getId();
                 try {
                     ScriptInfo info = getScriptInfoByType(scriptType);
-                    List<String> content = new ArrayList<>(Util.makeSet("# Character field ID when accessed: " + getFieldID(), "# ObjectID: " + info.getObjectID(), "# ParentID: " + info.getParentID()));
+                    List<String> content = new ArrayList<>(Util.makeSet("# Character field ID when accessed: " + fieldId, "# ObjectID: " + info.getObjectID(), "# ParentID: " + info.getParentID()));
                     switch (scriptType) {
                         case Portal:
                         case Reactor:

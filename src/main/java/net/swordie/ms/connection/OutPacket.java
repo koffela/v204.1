@@ -323,7 +323,7 @@ public class OutPacket extends Packet {
     }
 
     public void release() {
-
+        // this.baos.release();
     }
 
     public void encodeFT(LocalDateTime localDateTime) {

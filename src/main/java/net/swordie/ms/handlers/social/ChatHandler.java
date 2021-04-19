@@ -11,6 +11,7 @@ import net.swordie.ms.connection.packet.FieldPacket;
 import net.swordie.ms.connection.packet.UserPacket;
 import net.swordie.ms.enums.ChatUserType;
 import net.swordie.ms.enums.GroupMessageType;
+import net.swordie.ms.enums.PrivateStatusIDFlag;
 import net.swordie.ms.handlers.Handler;
 import net.swordie.ms.handlers.header.InHeader;
 import net.swordie.ms.loaders.StringData;
@@ -60,7 +61,7 @@ public class ChatHandler {
                     continue;
                 }
 
-                if (!chr.getUser().getPrivateStatusIDFlag().hasFlag(cmd.requiredType())) {
+                if (cmd.requiredType() != PrivateStatusIDFlag.NONE && !chr.getUser().getPrivateStatusIDFlag().hasFlag(cmd.requiredType())) {
                     continue;
                 }
 

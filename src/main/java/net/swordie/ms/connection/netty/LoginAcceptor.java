@@ -27,6 +27,8 @@ public class LoginAcceptor implements Runnable {
 
     @Override
     public void run() {
+        Thread.currentThread().setName(LoginAcceptor.class.getSimpleName());
+
         // Taken from http://netty.io/wiki/user-guide-for-4.x.html
 
         EventLoopGroup bossGroup = new NioEventLoopGroup();

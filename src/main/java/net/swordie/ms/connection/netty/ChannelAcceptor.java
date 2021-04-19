@@ -7,6 +7,7 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import net.swordie.ms.connection.crypto.AESCipher;
+import net.swordie.ms.world.Channel;
 import org.apache.log4j.LogManager;
 import net.swordie.ms.connection.packet.Login;
 import net.swordie.ms.handlers.EventManager;
@@ -18,8 +19,13 @@ public class ChannelAcceptor implements Runnable {
     public net.swordie.ms.world.Channel channel;
     private static final org.apache.log4j.Logger log = LogManager.getRootLogger();
 
+    public ChannelAcceptor(final Channel channel) {
+        this.channel = channel;
+    }
+
     @Override
     public void run() {
+        Thread.currentThread().setName(this.channel.getName());
         // Taken from http://netty.io/wiki/user-guide-for-4.x.html
 
         EventLoopGroup bossGroup = new NioEventLoopGroup();

@@ -1,5 +1,6 @@
 package net.swordie.ms.client.character.skills.info;
 
+import com.oracle.truffle.js.scriptengine.GraalJSScriptEngine;
 import net.swordie.ms.client.character.Char;
 import net.swordie.ms.client.character.skills.SkillStat;
 import net.swordie.ms.enums.BaseStat;
@@ -11,7 +12,6 @@ import net.swordie.ms.util.container.Tuple;
 import org.apache.log4j.Logger;
 
 import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 import java.util.*;
 
@@ -41,7 +41,7 @@ public class SkillInfo {
     private Map<Integer, Integer> reqSkills = new HashMap<>();
     private boolean notCooltimeReset;
     private boolean notIncBuffDuration;
-    private static ScriptEngine engine = new ScriptEngineManager().getEngineByName("JavaScript");
+    private final static ScriptEngine engine = GraalJSScriptEngine.create();
     private boolean psd;
     private Set<Integer> addAttackSkills = new HashSet<>();
     private Map<Integer, Integer> extraSkillInfo = new HashMap<>();

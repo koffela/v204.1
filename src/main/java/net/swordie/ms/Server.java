@@ -1,5 +1,6 @@
 package net.swordie.ms;
 
+import com.oracle.truffle.js.scriptengine.GraalJSScriptEngine;
 import net.swordie.ms.client.Client;
 import net.swordie.ms.client.User;
 import net.swordie.ms.connection.db.DatabaseManager;
@@ -8,14 +9,17 @@ import net.swordie.ms.connection.netty.ChannelHandler;
 import net.swordie.ms.connection.netty.ChatAcceptor;
 import net.swordie.ms.connection.netty.LoginAcceptor;
 import net.swordie.ms.constants.GameConstants;
+import net.swordie.ms.enums.WorldId;
 import net.swordie.ms.loaders.*;
 import net.swordie.ms.scripts.ScriptManagerImpl;
+import net.swordie.ms.scripts.ScriptType;
 import net.swordie.ms.util.Loader;
 import net.swordie.ms.util.Util;
 import net.swordie.ms.util.XMLApi;
 import net.swordie.ms.util.container.Tuple;
 import net.swordie.ms.world.Channel;
 import net.swordie.ms.world.World;
+import net.swordie.ms.world.field.Field;
 import net.swordie.ms.world.shop.cashshop.CashShop;
 import net.swordie.ms.world.shop.cashshop.CashShopCategory;
 import net.swordie.ms.world.shop.cashshop.CashShopItem;
@@ -26,10 +30,15 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.w3c.dom.Node;
 
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineFactory;
+import javax.script.ScriptEngineManager;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
+
+import static net.swordie.ms.scripts.ScriptManagerImpl.SCRIPT_ENGINE_NAME;
 
 /**
  * Created on 2/18/2017.
@@ -59,6 +68,8 @@ public class Server extends Properties {
         return Util.findWithPred(getWorlds(), w -> w.getWorldId() == id);
     }
 
+    private static final ScriptEngine scriptEngine = new ScriptEngineManager().getEngineByName(SCRIPT_ENGINE_NAME);
+
     private void init(String[] args) {
         log.info("Starting server.");
         long startNow = System.currentTimeMillis();
@@ -79,8 +90,8 @@ public class Server extends Properties {
         // MapleCrypto.initialize(ServerConstants.VERSION);
         new Thread(new LoginAcceptor()).start();
         new Thread(new ChatAcceptor()).start();
-        worldList.add(new World(ServerConfig.WORLD_ID, ServerConfig.SERVER_NAME, GameConstants.CHANNELS_PER_WORLD, ServerConfig.EVENT_MSG));
-        worldList.add(new World(ServerConfig.WORLD_ID + 1, ServerConfig.SERVER_NAME, GameConstants.CHANNELS_PER_WORLD, ServerConfig.EVENT_MSG));
+        worldList.add(new World(WorldId.Bera, GameConstants.CHANNELS_PER_WORLD, ServerConfig.EVENT_MSG));
+        worldList.add(new World(WorldId.Scania, GameConstants.CHANNELS_PER_WORLD, ServerConfig.EVENT_MSG));
 
         long startCashShop = System.currentTimeMillis();
         initCashShop();
@@ -90,15 +101,15 @@ public class Server extends Properties {
 
         for (World world : getWorlds()) {
             for (Channel channel : world.getChannels()) {
-                ChannelAcceptor ca = new ChannelAcceptor();
-                ca.channel = channel;
+                ChannelAcceptor ca = new ChannelAcceptor(channel);
                 new Thread(ca).start();
             }
         }
         log.info(String.format("Finished loading server in %dms", System.currentTimeMillis() - startNow));
         new Thread(() -> {
             // inits the script engine
-            log.info(String.format("Starting script engine for %s", ScriptManagerImpl.SCRIPT_ENGINE_NAME));
+            Thread.currentThread().setName(String.format("%s-%s", SCRIPT_ENGINE_NAME, "ScriptEngine"));
+            log.info(String.format("Starting script engine for %s", SCRIPT_ENGINE_NAME));
         }).start();
     }
 

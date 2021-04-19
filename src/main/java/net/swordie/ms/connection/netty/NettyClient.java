@@ -183,6 +183,7 @@ public class NettyClient {
      */
     public void write(Packet msg) {
         ch.writeAndFlush(msg);
+        // msg.release();
     }
 
     /**

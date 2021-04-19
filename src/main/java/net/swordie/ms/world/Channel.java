@@ -6,6 +6,7 @@ import net.swordie.ms.client.Client;
 import net.swordie.ms.client.character.Char;
 import net.swordie.ms.connection.OutPacket;
 import net.swordie.ms.constants.GameConstants;
+import net.swordie.ms.enums.WorldId;
 import net.swordie.ms.loaders.FieldData;
 import net.swordie.ms.util.Util;
 import net.swordie.ms.util.container.Tuple;
@@ -44,12 +45,12 @@ public class Channel {
         this(world.getName() + "-" + channelId, world, channelId, false);
     }
 
-    public Channel(String worldName, int worldId, int channelId) {
-        this.name = worldName + "-" + channelId;
-        this.worldId = worldId;
+    public Channel(WorldId worldId, int channelId) {
+        this.name = "%s-%d".formatted(worldId.name(), channelId);
+        this.worldId = worldId.getVal();
         this.channelId = channelId;
         this.adultChannel = false;
-        this.port = ServerConstants.LOGIN_PORT + (100 * worldId) + channelId;
+        this.port = ServerConstants.LOGIN_PORT + (100 * worldId.getVal()) + channelId;
         this.fields = new CopyOnWriteArrayList<>();
         this.transfers = new HashMap<>();
     }

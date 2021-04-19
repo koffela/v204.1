@@ -189,7 +189,7 @@ public class ScriptManagerImpl implements ScriptManager {
     }
 
     public void startScript(int parentID, int objID, String scriptName, ScriptType scriptType, int npcID) {
-        log.info("parentId: %d, objID: %d, scriptName: %s, scriptType: %s, npcID: %d".formatted(parentID, objID, scriptName, scriptType, npcID));
+        // log.info("parentId: %d, objID: %d, scriptName: %s, scriptType: %s, npcID: %d".formatted(parentID, objID, scriptName, scriptType, npcID));
 
         if (scriptType == ScriptType.None || (scriptType == ScriptType.Quest && !isQuestScriptAllowed())) {
             log.debug(String.format("Did not allow script %s to go through (type %s)  |  Active Script Type: %s", scriptName, scriptType, getLastActiveScriptType()));
@@ -202,8 +202,8 @@ public class ScriptManagerImpl implements ScriptManager {
             return;
         }
         if (!isField()) {
-            chr.dbgChatMsg(String.format("Starting script %s, scriptType %s.", scriptName, scriptType));
-            log.debug(String.format("Starting script %s, scriptType %s.", scriptName, scriptType));
+            // chr.dbgChatMsg(String.format("Starting script %s, scriptType %s.", scriptName, scriptType));
+            // log.debug(String.format("Starting script %s, scriptType %s.", scriptName, scriptType));
         }
         objectID = objID;
         resetParam();
@@ -250,9 +250,9 @@ public class ScriptManagerImpl implements ScriptManager {
         String dir = String.format("%s/%s/%s%s", ServerConstants.SCRIPT_DIR, scriptType.getDir().toLowerCase(), name, SCRIPT_ENGINE_EXTENSION);
         boolean exists = new File(dir).exists();
         if (!exists) {
-            log.error(String.format("[Error] Could not find script %s/%s", scriptType.getDir().toLowerCase(), name));
+            // log.error(String.format("[Error] Could not find script %s/%s", scriptType.getDir().toLowerCase(), name));
             if (chr != null) {
-                chr.dbgChatMsg(String.format("[Script] Could not find script %s/%s", scriptType.getDir().toLowerCase(), name));
+                // chr.dbgChatMsg(String.format("[Script] Could not find script %s/%s", scriptType.getDir().toLowerCase(), name));
             }
 
             if (ServerConfig.AUTO_CREATE_UNCODED_SCRIPTS) {

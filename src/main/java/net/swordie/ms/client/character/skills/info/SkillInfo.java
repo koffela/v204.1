@@ -176,11 +176,11 @@ public class SkillInfo {
 
     public Map<BaseStat, Integer> getBaseStatValues(Char chr, int slv, int skillID) {
         Map<BaseStat, Integer> stats = new HashMap<>();
-        chr.chatMessage(ChatType.Mob, "SkillID : " + skillID);
+        // chr.chatMessage(ChatType.Mob, "SkillID : " + skillID);
         for (SkillStat ss : getSkillStatInfo().keySet()) {
             Tuple<BaseStat, Integer> bs = getBaseStatValue(ss, slv, chr);
             stats.put(bs.getLeft(), bs.getRight());
-            chr.chatMessage(ChatType.Mob, ss.name() + " : " + bs.getRight());
+            // chr.chatMessage(ChatType.Mob, ss.name() + " : " + bs.getRight());
         }
         if (skillID == 20010194) {
             stats.put(BaseStat.mhpR, 15);

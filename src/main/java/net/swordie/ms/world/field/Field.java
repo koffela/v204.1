@@ -557,6 +557,10 @@ public class Field {
         return chars;
     }
 
+    public List<Char> getCharsExcept(final Char exceptChar) {
+        return chars.stream().filter(other -> !other.equals(exceptChar)).toList();
+    }
+
     public Char getCharByID(int id) {
         return getChars().stream().filter(c -> c.getId() == id).findFirst().orElse(null);
     }
@@ -585,8 +589,13 @@ public class Field {
         return getOnFirstUserEnter() != null && !getOnFirstUserEnter().equalsIgnoreCase("");
     }
 
-    public void broadcastPacket(OutPacket outPacket, Char exceptChr) {
-        getChars().stream().filter(chr -> !chr.equals(exceptChr)).forEach(chr -> chr.write(outPacket));
+    public void broadcastPacket(final OutPacket outPacket, final Char exceptChr) {
+        final List<Char> otherChars = this.getCharsExcept(exceptChr);
+        if (otherChars.isEmpty()) {
+            outPacket.release();
+        } else {
+            otherChars.forEach(otherChar -> otherChar.write(outPacket));
+        }
     }
 
     public void removeChar(Char chr) {

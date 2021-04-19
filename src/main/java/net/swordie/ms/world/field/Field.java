@@ -696,14 +696,22 @@ public class Field {
         spawnLife(mob, null);
     }
 
-    public void broadcastPacket(OutPacket outPacket) {
-        for (Char c : getChars()) {
-            c.getClient().write(outPacket);
+    public void broadcastPacket(final OutPacket outPacket) {
+        final List<Char> chars = getChars();
+        if (chars.isEmpty()) {
+            outPacket.release();
+        } else {
+            getChars().forEach(charOnMap -> charOnMap.write(outPacket));
         }
     }
 
     private void broadcastPacket(OutPacket outPacket, Predicate<? super Char> predicate) {
-        getChars().stream().filter(predicate).forEach(chr -> chr.write(outPacket));
+        final List<Char> chars = getChars();
+        if (chars.isEmpty()) {
+            outPacket.release();
+        } else {
+            getChars().stream().filter(predicate).forEach(charOnMap -> charOnMap.write(outPacket));
+        }
     }
 
     public void spawnAffectedArea(AffectedArea aa) {

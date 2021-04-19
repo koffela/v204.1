@@ -17,9 +17,11 @@
 */
 package net.swordie.ms.connection.netty;
 
-import net.swordie.ms.connection.InPacket;
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelFutureListener;
 import io.netty.util.AttributeKey;
+import net.swordie.ms.connection.InPacket;
 import net.swordie.ms.connection.Packet;
 import net.swordie.ms.connection.crypto.AESCipher;
 
@@ -182,8 +184,8 @@ public class NettyClient {
      *            the message to be sent.
      */
     public void write(Packet msg) {
-        ch.writeAndFlush(msg);
-        // msg.release();
+        final ChannelFuture channelFuture = ch.writeAndFlush(msg);
+        channelFuture.addListener((ChannelFutureListener) future -> msg.release());
     }
 
     /**

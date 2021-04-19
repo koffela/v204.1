@@ -31,7 +31,7 @@ A Java Maplestory server emulator. This is a fork of the v203.4 repo [MapleEllin
 - Stability fixes, that the original v203.4 lacked
 
 ## Tech Stack
-- [Java 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+- [AdoptOpenJDK 16](https://adoptopenjdk.net/releases.html?variant=openjdk16&jvmVariant=hotspot)
 - [MySQL](https://dev.mysql.com/downloads/workbench/) & [WAMP](https://www.wampserver.com/en/)
 - Github (public version control)
 - [IntelliJ](https://www.jetbrains.com/idea/)

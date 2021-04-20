@@ -65,7 +65,9 @@ public class MobHandler {
         Field field = chr.getField();
         int mobID = inPacket.decodeInt();
         Mob mob = (Mob) field.getLifeByObjectID(mobID);
-        c.write(MobPool.changeController(mob, true, true));
+        if (mob != null) {
+            c.write(MobPool.changeController(mob, true, true));
+        }
     }
 
     @Handler(op = InHeader.MOB_MOVE)

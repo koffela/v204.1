@@ -13,6 +13,7 @@ import net.swordie.ms.life.movement.MovementInfo;
 import net.swordie.ms.loaders.containerclasses.MobSkillInfo;
 import net.swordie.ms.util.Position;
 import net.swordie.ms.util.Rect;
+import org.apache.log4j.LogManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,9 @@ import java.util.List;
  * Created on 2/28/2018.
  */
 public class MobPool {
+
+    private static final org.apache.log4j.Logger log = LogManager.getRootLogger();
+
     public static OutPacket enterField(Mob mob, boolean hasBeenInit) {
         OutPacket outPacket = new OutPacket(OutHeader.MOB_ENTER_FIELD);
 
@@ -41,6 +45,8 @@ public class MobPool {
         return outPacket;
     }
 
+
+
     public static OutPacket changeController(Mob mob, boolean hasBeenInit, boolean isController) {
         OutPacket outPacket = new OutPacket(OutHeader.MOB_CHANGE_CONTROLLER);
         outPacket.encodeByte(isController);
@@ -54,9 +60,7 @@ public class MobPool {
                 fms.encode(outPacket);
             }
             mob.getTemporaryStat().encode(outPacket);
-            if (!hasBeenInit) {
-                mob.encodeInit(outPacket);
-            }
+            mob.encodeInit(outPacket);
         }
 
         return outPacket;
@@ -115,6 +119,7 @@ public class MobPool {
         outPacket.encodeInt(forcedAttack);
         outPacket.encodeInt(0);
         outPacket.encodeInt(0);// for secure
+
         return outPacket;
     }
 

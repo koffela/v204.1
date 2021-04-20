@@ -404,18 +404,19 @@ public class MobPool {
         return outPacket;
     }
 
-    public static OutPacket setSkillDelay(Mob mob, int skillAfter, MobSkillInfo msi, int sequenceDelay, List<Rect> rects) {
-        OutPacket outPacket = new OutPacket(OutHeader.MOB_SKILL_DELAY);
-
+    public static OutPacket setSkillDelay(final Mob mob, final int skillAfter, final MobSkillInfo msi, final int sequenceDelay, final List<Rect> rects) {
+        final OutPacket outPacket = new OutPacket(OutHeader.MOB_SKILL_DELAY);
         outPacket.encodeInt(mob.getObjectId());
-
         outPacket.encodeInt(skillAfter);
         outPacket.encodeInt(msi.getId());
         outPacket.encodeInt(msi.getLevel());
         outPacket.encodeInt(sequenceDelay);
+        // log.info("objectId: %d, skillAfter: %d, msiId: %d, msiLevel: %d, seqDelay: %d".formatted(mob.getObjectId(), skillAfter, msi.getId(), msi.getLevel(), sequenceDelay));
+
         if (msi.getId() != 0) {
+            outPacket.encodeInt(1); // idk - v2[10] = v11 + get_update_time(); also v17 and used as if(a9) in sub_F91E10
             outPacket.encodeInt(rects.size());
-            for (Rect rect : rects) {
+            for (final Rect rect : rects) {
                 outPacket.encodeRectInt(rect);
             }
         }

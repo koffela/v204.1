@@ -171,6 +171,10 @@ public class Party implements Encodable {
         return Arrays.stream(getPartyMembers()).filter(pm -> pm != null && pm.isOnline()).collect(Collectors.toList());
     }
 
+    public List<PartyMember> getOnlineMembersExcept(final Char exceptChar) {
+        return Arrays.stream(getPartyMembers()).filter(pm -> pm != null && !pm.getChr().equals(exceptChar) && pm.isOnline()).collect(Collectors.toList());
+    }
+
     public List<PartyMember> getMembers() {
         return Arrays.stream(getPartyMembers()).filter(Objects::nonNull).collect(Collectors.toList());
     }
@@ -190,9 +194,12 @@ public class Party implements Encodable {
     }
 
     public void broadcast(OutPacket outPacket, Char exceptChar) {
-        for (PartyMember pm : getOnlineMembers()) {
-            if (!pm.getChr().equals(exceptChar)) {
-                pm.getChr().write(outPacket);
+        final List<PartyMember> otherOnlineMembers = getOnlineMembersExcept(exceptChar);
+        if (otherOnlineMembers.isEmpty()) {
+            outPacket.release();
+        } else {
+            for (final PartyMember otherMember : otherOnlineMembers) {
+                otherMember.getChr().write(outPacket);
             }
         }
     }

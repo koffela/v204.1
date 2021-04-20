@@ -16,4 +16,4 @@ if sm.sendAskYesNo("Are you the warriors who came to defeat me? Or are you from 
 	sm.spawnMob(dic[sm.getFieldID()], SPAWNX, SPAWNY, False)
 	
 	for c in sm.getPartyMembersInSameField(chr):
-		c.completeQuest(3173) # Queen Ifia's quest -> needed to proceed to Ani's Jail
+		c.getScriptManager().completeQuest(3173) # Queen Ifia's quest -> needed to proceed to Ani's Jail

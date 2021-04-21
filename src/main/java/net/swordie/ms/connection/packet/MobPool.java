@@ -45,8 +45,6 @@ public class MobPool {
         return outPacket;
     }
 
-
-
     public static OutPacket changeController(Mob mob, boolean hasBeenInit, boolean isController) {
         OutPacket outPacket = new OutPacket(OutHeader.MOB_CHANGE_CONTROLLER);
         outPacket.encodeByte(isController);

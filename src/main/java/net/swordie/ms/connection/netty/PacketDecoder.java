@@ -66,6 +66,7 @@ public class PacketDecoder extends ByteToMessageDecoder {
                     }
                     short uSeqBase = (short) ((uSeqRcv >> 16) ^ uRawSeq);
                     if (uSeqBase != AESCipher.nVersion) {
+                        log.info("uSeqBase: %d".formatted(uSeqBase));
                         log.error(String.format("[PacketDecoder] | Incorrect packet seq! Dropping client %s.", c.getIP()));
                         c.close();
                         return;

@@ -1,4 +1,4 @@
-# Maplestory v203.4 Fork of MapleEllinel
+# Maplestory v204.1 Fork of MapleEllinel
 
 A Java Maplestory server emulator. This is a fork of the v203.4 repo [MapleEllinel](https://forum.ragezone.com/f427/mapleellinel-v203-4-based-swordie-1160913/) by Mechaviv and has since been worked on by Poki.
 
@@ -6,24 +6,32 @@ A Java Maplestory server emulator. This is a fork of the v203.4 repo [MapleEllin
 - Join SwordieMS [Discord](https://discord.gg/qzjWZP7hc5).
 - Proceed to server-setup-guide.
 - Follow the steps accordingly to the steps given in the discord.
-- Download and build the given [AuthHook](https://github.com/pokiuwu/AuthHook-v203.4) in Microsoft Visual Studio.
-- Drag the output file from the build (ijl15.dll) into your v203.4 Maplestory directory and run a batch file with the following command `MapleStory.exe WebStart admin 8.31.99.141 8484`
+- Download, apply the following changes and build the given [AuthHook](https://github.com/pokiuwu/AuthHook-v203.4) in Microsoft Visual Studio.
+  ```
+  0x00C48930 -> auto StringPool__GetString = reinterpret_cast<StringPool__GetString_t>(0x00C48930);
+  0x00820530 -> auto ZXString_char__Assign = reinterpret_cast<ZXString_char__Assign_t>(0x00820530);
+  0x029E6290 -> ngs bypass
+  0x029F44E0 -> crc bypass
+  0x03706964 -> return *reinterpret_cast<CWvsContext**>(0x03706964);  
+  ```
+- Drag the output file from the build (ijl15.dll) into your v204.1 Maplestory directory and run a batch file with the following command `MapleStory.exe WebStart admin 8.31.99.141 8484`
 - You should be good to go! :octocat:
 
 ## Client Installation
 
-- v203.4 Client Download: https://mega.nz/folder/ZnpliaBI#FHc4hqppv6Ustc3zTtSADQ
 
-                                     ----- OR -----
+- Download 204.1 Client via [Depot Downloader](https://github.com/SteamRE/DepotDownloader).
+ ```
+  dotnet DepotDownloader.dll
+  -app 216150 
+  -depot 216151 
+  -manifest 2563435375446666602 
+  -username your_user
+  -password your_pw
+  ````
 
-- Download via [Depot Downloader](https://github.com/SteamRE/DepotDownloader).
-  - App 216150 
-  - Depot 216151 
-  - Manifest 116526942226572538 
-- Rest of Steps to be added by Poki.
-
-
-- Setup guide https://docs.google.com/document/d/1BT0IEIUhEIrS9XWISzKcXiSY89PnACYBHnoNI7gIom8/edit?usp=sharing
+- For other manifests see [SteamDB](https://steamdb.info/depot/216151/manifests/)
+- Setup guide [Google Document](https://docs.google.com/document/d/1BT0IEIUhEIrS9XWISzKcXiSY89PnACYBHnoNI7gIom8/edit?usp=sharing)
 
 ## Noteable Changes
 - A decent amount of packets fixed (err 38)

@@ -9,6 +9,10 @@ import net.swordie.ms.client.character.items.Equip;
 import net.swordie.ms.client.character.items.Item;
 import net.swordie.ms.client.character.quest.Quest;
 import net.swordie.ms.client.character.skills.*;
+import net.swordie.ms.client.character.quest.QuestManager;
+import net.swordie.ms.client.character.skills.Option;
+import net.swordie.ms.client.character.skills.Skill;
+import net.swordie.ms.client.character.skills.StolenSkill;
 import net.swordie.ms.client.character.skills.info.ForceAtomInfo;
 import net.swordie.ms.client.character.skills.info.SkillInfo;
 import net.swordie.ms.client.character.skills.temp.CharacterTemporaryStat;
@@ -1785,6 +1789,31 @@ public class AdminCommands {
 
         public static void execute(Char chr, String[] args) {
             chr.getQuestManager().removeQuest(Integer.parseInt(args[1]));
+        }
+    }
+
+    @Command(names = {"sendQRvalue", "qr"}, requiredType = ADMIN)
+    public static class SendQRValue extends AdminCommand {
+
+        public static void execute(Char chr, String[] args) {
+            if (args.length < 3 || !Util.isNumber(args[1])) {
+                chr.chatMessage("Usage: !qr <questid> <qrValue>");
+                return;
+            }
+
+            int questId = Integer.parseInt(args[1]);
+
+            QuestManager qm = chr.getQuestManager();
+            Quest q = qm.getQuestById(questId);
+            if (q == null) {
+                q = QuestData.createQuestFromId(questId);
+                qm.addQuest(q);
+            }
+            q.setQrValue(args[2]);
+            chr.write(WvsContext.questRecordMessage(q));
+            chr.write(WvsContext.message(MessageType.QUEST_RECORD_EX_MESSAGE,
+                    q.getQRKey(), q.getQRValue(), (byte) 0));
+            chr.chatMessage(String.format("Sent QRValue with  QuestId %d, QrValue %s", questId, q.getQRValue()));
         }
     }
 

@@ -1,4 +1,4 @@
-# Brittany (1012104) | Henesys Hair Salon (100000104)
+# Mini (2041009) | Ludibrium Hair Salon (220000004)
 
 options = []
 

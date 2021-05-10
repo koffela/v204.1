@@ -1,4 +1,4 @@
-# Brittany (1012104) | Henesys Hair Salon (100000104)
+# Rinz the Assistant (2012007) | Orbis Hair Salon(200000202)
 
 options = []
 

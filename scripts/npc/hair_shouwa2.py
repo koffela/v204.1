@@ -1,4 +1,4 @@
-# Brittany (1012104) | Henesys Hair Salon (100000104)
+# Midori (9120101) | Hair Salon (801000001)
 
 options = []
 

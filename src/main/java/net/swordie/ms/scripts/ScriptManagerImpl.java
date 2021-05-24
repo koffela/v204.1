@@ -107,6 +107,7 @@ public class ScriptManagerImpl implements ScriptManager {
     private NpcScriptInfo npcScriptInfo;
     private Map<ScriptType, ScriptInfo> scripts;
     private int returnField = 0;
+    private int returnPortal = 0;
     private ScriptType lastActiveScriptType;
     private Map<ScriptType, Future> evaluations = new HashMap<>();
     private Set<ScheduledFuture> events = new HashSet<>();
@@ -265,6 +266,12 @@ public class ScriptManagerImpl implements ScriptManager {
                     List<String> content = new ArrayList<>(Util.makeSet("# Character field ID when accessed: " + fieldId, "# ObjectID: " + info.getObjectID(), "# ParentID: " + info.getParentID()));
                     switch (scriptType) {
                         case Portal:
+                            Portal portal = chr.getField().getPortalByID(getParentID());
+                            content.addAll(Util.makeSet(
+                                    "# Portal Position X: " + portal.getX(),
+                                    "# Portal Position Y: " + portal.getY()
+                            ));
+                            break;
                         case Reactor:
                         case Npc:
                             content.addAll(Util.makeSet("# Object Position X: " + getObjectPositionX(), "# Object Position Y: " + getObjectPositionY()));
@@ -1292,6 +1299,21 @@ public class ScriptManagerImpl implements ScriptManager {
     @Override
     public void setReturnField() {
         setReturnField(chr.getFieldID());
+    }
+
+    @Override
+    public int getReturnPortal() {
+        return returnPortal;
+    }
+
+    @Override
+    public void setReturnPortal(int returnPortal) {
+        this.returnPortal = returnPortal;
+    }
+
+    @Override
+    public void setReturnPortal() {
+        setReturnPortal(getParentID());
     }
 
     @Override

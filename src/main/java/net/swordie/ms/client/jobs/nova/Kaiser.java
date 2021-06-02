@@ -23,6 +23,7 @@ import net.swordie.ms.life.Summon;
 import net.swordie.ms.life.mob.Mob;
 import net.swordie.ms.life.mob.MobStat;
 import net.swordie.ms.life.mob.MobTemporaryStat;
+import net.swordie.ms.loaders.ItemData;
 import net.swordie.ms.loaders.SkillData;
 import net.swordie.ms.util.Position;
 import net.swordie.ms.util.Rect;
@@ -154,8 +155,15 @@ public class Kaiser extends Job {
     public void setCharCreationStats(Char chr) {
         super.setCharCreationStats(chr);
         CharacterStat cs = chr.getAvatarData().getCharacterStat();
-        cs.setJob(6000);
-        cs.setPosMap(940001000);
+        cs.setLevel(10);
+        cs.setStr(49);
+        cs.setPosMap(400000000);
+        cs.setJob(JobConstants.JobEnum.KAISER1.getJobId());
+        Item secondary = ItemData.getItemDeepCopy(1352500);
+        secondary.setBagIndex(10);
+        chr.getAvatarData().getAvatarLook().getHairEquips().add(secondary.getItemId());
+        chr.setSpToCurrentJob(5);
+        chr.getEquippedInventory().addItem(secondary);
     }
 
     // Buff related methods --------------------------------------------------------------------------------------------

@@ -267,10 +267,7 @@ public class ScriptManagerImpl implements ScriptManager {
                     switch (scriptType) {
                         case Portal:
                             Portal portal = chr.getField().getPortalByID(getParentID());
-                            content.addAll(Util.makeSet(
-                                    "# Portal Position X: " + portal.getX(),
-                                    "# Portal Position Y: " + portal.getY()
-                            ));
+                            content.addAll(Util.makeSet("# Portal Position X: " + portal.getX(), "# Portal Position Y: " + portal.getY()));
                             break;
                         case Reactor:
                         case Npc:
@@ -965,19 +962,17 @@ public class ScriptManagerImpl implements ScriptManager {
             al.setSkin(look);
             chr.setStatAndSendPacket(Stat.skin, look);
         } else if (ItemConstants.MIN_FACE <= look && look < ItemConstants.MAX_FACE) {
-            if (StringData.getItemStringById(look) != null){
+            if (StringData.getItemStringById(look) != null) {
                 al.setFace(look);
                 chr.setStatAndSendPacket(Stat.face, look);
-            }
-            else{
+            } else {
                 log.error(String.format("Tried changing a look with invalid id (%d)", look));
             }
         } else if (ItemConstants.MIN_HAIR <= look && look < ItemConstants.MAX_HAIR) {
-            if (StringData.getItemStringById(look) != null){
+            if (StringData.getItemStringById(look) != null) {
                 al.setHair(look);
                 chr.setStatAndSendPacket(Stat.hair, look);
-            }
-            else{
+            } else {
                 log.error(String.format("Tried changing a look with invalid id (%d)", look));
             }
         } else {

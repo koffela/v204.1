@@ -531,10 +531,9 @@ public interface ScriptManager extends Observer {
      * Example: "sm.setReturnPortal(2)"
      *
      * @param portalID
-     *         The id of the {@link Portal}.
+     *            The id of the {@link Portal}.
      */
     void setReturnPortal(int portalID);
-
 
     /**
      * Determines if there are mobs present in the {@link Field} linked to the {@link

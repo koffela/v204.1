@@ -1131,7 +1131,7 @@ public class SkillConstants {
             return 80000000;
         } else if (JobConstants.isCygnusKnight(job)) { // Cygnus Blessing
             return 80000070;
-        }  else if (JobConstants.isAran(job)) { // Combo Kill Blessing
+        } else if (JobConstants.isAran(job)) { // Combo Kill Blessing
             return 80000370;
         } else if (JobConstants.isEvan(job)) { // Rune Persistence
             return 80000369;

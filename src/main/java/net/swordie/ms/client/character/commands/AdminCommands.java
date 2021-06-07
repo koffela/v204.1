@@ -1792,7 +1792,7 @@ public class AdminCommands {
         }
     }
 
-    @Command(names = {"sendQRvalue", "qr"}, requiredType = ADMIN)
+    @Command(names = { "sendQRvalue", "qr" }, requiredType = ADMIN)
     public static class SendQRValue extends AdminCommand {
 
         public static void execute(Char chr, String[] args) {
@@ -1811,8 +1811,7 @@ public class AdminCommands {
             }
             q.setQrValue(args[2]);
             chr.write(WvsContext.questRecordMessage(q));
-            chr.write(WvsContext.message(MessageType.QUEST_RECORD_EX_MESSAGE,
-                    q.getQRKey(), q.getQRValue(), (byte) 0));
+            chr.write(WvsContext.message(MessageType.QUEST_RECORD_EX_MESSAGE, q.getQRKey(), q.getQRValue(), (byte) 0));
             chr.chatMessage(String.format("Sent QRValue with  QuestId %d, QrValue %s", questId, q.getQRValue()));
         }
     }

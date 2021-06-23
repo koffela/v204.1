@@ -10,7 +10,7 @@
     <version>${revision}</version>
 
     <properties>
-        <revision>2.03.4</revision>
+        <revision>2.04.1</revision>
         <java.version>16</java.version>
 
         <maven.compiler.parameters>true</maven.compiler.parameters>
@@ -295,7 +295,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>5.5.0.Final</version>
+            <version>5.5.3.Final</version>
         </dependency>
 
         <dependency>

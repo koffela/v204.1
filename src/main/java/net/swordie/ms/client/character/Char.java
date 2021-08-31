@@ -2599,7 +2599,7 @@ public class Char {
     public void initFuncKeyMaps(int keySettingType, boolean beastTamer) {
         int amount = beastTamer ? 5 : 1;
         for (int i = 0; i < amount; i++) {
-            FuncKeyMap funcKeyMap = FuncKeyMap.getDefaultMapping(keySettingType, this);
+            FuncKeyMap funcKeyMap = FuncKeyMap.getDefaultMapping(keySettingType);
             funcKeyMaps.add(funcKeyMap);
         }
     }

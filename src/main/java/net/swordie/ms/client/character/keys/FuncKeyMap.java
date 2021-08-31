@@ -18,8 +18,6 @@ public class FuncKeyMap {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private int charId;
-
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "fkMapId")
     private List<Keymapping> keymap = new ArrayList<>();
@@ -29,10 +27,6 @@ public class FuncKeyMap {
 
     public FuncKeyMap() {
 
-    }
-
-    public FuncKeyMap(final int charId) {
-        this.charId = charId;
     }
 
     public List<Keymapping> getKeymap() {
@@ -87,7 +81,7 @@ public class FuncKeyMap {
         this.id = id;
     }
 
-    public static FuncKeyMap getDefaultMapping(int keySetting, final Char aChar) {
+    public static FuncKeyMap getDefaultMapping(int keySetting) {
         int[] array1, array2, array3;
         if (keySetting == 0) {
             // Basic Key Setting
@@ -100,7 +94,7 @@ public class FuncKeyMap {
             array2 = new int[] { 6, 0, 6, 0, 0, 6, 6, 0, 6, 5, 5, 6, 4, 4, 4, 0, 5, 5, 4, 4, 4, 4, 4, 4, 4, 4, 0, 4, 4, 0, 5, 4, 4, 0, 4, 4, 4, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 6, 4, 4, 4, 4, 4, 4, 4, 4 };
             array3 = new int[] { 105, 0, 104, 0, 0, 101, 102, 0, 103, 53, 54, 100, 29, 5, 7, 0, 51, 50, 31, 2, 22, 16, 9, 3, 26, 20, 0, 11, 17, 0, 52, 14, 15, 0, 19, 0, 1, 27, 30, 0, 0, 0, 0, 0, 0, 0, 0, 0, 46, 106, 47, 8, 4, 12, 13, 23, 10, 18 };
         }
-        FuncKeyMap fkm = new FuncKeyMap(aChar.getId());
+        FuncKeyMap fkm = new FuncKeyMap();
         for (int i = 0; i < array1.length; i++) {
             fkm.putKeyBinding(array1[i], (byte) array2[i], array3[i]);
         }
